@@ -1,0 +1,28 @@
+{
+  "name": "spinny-api",
+  "version": "0.0.0",
+  "description": "An API to enter the results of ping pong matches and rate players using the ELO system",
+  "private": false,
+  "main": "app.js",
+  "scripts": {
+    "start": "index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexiscrack3/spinny-api.git"
+  },
+  "keywords": [
+    "spinny",
+    "api"
+  ],
+  "author": "Alexis Ortega",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alexiscrack3/spinny-api/issues"
+  },
+  "homepage": "https://github.com/alexiscrack3/spinny-api#readme",
+  "dependencies": {
+  },
+  "devDependencies": {
+  }
+}
