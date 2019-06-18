@@ -8,7 +8,8 @@
     "start": "node ./bin/www",
     "debug": "DEBUG=spinny:* npm start",
     "nodemon": "DEBUG=spinny:* nodemon ./bin/www",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint --ignore-path .gitignore ."
   },
   "repository": {
     "type": "git",
@@ -29,5 +30,8 @@
     "express": "^4.17.1",
     "mongoose": "^5.6.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-strongloop": "^2.1.0"
+  }
 }
