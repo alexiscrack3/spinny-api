@@ -6,8 +6,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node ./bin/www",
-    "debug": "DEBUG=spinny:* npm start",
-    "watch": "DEBUG=spinny:* nodemon ./bin/www",
+    "debug": "DEBUG=spinny:* nodemon ./bin/www",
     "seed:dev": "NODE_ENV=development node ./db/seeds.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --ignore-path .gitignore ."
