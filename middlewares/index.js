@@ -1,3 +1,4 @@
 module.exports = {
-    express: require('./express')
+    express: require('./express'),
+    morgan: require('./morgan')
 };
