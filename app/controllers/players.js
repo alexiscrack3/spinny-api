@@ -20,7 +20,7 @@ exports.getById = function (req, res, next) {
 // };
 
 exports.create = function (req, res, next) {
-    let player = Player(body);
+    let player = Player(req.body);
     player.save((err) => {
         res.json(err)
     });
