@@ -1,23 +1,27 @@
 const Player = require('../models/player');
 
-exports.getPlayers = function (callback) {
-    Player.find({}, callback);
-};
-
-exports.getPlayerByEmail = function (email, callback) {
-    Player.findOne({ email: email }, function (err, player) {
-        callback(err, player);
+exports.getAll = function (req, res, next) {
+    Player.find({}, (err, players) => {
+        res.json(players);
     });
 };
 
-exports.create = function (player, callback) {
-    player.save(function (err) {
-        callback(err);
+exports.getById = function (req, res, next) {
+    Player.findById(req.params.id, (err, player) => {
+        console.error(err);
+        res.json(player);
     });
 };
 
-exports.getById = function (id, callback) {
-    Player.findById(id, function (err, player) {
-        callback(err, player);
+// exports.getPlayerByEmail = function (req, res, next) {
+//     Player.findOne({ email: req.body.email }, function (err, player) {
+//         res.json(player);
+//     });
+// };
+
+exports.create = function (req, res, next) {
+    let player = Player(body);
+    player.save((err) => {
+        res.json(err)
     });
 };
