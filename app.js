@@ -2,7 +2,7 @@ const express = require('express');
 const middlewares = require('./middlewares');
 
 const indexRoutes = require('./routes/index');
-const userRoutes = require('./routes/users');
+const playersRoutes = require('./routes/players');
 
 const app = express();
 
@@ -11,7 +11,7 @@ for (const key in middlewares) {
 }
 
 app.use('/', indexRoutes);
-app.use('/users', userRoutes);
+app.use('/players', playersRoutes);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

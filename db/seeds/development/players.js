@@ -1,22 +1,22 @@
-const User = require('../../../app/models/user');
+const Player = require('../../../app/models/player');
 const faker = require('faker');
 
-var users = [
-    new User({
-        firstName: 'Alexis',
-        lastName: 'Ortega',
+var players = [
+    new Player({
+        // firstName: 'Alexis',
+        // lastName: 'Ortega',
         email: 'asdf@gmail.com',
         password: 'asdf'
     })
 ];
 for (let index = 0; index < 10; index++) {
-    const user = new User({
+    const player = new Player({
         firstName: faker.name.firstName(),
         lastName: faker.name.lastName(),
         email: faker.internet.email().toLowerCase(),
         password: 'asdf'
     });
-    users.push(user);
+    players.push(player);
 }
 
-module.exports = users;
+module.exports = players;

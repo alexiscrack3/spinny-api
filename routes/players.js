@@ -1,10 +1,10 @@
 const express = require('express');
-const UsersController = require('../app/controllers/users')
+const PlayersController = require('../app/controllers/players')
 var router = express.Router();
 
 router.get('/', function (req, res, next) {
-    UsersController.getUsers((err, users) => {
-        res.json(users);
+    PlayersController.getPlayers((err, players) => {
+        res.json(players);
     });
 });
 
