@@ -47,7 +47,7 @@ exports.create = (req, res) => {
                 },
             });
         } else {
-            res.json(err);
+            res.json(player);
         }
     });
 };
