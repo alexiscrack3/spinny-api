@@ -9,8 +9,9 @@ exports.getAll = function (req, res, next) {
                     message: 'Request could not be completed.'
                 }
             });
+        } else {
+            res.json(players);
         }
-        res.json(players);
     });
 };
 
@@ -23,8 +24,9 @@ exports.getById = function (req, res, next) {
                     message: 'Player not found.'
                 }
             });
+        } else {
+            res.json(player);
         }
-        res.json(player);
     });
 };
 
