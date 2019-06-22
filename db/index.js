@@ -16,7 +16,7 @@ module.exports = {
                 db = client;
                 resolve(client);
             }, err => {
-                console.log('MongoDB Connection Error. Please make sure that MongoDB is running.');
+                console.error('MongoDB Connection Error. Please make sure that MongoDB is running.');
                 reject(err);
             });
         });

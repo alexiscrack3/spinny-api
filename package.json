@@ -8,7 +8,7 @@
     "start": "node ./bin/www",
     "debug": "DEBUG=spinny:* nodemon ./bin/www",
     "seed:dev": "NODE_ENV=development node ./db/seeds.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "lint": "eslint --ignore-path .gitignore ."
   },
   "repository": {
@@ -37,6 +37,8 @@
     "eslint": "^5.16.0",
     "eslint-config-strongloop": "^2.1.0",
     "faker": "^4.1.0",
-    "nodemon": "^1.19.1"
+    "jest": "^24.8.0",
+    "nodemon": "^1.19.1",
+    "supertest": "^4.0.2"
   }
 }

@@ -1,5 +1,5 @@
 const express = require('express');
-
+const database = require('./db');
 const app = express();
 
 const middlewares = require('./middlewares');
@@ -11,6 +11,12 @@ const routes = require('./config/routes');
 for (const path in routes) {
     app.use(path, routes[path]);
 }
+
+database.connect().catch(err => {
+    if (err) {
+        process.exit(1);
+    }
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
