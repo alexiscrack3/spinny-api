@@ -1,6 +1,6 @@
 const debug = require('debug')('spinny:server');
 
-const configs = {
+const environments = {
     test: {
         connection: 'mongodb://localhost:27017/spinny_test',
         seeds: {
@@ -27,14 +27,14 @@ debug('Running on ' + env);
 let config = null;
 switch (env) {
     case 'test':
-        config = configs.test;
+        config = environments.test;
         break;
     case 'production':
-        config = configs.production;
+        config = environments.production;
         break;
 
     default:
-        config = configs.development;
+        config = environments.development;
 }
 
 module.exports = config;
