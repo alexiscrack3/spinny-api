@@ -2,13 +2,28 @@ const Player = require('../models/player');
 
 exports.getAll = function (req, res, next) {
     Player.find({}, (err, players) => {
+        if (err) {
+            res.status(500).json({
+                error: {
+                    status: 500,
+                    message: 'Request could not be completed.'
+                }
+            });
+        }
         res.json(players);
     });
 };
 
 exports.getById = function (req, res, next) {
     Player.findById(req.params.id, (err, player) => {
-        console.error(err);
+        if (err) {
+            res.status(404).json({
+                error: {
+                    status: 404,
+                    message: 'Player not found.'
+                }
+            });
+        }
         res.json(player);
     });
 };
@@ -21,7 +36,16 @@ exports.getById = function (req, res, next) {
 
 exports.create = function (req, res, next) {
     let player = Player(req.body);
-    player.save((err) => {
-        res.json(err)
+    player.save(err => {
+        if (err) {
+            res.status(500).json({
+                error: {
+                    status: 500,
+                    message: 'Request could not be completed.'
+                }
+            });
+        } else {
+            res.json(err);
+        }
     });
 };

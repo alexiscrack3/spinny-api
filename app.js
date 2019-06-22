@@ -8,8 +8,8 @@ for (const key in middlewares) {
 }
 
 const routes = require('./config/routes');
-for (const key in routes) {
-    app.use(key, routes[key]);
+for (const path in routes) {
+    app.use(path, routes[path]);
 }
 
 // catch 404 and forward to error handler
