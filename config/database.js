@@ -1,28 +1,28 @@
-const debug = require('debug')('spinny:server');
+const debug = require('debug')('spinny:database');
 
 const environments = {
-    test: {
-        connection: 'mongodb://localhost:27017/spinny_test',
-        seeds: {
-            directory: '/seeds/test'
-        }
-    },
     development: {
         connection: 'mongodb://localhost:27017/spinny_development',
         seeds: {
-            directory: '/seeds/development'
-        }
+            directory: '/seeds/development',
+        },
+    },
+    test: {
+        connection: 'mongodb://localhost:27017/spinny_test',
+        seeds: {
+            directory: '/seeds/test',
+        },
     },
     production: {
         connection: 'mongodb://localhost:27017/spinny',
         seeds: {
-            directory: '/seeds/development'
-        }
-    }
+            directory: '/seeds/development',
+        },
+    },
 };
 
 const env = process.env.NODE_ENV || 'development';
-debug('Running on ' + env);
+debug(`Running on ${env}`);
 
 let config = null;
 switch (env) {

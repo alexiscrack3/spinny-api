@@ -1,20 +1,21 @@
-const Player = require('../../../app/models/player');
+/* eslint-disable import/no-extraneous-dependencies */
 const faker = require('faker');
+const Player = require('../../../app/models/player');
 
-var players = [
+const players = [
     new Player({
         // firstName: 'Alexis',
         // lastName: 'Ortega',
         email: 'asdf@gmail.com',
-        password: 'asdf'
-    })
+        password: 'asdf',
+    }),
 ];
-for (let index = 0; index < 10; index++) {
+for (let index = 0; index < 10; index += 1) {
     const player = new Player({
-        firstName: faker.name.firstName(),
-        lastName: faker.name.lastName(),
+        // firstName: faker.name.firstName(),
+        // lastName: faker.name.lastName(),
         email: faker.internet.email().toLowerCase(),
-        password: 'asdf'
+        password: 'asdf',
     });
     players.push(player);
 }

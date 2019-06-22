@@ -1,28 +1,15 @@
 {
-    "extends": "strongloop",
+    "extends": "airbnb-base",
     "env": {
-        "browser": true,
-        "es6": true,
         "jest": true
     },
-    "parserOptions": {
-        "ecmaVersion": 6,
-        "sourceType": "module"
-    },
     "rules": {
-        "comma-dangle": [
-            "error",
-            {
-                "arrays": "never",
-                "objects": "never",
-                "imports": "never",
-                "exports": "always",
-                "functions": "ignore"
-            }
-        ],
         "indent": [
             "error",
-            4
+            4,
+            {
+                "SwitchCase": 1
+            }
         ],
         "max-len": [
             "error",
@@ -30,14 +17,6 @@
                 "code": 120,
                 "ignoreComments": true,
                 "ignoreTrailingComments": true
-            }
-        ],
-        "space-before-function-paren": [
-            "error",
-            {
-                "anonymous": "always",
-                "named": "never",
-                "asyncArrow": "always"
             }
         ]
     }

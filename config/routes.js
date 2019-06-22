@@ -1,9 +1,10 @@
 const express = require('express');
 const playersController = require('../app/controllers/players');
-var indexRouter = express.Router();
-var playersRouter = express.Router();
 
-indexRouter.get('/', function (req, res, next) {
+const indexRouter = express.Router();
+const playersRouter = express.Router();
+
+indexRouter.get('/', (req, res) => {
     res.send('Hello World!');
 });
 
@@ -14,5 +15,5 @@ playersRouter
 
 module.exports = {
     '/': indexRouter,
-    '/players': playersRouter
+    '/players': playersRouter,
 };

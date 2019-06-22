@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+
+const { Schema } = mongoose;
 
 const playerSchema = new Schema({
     // firstName: String,
@@ -9,12 +10,12 @@ const playerSchema = new Schema({
         type: String,
         index: true,
         required: true,
-        unique: true
+        unique: true,
     },
     password: String,
     rating: { type: Number, default: 1000 },
 });
 
-var Player = mongoose.model('Player', playerSchema);
+const Player = mongoose.model('Player', playerSchema);
 
 module.exports = Player;

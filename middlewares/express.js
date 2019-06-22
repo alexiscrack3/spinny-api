@@ -2,5 +2,5 @@ const express = require('express');
 
 module.exports = [
     express.json(),
-    express.urlencoded({ extended: false })
+    express.urlencoded({ extended: false }),
 ];

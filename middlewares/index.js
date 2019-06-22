@@ -1,5 +1,9 @@
+const cors = require('./cors');
+const express = require('./express');
+const morgan = require('./morgan');
+
 module.exports = {
-    cors: require('./cors'),
-    express: require('./express'),
-    morgan: require('./morgan')
+    cors,
+    express,
+    morgan,
 };
