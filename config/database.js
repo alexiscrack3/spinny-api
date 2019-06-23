@@ -1,5 +1,3 @@
-const debug = require('debug')('spinny:database');
-
 const environments = {
     development: {
         connection: 'mongodb://localhost:27017/spinny_development',
@@ -22,7 +20,6 @@ const environments = {
 };
 
 const env = process.env.NODE_ENV || 'development';
-debug(`Running on ${env}`);
 
 let config = null;
 switch (env) {

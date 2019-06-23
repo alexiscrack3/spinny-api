@@ -1,29 +1,22 @@
 #!/usr/bin/env node
 
-const app = require('../app');
 const http = require('http');
-const config = require('../config');
 const debug = require('debug')('spinny:server');
-
-var port = normalizePort(process.env.PORT || config.PORT);
-app.set('port', port);
-
-var server = http.createServer(app);
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+const app = require('../app');
+const config = require('../config');
 
 function normalizePort(val) {
-    var port = parseInt(val, 10);
+    const base = 10;
+    const number = parseInt(val, base);
 
-    if (isNaN(port)) {
+    if (Number.isNaN(number)) {
         // named pipe
         return val;
     }
 
-    if (port >= 0) {
+    if (number >= 0) {
         // port number
-        return port;
+        return number;
     }
 
     return false;
@@ -34,18 +27,18 @@ function onError(error) {
         throw error;
     }
 
-    var bind = typeof port === 'string'
-        ? 'Pipe ' + port
-        : 'Port ' + port;
+    const bind = typeof port === 'string'
+        ? `Pipe ${port}`
+        : `Port ${port}`;
 
     // handle specific listen errors with friendly messages
     switch (error.code) {
         case 'EACCES':
-            console.error(bind + ' requires elevated privileges');
+            debug(`${bind} requires elevated privileges`);
             process.exit(1);
             break;
         case 'EADDRINUSE':
-            console.error(bind + ' is already in use');
+            debug(`${bind} is already in use`);
             process.exit(1);
             break;
         default:
@@ -54,9 +47,20 @@ function onError(error) {
 }
 
 function onListening() {
-    var addr = server.address();
-    var bind = typeof addr === 'string'
-        ? 'pipe ' + addr
-        : 'port ' + addr.port;
-    debug('Listening on ' + bind);
+    const addr = server.address();
+    const bind = typeof addr === 'string'
+        ? `pipe ${addr}`
+        : `port ${addr.port}`;
+    debug(`Listening on ${bind}`);
 }
+
+const port = normalizePort(process.env.PORT || config.PORT);
+app.set('port', port);
+
+const env = process.env.NODE_ENV || 'development';
+debug(`Running on ${env}`);
+
+const server = http.createServer(app);
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
