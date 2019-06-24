@@ -1,34 +1,35 @@
 const express = require('express');
 const passport = require('passport');
-const authController = require('../app/controllers/auth');
-const passportController = require('../app/controllers/passport');
-const playersController = require('../app/controllers/players');
-const gamesController = require('../app/controllers/games');
+const AuthRoutes = require('../app/routes/auth');
+const PlayerRoutes = require('../app/routes/player');
+const GameRoutes = require('../app/routes/game');
+
+require('../app/helpers/passport');
 
 const indexRouter = express.Router();
 const authRouter = express.Router();
-const playersRouter = express.Router();
-const gamesRouter = express.Router();
+const playerRouter = express.Router();
+const gameRouter = express.Router();
 
 indexRouter.get('/', (req, res) => {
     res.send('Hello World!');
 });
 
-// authRouter.post('/sign_up', authController.signUp);
-authRouter.post('/sign_in', authController.signIn);
+authRouter.post('/sign_in', AuthRoutes.signIn);
 
-playersRouter
-    .get('/', playersController.getAll)
-    .get('/:id', passport.authenticate('jwt', { session: false }), playersController.getById)
-    .post('/', playersController.create);
+playerRouter
+    .get('/', PlayerRoutes.getAll)
+    .get('/:id', passport.authenticate('jwt', { session: false }), PlayerRoutes.getById)
+    // .get('/:id', PlayerRoutes.getById)
+    .post('/', PlayerRoutes.create);
 
-gamesRouter
-    .get('/', gamesController.getAll)
-    .post('/', gamesController.create);
+gameRouter
+    .get('/', GameRoutes.getAll)
+    .post('/', GameRoutes.create);
 
 module.exports = {
     '/': indexRouter,
     '/auth': authRouter,
-    '/players': playersRouter,
-    '/games': gamesRouter,
+    '/players': playerRouter,
+    '/games': gameRouter,
 };
