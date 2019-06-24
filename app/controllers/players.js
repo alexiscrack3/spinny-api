@@ -15,6 +15,17 @@ exports.getAll = (req, res) => {
     });
 };
 
+exports.getPlayerById = (id, callback) => {
+    Player.findById(id, (err, player) => {
+        if (err) {
+            callback(err, null);
+        } else {
+            callback(null, player);
+        }
+    });
+};
+
+
 exports.getById = (req, res) => {
     Player.findById(req.params.id, (err, player) => {
         if (err) {

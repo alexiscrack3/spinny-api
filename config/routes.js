@@ -1,5 +1,7 @@
 const express = require('express');
+const passport = require('passport');
 const authController = require('../app/controllers/auth');
+const passportController = require('../app/controllers/passport');
 const playersController = require('../app/controllers/players');
 const gamesController = require('../app/controllers/games');
 
@@ -17,7 +19,7 @@ authRouter.post('/sign_in', authController.signIn);
 
 playersRouter
     .get('/', playersController.getAll)
-    .get('/:id', playersController.getById)
+    .get('/:id', passport.authenticate('jwt', { session: false }), playersController.getById)
     .post('/', playersController.create);
 
 gamesRouter
