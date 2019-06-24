@@ -2,12 +2,13 @@
 const faker = require('faker');
 const Player = require('../../../app/models/player');
 
+const password = 'asdf';
 const players = [
     new Player({
         // firstName: 'Alexis',
         // lastName: 'Ortega',
         email: 'asdf@gmail.com',
-        password: 'asdf',
+        password,
     }),
 ];
 for (let index = 0; index < 10; index += 1) {
@@ -15,7 +16,7 @@ for (let index = 0; index < 10; index += 1) {
         // firstName: faker.name.firstName(),
         // lastName: faker.name.lastName(),
         email: faker.internet.email().toLowerCase(),
-        password: 'asdf',
+        password,
     });
     players.push(player);
 }

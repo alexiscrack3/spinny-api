@@ -30,11 +30,11 @@ exports.getById = (req, res) => {
     });
 };
 
-// exports.getPlayerByEmail = function (req, res, next) {
-//     Player.findOne({ email: req.body.email }, function (err, player) {
-//         res.json(player);
-//     });
-// };
+exports.getPlayerByEmail = (req, callback) => {
+    Player.findOne({ email: req.body.email }, (err, player) => {
+        callback(err, player);
+    });
+};
 
 exports.create = (req, res) => {
     const player = Player(req.body);
