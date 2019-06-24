@@ -3,6 +3,7 @@ const createError = require('http-errors');
 const middlewares = require('./middlewares');
 const routes = require('./config/routes');
 const database = require('./db');
+require('dotenv').config();
 
 const app = express();
 
