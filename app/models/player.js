@@ -10,11 +10,12 @@ const playerSchema = new Schema({
     // lastName: String,
     email: {
         type: String,
-        index: true,
         required: true,
+        trim: true,
         unique: true,
+        index: true,
     },
-    password: String,
+    password: { type: String, required: true },
     rating: { type: Number, default: 1000 },
 });
 
