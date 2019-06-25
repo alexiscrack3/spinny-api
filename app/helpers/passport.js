@@ -49,12 +49,12 @@ passport.use('local-login', new LocalStrategy({
 passport.use(new JwtStrategy({
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     secretOrKey: process.env.SECRET_KEY,
-}, (jwtPayload, cb) => {
+}, (jwtPayload, done) => {
     PlayerController.getById(jwtPayload.id)
         .then((player) => {
-            cb(null, player);
+            done(null, player);
         })
         .catch((err) => {
-            cb(err, null);
+            done(err, null);
         });
 }));
