@@ -15,14 +15,13 @@ indexRouter.get('/', (req, res) => {
     res.send('Hello World!');
 });
 
+authRouter.post('/sign_up', AuthRoutes.signUp);
 authRouter.post('/sign_in', AuthRoutes.signIn);
 
 playerRouter
     .get('/', PlayerRoutes.getAll)
     .get('/me', passport.authenticate('jwt', { session: false }), PlayerRoutes.getProfile)
-    .get('/:id', passport.authenticate('jwt', { session: false }), PlayerRoutes.getById)
-    // .get('/:id', PlayerRoutes.getById)
-    .post('/', PlayerRoutes.create);
+    .get('/:id', PlayerRoutes.getById)
 
 gameRouter
     .get('/', GameRoutes.getAll)
