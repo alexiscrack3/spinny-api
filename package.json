@@ -6,7 +6,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node ./bin/www",
-    "debug": "DEBUG=spinny:* nodemon ./bin/www",
+    "debug": "DEBUG=spinny:* nodemon --inspect ./bin/www",
     "db:seed": "NODE_ENV=development node ./db/seed.js",
     "db:drop": "NODE_ENV=development node ./db/drop.js",
     "test": "jest",
