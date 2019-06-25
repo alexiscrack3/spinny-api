@@ -18,40 +18,32 @@ const playerSchema = new Schema({
     rating: { type: Number, default: 1000 },
 });
 
-playerSchema.pre('save', function (next) {
+playerSchema.pre('save', function save(next) {
     const player = this;
 
     if (!player.isNew && !player.isModified('password')) {
         next();
     }
 
-    player.generateHash(player.password, (err, hash) => {
-        if (err) next(err);
-        else {
+    player.generateHash(player.password)
+        .then((hash) => {
             player.password = hash;
             next();
-        }
-    });
+        })
+        .catch((err) => {
+            next(err);
+        });
 });
 
-playerSchema.methods.generateHash = (password, callback) => {
-    bcrypt.genSalt(saltRounds, (err, salt) => {
-        if (err) callback(err, null);
-
-        bcrypt.hash(password, salt, (err, hash) => {
-            if (err) callback(err, null);
-
-            callback(null, hash);
-        });
-    });
-};
+playerSchema.methods.generateHash = password => bcrypt.genSalt(saltRounds)
+    .then(salt => bcrypt.hash(password, salt));
 
 playerSchema.methods.generateHashSync = (password) => {
     const salt = bcrypt.genSaltSync(saltRounds);
     bcrypt.hashSync(password, salt);
 };
 
-playerSchema.methods.validPassword = function (password) {
+playerSchema.methods.validPassword = function validPassword(password) {
     return bcrypt.compareSync(password, this.password);
 };
 
