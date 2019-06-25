@@ -1,4 +1,3 @@
-const jwt = require('jsonwebtoken');
 const PlayerController = require('../controllers/player');
 
 exports.getAll = (req, res) => {
@@ -18,21 +17,8 @@ exports.getAll = (req, res) => {
         });
 };
 
-function getToken(req) {
-    const value = req.headers.authorization;
-    let token = null;
-    if (value && value.split(' ')[0] === 'Bearer') {
-        [, token] = value.split(' ');
-    } else if (req.query && req.query.token) {
-        ({ token } = req.query);
-    }
-    return token;
-}
-
 exports.getProfile = (req, res) => {
-    const token = getToken(req);
-    const decoded = jwt.decode(token);
-    PlayerController.getById(decoded.id)
+    PlayerController.getById(req.user.id)
         .then((player) => {
             res.json({
                 data: player,
