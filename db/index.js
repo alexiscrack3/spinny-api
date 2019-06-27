@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
 const debug = require('debug')('spinny:database');
+const configDb = require('../config/database');
 
 let db = null;
 
 module.exports = {
-    connect: (connection = process.env.MONGODB_URI) => new Promise((resolve, reject) => {
+    connect: (connection = configDb.connection) => new Promise((resolve, reject) => {
         const options = {
             useNewUrlParser: true,
             useCreateIndex: true,

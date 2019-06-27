@@ -12,7 +12,7 @@ const environments = {
         },
     },
     production: {
-        connection: 'mongodb://localhost:27017/spinny',
+        connection: process.env.MONGODB_URI,
         seeds: {
             directory: '/seeds/development',
         },
