@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-
+const dotenv = require('dotenv').config(); // eslint-disable-line no-unused-vars
 const http = require('http');
 const debug = require('debug')('spinny:server');
 const app = require('../app');

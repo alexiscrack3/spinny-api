@@ -4,8 +4,6 @@ const { ExtractJwt } = require('passport-jwt');
 const passport = require('passport');
 const PlayerController = require('../controllers/player');
 
-require('dotenv').config();
-
 // we are using named strategies since we have one for login and one for signup
 // by default, if there was no name, it would just be called 'local'
 
