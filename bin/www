@@ -3,7 +3,6 @@ const dotenv = require('dotenv').config(); // eslint-disable-line no-unused-vars
 const http = require('http');
 const debug = require('debug')('spinny:server');
 const app = require('../app');
-const config = require('../config');
 
 function normalizePort(val) {
     const base = 10;
@@ -54,7 +53,7 @@ function onListening() {
     debug(`Listening on ${bind}`);
 }
 
-const port = normalizePort(process.env.PORT || config.PORT);
+const port = normalizePort(process.env.PORT || 3000);
 app.set('port', port);
 
 const env = process.env.NODE_ENV || 'development';

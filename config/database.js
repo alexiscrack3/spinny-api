@@ -29,7 +29,6 @@ switch (env) {
     case 'production':
         config = environments.production;
         break;
-
     default:
         config = environments.development;
 }

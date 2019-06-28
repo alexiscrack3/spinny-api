@@ -21,7 +21,7 @@ authRouter.post('/sign_in', AuthRoutes.signIn);
 playerRouter
     .get('/', PlayerRoutes.getAll)
     .get('/me', passport.authenticate('jwt', { session: false }), PlayerRoutes.getProfile)
-    .get('/:id', PlayerRoutes.getById)
+    .get('/:id', PlayerRoutes.getById);
 
 gameRouter
     .get('/', GameRoutes.getAll)
