@@ -31,6 +31,7 @@ switch (env) {
         break;
     default:
         config = environments.development;
+        break;
 }
 
 module.exports = config;
