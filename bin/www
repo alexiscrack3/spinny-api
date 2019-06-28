@@ -1,11 +1,8 @@
 #!/usr/bin/env node
+const dotenv = require('dotenv').config(); // eslint-disable-line no-unused-vars
 const http = require('http');
 const debug = require('debug')('spinny:server');
 const app = require('../app');
-
-if (process.env.NODE_ENV !== 'production') {
-    require('dotenv').config(); // eslint-disable-line global-require
-}
 
 function normalizePort(val) {
     const base = 10;

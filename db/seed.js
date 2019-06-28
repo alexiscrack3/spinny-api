@@ -1,10 +1,9 @@
 /* eslint-disable no-console */
-/* eslint-disable import/no-extraneous-dependencies */
-const async = require('async');
+const dotenv = require('dotenv').config(); // eslint-disable-line no-unused-vars
+const async = require('async'); // eslint-disable-line import/no-extraneous-dependencies
 const path = require('path');
 const fs = require('fs');
 const database = require('../db');
-const configDb = require('../config/database');
 
 async.series([
     (callback) => {
@@ -24,7 +23,7 @@ async.series([
                 callback(null, 'Database connection established');
             });
     }, (callback) => {
-        const seedsPath = path.join(__dirname, configDb.seeds.directory);
+        const seedsPath = path.join(__dirname, process.env.DB_SEEDS);
         const files = fs.readdirSync(seedsPath);
         async.eachSeries(files, (file, fileCallback) => {
             const filePath = `${seedsPath}${'/'}${file}`;
