@@ -46,18 +46,20 @@ function onError(error) {
 }
 
 function onListening() {
-    const addr = server.address();
-    const bind = typeof addr === 'string'
-        ? `pipe ${addr}`
-        : `port ${addr.port}`;
+    const address = server.address();
+    const bind = typeof address === 'string'
+        ? `pipe ${address}`
+        : `port ${address.port}`;
     debug(`Listening on ${bind}`);
+    const host = address.address === '::' ? 'localhost' : address.address;
+    debug(`Running at http://${host}:${address.port}`);
 }
 
 const port = normalizePort(process.env.PORT || 3000);
 app.set('port', port);
 
 const env = process.env.NODE_ENV || 'development';
-debug(`Running on ${env}`);
+debug(`Running ${env} environment`);
 
 const server = http.createServer(app);
 server.listen(port);
