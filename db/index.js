@@ -23,7 +23,9 @@ module.exports = {
     connect: (connection = buildConnString()) => new Promise((resolve, reject) => {
         const options = {
             useNewUrlParser: true,
+            useFindAndModify: false,
             useCreateIndex: true,
+            useUnifiedTopology: true,
         };
         mongoose.connect(connection, options).then((client) => {
             debug(`Connected to ${client.connection.name}`);
