@@ -4,7 +4,7 @@ const debug = require('debug')('spinny:database');
 let db = null;
 
 function buildConnString() {
-    let connString = `${process.env.DB_PREFIX}://`;
+    let connString = 'mongodb://';
     if (process.env.DB_USER && process.env.DB_PASS) {
         connString += `${process.env.DB_USER}:${process.env.DB_PASS}@`;
     }
@@ -13,9 +13,6 @@ function buildConnString() {
         connString += `:${process.env.DB_PORT}`;
     }
     connString += `/${process.env.DB_NAME}`;
-    if (process.env.DB_MISC) {
-        connString += process.env.DB_MISC;
-    }
     return connString;
 }
 
