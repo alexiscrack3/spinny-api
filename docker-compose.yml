@@ -1,0 +1,15 @@
+version: "3"
+
+services: 
+    api:
+        image: spinny-api
+        container_name: api
+        environment: 
+            DB_HOST: "db"
+        depends_on: 
+            - db
+        ports: 
+            - "3000:3000"
+    db:
+        image: mongo
+        container_name: db
