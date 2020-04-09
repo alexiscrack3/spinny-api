@@ -6,7 +6,4 @@ exports.getById = id => Player.findById(id);
 
 exports.getByEmail = email => Player.findOne({ email });
 
-exports.create = (body) => {
-    const player = Player(body);
-    return player.save();
-};
+exports.create = body => Player.create(body);

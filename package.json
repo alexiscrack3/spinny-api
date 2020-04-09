@@ -9,8 +9,8 @@
     "debug": "NODE_ENV=development DEBUG=spinny:* nodemon --inspect ./bin/www",
     "db:seed": "NODE_ENV=development node ./db/seeds.js",
     "db:drop": "NODE_ENV=development node ./db/drop.js",
-    "db:test:seed": "NODE_ENV=test DB_NAME=spinny_test node ./db/seeds.js",
-    "db:test:drop": "NODE_ENV=test DB_NAME=spinny_test node ./db/drop.js",
+    "db:test:seed": "NODE_ENV=test node ./db/seeds.js",
+    "db:test:drop": "NODE_ENV=test node ./db/drop.js",
     "test": "jest",
     "lint": "eslint --ignore-path .gitignore ."
   },
@@ -52,6 +52,7 @@
     "eslint-plugin-import": "^2.17.3",
     "faker": "^4.1.0",
     "jest": "^25.3.0",
+    "jest-mongoose-mock": "^1.2.0",
     "supertest": "^4.0.2"
   }
 }
