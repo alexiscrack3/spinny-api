@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable import/no-extraneous-dependencies */
+const dotenv = require('dotenv').config(); // eslint-disable-line no-unused-vars
 const async = require('async');
 const database = require('../db');
 
