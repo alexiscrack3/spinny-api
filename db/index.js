@@ -17,14 +17,14 @@ function buildConnString() {
 }
 
 module.exports = {
-    connect: (connection = buildConnString()) => new Promise((resolve, reject) => {
+    connect: (uris = buildConnString()) => new Promise((resolve, reject) => {
         const options = {
             useNewUrlParser: true,
             useFindAndModify: false,
             useCreateIndex: true,
             useUnifiedTopology: true,
         };
-        mongoose.connect(connection, options).then((client) => {
+        mongoose.connect(uris, options).then((client) => {
             debug(`Connected to ${client.connection.name}`);
             db = client;
             resolve(client);
@@ -33,14 +33,14 @@ module.exports = {
             reject(err);
         });
     }),
-    disconnect: () => new Promise((resolve, reject) => {
+    close: () => new Promise((resolve, reject) => {
         db.connection.close(() => {
             resolve();
         }, (err) => {
             reject(err);
         });
     }),
-    drop: () => new Promise((resolve, reject) => {
+    dropDatabase: () => new Promise((resolve, reject) => {
         db.connection.dropDatabase(() => {
             resolve();
         }, (err) => {

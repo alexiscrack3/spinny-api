@@ -8,8 +8,8 @@ const database = require('../db');
 async.series([
     (callback) => {
         database.connect()
-            .then(() => database.drop())
-            .then(() => database.disconnect())
+            .then(() => database.dropDatabase())
+            .then(() => database.close())
             .then(() => {
                 callback(null, 'Dropped database');
             })
