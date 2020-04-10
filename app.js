@@ -14,11 +14,13 @@ Object.keys(routes).forEach((path) => {
     app.use(path, routes[path]);
 });
 
-database.connect().catch((err) => {
-    if (err) {
-        process.exit(1);
-    }
-});
+if (process.env.NODE_ENV !== 'test') {
+    database.connect().catch((err) => {
+        if (err) {
+            process.exit(1);
+        }
+    });
+}
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

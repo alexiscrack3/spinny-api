@@ -11,7 +11,8 @@
     "db:drop": "NODE_ENV=development node ./db/drop.js",
     "db:test:seed": "NODE_ENV=test node ./db/seeds.js",
     "db:test:drop": "NODE_ENV=test node ./db/drop.js",
-    "test": "jest",
+    "test": "SECRET_KEY=secret jest",
+    "test:watch": "SECRET_KEY=secret jest --watch",
     "lint": "eslint --ignore-path .gitignore ."
   },
   "repository": {
@@ -53,6 +54,8 @@
     "faker": "^4.1.0",
     "jest": "^25.3.0",
     "jest-mongoose-mock": "^1.2.0",
+    "mockingoose": "^2.13.2",
+    "passport-mock-strategy": "^2.0.0",
     "supertest": "^4.0.2"
   }
 }

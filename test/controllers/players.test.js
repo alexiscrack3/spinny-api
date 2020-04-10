@@ -30,7 +30,7 @@ describe('players controller', () => {
     });
 
     it('gets player by email', (done) => {
-        const email = 'test@spinny.io';
+        const email = 'user@spinny.com';
         PlayerController.getByEmail(email).then(() => {
             expect(Player.findOne.mock.calls.length).toBe(1);
             expect(Player.findOne.mock.calls[0][0].email).toBe(email);
@@ -42,7 +42,7 @@ describe('players controller', () => {
 
     it('creates player', (done) => {
         const body = {
-            email: 'test@spinny.io',
+            email: 'user@spinny.com',
         };
         PlayerController.create(body).then(() => {
             expect(Player.create.mock.calls.length).toBe(1);
