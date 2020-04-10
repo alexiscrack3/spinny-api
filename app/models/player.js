@@ -19,7 +19,7 @@ const playerSchema = new Schema({
     rating: { type: Number, default: 1000 },
 });
 
-playerSchema.pre('create', function save(next) {
+playerSchema.pre('save', function save(next) {
     const player = this;
 
     if (!player.isNew && !player.isModified('password')) {
