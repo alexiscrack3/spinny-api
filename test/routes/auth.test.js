@@ -104,3 +104,104 @@ describe('POST /auth/sign_in', () => {
             });
     });
 });
+
+describe('POST /auth/sign_up', () => {
+    it('responds with json containing an user and token', (done) => {
+        const body = {
+            email: 'user@spinny.com',
+            password: 'password',
+        };
+        const player = Player(body);
+
+        passport.use(new MockStrategy({
+            name: 'local-signup',
+            user: { id: player.id },
+            passReqToCallback: true,
+        }, (req, user, cb) => {
+            cb(null, user);
+        }));
+
+        request(app)
+            .post('/auth/sign_up')
+            .send(body)
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .then((res) => {
+                const { data } = res.body;
+                expect(data.user.id).toBe(player.id);
+                expect(data).toHaveProperty('token');
+                done();
+            });
+    });
+
+    it('responds with json containing an error', (done) => {
+        const statusCode = 400;
+        passport.use(new MockStrategy({
+            name: 'local-signup',
+            passReqToCallback: true,
+        }, (req, user, cb) => {
+            cb(new Error(), null);
+        }));
+
+        request(app)
+            .post('/auth/sign_up')
+            .expect('Content-Type', /json/)
+            .expect(statusCode)
+            .then((res) => {
+                const err = res.body.error;
+                expect(err.status).toBe(statusCode);
+                expect(err.message).toBeDefined();
+                done();
+            });
+    });
+
+    it('responds with json containing an error when user is null', (done) => {
+        const statusCode = 400;
+        passport.use(new MockStrategy({
+            name: 'local-signup',
+            passReqToCallback: true,
+        }, (req, user, cb) => {
+            cb(null, null);
+        }));
+
+        request(app)
+            .post('/auth/sign_up')
+            .expect('Content-Type', /json/)
+            .expect(statusCode)
+            .then((res) => {
+                const err = res.body.error;
+                expect(err.status).toBe(statusCode);
+                expect(err.message).toBeDefined();
+                done();
+            });
+    });
+
+    it('responds with json containing an error when login fails', (done) => {
+        const statusCode = 500;
+        const body = {
+            email: 'user@spinny.com',
+            password: 'password',
+        };
+        const player = Player(body);
+
+        passport.use(new MockStrategy({
+            name: 'local-signup',
+            user: { id: player.id },
+            passReqToCallback: true,
+        }, (req, user, cb) => {
+            req.login = (loggedInUser, options, callback) => callback(new Error());
+            cb(null, user);
+        }));
+
+        request(app)
+            .post('/auth/sign_up')
+            .expect('Content-Type', /json/)
+            .expect(statusCode)
+            .then((res) => {
+                const err = res.body.error;
+                expect(err.status).toBe(statusCode);
+                expect(err.message).toBeDefined();
+                done();
+            });
+    });
+});
