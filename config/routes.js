@@ -20,6 +20,7 @@ authRouter.post('/sign_in', AuthRoutes.signIn);
 
 playerRouter
     .get('/', PlayerRoutes.getAll)
+    .post('/', PlayerRoutes.create)
     .get('/me', passport.authenticate('jwt', { session: false }), PlayerRoutes.getProfile)
     .get('/:id', PlayerRoutes.getById);
 
