@@ -75,32 +75,32 @@ describe('POST /auth/sign_in', () => {
             });
     });
 
-    // it('responds with json containing an error when login fails', (done) => {
-    //     const statusCode = 500;
-    //     const body = {
-    //         email: 'user@spinny.com',
-    //         password: 'password',
-    //     };
-    //     const player = Player(body);
+    it('responds with json containing an error when login fails', (done) => {
+        const statusCode = 500;
+        const body = {
+            email: 'user@spinny.com',
+            password: 'password',
+        };
+        const player = Player(body);
 
-    //     passport.use(new MockStrategy({
-    //         name: 'local-login',
-    //         user: { id: player.id },
-    //         passReqToCallback: true,
-    //     }, (req, user, cb) => {
-    //         cb(null, user);
-    //     }));
+        passport.use(new MockStrategy({
+            name: 'local-login',
+            user: { id: player.id },
+            passReqToCallback: true,
+        }, (req, user, cb) => {
+            req.login = (loggedInUser, options, callback) => callback(new Error());
+            cb(null, user);
+        }));
 
-    //     request(app)
-    //         .post('/auth/sign_in')
-    //         .send(`email=${player.email}&password=${player.password}`) // x-www-form-urlencoded
-    //         .expect('Content-Type', /json/)
-    //         .expect(statusCode)
-    //         .then((res) => {
-    //             const err = res.body.error;
-    //             expect(err.status).toBe(statusCode);
-    //             expect(err.message).toBeDefined();
-    //             done();
-    //         });
-    // });
+        request(app)
+            .post('/auth/sign_in')
+            .expect('Content-Type', /json/)
+            .expect(statusCode)
+            .then((res) => {
+                const err = res.body.error;
+                expect(err.status).toBe(statusCode);
+                expect(err.message).toBeDefined();
+                done();
+            });
+    });
 });
