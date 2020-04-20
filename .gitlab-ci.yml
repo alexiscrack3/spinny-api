@@ -1,0 +1,3 @@
+first-job:
+    script:
+        - echo HelloWorld
