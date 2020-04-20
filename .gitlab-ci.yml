@@ -1,3 +1,5 @@
 first-job:
+    tags:
+        - spinny
     script:
         - echo HelloWorld
