@@ -1,5 +1,19 @@
-first-job:
+image: node:latest
+
+cache:
+  paths:
+    - node_modules/
+
+build:
     tags:
         - spinny
     script:
-        - echo HelloWorld
+        - npm install
+
+unit_test:
+    tags:
+        - spinny
+    script:
+        - npm run test
+    dependencies:
+        - build
