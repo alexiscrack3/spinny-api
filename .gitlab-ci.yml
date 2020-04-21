@@ -2,13 +2,14 @@ image: node:latest
 
 stages:
     - build
-    - unit_tests
+    - test
+    - deploy
 
 cache:
   paths:
     - node_modules/
 
-build:
+install_dependencies:
     stage: build
     tags:
         - spinny
@@ -16,10 +17,19 @@ build:
         - npm install
 
 unit_tests:
-    stage: unit_tests
+    stage: test
     tags:
         - spinny
     script:
         - npm run test
     dependencies:
-        - build
+        - install_dependencies
+
+production:
+    stage: deploy
+    tags:
+        - spinny
+    script:
+        - pwd
+        - ls
+        # - sudo docker-compose up -d
