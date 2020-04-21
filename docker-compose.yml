@@ -2,7 +2,7 @@ version: "3"
 
 services: 
     api:
-        image: spinny-api
+        build: .
         container_name: api
         environment: 
             DB_HOST: "db"
