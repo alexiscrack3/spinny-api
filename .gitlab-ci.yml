@@ -1,16 +1,22 @@
 image: node:latest
 
+stages:
+    - build
+    - unit_tests
+
 cache:
   paths:
     - node_modules/
 
 build:
+    stage: build
     tags:
         - spinny
     script:
         - npm install
 
-unit_test:
+unit_tests:
+    stage: unit_tests
     tags:
         - spinny
     script:
