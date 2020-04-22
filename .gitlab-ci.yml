@@ -12,14 +12,14 @@ cache:
 install_dependencies:
     stage: build
     tags:
-        - spinny
+        - docker
     script:
         - npm install
 
 unit_tests:
     stage: test
     tags:
-        - spinny
+        - docker
     script:
         - npm run test
     dependencies:
@@ -28,7 +28,7 @@ unit_tests:
 production:
     stage: deploy
     tags:
-        - spinny
+        - droplet
     script:
         - pwd
         - ls
