@@ -36,6 +36,7 @@ production:
         - pwd
         - ls
         - cd /home/alexiscrack3/spinny-api
+        - dockerd
         - /usr/local/bin/docker-compose down
         - git checkout develop
         - git pull
