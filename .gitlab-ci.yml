@@ -33,11 +33,7 @@ production:
     tags:
         - droplet
     script:
-        - pwd
-        - ls
-        - cd ~/spinny-api
-        - ls
-        - sudo docker-compose down
+        - docker-compose down
         - git checkout develop
         - git pull
-        - sudo docker-compose up -d
+        - docker-compose up -d
