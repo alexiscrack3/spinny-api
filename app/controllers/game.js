@@ -1,8 +1,10 @@
 const Game = require('../models/game');
 
 exports.create = (body) => {
-    const game = Game(body);
-    return game.save();
+    if (body.winner !== body.loser) {
+        return Game.create(body);
+    }
+    return Promise.reject(new Error('Winner and loser cannot be same player'));
 };
 
 exports.getAll = () => Game.find({})
