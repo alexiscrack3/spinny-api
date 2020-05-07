@@ -7,5 +7,5 @@ exports.create = (body) => {
 
 exports.getAll = () => Game.find({})
     .populate('winner')
-    .populate('looser')
+    .populate('loser')
     .exec();
