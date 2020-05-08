@@ -50,20 +50,3 @@ exports.getById = (req, res) => {
             });
         });
 };
-
-exports.create = (req, res) => {
-    PlayerController.create(req.body)
-        .then((player) => {
-            res.json({
-                data: player,
-            });
-        })
-        .catch(() => {
-            res.status(500).json({
-                error: {
-                    status: 500,
-                    message: 'Request could not be completed.',
-                },
-            });
-        });
-};
