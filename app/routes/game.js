@@ -18,7 +18,7 @@ exports.getAll = (req, res) => {
 };
 
 exports.create = (req, res) => {
-    GameController.save(req.body)
+    GameController.create(req.body)
         .then((game) => {
             res.json({
                 data: game,
