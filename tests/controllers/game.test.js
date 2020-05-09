@@ -44,8 +44,8 @@ describe('game controller', () => {
         it('should delete game', (done) => {
             const id = new mongoose.Types.ObjectId().toHexString();
             GameController.deleteById(id).then(() => {
-                expect(Game.deleteOne.mock.calls.length).toBe(1);
-                expect(Game.deleteOne.mock.calls[0][0]).toEqual({ _id: id });
+                expect(Game.findByIdAndRemove.mock.calls.length).toBe(1);
+                expect(Game.findByIdAndRemove.mock.calls[0][0]).toEqual({ _id: id });
                 done();
             }).catch(() => {
                 done();

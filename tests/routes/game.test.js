@@ -92,7 +92,7 @@ describe('POST /games', () => {
 describe('DELETE /games/:id', () => {
     it('responds with no content', (done) => {
         const id = new mongoose.Types.ObjectId().toString();
-        mockingoose(Game).toReturn(null, 'deleteOne');
+        mockingoose(Game).toReturn(null, 'findOneAndRemove');
 
         request(app)
             .delete(`/games/${id}`)
@@ -102,7 +102,7 @@ describe('DELETE /games/:id', () => {
     it('responds with json containing an error', (done) => {
         const statusCode = 500;
         const id = new mongoose.Types.ObjectId().toString();
-        mockingoose(Game).toReturn(new Error(), 'deleteOne');
+        mockingoose(Game).toReturn(new Error(), 'findOneAndRemove');
 
         request(app)
             .delete(`/games/${id}`)

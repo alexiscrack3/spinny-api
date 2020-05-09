@@ -7,7 +7,7 @@ exports.create = (body) => {
     return Promise.reject(new Error('Winner and loser cannot be same player'));
 };
 
-exports.deleteById = id => Game.deleteOne({ _id: id });
+exports.deleteById = id => Game.findByIdAndRemove({ _id: id }).exec();
 
 exports.getAll = () => Game.find({})
     .populate('winner')
