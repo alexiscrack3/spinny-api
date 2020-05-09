@@ -25,7 +25,8 @@ playerRouter
 
 gameRouter
     .get('/', GameRoutes.getAll)
-    .post('/', GameRoutes.create);
+    .post('/', GameRoutes.create)
+    .delete('/:id', GameRoutes.deleteById);
 
 module.exports = {
     '/': indexRouter,

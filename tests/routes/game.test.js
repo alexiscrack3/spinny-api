@@ -88,3 +88,31 @@ describe('POST /games', () => {
             });
     });
 });
+
+describe('DELETE /games/:id', () => {
+    it('responds with no content', (done) => {
+        const id = new mongoose.Types.ObjectId().toString();
+        mockingoose(Game).toReturn(null, 'deleteOne');
+
+        request(app)
+            .delete(`/games/${id}`)
+            .expect(204, done);
+    });
+
+    it('responds with json containing an error', (done) => {
+        const statusCode = 500;
+        const id = new mongoose.Types.ObjectId().toString();
+        mockingoose(Game).toReturn(new Error(), 'deleteOne');
+
+        request(app)
+            .delete(`/games/${id}`)
+            .expect('Content-Type', /json/)
+            .expect(statusCode)
+            .then((res) => {
+                const err = res.body.error;
+                expect(err.status).toBe(statusCode);
+                expect(err.message).toBeDefined();
+                done();
+            });
+    });
+});
