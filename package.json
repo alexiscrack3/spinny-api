@@ -11,7 +11,7 @@
     "db:drop": "NODE_ENV=development node ./db/drop.js",
     "db:test:seed": "NODE_ENV=test node ./db/seeds.js",
     "db:test:drop": "NODE_ENV=test node ./db/drop.js",
-    "tests": "SECRET_KEY=secret jest",
+    "tests": "SECRET_KEY=secret jest --verbose",
     "tests:watch": "SECRET_KEY=secret jest --watch",
     "tests:report": "SECRET_KEY=secret jest --coverage",
     "lint": "eslint --ignore-path .gitignore ."
