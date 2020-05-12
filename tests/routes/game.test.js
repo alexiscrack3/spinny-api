@@ -54,8 +54,8 @@ describe('GET /games', () => {
 describe('POST /games', () => {
     it('responds with json containing a game', (done) => {
         const body = {
-            winner: new mongoose.Types.ObjectId().toString(),
-            loser: new mongoose.Types.ObjectId().toString(),
+            winner: new mongoose.Types.ObjectId(),
+            loser: new mongoose.Types.ObjectId(),
         };
         const game = Game(body);
         mockingoose(Game).toReturn(game, 'save');
@@ -67,8 +67,8 @@ describe('POST /games', () => {
             .expect(200)
             .then((res) => {
                 const { data } = res.body;
-                expect(data.winner.toString()).toBe(body.winner.toString());
-                expect(data.loser.toString()).toBe(body.loser.toString());
+                expect(data.winner).toBe(body.winner.toHexString());
+                expect(data.loser).toBe(body.loser.toHexString());
                 done();
             })
             .catch((err) => {
@@ -79,8 +79,8 @@ describe('POST /games', () => {
     it('responds with json containing an error', (done) => {
         const statusCode = 500;
         const body = {
-            winner: new mongoose.Types.ObjectId().toString(),
-            loser: new mongoose.Types.ObjectId().toString(),
+            winner: new mongoose.Types.ObjectId(),
+            loser: new mongoose.Types.ObjectId(),
         };
         mockingoose(Game).toReturn(new Error(), 'save');
 
@@ -119,7 +119,7 @@ describe('DELETE /games/:id', () => {
 
     it('responds with json containing an error', (done) => {
         const statusCode = 500;
-        const id = new mongoose.Types.ObjectId().toString();
+        const id = new mongoose.Types.ObjectId().toHexString();
         mockingoose(Game).toReturn(new Error(), 'findOneAndRemove');
 
         request(app)
