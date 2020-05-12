@@ -25,6 +25,9 @@ describe('GET /games', () => {
                 expect(obj.winner.toString()).toBe(body.winner.toString());
                 expect(obj.loser.toString()).toBe(body.loser.toString());
                 done();
+            })
+            .catch((err) => {
+                done(err);
             });
     });
 
@@ -41,6 +44,9 @@ describe('GET /games', () => {
                 expect(err.status).toBe(statusCode);
                 expect(err.message).toBeDefined();
                 done();
+            })
+            .catch((err) => {
+                done(err);
             });
     });
 });
