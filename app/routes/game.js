@@ -1,22 +1,5 @@
 const GameController = require('../controllers/game');
 
-exports.getAll = (req, res) => {
-    GameController.getAll()
-        .then((games) => {
-            res.json({
-                data: games,
-            });
-        })
-        .catch(() => {
-            res.status(500).json({
-                error: {
-                    status: 500,
-                    message: 'Request could not be completed.',
-                },
-            });
-        });
-};
-
 exports.create = (req, res) => {
     GameController.create(req.body)
         .then((game) => {
@@ -40,6 +23,23 @@ exports.deleteById = (req, res) => {
             res
                 .status(204)
                 .end();
+        })
+        .catch(() => {
+            res.status(500).json({
+                error: {
+                    status: 500,
+                    message: 'Request could not be completed.',
+                },
+            });
+        });
+};
+
+exports.getAll = (req, res) => {
+    GameController.getAll()
+        .then((games) => {
+            res.json({
+                data: games,
+            });
         })
         .catch(() => {
             res.status(500).json({
