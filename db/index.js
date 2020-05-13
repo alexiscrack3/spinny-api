@@ -7,13 +7,13 @@ let db = null;
 function getConnetionString() {
     const connectionString = new ConnectionString({
         protocol: 'mongodb://',
-        username: process.env.DB_USER,
-        password: process.env.DB_PASS,
+        username: process.env.MONGO_USERNAME,
+        password: process.env.MONGO_PASSWORD,
         hosts: [{
-            host: process.env.DB_HOST,
-            port: process.env.DB_PORT,
+            host: process.env.MONGO_HOSTNAME,
+            port: process.env.MONGO_PORT,
         }],
-        database: process.env.DB_NAME,
+        database: process.env.MONGO_DB,
     });
     return connectionString.toURI();
 }
