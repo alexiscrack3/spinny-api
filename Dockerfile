@@ -2,13 +2,13 @@ FROM mongo-express:latest
 
 RUN apk update && apk --no-cache --update add vim
 
-# COPY ["package.json", "package-lock.json", "/usr/src/"]
-COPY [".", "/usr/src/"]
-
 WORKDIR /usr/src
 
-RUN npm install
+COPY ["package.json", "package-lock.json", "/usr/src/"]
+RUN npm install --only=prod
+
+COPY [".", "/usr/src/"]
 
 EXPOSE 3000
 
-CMD ["npm", "run", "prod"]
+CMD ["npm", "run", "start:prod"]

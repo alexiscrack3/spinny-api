@@ -4,8 +4,11 @@ services:
     api:
         build: .
         container_name: api
+        env_file: .env
         environment: 
-            MONGO_HOSTNAME: "db"
+            MONGO_HOSTNAME: db
+            MONGO_PORT: $MONGO_PORT
+            MONGO_DB: $MONGO_DB
         depends_on: 
             - db
         ports: 
