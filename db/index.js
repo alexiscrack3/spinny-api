@@ -1,23 +1,25 @@
 const mongoose = require('mongoose');
+const { ConnectionString } = require('mongo-connection-string');
 const debug = require('debug')('spinny:database');
 
 let db = null;
 
-function buildConnString() {
-    let connString = 'mongodb://';
-    if (process.env.DB_USER && process.env.DB_PASS) {
-        connString += `${process.env.DB_USER}:${process.env.DB_PASS}@`;
-    }
-    connString += process.env.DB_HOST;
-    if (process.env.DB_PORT) {
-        connString += `:${process.env.DB_PORT}`;
-    }
-    connString += `/${process.env.DB_NAME}`;
-    return connString;
+function getConnetionString() {
+    const connectionString = new ConnectionString({
+        protocol: 'mongodb://',
+        username: process.env.DB_USER,
+        password: process.env.DB_PASS,
+        hosts: [{
+            host: process.env.DB_HOST,
+            port: process.env.DB_PORT,
+        }],
+        database: process.env.DB_NAME,
+    });
+    return connectionString.toURI();
 }
 
 module.exports = {
-    connect: (uris = buildConnString()) => new Promise((resolve, reject) => {
+    connect: (uris = getConnetionString()) => new Promise((resolve, reject) => {
         const options = {
             useNewUrlParser: true,
             useFindAndModify: false,
@@ -25,7 +27,7 @@ module.exports = {
             useUnifiedTopology: true,
         };
         mongoose.connect(uris, options).then((client) => {
-            debug(`Connected to ${client.connection.name}`);
+            debug(`Connected to ${uris}`);
             db = client;
             resolve(client);
         }, (err) => {
