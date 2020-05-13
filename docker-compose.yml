@@ -18,7 +18,12 @@ services:
         container_name: db
         networks:
             - custom-network
+        volumes:
+            - dbdata:/data/db
 
 networks:
     custom-network:
         driver: bridge
+
+volumes:
+  dbdata:
