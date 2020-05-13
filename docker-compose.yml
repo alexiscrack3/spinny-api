@@ -11,6 +11,14 @@ services:
         ports: 
             - "80:3000"
             # - "3000-3010:3000"
+        networks:
+            - custom-network
     db:
         image: mongo
         container_name: db
+        networks:
+            - custom-network
+
+networks:
+    custom-network:
+        driver: bridge
