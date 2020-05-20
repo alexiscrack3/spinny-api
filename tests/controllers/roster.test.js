@@ -32,7 +32,7 @@ describe('roster controller', () => {
                 expect(Roster.find.mock.calls.length).toBe(1);
                 expect(Roster.populate.mock.calls.length).toBe(2);
                 expect(Roster.populate.mock.calls[0][0]).toBe('club');
-                expect(Roster.populate.mock.calls[1][0]).toBe('player');
+                expect(Roster.populate.mock.calls[1][0]).toEqual({ path: 'player', select: 'email' });
                 expect(Roster.exec.mock.calls.length).toBe(1);
                 done();
             }).catch((err) => {

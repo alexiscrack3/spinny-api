@@ -4,5 +4,9 @@ exports.create = body => Roster.create(body);
 
 exports.getAll = () => Roster.find()
     .populate('club')
-    .populate('player')
+    .populate({
+        path: 'player',
+        select: 'email',
+        // select: 'email -_id',
+    })
     .exec();
