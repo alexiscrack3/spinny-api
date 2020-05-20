@@ -36,13 +36,14 @@ rosterRouter
     .get('/', RosterRoutes.getAll);
 
 clubRouter
-    .post('/', ClubRoutes.create);
+    .post('/', ClubRoutes.create)
+    .get('/', ClubRoutes.getAll);
 
 module.exports = {
     '/': indexRouter,
     '/auth': authRouter,
     '/players': playerRouter,
     '/games': gameRouter,
-    '/club': clubRouter,
+    '/clubs': clubRouter,
     '/roster': rosterRouter,
 };
