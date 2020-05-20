@@ -47,3 +47,53 @@ describe('GET /roster', () => {
             });
     });
 });
+
+describe('POST /roster', () => {
+    it('responds with json containing a roster', (done) => {
+        const body = {
+            club: new mongoose.Types.ObjectId(),
+            player: new mongoose.Types.ObjectId(),
+        };
+        const roster = Roster(body);
+        mockingoose(Roster).toReturn(roster, 'save');
+
+        request(app)
+            .post('/roster')
+            .send(body)
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .then((res) => {
+                const { data } = res.body;
+                expect(data.club).toBe(body.club.toHexString());
+                expect(data.player).toBe(body.player.toHexString());
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
+    });
+
+    it('responds with json containing an error', (done) => {
+        const statusCode = 500;
+        const body = {
+            club: new mongoose.Types.ObjectId(),
+            player: new mongoose.Types.ObjectId(),
+        };
+        mockingoose(Roster).toReturn(new Error(), 'save');
+
+        request(app)
+            .post('/roster')
+            .send(body)
+            .expect('Content-Type', /json/)
+            .expect(statusCode)
+            .then((res) => {
+                const err = res.body.error;
+                expect(err.status).toBe(statusCode);
+                expect(err.message).toBeDefined();
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
+    });
+});

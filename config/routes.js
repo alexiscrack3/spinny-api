@@ -32,12 +32,13 @@ gameRouter
     .post('/', GameRoutes.create)
     .delete('/:id', GameRoutes.deleteById);
 
-rosterRouter
-    .get('/', RosterRoutes.getAll);
-
 clubRouter
-    .post('/', ClubRoutes.create)
-    .get('/', ClubRoutes.getAll);
+    .get('/', ClubRoutes.getAll)
+    .post('/', ClubRoutes.create);
+
+rosterRouter
+    .get('/', RosterRoutes.getAll)
+    .post('/', RosterRoutes.create);
 
 module.exports = {
     '/': indexRouter,
