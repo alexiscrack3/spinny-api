@@ -3,6 +3,7 @@ const passport = require('passport');
 const AuthRoutes = require('../app/routes/auth');
 const PlayerRoutes = require('../app/routes/player');
 const GameRoutes = require('../app/routes/game');
+const RosterRoutes = require('../app/routes/roster');
 
 require('../app/helpers/passport');
 
@@ -10,6 +11,7 @@ const indexRouter = express.Router();
 const authRouter = express.Router();
 const playerRouter = express.Router();
 const gameRouter = express.Router();
+const rosterRouter = express.Router();
 
 indexRouter.get('/', (req, res) => {
     res.send('Hello World!');
@@ -28,9 +30,13 @@ gameRouter
     .post('/', GameRoutes.create)
     .delete('/:id', GameRoutes.deleteById);
 
+rosterRouter
+    .get('/', RosterRoutes.getAll);
+
 module.exports = {
     '/': indexRouter,
     '/auth': authRouter,
     '/players': playerRouter,
     '/games': gameRouter,
+    '/roster': rosterRouter,
 };
