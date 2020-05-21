@@ -4,7 +4,6 @@ const AuthRoutes = require('../app/routes/auth');
 const PlayerRoutes = require('../app/routes/player');
 const GameRoutes = require('../app/routes/game');
 const ClubRoutes = require('../app/routes/club');
-const RosterRoutes = require('../app/routes/roster');
 
 require('../app/helpers/passport');
 
@@ -12,7 +11,6 @@ const indexRouter = express.Router();
 const authRouter = express.Router();
 const playerRouter = express.Router();
 const gameRouter = express.Router();
-const rosterRouter = express.Router();
 const clubRouter = express.Router();
 
 indexRouter.get('/', (req, res) => {
@@ -36,15 +34,10 @@ clubRouter
     .get('/', ClubRoutes.getAll)
     .post('/', ClubRoutes.create);
 
-rosterRouter
-    .get('/', RosterRoutes.getAll)
-    .post('/', RosterRoutes.create);
-
 module.exports = {
     '/': indexRouter,
     '/auth': authRouter,
     '/players': playerRouter,
     '/games': gameRouter,
     '/clubs': clubRouter,
-    '/roster': rosterRouter,
 };
