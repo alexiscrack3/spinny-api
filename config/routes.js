@@ -32,7 +32,8 @@ gameRouter
 
 clubRouter
     .get('/', ClubRoutes.getAll)
-    .post('/', ClubRoutes.create);
+    .post('/', ClubRoutes.create)
+    .post('/:id/players', ClubRoutes.addPlayer);
 
 module.exports = {
     '/': indexRouter,

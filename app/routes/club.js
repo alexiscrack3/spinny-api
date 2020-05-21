@@ -33,3 +33,20 @@ exports.getAll = (req, res) => {
             });
         });
 };
+
+exports.addPlayer = (req, res) => {
+    ClubController.addPlayer(req.params.id, req.body.playerId)
+        .then(() => {
+            res
+                .status(204)
+                .end();
+        })
+        .catch(() => {
+            res.status(500).json({
+                error: {
+                    status: 500,
+                    message: 'Request could not be completed.',
+                },
+            });
+        });
+};

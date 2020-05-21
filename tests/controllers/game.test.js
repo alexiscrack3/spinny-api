@@ -11,6 +11,7 @@ describe('game controller', () => {
     describe('deleteById', () => {
         let GameController;
         let Game;
+
         jest.isolateModules(() => {
             GameController = require('../../app/controllers/game');
             Game = require('../../app/models/game');
@@ -55,6 +56,7 @@ describe('game controller', () => {
     describe('create', () => {
         let GameController;
         let Game;
+
         jest.isolateModules(() => {
             GameController = require('../../app/controllers/game');
             Game = require('../../app/models/game');
@@ -92,6 +94,7 @@ describe('game controller', () => {
     describe('getAll', () => {
         let GameController;
         let Game;
+
         jest.isolateModules(() => {
             GameController = require('../../app/controllers/game');
             Game = require('../../app/models/game');

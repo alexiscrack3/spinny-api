@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const mockingoose = require('mockingoose').default;
 const request = require('supertest');
 const app = require('../../app');
@@ -86,6 +87,37 @@ describe('GET /clubs', () => {
                 expect(err.status).toBe(statusCode);
                 expect(err.message).toBeDefined();
                 done();
+            });
+    });
+});
+
+describe('POST /clubs/:id/players', () => {
+    it('responds with no content', (done) => {
+        const id = new mongoose.Types.ObjectId().toHexString();
+        mockingoose(Club).toReturn({ nModified: 1 }, 'update');
+
+        request(app)
+            .post(`/clubs/${id}/players`)
+            .expect(204, done);
+    });
+
+    it('responds with json containing an error', (done) => {
+        const statusCode = 500;
+        const id = new mongoose.Types.ObjectId().toHexString();
+        mockingoose(Club).toReturn(new Error(), 'update');
+
+        request(app)
+            .post(`/clubs/${id}/players`)
+            .expect('Content-Type', /json/)
+            .expect(statusCode)
+            .then((res) => {
+                const err = res.body.error;
+                expect(err.status).toBe(statusCode);
+                expect(err.message).toBeDefined();
+                done();
+            })
+            .catch((err) => {
+                done(err);
             });
     });
 });
