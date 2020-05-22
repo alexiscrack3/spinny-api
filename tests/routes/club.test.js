@@ -74,6 +74,29 @@ describe('GET /clubs', () => {
             });
     });
 
+    it('responds with json containing a list of clubs that the player is part of', (done) => {
+        const id = new mongoose.Types.ObjectId().toHexString();
+        const body = {
+            name: 'club',
+        };
+        const club = Club(body);
+        mockingoose(Club).toReturn([club], 'find');
+
+        request(app)
+            .get(`/clubs?playerId=${id}`)
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .then((res) => {
+                const { data } = res.body;
+                expect(data.length).toBe(1);
+
+                const obj = data[0];
+                expect(obj.email).toBe(body.email);
+                expect(obj.password).toBe(body.password);
+                done();
+            });
+    });
+
     it('responds with json containing an error', (done) => {
         const statusCode = 500;
         mockingoose(Club).toReturn(new Error(), 'find');
