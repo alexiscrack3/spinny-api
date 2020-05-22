@@ -4,7 +4,9 @@ const AuthRoutes = require('../app/routes/auth');
 const PlayersController = require('../app/controllers/players');
 const PlayerRoutes = require('../app/routes/player');
 const Player = require('../app/models/player');
+const GamesController = require('../app/controllers/games');
 const GameRoutes = require('../app/routes/game');
+const Game = require('../app/models/game');
 const ClubsController = require('../app/controllers/clubs');
 const ClubRoutes = require('../app/routes/club');
 const Club = require('../app/models/club');
@@ -18,6 +20,8 @@ const playersController = new PlayersController(Player);
 const playerRoutes = new PlayerRoutes(playersController);
 const playerRouter = express.Router();
 
+const gamesController = new GamesController(Game);
+const gameRoutes = new GameRoutes(gamesController);
 const gameRouter = express.Router();
 
 const clubsController = new ClubsController(Club);
@@ -37,9 +41,9 @@ playerRouter
     .get('/:id', (req, res) => playerRoutes.getById(req, res));
 
 gameRouter
-    .get('/', GameRoutes.getAll)
-    .post('/', GameRoutes.create)
-    .delete('/:id', GameRoutes.deleteById);
+    .get('/', (req, res) => gameRoutes.getAll(req, res))
+    .post('/', (req, res) => gameRoutes.create(req, res))
+    .delete('/:id', (req, res) => gameRoutes.deleteById(req, res));
 
 clubRouter
     .get('/', (req, res) => clubRoutes.getAll(req, res))
