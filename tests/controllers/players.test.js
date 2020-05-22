@@ -1,5 +1,5 @@
 const MockModel = require('jest-mongoose-mock');
-const PlayerController = require('../../app/controllers/player');
+const PlayerController = require('../../app/controllers/players');
 const Player = require('../../app/models/player');
 
 jest.mock('../../app/models/player', () => new MockModel());

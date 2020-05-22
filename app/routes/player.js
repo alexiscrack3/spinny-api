@@ -1,7 +1,7 @@
-const PlayerController = require('../controllers/player');
+const PlayersController = require('../controllers/players');
 
 exports.getAll = (req, res) => {
-    PlayerController.getAll()
+    PlayersController.getAll()
         .then((players) => {
             res.json({
                 data: players,
@@ -18,7 +18,7 @@ exports.getAll = (req, res) => {
 };
 
 exports.getProfile = (req, res) => {
-    PlayerController.getById(req.user.id)
+    PlayersController.getById(req.user.id)
         .then((player) => {
             res.json({
                 data: player,
@@ -35,7 +35,7 @@ exports.getProfile = (req, res) => {
 };
 
 exports.getById = (req, res) => {
-    PlayerController.getById(req.params.id)
+    PlayersController.getById(req.params.id)
         .then((player) => {
             res.json({
                 data: player,
