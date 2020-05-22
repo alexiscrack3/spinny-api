@@ -1,9 +1,23 @@
-const Player = require('../models/player');
+class PlayersController {
+    constructor(player) {
+        this.player = player;
+    }
 
-exports.create = body => Player.create(body);
+    create(body) {
+        return this.player.create(body);
+    }
 
-exports.getById = id => Player.findById(id);
+    getById(id) {
+        return this.player.findById(id);
+    }
 
-exports.getByEmail = email => Player.findOne({ email });
+    getByEmail(email) {
+        return this.player.findOne({ email });
+    }
 
-exports.getAll = () => Player.find({});
+    getAll() {
+        return this.player.find();
+    }
+}
+
+module.exports = PlayersController;
