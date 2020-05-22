@@ -9,11 +9,11 @@ describe('game controller', () => {
     });
 
     describe('deleteById', () => {
-        let GameController;
+        let GamesController;
         let Game;
 
         jest.isolateModules(() => {
-            GameController = require('../../app/controllers/game');
+            GamesController = require('../../app/controllers/games');
             Game = require('../../app/models/game');
         });
 
@@ -26,7 +26,7 @@ describe('game controller', () => {
             };
             const game = Game(body);
             mockingoose(Game).toReturn(game, 'findOneAndRemove');
-            GameController.deleteById(id.toHexString()).then((obj) => {
+            GamesController.deleteById(id.toHexString()).then((obj) => {
                 expect(obj._id.toHexString()).toBe(id.toHexString());
                 expect(obj.winner.toHexString()).toBe(game.winner.toHexString());
                 expect(obj.loser.toString()).toBe(game.loser.toHexString());
@@ -40,25 +40,25 @@ describe('game controller', () => {
             const id = new mongoose.Types.ObjectId().toHexString();
             const error = new Error();
             mockingoose(Game).toReturn(error, 'findOneAndRemove');
-            return GameController.deleteById(id).catch((err) => {
+            return GamesController.deleteById(id).catch((err) => {
                 expect(err).toBe(error);
             });
         });
 
         it('should return error when id does not exist', () => {
             const id = new mongoose.Types.ObjectId().toHexString();
-            return GameController.deleteById(id).catch((err) => {
+            return GamesController.deleteById(id).catch((err) => {
                 expect(err).toEqual(new Error('Game id does not exist'));
             });
         });
     });
 
     describe('create', () => {
-        let GameController;
+        let GamesController;
         let Game;
 
         jest.isolateModules(() => {
-            GameController = require('../../app/controllers/game');
+            GamesController = require('../../app/controllers/games');
             Game = require('../../app/models/game');
         });
 
@@ -69,7 +69,7 @@ describe('game controller', () => {
                 winner: new mongoose.Types.ObjectId(),
                 loser: new mongoose.Types.ObjectId(),
             };
-            GameController.create(body).then(() => {
+            GamesController.create(body).then(() => {
                 expect(Game.create.mock.calls.length).toBe(1);
                 expect(Game.create.mock.calls[0][0]).toBe(body);
                 done();
@@ -84,7 +84,7 @@ describe('game controller', () => {
                 winner: id,
                 loser: id,
             };
-            return GameController.create(body).catch((err) => {
+            return GamesController.create(body).catch((err) => {
                 expect(Game.create.mock.calls.length).toBe(0);
                 expect(err).toEqual(new Error('Winner and loser cannot be same player'));
             });
@@ -92,18 +92,18 @@ describe('game controller', () => {
     });
 
     describe('getAll', () => {
-        let GameController;
+        let GamesController;
         let Game;
 
         jest.isolateModules(() => {
-            GameController = require('../../app/controllers/game');
+            GamesController = require('../../app/controllers/games');
             Game = require('../../app/models/game');
         });
 
         jest.mock('../../app/models/game', () => new MockModel());
 
         it('should get list of games', (done) => {
-            GameController.getAll().then(() => {
+            GamesController.getAll().then(() => {
                 expect(Game.find.mock.calls.length).toBe(1);
                 expect(Game.populate.mock.calls.length).toBe(2);
                 expect(Game.populate.mock.calls[0][0]).toBe('winner');

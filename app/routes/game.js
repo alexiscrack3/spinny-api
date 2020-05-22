@@ -1,7 +1,7 @@
-const GameController = require('../controllers/game');
+const GamesController = require('../controllers/games');
 
 exports.create = (req, res) => {
-    GameController.create(req.body)
+    GamesController.create(req.body)
         .then((game) => {
             res.json({
                 data: game,
@@ -18,7 +18,7 @@ exports.create = (req, res) => {
 };
 
 exports.deleteById = (req, res) => {
-    GameController.deleteById(req.params.id)
+    GamesController.deleteById(req.params.id)
         .then(() => {
             res
                 .status(204)
@@ -35,7 +35,7 @@ exports.deleteById = (req, res) => {
 };
 
 exports.getAll = (req, res) => {
-    GameController.getAll()
+    GamesController.getAll()
         .then((games) => {
             res.json({
                 data: games,

@@ -3,7 +3,7 @@ const sinon = require('sinon');
 const ClubsController = require('../../app/controllers/clubs');
 const Club = require('../../app/models/club');
 
-describe('club controller', () => {
+describe('clubs controller', () => {
     beforeEach(() => {
         sinon.restore();
     });
