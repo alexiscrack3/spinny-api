@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const sinon = require('sinon');
-const ClubController = require('../../app/controllers/club');
+const ClubsController = require('../../app/controllers/clubs');
 const Club = require('../../app/models/club');
 
 describe('club controller', () => {
@@ -19,8 +19,8 @@ describe('club controller', () => {
                 .withArgs(body)
                 .resolves(body);
 
-            const clubController = new ClubController(Club);
-            clubController.create(body).then((club) => {
+            const clubsController = new ClubsController(Club);
+            clubsController.create(body).then((club) => {
                 clubMock.verify();
                 clubMock.restore();
                 expect(body).toBe(club);
@@ -40,8 +40,8 @@ describe('club controller', () => {
                 .withArgs(body)
                 .returns(Promise.reject());
 
-            const clubController = new ClubController(Club);
-            clubController.create(body).then(() => {
+            const clubsController = new ClubsController(Club);
+            clubsController.create(body).then(() => {
                 done();
             }).catch((err) => {
                 clubMock.verify();
@@ -62,8 +62,8 @@ describe('club controller', () => {
                 .expects('find')
                 .resolves(results);
 
-            const clubController = new ClubController(Club);
-            clubController.getAll().then((clubs) => {
+            const clubsController = new ClubsController(Club);
+            clubsController.getAll().then((clubs) => {
                 clubMock.verify();
                 clubMock.restore();
                 expect(results).toBe(clubs);
@@ -79,8 +79,8 @@ describe('club controller', () => {
                 .expects('find')
                 .returns(Promise.reject());
 
-            const clubController = new ClubController(Club);
-            clubController.getAll().then(() => {
+            const clubsController = new ClubsController(Club);
+            clubsController.getAll().then(() => {
                 done();
             }).catch((err) => {
                 clubMock.verify();
@@ -103,8 +103,8 @@ describe('club controller', () => {
                 )
                 .yields(null, { nModified: 1 });
 
-            const clubController = new ClubController(Club);
-            clubController.addPlayer(id, playerId).then(() => {
+            const clubsController = new ClubsController(Club);
+            clubsController.addPlayer(id, playerId).then(() => {
                 clubMock.verify();
                 clubMock.restore();
                 done();
@@ -125,8 +125,8 @@ describe('club controller', () => {
                     { $push: { members: playerId } },
                 )
                 .yields(error, null);
-            const clubController = new ClubController(Club);
-            return clubController.addPlayer(id, playerId).catch((err) => {
+            const clubsController = new ClubsController(Club);
+            return clubsController.addPlayer(id, playerId).catch((err) => {
                 expect(err).toBe(error);
             });
         });
@@ -142,8 +142,8 @@ describe('club controller', () => {
                     { $push: { members: playerId } },
                 )
                 .yields(null, { nModified: 0 });
-            const clubController = new ClubController(Club);
-            return clubController.addPlayer(id, playerId).catch((err) => {
+            const clubsController = new ClubsController(Club);
+            return clubsController.addPlayer(id, playerId).catch((err) => {
                 expect(err).toEqual(new Error('Player was not added to the club'));
             });
         });

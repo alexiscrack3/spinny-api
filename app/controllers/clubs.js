@@ -1,4 +1,4 @@
-class ClubController {
+class ClubsController {
     constructor(club) {
         this.club = club;
     }
@@ -41,4 +41,4 @@ class ClubController {
     }
 }
 
-module.exports = ClubController;
+module.exports = ClubsController;
