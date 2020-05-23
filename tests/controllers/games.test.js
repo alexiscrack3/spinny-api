@@ -110,8 +110,8 @@ describe('GamesController', () => {
                 loser: new mongoose.Types.ObjectId(),
             };
             const results = [body];
-            const gameStub = sinon.stub(Game, 'find');
-            gameStub.returns({
+            const stub = sinon.stub(Game, 'find');
+            stub.returns({
                 find: sinon.stub().returnsThis(),
                 populate: sinon.stub().returnsThis(),
                 exec: sinon.stub().resolves(results),
@@ -119,7 +119,7 @@ describe('GamesController', () => {
 
             const testObject = new GamesController(Game);
             testObject.getAll().then((games) => {
-                gameStub.restore();
+                stub.restore();
                 expect(results).toBe(games);
                 done();
             }).catch((err) => {
