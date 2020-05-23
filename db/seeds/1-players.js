@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 const faker = require('faker');
-const Player = require('../../../app/models/player');
+const Player = require('../../app/models/player');
 
 const password = 'asdf';
 const players = [

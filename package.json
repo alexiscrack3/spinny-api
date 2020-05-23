@@ -4,13 +4,11 @@
   "description": "An API to enter the results of ping pong matches and rate players using the ELO system",
   "private": false,
   "main": "app.js",
-  "scripts": {
+  "scripts": {  
     "start": "NODE_ENV=development DEBUG=spinny:* nodemon --inspect ./bin/www",
     "start:prod": "NODE_ENV=production node ./bin/www",
-    "db:seed": "NODE_ENV=development node ./db/seeds.js",
-    "db:drop": "NODE_ENV=development node ./db/drop.js",
-    "db:test:seed": "NODE_ENV=test node ./db/seeds.js",
-    "db:test:drop": "NODE_ENV=test node ./db/drop.js",
+    "db:seed": "node ./db/seeds.js",
+    "db:drop": "node ./db/drop.js",
     "tests": "SECRET_KEY=secret jest --verbose",
     "tests:watch": "SECRET_KEY=secret jest --watch",
     "tests:report": "SECRET_KEY=secret jest --coverage",
