@@ -150,7 +150,7 @@ describe('GET /clubs?playerId=:id', () => {
     });
 });
 
-describe('POST /clubs/:id/players', () => {
+describe('PUT /clubs/:id/players', () => {
     it('responds with no content', (done) => {
         const id = new mongoose.Types.ObjectId().toHexString();
         mockingoose(Club).toReturn({ nModified: 1 }, 'update');
