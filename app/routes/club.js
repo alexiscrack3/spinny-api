@@ -23,7 +23,7 @@ class ClubRoutes {
     getAll(req, res) {
         let documentQuery = null;
         if (req.query && req.query.playerId) {
-            documentQuery = this.clubsController.getByPlayerId(req.query.playerId);
+            documentQuery = this.clubsController.getAllByPlayerId(req.query.playerId);
         } else {
             documentQuery = this.clubsController.getAll();
         }

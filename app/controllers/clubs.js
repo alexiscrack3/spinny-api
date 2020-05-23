@@ -11,6 +11,16 @@ class ClubsController {
         return this.club.find();
     }
 
+    getAllByPlayerId(playerId) {
+        return this.club.find({ members: { $in: [playerId] } })
+            .populate({
+                path: 'members',
+                select: 'email',
+                // select: 'email -_id',
+            })
+            .exec();
+    }
+
     addPlayer(id, playerId) {
         return new Promise((resolve, reject) => {
             this.club.update(
@@ -27,17 +37,6 @@ class ClubsController {
                 },
             );
         });
-    }
-
-    // TODO: Test
-    getByPlayerId(id) {
-        return this.club.find({ members: { $in: [id] } })
-            .populate({
-                path: 'members',
-                select: 'email',
-                // select: 'email -_id',
-            })
-            .exec();
     }
 }
 
