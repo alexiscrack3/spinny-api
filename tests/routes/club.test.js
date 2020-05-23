@@ -124,7 +124,7 @@ describe('GET /clubs', () => {
 
 describe('GET /clubs?playerId=:id', () => {
     it('responds with json containing a list of clubs that the player belongs to', (done) => {
-        const playerId = new mongoose.Types.ObjectId().toHexString();
+        const id = new mongoose.Types.ObjectId().toHexString();
         const body = {
             name: 'club',
         };
@@ -132,7 +132,8 @@ describe('GET /clubs?playerId=:id', () => {
         mockingoose(Club).toReturn(results, 'find');
 
         request(app)
-            .get(`/clubs?playerId=${playerId}`)
+            .get('/clubs')
+            .query({ playerId: id })
             .expect('Content-Type', /json/)
             .expect(200)
             .then((res) => {
