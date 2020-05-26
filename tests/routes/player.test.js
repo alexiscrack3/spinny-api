@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const mockingoose = require('mockingoose').default;
 const request = require('supertest');
 const passport = require('passport');
@@ -120,11 +121,12 @@ describe('GET /players/:id', () => {
     });
 
     it('responds with json containing an error', (done) => {
+        const id = new mongoose.Types.ObjectId().toHexString();
         const statusCode = 404;
         mockingoose(Player).toReturn(new Error(), 'findOne');
 
         request(app)
-            .get('/players/1')
+            .get(`/players/${id}`)
             .expect('Content-Type', /json/)
             .expect(statusCode)
             .then((res) => {
