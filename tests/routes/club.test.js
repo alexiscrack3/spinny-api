@@ -122,6 +122,43 @@ describe('GET /clubs', () => {
     });
 });
 
+describe('GET /clubs/:id', () => {
+    it('responds with json containing a club', (done) => {
+        const body = {
+            name: 'club',
+        };
+        const club = Club(body);
+        mockingoose(Club).toReturn(club, 'findOne');
+
+        request(app)
+            .get(`/clubs/${club.id}`)
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .then((res) => {
+                const { data } = res.body;
+                expect(data.name).toBe(body.name);
+                done();
+            });
+    });
+
+    it('responds with json containing an error', (done) => {
+        const id = new mongoose.Types.ObjectId().toHexString();
+        const statusCode = 404;
+        mockingoose(Club).toReturn(new Error(), 'findOne');
+
+        request(app)
+            .get(`/clubs/${id}`)
+            .expect('Content-Type', /json/)
+            .expect(statusCode)
+            .then((res) => {
+                const err = res.body.error;
+                expect(err.status).toBe(statusCode);
+                expect(err.message).toBeDefined();
+                done();
+            });
+    });
+});
+
 describe('GET /clubs?playerId=:id', () => {
     it('responds with json containing a list of clubs that the player belongs to', (done) => {
         const id = new mongoose.Types.ObjectId().toHexString();

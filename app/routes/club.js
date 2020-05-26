@@ -20,6 +20,23 @@ class ClubRoutes {
             });
     }
 
+    getById(req, res) {
+        this.clubsController.getById(req.params.id)
+            .then((club) => {
+                res.json({
+                    data: club,
+                });
+            })
+            .catch(() => {
+                res.status(404).json({
+                    error: {
+                        status: 404,
+                        message: 'Club not found.',
+                    },
+                });
+            });
+    }
+
     getAll(req, res) {
         let documentQuery = null;
         if (req.query && req.query.playerId) {

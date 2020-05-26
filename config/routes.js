@@ -47,6 +47,7 @@ gameRouter
 
 clubRouter
     .get('/', (req, res) => clubRoutes.getAll(req, res))
+    .get('/:id', (req, res) => clubRoutes.getById(req, res))
     .post('/', (req, res) => clubRoutes.create(req, res))
     .put('/:id/players', (req, res) => clubRoutes.addPlayer(req, res));
 

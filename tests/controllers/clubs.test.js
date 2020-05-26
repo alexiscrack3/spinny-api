@@ -9,7 +9,7 @@ describe('ClubsController', () => {
     });
 
     describe('create', () => {
-        it('should invoke create club on model', () => {
+        it('should invoke create on model', () => {
             const body = {
                 name: 'club',
             };
@@ -19,6 +19,18 @@ describe('ClubsController', () => {
             testObject.create(body);
 
             expect(stub.calledWith(body)).toBeTruthy();
+        });
+    });
+
+    describe('getById', () => {
+        it('should invoke findById on model', () => {
+            const id = new mongoose.Types.ObjectId().toHexString();
+            const spy = sinon.spy(Club, 'findById');
+            const testObject = new ClubsController(Club);
+
+            testObject.getById(id);
+
+            expect(spy.withArgs(id).calledOnce).toBeTruthy();
         });
     });
 

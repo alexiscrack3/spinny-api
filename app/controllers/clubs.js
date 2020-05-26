@@ -7,6 +7,10 @@ class ClubsController {
         return this.club.create(body);
     }
 
+    getById(id) {
+        return this.club.findById(id);
+    }
+
     getAll() {
         return this.club.find();
     }
