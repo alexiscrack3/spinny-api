@@ -3,6 +3,7 @@ const JwtStrategy = require('passport-jwt').Strategy;
 const { ExtractJwt } = require('passport-jwt');
 const passport = require('passport');
 const PlayersController = require('../controllers/players');
+const Player = require('../models/player');
 
 // we are using named strategies since we have one for login and one for signup
 // by default, if there was no name, it would just be called 'local'
@@ -17,7 +18,8 @@ passport.use('local-login', new LocalStrategy({
     process.nextTick(() => {
         // find a user whose email is the same as the forms email
         // we are checking to see if the user trying to login already exists
-        PlayersController.getByEmail(email)
+        const playersController = new PlayersController(Player);
+        playersController.getByEmail(email)
             .then((user) => {
                 // if no user is found, return the message
                 if (!user) {
@@ -53,12 +55,13 @@ passport.use('local-signup', new LocalStrategy({
         if (email && password) {
             const emailRegex = /^([A-Za-z0-9_\-.+])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,})$/;
             if (emailRegex.test(email)) {
-                PlayersController.getByEmail(email)
+                const playersController = new PlayersController(Player);
+                playersController.getByEmail(email)
                     .then((player) => {
                         if (player) {
                             throw new Error('Email already exists');
                         } else {
-                            return PlayersController.create(req.body);
+                            return playersController.create(req.body);
                         }
                     })
                     .then((player) => {
@@ -84,7 +87,8 @@ passport.use(new JwtStrategy({
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     secretOrKey: process.env.SECRET_KEY,
 }, (jwtPayload, done) => {
-    PlayersController.getById(jwtPayload.id)
+    const playersController = new PlayersController(Player);
+    playersController.getById(jwtPayload.id)
         .then((player) => {
             done(null, player);
         })
