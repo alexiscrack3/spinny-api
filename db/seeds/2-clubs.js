@@ -3,7 +3,7 @@ const faker = require('faker');
 const Club = require('../../app/models/club');
 
 const clubs = [];
-for (let index = 0; index < 10; index += 1) {
+for (let index = 0; index < 50; index += 1) {
     const club = new Club({
         name: faker.random.words().toLowerCase(),
     });
