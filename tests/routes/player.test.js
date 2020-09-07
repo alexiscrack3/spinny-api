@@ -142,14 +142,10 @@ describe('PUT /players/:id', () => {
     it('responds with json containing a player', (done) => {
         const id = new mongoose.Types.ObjectId().toHexString();
         const body = {
-            email: 'user@spinny.com',
-            password: 'password',
-        };
-        const doc = {
             email: 'newuser@spinny.com',
             password: 'password',
         };
-        const player = Player(doc);
+        const player = Player(body);
         mockingoose(Player).toReturn(player, 'findOneAndUpdate');
 
         request(app)
@@ -159,7 +155,7 @@ describe('PUT /players/:id', () => {
             .expect(200)
             .then((res) => {
                 const { data } = res.body;
-                expect(data.email).toBe(doc.email);
+                expect(data.email).toBe(body.email);
                 expect(data.password).toBeDefined();
                 done();
             });
