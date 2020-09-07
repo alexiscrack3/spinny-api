@@ -8,14 +8,16 @@ class PlayerRoutes {
             .then((players) => {
                 res.json({
                     data: players,
+                    errors: [],
                 });
             })
             .catch(() => {
                 res.status(500).json({
-                    error: {
-                        status: 500,
-                        message: 'Request could not be completed.',
-                    },
+                    data: null,
+                    errors: [{
+                        code: 'INTERNAL_ERROR',
+                        message: 'Something went wrong.',
+                    }],
                 });
             });
     }
@@ -23,16 +25,28 @@ class PlayerRoutes {
     getProfile(req, res) {
         this.playersController.getById(req.user.id)
             .then((player) => {
-                res.json({
-                    data: player,
-                });
+                if (player) {
+                    res.json({
+                        data: player,
+                        errors: [],
+                    });
+                } else {
+                    res.status(404).json({
+                        data: null,
+                        errors: [{
+                            code: 'INVALID_PARAMETER',
+                            message: 'Player not found.',
+                        }],
+                    });
+                }
             })
             .catch(() => {
-                res.status(404).json({
-                    error: {
-                        status: 404,
-                        message: 'Player not found.',
-                    },
+                res.status(500).json({
+                    data: null,
+                    errors: [{
+                        code: 'INTERNAL_ERROR',
+                        message: 'Something went wrong.',
+                    }],
                 });
             });
     }
@@ -40,16 +54,28 @@ class PlayerRoutes {
     getById(req, res) {
         this.playersController.getById(req.params.id)
             .then((player) => {
-                res.json({
-                    data: player,
-                });
+                if (player) {
+                    res.json({
+                        data: player,
+                        errors: [],
+                    });
+                } else {
+                    res.status(404).json({
+                        data: null,
+                        errors: [{
+                            code: 'INVALID_PARAMETER',
+                            message: 'Player not found.',
+                        }],
+                    });
+                }
             })
             .catch(() => {
-                res.status(404).json({
-                    error: {
-                        status: 404,
-                        message: 'Player not found.',
-                    },
+                res.status(500).json({
+                    data: null,
+                    errors: [{
+                        code: 'INTERNAL_ERROR',
+                        message: 'Something went wrong.',
+                    }],
                 });
             });
     }
@@ -57,16 +83,28 @@ class PlayerRoutes {
     updateById(req, res) {
         this.playersController.updateById(req.params.id, req.body)
             .then((player) => {
-                res.json({
-                    data: player,
-                });
+                if (player) {
+                    res.json({
+                        data: player,
+                        errors: [],
+                    });
+                } else {
+                    res.status(404).json({
+                        data: null,
+                        errors: [{
+                            code: 'INVALID_PARAMETER',
+                            message: 'Player not found.',
+                        }],
+                    });
+                }
             })
             .catch(() => {
-                res.status(404).json({
-                    error: {
-                        status: 404,
-                        message: 'Player not found.',
-                    },
+                res.status(500).json({
+                    data: null,
+                    errors: [{
+                        code: 'INTERNAL_ERROR',
+                        message: 'Something went wrong.',
+                    }],
                 });
             });
     }

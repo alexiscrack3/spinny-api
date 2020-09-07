@@ -20,28 +20,88 @@ describe('GET /players', () => {
             .expect('Content-Type', /json/)
             .expect(200)
             .then((res) => {
-                const { data } = res.body;
-                expect(data.length).toBe(1);
-
+                const { data, errors } = res.body;
                 const obj = data[0];
+                expect(data.length).toBe(1);
                 expect(obj.email).toBe(body.email);
                 expect(obj.password).toBe(body.password);
+                expect(errors.length).toBe(0);
                 done();
             });
     });
 
     it('responds with json containing an error', (done) => {
-        const statusCode = 500;
         mockingoose(Player).toReturn(new Error(), 'find');
 
         request(app)
             .get('/players')
             .expect('Content-Type', /json/)
-            .expect(statusCode)
+            .expect(500)
             .then((res) => {
-                const err = res.body.error;
-                expect(err.status).toBe(statusCode);
-                expect(err.message).toBeDefined();
+                const { data, errors } = res.body;
+                const err = errors[0];
+                expect(data).toBeNull();
+                expect(err.code).toBe('INTERNAL_ERROR');
+                expect(err.message).toBe('Something went wrong.');
+                done();
+            });
+    });
+});
+
+describe('GET /players/:id', () => {
+    it('responds with json containing a player', (done) => {
+        const body = {
+            email: 'user@spinny.com',
+            password: 'password',
+        };
+        const player = Player(body);
+        mockingoose(Player).toReturn(player, 'findOne');
+
+        request(app)
+            .get(`/players/${player.id}`)
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .then((res) => {
+                const { data, errors } = res.body;
+                expect(data.email).toBe(body.email);
+                expect(data.password).toBe(body.password);
+                expect(errors.length).toBe(0);
+                done();
+            });
+    });
+
+    it('responds with json containing an error when player is not found', (done) => {
+        const id = new mongoose.Types.ObjectId().toHexString();
+        mockingoose(Player).toReturn(null, 'findOne');
+
+        request(app)
+            .get(`/players/${id}`)
+            .expect('Content-Type', /json/)
+            .expect(404)
+            .then((res) => {
+                const { data, errors } = res.body;
+                const err = errors[0];
+                expect(data).toBeNull();
+                expect(err.code).toBe('INVALID_PARAMETER');
+                expect(err.message).toBe('Player not found.');
+                done();
+            });
+    });
+
+    it('responds with json containing an error', (done) => {
+        const id = new mongoose.Types.ObjectId().toHexString();
+        mockingoose(Player).toReturn(new Error(), 'findOne');
+
+        request(app)
+            .get(`/players/${id}`)
+            .expect('Content-Type', /json/)
+            .expect(500)
+            .then((res) => {
+                const { data, errors } = res.body;
+                const err = errors[0];
+                expect(data).toBeNull();
+                expect(err.code).toBe('INTERNAL_ERROR');
+                expect(err.message).toBe('Something went wrong.');
                 done();
             });
     });
@@ -69,9 +129,34 @@ describe('GET /players/me', () => {
             .expect('Content-Type', /json/)
             .expect(200)
             .then((res) => {
-                const { data } = res.body;
+                const { data, errors } = res.body;
                 expect(data.email).toBe(body.email);
                 expect(data.password).toBe(body.password);
+                expect(errors.length).toBe(0);
+                done();
+            });
+    });
+
+    it('responds with json containing an error when player is not found', (done) => {
+        mockingoose(Player).toReturn(null, 'findOne');
+
+        passport.use(new MockStrategy({
+            name: 'jwt',
+            passReqToCallback: true,
+        }, (req, user, cb) => {
+            cb(null, user);
+        }));
+
+        request(app)
+            .get('/players/me')
+            .expect('Content-Type', /json/)
+            .expect(404)
+            .then((res) => {
+                const { data, errors } = res.body;
+                const err = errors[0];
+                expect(data).toBeNull();
+                expect(err.code).toBe('INVALID_PARAMETER');
+                expect(err.message).toBe('Player not found.');
                 done();
             });
     });
@@ -89,50 +174,13 @@ describe('GET /players/me', () => {
         request(app)
             .get('/players/me')
             .expect('Content-Type', /json/)
-            .expect(404)
+            .expect(500)
             .then((res) => {
-                const err = res.body.error;
-                expect(err.status).toBe(404);
-                expect(err).toHaveProperty('message');
-                done();
-            });
-    });
-});
-
-describe('GET /players/:id', () => {
-    it('responds with json containing a player', (done) => {
-        const body = {
-            email: 'user@spinny.com',
-            password: 'password',
-        };
-        const player = Player(body);
-        mockingoose(Player).toReturn(player, 'findOne');
-
-        request(app)
-            .get(`/players/${player.id}`)
-            .expect('Content-Type', /json/)
-            .expect(200)
-            .then((res) => {
-                const { data } = res.body;
-                expect(data.email).toBe(body.email);
-                expect(data.password).toBe(body.password);
-                done();
-            });
-    });
-
-    it('responds with json containing an error', (done) => {
-        const id = new mongoose.Types.ObjectId().toHexString();
-        const statusCode = 404;
-        mockingoose(Player).toReturn(new Error(), 'findOne');
-
-        request(app)
-            .get(`/players/${id}`)
-            .expect('Content-Type', /json/)
-            .expect(statusCode)
-            .then((res) => {
-                const err = res.body.error;
-                expect(err.status).toBe(statusCode);
-                expect(err.message).toBeDefined();
+                const { data, errors } = res.body;
+                const err = errors[0];
+                expect(data).toBeNull();
+                expect(err.code).toBe('INTERNAL_ERROR');
+                expect(err.message).toBe('Something went wrong.');
                 done();
             });
     });
@@ -154,16 +202,34 @@ describe('PUT /players/:id', () => {
             .expect('Content-Type', /json/)
             .expect(200)
             .then((res) => {
-                const { data } = res.body;
+                const { data, errors } = res.body;
                 expect(data.email).toBe(body.email);
                 expect(data.password).toBeDefined();
+                expect(errors.length).toBe(0);
+                done();
+            });
+    });
+
+    it('responds with json containing an error when player is not found', (done) => {
+        const id = new mongoose.Types.ObjectId().toHexString();
+        mockingoose(Player).toReturn(null, 'findOneAndUpdate');
+
+        request(app)
+            .put(`/players/${id}`)
+            .expect('Content-Type', /json/)
+            .expect(404)
+            .then((res) => {
+                const { data, errors } = res.body;
+                const err = errors[0];
+                expect(data).toBeNull();
+                expect(err.code).toBe('INVALID_PARAMETER');
+                expect(err.message).toBe('Player not found.');
                 done();
             });
     });
 
     it('responds with json containing an error', (done) => {
         const id = new mongoose.Types.ObjectId().toHexString();
-        const statusCode = 404;
         const body = {
             email: 'user@spinny.com',
             password: 'password123',
@@ -174,11 +240,13 @@ describe('PUT /players/:id', () => {
             .put(`/players/${id}`)
             .send(body)
             .expect('Content-Type', /json/)
-            .expect(statusCode)
+            .expect(500)
             .then((res) => {
-                const err = res.body.error;
-                expect(err.status).toBe(statusCode);
-                expect(err.message).toBeDefined();
+                const { data, errors } = res.body;
+                const err = errors[0];
+                expect(data).toBeNull();
+                expect(err.code).toBe('INTERNAL_ERROR');
+                expect(err.message).toBe('Something went wrong.');
                 done();
             });
     });
