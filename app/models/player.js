@@ -5,9 +5,10 @@ const saltRounds = 8;
 const { Schema } = mongoose;
 
 const playerSchema = new Schema({
-    // firstName: String,
-    // middleName: String,
-    // lastName: String,
+    firstName: String,
+    lastName: String,
+    image_url: String,
+    phone: String,
     email: {
         type: String,
         required: true,
@@ -16,6 +17,7 @@ const playerSchema = new Schema({
         index: true,
     },
     password: { type: String, required: true },
+    created_at: { type: Date, default: Date.now },
     rating: { type: Number, default: 1000 },
 });
 

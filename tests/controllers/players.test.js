@@ -22,6 +22,21 @@ describe('PlayersController', () => {
         });
     });
 
+    describe('updateById', () => {
+        it('should invoke findOneAndUpdate on model', () => {
+            const id = new mongoose.Types.ObjectId().toHexString();
+            const body = {
+                email: 'user@spinny.io',
+            };
+            const stub = sinon.stub(Player, 'findByIdAndUpdate');
+            const testObject = new PlayersController(Player);
+
+            testObject.updateById(id, body);
+
+            expect(stub.calledWith(id, body, { new: true })).toBeTruthy();
+        });
+    });
+
     describe('getById', () => {
         it('should invoke findById on model', () => {
             const id = new mongoose.Types.ObjectId().toHexString();

@@ -138,46 +138,52 @@ describe('GET /players/:id', () => {
     });
 });
 
-// describe('POST /players', () => {
-//     it('responds with json containing a player', (done) => {
-//         const body = {
-//             email: 'user@spinny.com',
-//             password: 'password',
-//         };
-//         const player = Player(body);
-//         mockingoose(Player).toReturn(player, 'save');
+describe('PUT /players/:id', () => {
+    it('responds with json containing a player', (done) => {
+        const id = new mongoose.Types.ObjectId().toHexString();
+        const body = {
+            email: 'user@spinny.com',
+            password: 'password',
+        };
+        const doc = {
+            email: 'newuser@spinny.com',
+            password: 'password',
+        };
+        const player = Player(doc);
+        mockingoose(Player).toReturn(player, 'findOneAndUpdate');
 
-//         request(app)
-//             .post('/players')
-//             .send(body)
-//             .expect('Content-Type', /json/)
-//             .expect(200)
-//             .then((res) => {
-//                 const { data } = res.body;
-//                 expect(data.email).toBe(body.email);
-//                 expect(data.password).toBeDefined();
-//                 done();
-//             });
-//     });
+        request(app)
+            .put(`/players/${id}`)
+            .send(body)
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .then((res) => {
+                const { data } = res.body;
+                expect(data.email).toBe(doc.email);
+                expect(data.password).toBeDefined();
+                done();
+            });
+    });
 
-//     it('responds with json containing an error', (done) => {
-//         const statusCode = 500;
-//         const body = {
-//             email: 'user@spinny.com',
-//             password: 'password123',
-//         };
-//         mockingoose(Player).toReturn(new Error(), 'save');
+    it('responds with json containing an error', (done) => {
+        const id = new mongoose.Types.ObjectId().toHexString();
+        const statusCode = 404;
+        const body = {
+            email: 'user@spinny.com',
+            password: 'password123',
+        };
+        mockingoose(Player).toReturn(new Error(), 'findOneAndUpdate');
 
-//         request(app)
-//             .post('/players')
-//             .send(body)
-//             .expect('Content-Type', /json/)
-//             .expect(statusCode)
-//             .then((res) => {
-//                 const err = res.body.error;
-//                 expect(err.status).toBe(statusCode);
-//                 expect(err.message).toBeDefined();
-//                 done();
-//             });
-//     });
-// });
+        request(app)
+            .put(`/players/${id}`)
+            .send(body)
+            .expect('Content-Type', /json/)
+            .expect(statusCode)
+            .then((res) => {
+                const err = res.body.error;
+                expect(err.status).toBe(statusCode);
+                expect(err.message).toBeDefined();
+                done();
+            });
+    });
+});

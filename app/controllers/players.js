@@ -7,6 +7,10 @@ class PlayersController {
         return this.player.create(body);
     }
 
+    updateById(id, body) {
+        return this.player.findByIdAndUpdate(id, body, { new: true });
+    }
+
     getById(id) {
         return this.player.findById(id);
     }

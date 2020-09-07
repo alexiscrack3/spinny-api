@@ -38,7 +38,8 @@ authRouter.post('/sign_in', AuthRoutes.signIn);
 playerRouter
     .get('/', (req, res) => playerRoutes.getAll(req, res))
     .get('/me', passport.authenticate('jwt', { session: false }), (req, res) => playerRoutes.getProfile(req, res))
-    .get('/:id', (req, res) => playerRoutes.getById(req, res));
+    .get('/:id', (req, res) => playerRoutes.getById(req, res))
+    .put('/:id', (req, res) => playerRoutes.updateById(req, res));
 
 gameRouter
     .get('/', (req, res) => gameRoutes.getAll(req, res))

@@ -53,6 +53,23 @@ class PlayerRoutes {
                 });
             });
     }
+
+    updateById(req, res) {
+        this.playersController.updateById(req.params.id, req.body)
+            .then((player) => {
+                res.json({
+                    data: player,
+                });
+            })
+            .catch(() => {
+                res.status(404).json({
+                    error: {
+                        status: 404,
+                        message: 'Player not found.',
+                    },
+                });
+            });
+    }
 }
 
 module.exports = PlayerRoutes;
