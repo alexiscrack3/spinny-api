@@ -1,4 +1,4 @@
-const bodyParser = require('./bodyParser');
+const bodyParser = require('./body-parser');
 const cors = require('./cors');
 const express = require('./express');
 const morgan = require('./morgan');
