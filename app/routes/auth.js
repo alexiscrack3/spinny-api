@@ -1,26 +1,23 @@
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
+const APIError = require('./../models/api-error');
+const APIResponse = require('./../models/api-response');
 
 function authenticateUser(req, res, user) {
     req.login(user, { session: false }, (err) => {
         if (err) {
-            res.status(500).json({
-                error: {
-                    status: 500,
-                    message: 'Request could not be completed.',
-                },
-            });
+            res.status(500).json(new APIResponse(null, [
+                new APIError('INTERNAL_ERROR', 'Something went wrong.'),
+            ]));
         } else {
             // generate a signed son web token with the contents of user object and return it in the response
             const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY, {
                 expiresIn: 30, // seconds
             });
-            res.json({
-                data: {
-                    user,
-                    token,
-                },
-            });
+            res.json(new APIResponse({
+                user,
+                token,
+            }));
         }
     });
 }
@@ -28,12 +25,9 @@ function authenticateUser(req, res, user) {
 exports.signUp = (req, res) => {
     passport.authenticate('local-signup', { session: false }, (err, user) => {
         if (err || !user) {
-            res.status(400).json({
-                error: {
-                    status: 400,
-                    message: 'Bad request.',
-                },
-            });
+            res.status(400).json(new APIResponse(null, [
+                new APIError('INTERNAL_ERROR', 'Bad request.'),
+            ]));
         } else {
             authenticateUser(req, res, user);
         }
@@ -43,12 +37,9 @@ exports.signUp = (req, res) => {
 exports.signIn = (req, res) => {
     passport.authenticate('local-login', { session: false }, (err, user, info) => {
         if (err || !user) {
-            res.status(400).json({
-                error: {
-                    status: 400,
-                    message: 'Bad request.',
-                },
-            });
+            res.status(400).json(new APIResponse(null, [
+                new APIError('INTERNAL_ERROR', 'Bad request.'),
+            ]));
         } else {
             authenticateUser(req, res, user);
         }

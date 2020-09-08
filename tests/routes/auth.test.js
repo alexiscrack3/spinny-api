@@ -26,15 +26,15 @@ describe('POST /auth/sign_in', () => {
             .expect('Content-Type', /json/)
             .expect(200)
             .then((res) => {
-                const { data } = res.body;
+                const { data, errors } = res.body;
                 expect(data.user.id).toBe(player.id);
                 expect(data).toHaveProperty('token');
+                expect(errors.length).toBe(0);
                 done();
             });
     });
 
     it('responds with json containing an error', (done) => {
-        const statusCode = 400;
         passport.use(new MockStrategy({
             name: 'local-login',
             passReqToCallback: true,
@@ -45,17 +45,18 @@ describe('POST /auth/sign_in', () => {
         request(app)
             .post('/auth/sign_in')
             .expect('Content-Type', /json/)
-            .expect(statusCode)
+            .expect(400)
             .then((res) => {
-                const err = res.body.error;
-                expect(err.status).toBe(statusCode);
-                expect(err.message).toBeDefined();
+                const { data, errors } = res.body;
+                const err = errors[0];
+                expect(data).toBeNull();
+                expect(err.code).toBe('INTERNAL_ERROR');
+                expect(err.message).toBe('Bad request.');
                 done();
             });
     });
 
     it('responds with json containing an error when user is null', (done) => {
-        const statusCode = 400;
         passport.use(new MockStrategy({
             name: 'local-login',
             passReqToCallback: true,
@@ -66,17 +67,18 @@ describe('POST /auth/sign_in', () => {
         request(app)
             .post('/auth/sign_in')
             .expect('Content-Type', /json/)
-            .expect(statusCode)
+            .expect(400)
             .then((res) => {
-                const err = res.body.error;
-                expect(err.status).toBe(statusCode);
-                expect(err.message).toBeDefined();
+                const { data, errors } = res.body;
+                const err = errors[0];
+                expect(data).toBeNull();
+                expect(err.code).toBe('INTERNAL_ERROR');
+                expect(err.message).toBe('Bad request.');
                 done();
             });
     });
 
     it('responds with json containing an error when login fails', (done) => {
-        const statusCode = 500;
         const body = {
             email: 'user@spinny.com',
             password: 'password',
@@ -95,11 +97,13 @@ describe('POST /auth/sign_in', () => {
         request(app)
             .post('/auth/sign_in')
             .expect('Content-Type', /json/)
-            .expect(statusCode)
+            .expect(500)
             .then((res) => {
-                const err = res.body.error;
-                expect(err.status).toBe(statusCode);
-                expect(err.message).toBeDefined();
+                const { data, errors } = res.body;
+                const err = errors[0];
+                expect(data).toBeNull();
+                expect(err.code).toBe('INTERNAL_ERROR');
+                expect(err.message).toBe('Something went wrong.');
                 done();
             });
     });
@@ -127,9 +131,10 @@ describe('POST /auth/sign_up', () => {
             .expect('Content-Type', /json/)
             .expect(200)
             .then((res) => {
-                const { data } = res.body;
+                const { data, errors } = res.body;
                 expect(data.user.id).toBe(player.id);
                 expect(data).toHaveProperty('token');
+                expect(errors.length).toBe(0);
                 done();
             });
     });
@@ -148,9 +153,11 @@ describe('POST /auth/sign_up', () => {
             .expect('Content-Type', /json/)
             .expect(statusCode)
             .then((res) => {
-                const err = res.body.error;
-                expect(err.status).toBe(statusCode);
-                expect(err.message).toBeDefined();
+                const { data, errors } = res.body;
+                const err = errors[0];
+                expect(data).toBeNull();
+                expect(err.code).toBe('INTERNAL_ERROR');
+                expect(err.message).toBe('Bad request.');
                 done();
             });
     });
@@ -169,9 +176,11 @@ describe('POST /auth/sign_up', () => {
             .expect('Content-Type', /json/)
             .expect(statusCode)
             .then((res) => {
-                const err = res.body.error;
-                expect(err.status).toBe(statusCode);
-                expect(err.message).toBeDefined();
+                const { data, errors } = res.body;
+                const err = errors[0];
+                expect(data).toBeNull();
+                expect(err.code).toBe('INTERNAL_ERROR');
+                expect(err.message).toBe('Bad request.');
                 done();
             });
     });
@@ -198,9 +207,11 @@ describe('POST /auth/sign_up', () => {
             .expect('Content-Type', /json/)
             .expect(statusCode)
             .then((res) => {
-                const err = res.body.error;
-                expect(err.status).toBe(statusCode);
-                expect(err.message).toBeDefined();
+                const { data, errors } = res.body;
+                const err = errors[0];
+                expect(data).toBeNull();
+                expect(err.code).toBe('INTERNAL_ERROR');
+                expect(err.message).toBe('Something went wrong.');
                 done();
             });
     });
