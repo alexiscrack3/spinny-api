@@ -1,3 +1,5 @@
+const APIError = require('./../models/api-error');
+
 class PlayerRoutes {
     constructor(playersController) {
         this.playersController = playersController;
@@ -14,10 +16,9 @@ class PlayerRoutes {
             .catch(() => {
                 res.status(500).json({
                     data: null,
-                    errors: [{
-                        code: 'INTERNAL_ERROR',
-                        message: 'Something went wrong.',
-                    }],
+                    errors: [
+                        new APIError('INTERNAL_ERROR', 'Something went wrong.'),
+                    ],
                 });
             });
     }
@@ -33,20 +34,18 @@ class PlayerRoutes {
                 } else {
                     res.status(404).json({
                         data: null,
-                        errors: [{
-                            code: 'INVALID_PARAMETER',
-                            message: 'Player not found.',
-                        }],
+                        errors: [
+                            new APIError('INVALID_PARAMETER', 'Player not found.'),
+                        ],
                     });
                 }
             })
             .catch(() => {
                 res.status(500).json({
                     data: null,
-                    errors: [{
-                        code: 'INTERNAL_ERROR',
-                        message: 'Something went wrong.',
-                    }],
+                    errors: [
+                        new APIError('INTERNAL_ERROR', 'Something went wrong.'),
+                    ],
                 });
             });
     }
@@ -62,20 +61,18 @@ class PlayerRoutes {
                 } else {
                     res.status(404).json({
                         data: null,
-                        errors: [{
-                            code: 'INVALID_PARAMETER',
-                            message: 'Player not found.',
-                        }],
+                        errors: [
+                            new APIError('INVALID_PARAMETER', 'Player not found.'),
+                        ],
                     });
                 }
             })
             .catch(() => {
                 res.status(500).json({
                     data: null,
-                    errors: [{
-                        code: 'INTERNAL_ERROR',
-                        message: 'Something went wrong.',
-                    }],
+                    errors: [
+                        new APIError('INTERNAL_ERROR', 'Something went wrong.'),
+                    ],
                 });
             });
     }
@@ -91,20 +88,18 @@ class PlayerRoutes {
                 } else {
                     res.status(404).json({
                         data: null,
-                        errors: [{
-                            code: 'INVALID_PARAMETER',
-                            message: 'Player not found.',
-                        }],
+                        errors: [
+                            new APIError('INVALID_PARAMETER', 'Player not found.'),
+                        ],
                     });
                 }
             })
             .catch(() => {
                 res.status(500).json({
                     data: null,
-                    errors: [{
-                        code: 'INTERNAL_ERROR',
-                        message: 'Something went wrong.',
-                    }],
+                    errors: [
+                        new APIError('INTERNAL_ERROR', 'Something went wrong.'),
+                    ],
                 });
             });
     }
