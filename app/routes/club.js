@@ -1,3 +1,6 @@
+const APIError = require('./../models/api-error');
+const APIResponse = require('./../models/api-response');
+
 class ClubRoutes {
     constructor(clubsController) {
         this.clubsController = clubsController;
@@ -6,34 +9,30 @@ class ClubRoutes {
     create(req, res) {
         this.clubsController.create(req.body)
             .then((club) => {
-                res.json({
-                    data: club,
-                });
+                res.status(201).json(new APIResponse(club));
             })
             .catch(() => {
-                res.status(500).json({
-                    error: {
-                        status: 500,
-                        message: 'Request could not be completed.',
-                    },
-                });
+                res.status(500).json(new APIResponse(null, [
+                    new APIError('INTERNAL_ERROR', 'Something went wrong.'),
+                ]));
             });
     }
 
     getById(req, res) {
         this.clubsController.getById(req.params.id)
             .then((club) => {
-                res.json({
-                    data: club,
-                });
+                if (club) {
+                    res.json(new APIResponse(club));
+                } else {
+                    res.status(404).json(new APIResponse(null, [
+                        new APIError('INVALID_PARAMETER', 'Club not found.'),
+                    ]));
+                }
             })
             .catch(() => {
-                res.status(404).json({
-                    error: {
-                        status: 404,
-                        message: 'Club not found.',
-                    },
-                });
+                res.status(500).json(new APIResponse(null, [
+                    new APIError('INTERNAL_ERROR', 'Something went wrong.'),
+                ]));
             });
     }
 
@@ -46,17 +45,12 @@ class ClubRoutes {
         }
         documentQuery
             .then((clubs) => {
-                res.json({
-                    data: clubs,
-                });
+                res.json(new APIResponse(clubs));
             })
             .catch(() => {
-                res.status(500).json({
-                    error: {
-                        status: 500,
-                        message: 'Request could not be completed.',
-                    },
-                });
+                res.status(500).json(new APIResponse(null, [
+                    new APIError('INTERNAL_ERROR', 'Something went wrong.'),
+                ]));
             });
     }
 
@@ -68,12 +62,9 @@ class ClubRoutes {
                     .end();
             })
             .catch(() => {
-                res.status(500).json({
-                    error: {
-                        status: 500,
-                        message: 'Request could not be completed.',
-                    },
-                });
+                res.status(500).json(new APIResponse(null, [
+                    new APIError('INTERNAL_ERROR', 'Something went wrong.'),
+                ]));
             });
     }
 }
