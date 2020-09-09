@@ -23,8 +23,10 @@ describe('GET /players', () => {
                 const { data, errors } = res.body;
                 const obj = data[0];
                 expect(data.length).toBe(1);
-                expect(obj.email).toBe(body.email);
-                expect(obj.password).toBe(body.password);
+                expect(obj._id).toBe(player.id);
+                expect(obj.email).toBe(player.email);
+                expect(obj.rating).toBe(player.rating);
+                // expect(obj.created_at).toBe(player.created_at);
                 expect(errors.length).toBe(0);
                 done();
             });
@@ -63,8 +65,10 @@ describe('GET /players/:id', () => {
             .expect(200)
             .then((res) => {
                 const { data, errors } = res.body;
-                expect(data.email).toBe(body.email);
-                expect(data.password).toBe(body.password);
+                expect(data._id).toBe(player.id);
+                expect(data.email).toBe(player.email);
+                expect(data.rating).toBe(player.rating);
+                // expect(data.created_at).toBe(player.created_at);
                 expect(errors.length).toBe(0);
                 done();
             });
@@ -130,8 +134,10 @@ describe('GET /players/me', () => {
             .expect(200)
             .then((res) => {
                 const { data, errors } = res.body;
-                expect(data.email).toBe(body.email);
-                expect(data.password).toBe(body.password);
+                expect(data._id).toBe(player.id);
+                expect(data.email).toBe(player.email);
+                expect(data.rating).toBe(player.rating);
+                // expect(data.created_at).toBe(player.created_at);
                 expect(errors.length).toBe(0);
                 done();
             });
@@ -203,8 +209,10 @@ describe('PUT /players/:id', () => {
             .expect(200)
             .then((res) => {
                 const { data, errors } = res.body;
-                expect(data.email).toBe(body.email);
-                expect(data.password).toBeDefined();
+                expect(data._id).toBe(player.id);
+                expect(data.email).toBe(player.email);
+                expect(data.rating).toBe(player.rating);
+                // expect(data.created_at).toBe(player.created_at);
                 expect(errors.length).toBe(0);
                 done();
             });

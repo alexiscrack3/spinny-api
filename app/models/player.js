@@ -38,6 +38,12 @@ playerSchema.pre('save', function save(next) {
         });
 });
 
+playerSchema.set('toJSON', {
+    transform: (doc, ret) => {
+        delete ret.password;
+    },
+});
+
 playerSchema.methods.generateHash = password => bcrypt.genSalt(saltRounds)
     .then(salt => bcrypt.hash(password, salt));
 
