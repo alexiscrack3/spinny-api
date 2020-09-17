@@ -28,7 +28,7 @@ describe('POST /clubs', () => {
             });
     });
 
-    it('responds with json containing an error', (done) => {
+    it('responds with json containing an internal error', (done) => {
         const body = {
             name: 'club',
         };
@@ -78,7 +78,7 @@ describe('GET /clubs', () => {
             });
     });
 
-    it('responds with json containing an error', (done) => {
+    it('responds with json containing an internal error', (done) => {
         mockingoose(Club).toReturn(new Error(), 'find');
 
         request(app)
@@ -137,7 +137,7 @@ describe('GET /clubs/:id', () => {
             });
     });
 
-    it('responds with json containing an error', (done) => {
+    it('responds with json containing an internal error', (done) => {
         const id = new mongoose.Types.ObjectId().toHexString();
         mockingoose(Club).toReturn(new Error(), 'findOne');
 
@@ -194,7 +194,7 @@ describe('PUT /clubs/:id/players', () => {
             .expect(204, done);
     });
 
-    it('responds with json containing an error', (done) => {
+    it('responds with json containing an internal error', (done) => {
         const id = new mongoose.Types.ObjectId().toHexString();
         mockingoose(Club).toReturn(new Error(), 'update');
 

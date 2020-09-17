@@ -32,7 +32,7 @@ describe('GET /players', () => {
             });
     });
 
-    it('responds with json containing an error', (done) => {
+    it('responds with json containing an internal error', (done) => {
         mockingoose(Player).toReturn(new Error(), 'find');
 
         request(app)
@@ -92,7 +92,7 @@ describe('GET /players/:id', () => {
             });
     });
 
-    it('responds with json containing an error', (done) => {
+    it('responds with json containing an internal error', (done) => {
         const id = new mongoose.Types.ObjectId().toHexString();
         mockingoose(Player).toReturn(new Error(), 'findOne');
 
@@ -196,7 +196,7 @@ describe('GET /players/me', () => {
             });
     });
 
-    it('responds with json containing an error', (done) => {
+    it('responds with json containing an internal error', (done) => {
         mockingoose(Player).toReturn(new Error(), 'findOne');
 
         passport.use(new MockStrategy({
@@ -265,7 +265,7 @@ describe('PUT /players/:id', () => {
             });
     });
 
-    it('responds with json containing an error', (done) => {
+    it('responds with json containing an internal error', (done) => {
         const id = new mongoose.Types.ObjectId().toHexString();
         const body = {
             email: 'user@spinny.com',

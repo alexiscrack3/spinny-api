@@ -34,7 +34,7 @@ describe('POST /auth/sign_in', () => {
             });
     });
 
-    it('responds with json containing an error', (done) => {
+    it('responds with json containing an internal error', (done) => {
         passport.use(new MockStrategy({
             name: 'local-login',
             passReqToCallback: true,
@@ -139,7 +139,7 @@ describe('POST /auth/sign_up', () => {
             });
     });
 
-    it('responds with json containing an error', (done) => {
+    it('responds with json containing an internal error', (done) => {
         const statusCode = 400;
         passport.use(new MockStrategy({
             name: 'local-signup',

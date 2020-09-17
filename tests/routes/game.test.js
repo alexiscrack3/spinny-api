@@ -31,7 +31,7 @@ describe('GET /games', () => {
             });
     });
 
-    it('responds with json containing an error', (done) => {
+    it('responds with json containing an internal error', (done) => {
         mockingoose(Game).toReturn(new Error(), 'find');
 
         request(app)
@@ -78,7 +78,7 @@ describe('POST /games', () => {
             });
     });
 
-    it('responds with json containing an error', (done) => {
+    it('responds with json containing an internal error', (done) => {
         const statusCode = 500;
         const body = {
             winner: new mongoose.Types.ObjectId(),
@@ -121,7 +121,7 @@ describe('DELETE /games/:id', () => {
             .expect(204, done);
     });
 
-    it('responds with json containing an error', (done) => {
+    it('responds with json containing an internal error', (done) => {
         const statusCode = 500;
         const id = new mongoose.Types.ObjectId().toHexString();
         mockingoose(Game).toReturn(new Error(), 'findOneAndRemove');
