@@ -172,6 +172,65 @@ describe('GET /players/me', () => {
             });
     });
 
+    it('responds with json containing an error when login fails', (done) => {
+        const body = {
+            email: 'user@spinny.com',
+            password: 'password',
+        };
+        const player = Player(body);
+
+        passport.use(new MockStrategy({
+            name: 'jwt',
+            user: { id: player.id },
+            passReqToCallback: true,
+        }, (req, user, cb) => {
+            req.login = (loggedInUser, options, callback) => callback(new Error());
+            cb(null, user);
+        }));
+
+        request(app)
+            .get('/players/me')
+            .expect('Content-Type', /json/)
+            .expect(500)
+            .then((res) => {
+                const { data, errors } = res.body;
+                const err = errors[0];
+                expect(data).toBeNull();
+                expect(err.code).toBe('INTERNAL_ERROR');
+                expect(err.message).toBe('Something went wrong.');
+                done();
+            });
+    });
+
+    it('responds with json containing an internal error when authentication fails', (done) => {
+        const body = {
+            email: 'user@spinny.com',
+            password: 'password',
+        };
+        const player = Player(body);
+
+        passport.use(new MockStrategy({
+            name: 'jwt',
+            user: { id: player.id },
+            passReqToCallback: true,
+        }, (req, user, cb) => {
+            cb(new Error(), false);
+        }));
+
+        request(app)
+            .get('/players/me')
+            .expect('Content-Type', /json/)
+            .expect(500)
+            .then((res) => {
+                const { data, errors } = res.body;
+                const err = errors[0];
+                expect(data).toBeNull();
+                expect(err.code).toBe('INTERNAL_ERROR');
+                expect(err.message).toBe('Something went wrong.');
+                done();
+            });
+    });
+
     it('responds with json containing an error when player is not found', (done) => {
         mockingoose(Player).toReturn(null, 'findOne');
 

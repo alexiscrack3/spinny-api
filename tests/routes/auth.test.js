@@ -5,7 +5,7 @@ const app = require('../../app');
 const Player = require('../../app/models/player');
 
 describe('POST /auth/sign_in', () => {
-    it('responds with json containing an user and token', (done) => {
+    it('responds with json containing a user and token', (done) => {
         const body = {
             email: 'user@spinny.com',
             password: 'password',
