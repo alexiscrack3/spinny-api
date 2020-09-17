@@ -3,7 +3,19 @@ const passport = require('passport');
 const APIError = require('./../models/api-error');
 const APIResponse = require('./../models/api-response');
 
-function authenticateUser(req, res, user) {
+function authenticateUser(req, res, next, user) {
+    req.login(user, { session: false }, (err) => {
+        if (err) {
+            res.status(500).json(new APIResponse(null, [
+                new APIError('INTERNAL_ERROR', 'Something went wrong.'),
+            ]));
+        } else {
+            next();
+        }
+    });
+}
+
+function authenticateUserAndExpediteToken(req, res, user) {
     req.login(user, { session: false }, (err) => {
         if (err) {
             res.status(500).json(new APIResponse(null, [
@@ -29,7 +41,7 @@ exports.signUp = (req, res) => {
                 new APIError('INTERNAL_ERROR', 'Bad request.'),
             ]));
         } else {
-            authenticateUser(req, res, user);
+            authenticateUserAndExpediteToken(req, res, user);
         }
     })(req, res);
 };
@@ -41,7 +53,23 @@ exports.signIn = (req, res) => {
                 new APIError('INTERNAL_ERROR', 'Bad request.'),
             ]));
         } else {
-            authenticateUser(req, res, user);
+            authenticateUserAndExpediteToken(req, res, user);
         }
     })(req, res);
+};
+
+exports.authenticate = (req, res, next) => {
+    passport.authenticate('jwt', { session: false }, (err, user, info) => {
+        if (err) {
+            res.status(500).json(new APIResponse(null, [
+                new APIError('INTERNAL_ERROR', 'Something went wrong.'),
+            ]));
+        } else if (!user) {
+            res.status(401).json(new APIResponse(null, [
+                new APIError('UNAUTHORIZED', 'User is not authorized.'),
+            ]));
+        } else {
+            authenticateUser(req, res, next, user);
+        }
+    })(req, res, next);
 };

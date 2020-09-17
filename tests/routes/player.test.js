@@ -143,6 +143,35 @@ describe('GET /players/me', () => {
             });
     });
 
+    it('responds with json containing an unauthorized error when token is not valid', (done) => {
+        const body = {
+            email: 'user@spinny.com',
+            password: 'password',
+        };
+        const player = Player(body);
+
+        passport.use(new MockStrategy({
+            name: 'jwt',
+            user: { id: player.id },
+            passReqToCallback: true,
+        }, (req, user, cb) => {
+            cb(null, false);
+        }));
+
+        request(app)
+            .get('/players/me')
+            .expect('Content-Type', /json/)
+            .expect(401)
+            .then((res) => {
+                const { data, errors } = res.body;
+                const err = errors[0];
+                expect(data).toBeNull();
+                expect(err.code).toBe('UNAUTHORIZED');
+                expect(err.message).toBe('User is not authorized.');
+                done();
+            });
+    });
+
     it('responds with json containing an error when player is not found', (done) => {
         mockingoose(Player).toReturn(null, 'findOne');
 
