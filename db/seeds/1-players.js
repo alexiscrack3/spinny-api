@@ -5,16 +5,16 @@ const Player = require('../../app/models/player');
 const password = 'asdf';
 const players = [
     new Player({
-        // firstName: 'Alexis',
-        // lastName: 'Ortega',
+        firstName: 'Foo',
+        lastName: 'Bar',
         email: 'asdf@gmail.com',
         password,
     }),
 ];
 for (let index = 0; index < 10; index += 1) {
     const player = new Player({
-        // firstName: faker.name.firstName(),
-        // lastName: faker.name.lastName(),
+        firstName: faker.name.firstName(),
+        lastName: faker.name.lastName(),
         email: faker.internet.email().toLowerCase(),
         password,
     });
