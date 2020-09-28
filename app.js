@@ -39,15 +39,18 @@ app.use((err, req, res) => {
     // res.render('error', { title: 'error' });
 });
 
-process.on('exit', (code) => {
-    debug(`Exit with ${code} code`);
-});
-
-process.on('SIGINT', () => {
+function gracefulExit() {
     debug('Caught interrupt signal');
     database.close().then(() => {
         process.exit();
     });
-});
+}
+
+process
+    .on('SIGINT', gracefulExit)
+    .on('SIGTERM', gracefulExit)
+    .on('exit', (code) => {
+        debug(`Exit with ${code} code`);
+    });
 
 module.exports = app;
