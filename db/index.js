@@ -34,6 +34,9 @@ module.exports = {
             debug('MongoDB Connection Error. Please make sure that MongoDB is running.');
             reject(err);
         });
+        mongoose.connection.on('disconnected', () => {
+            debug(`Disconnected from ${getConnetionString()}`);
+        });
     }),
     close: () => new Promise((resolve, reject) => {
         db.connection.close(() => {

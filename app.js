@@ -1,5 +1,6 @@
 const express = require('express');
 const createError = require('http-errors');
+const debug = require('debug')('spinny:app');
 const middlewares = require('./middlewares');
 const routes = require('./config/routes');
 const database = require('./db');
@@ -36,6 +37,17 @@ app.use((err, req, res) => {
     // render the error page
     res.status(err.status || 500);
     // res.render('error', { title: 'error' });
+});
+
+process.on('exit', (code) => {
+    debug(`Exit with ${code} code`);
+});
+
+process.on('SIGINT', () => {
+    debug('Caught interrupt signal');
+    database.close().then(() => {
+        process.exit();
+    });
 });
 
 module.exports = app;
