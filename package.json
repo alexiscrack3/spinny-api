@@ -4,7 +4,7 @@
   "description": "An API to enter the results of ping pong matches and rate players using the ELO system",
   "private": false,
   "main": "app.js",
-  "scripts": {  
+  "scripts": {
     "start": "NODE_ENV=development DEBUG=spinny:* nodemon --inspect ./bin/www",
     "start:prod": "NODE_ENV=production node ./bin/www",
     "db:seed": "node ./db/seeds.js",
@@ -35,6 +35,7 @@
     "debug": "^4.1.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-actuator": "^1.6.1",
     "http-errors": "^1.7.3",
     "jsonwebtoken": "^8.5.1",
     "mongo-connection-string": "^0.1.5",
