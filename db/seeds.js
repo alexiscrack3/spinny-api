@@ -23,7 +23,7 @@ async.series([
                 callback(null, 'Database connection established');
             });
     }, (callback) => {
-        const seedsPath = path.join(__dirname, process.env.MONGO_SEEDS);
+        const seedsPath = path.join(__dirname, 'seeds');
         const files = fs.readdirSync(seedsPath);
         async.eachSeries(files, (file, fileCallback) => {
             const filePath = `${seedsPath}${'/'}${file}`;
