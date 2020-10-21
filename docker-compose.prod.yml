@@ -1,0 +1,5 @@
+version: "3"
+
+services: 
+    api:
+        image: "alexiscrack3/spinny-api:latest"
