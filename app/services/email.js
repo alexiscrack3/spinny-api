@@ -1,4 +1,3 @@
-// const sgMail = require('@sendgrid/mail');
 const config = require('config');
 
 const sendgrid = config.get('sendgrid');
@@ -10,7 +9,7 @@ class EmailService {
         this.sgMail.setApiKey(process.env.SG_API_KEY);
     }
 
-    sendWelcomeEmail(to, data) {
+    sendFeedback(to, data) {
         return this.sendEmail(to, data, sendgrid.templateId);
     }
 

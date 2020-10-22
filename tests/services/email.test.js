@@ -24,15 +24,13 @@ describe('EmailService', () => {
         expect(stub.calledWith(process.env.SG_API_KEY)).toBeTruthy();
     });
 
-    describe('sendWelcomeEmail', () => {
+    describe('sendFeedback', () => {
         it('should invoke send on sgMail', () => {
             const to = 'to@mail.com';
             const stub = sinon.stub(sgMail, 'send');
             const testObject = new EmailService(sgMail);
             const data = {
-                player: {
-                    firstName: 'test',
-                },
+                message: 'message',
             };
             const msg = {
                 from: sendgrid.sender,
@@ -43,7 +41,7 @@ describe('EmailService', () => {
                 }],
             };
 
-            testObject.sendWelcomeEmail(to, data, sendgrid.templateId);
+            testObject.sendFeedback(to, data, sendgrid.templateId);
 
             expect(stub.calledWith(msg)).toBeTruthy();
         });

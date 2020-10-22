@@ -1,6 +1,9 @@
 const express = require('express');
-const passport = require('passport');
+const sgMail = require('@sendgrid/mail');
 const AuthRoutes = require('../app/routes/auth');
+const FeedbackController = require('../app/controllers/feedback');
+const FeedbackRoutes = require('../app/routes/feedback');
+const EmailService = require('./../app/services/email');
 const PlayersController = require('../app/controllers/players');
 const PlayerRoutes = require('../app/routes/player');
 const Player = require('../app/models/player');
@@ -15,6 +18,11 @@ require('../app/helpers/passport');
 
 const indexRouter = express.Router();
 const authRouter = express.Router();
+
+const emailService = new EmailService(sgMail);
+const feedbackController = new FeedbackController(emailService);
+const feedbackRoutes = new FeedbackRoutes(feedbackController);
+const feedbackRouter = express.Router();
 
 const playersController = new PlayersController(Player);
 const playerRoutes = new PlayerRoutes(playersController);
@@ -34,6 +42,8 @@ indexRouter.get('/', (req, res) => {
 
 authRouter.post('/sign_up', AuthRoutes.signUp);
 authRouter.post('/sign_in', AuthRoutes.signIn);
+
+feedbackRouter.post('/feedback', (req, res) => feedbackRoutes.send(req, res));
 
 playerRouter
     .get('/', (req, res) => playerRoutes.getAll(req, res))
@@ -59,6 +69,7 @@ clubRouter
 module.exports = {
     '/': indexRouter,
     '/auth': authRouter,
+    '/feedback': feedbackRouter,
     '/players': playerRouter,
     '/games': gameRouter,
     '/clubs': clubRouter,
