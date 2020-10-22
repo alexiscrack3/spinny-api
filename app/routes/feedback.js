@@ -1,5 +1,5 @@
-const APIError = require('./../models/api-error');
-const APIResponse = require('./../models/api-response');
+const APIError = require('../models/api-error');
+const APIResponse = require('../models/api-response');
 
 class FeedbackRoutes {
     constructor(feedbackController) {

@@ -3,7 +3,7 @@ const dotenv = require('dotenv').config(); // eslint-disable-line no-unused-vars
 const async = require('async'); // eslint-disable-line import/no-extraneous-dependencies
 const path = require('path');
 const fs = require('fs');
-const database = require('../db');
+const database = require('./index');
 
 async.series([
     (callback) => {

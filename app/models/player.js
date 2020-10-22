@@ -44,8 +44,8 @@ playerSchema.set('toJSON', {
     },
 });
 
-playerSchema.methods.generateHash = password => bcrypt.genSalt(saltRounds)
-    .then(salt => bcrypt.hash(password, salt));
+playerSchema.methods.generateHash = (password) => bcrypt.genSalt(saltRounds)
+    .then((salt) => bcrypt.hash(password, salt));
 
 playerSchema.methods.generateHashSync = (password) => {
     const salt = bcrypt.genSaltSync(saltRounds);

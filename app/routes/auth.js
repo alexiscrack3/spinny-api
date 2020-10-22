@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
-const APIError = require('./../models/api-error');
-const APIResponse = require('./../models/api-response');
+const APIError = require('../models/api-error');
+const APIResponse = require('../models/api-response');
 
 function authenticateUser(req, res, next, user) {
     req.login(user, { session: false }, (err) => {
