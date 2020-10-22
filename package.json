@@ -37,7 +37,7 @@
     "debug": "^4.2.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "express-actuator": "^1.6.1",
+    "express-actuator": "^1.7.0",
     "http-errors": "^1.7.3",
     "jsonwebtoken": "^8.5.1",
     "mongo-connection-string": "^0.1.5",
