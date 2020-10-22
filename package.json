@@ -58,6 +58,6 @@
     "mockingoose": "^2.13.2",
     "passport-mock-strategy": "^2.0.0",
     "sinon": "^9.2.0",
-    "supertest": "^4.0.2"
+    "supertest": "^5.0.0"
   }
 }
