@@ -7,13 +7,7 @@ const sendgrid = config.get('sendgrid');
 
 describe('EmailService', () => {
     beforeEach(() => {
-        process.env = {
-            SG_API_KEY: 'SG.ZcjaeqzzEfxab',
-        };
         sinon.restore();
-    });
-    afterEach(() => {
-        delete process.env.SG_API_KEY;
     });
 
     it('should set api key', () => {

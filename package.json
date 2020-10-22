@@ -9,9 +9,9 @@
     "start:prod": "NODE_ENV=production node ./bin/www",
     "db:seed": "node ./db/seeds.js",
     "db:drop": "node ./db/drop.js",
-    "tests": "SECRET_KEY=secret jest --verbose",
-    "tests:watch": "SECRET_KEY=secret jest --watch",
-    "tests:report": "SECRET_KEY=secret jest --coverage",
+    "tests": "jest --verbose",
+    "tests:watch": "jest --watch",
+    "tests:report": "jest --coverage",
     "lint": "eslint --ignore-path .gitignore ."
   },
   "repository": {
