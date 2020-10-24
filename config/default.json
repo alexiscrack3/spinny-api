@@ -1,6 +1,7 @@
 {
     "sendgrid": {
         "sender": "alexis.oc3@gmail.com",
-        "templateId": "d-070089da53364d60a9cda9e282184a62"
+        "support": "alexis.oc3@gmail.com",
+        "templateId": "d-23ce440e6d644d08ade993556834b69c"
     }
 }

@@ -43,7 +43,7 @@ indexRouter.get('/', (req, res) => {
 authRouter.post('/sign_up', AuthRoutes.signUp);
 authRouter.post('/sign_in', AuthRoutes.signIn);
 
-feedbackRouter.post('/feedback', (req, res) => feedbackRoutes.send(req, res));
+feedbackRouter.post('/', (req, res) => feedbackRoutes.send(req, res));
 
 playerRouter
     .get('/', (req, res) => playerRoutes.getAll(req, res))
