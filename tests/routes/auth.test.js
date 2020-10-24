@@ -105,6 +105,9 @@ describe('POST /auth/sign_in', () => {
                 expect(err.code).toBe('INTERNAL_ERROR');
                 expect(err.message).toBe('Something went wrong.');
                 done();
+            })
+            .catch((err) => {
+                done(err);
             });
     });
 });
@@ -136,6 +139,9 @@ describe('POST /auth/sign_up', () => {
                 expect(data).toHaveProperty('token');
                 expect(errors.length).toBe(0);
                 done();
+            })
+            .catch((err) => {
+                done(err);
             });
     });
 
@@ -159,6 +165,9 @@ describe('POST /auth/sign_up', () => {
                 expect(err.code).toBe('INTERNAL_ERROR');
                 expect(err.message).toBe('Bad request.');
                 done();
+            })
+            .catch((err) => {
+                done(err);
             });
     });
 
@@ -182,6 +191,9 @@ describe('POST /auth/sign_up', () => {
                 expect(err.code).toBe('INTERNAL_ERROR');
                 expect(err.message).toBe('Bad request.');
                 done();
+            })
+            .catch((err) => {
+                done(err);
             });
     });
 
@@ -213,6 +225,9 @@ describe('POST /auth/sign_up', () => {
                 expect(err.code).toBe('INTERNAL_ERROR');
                 expect(err.message).toBe('Something went wrong.');
                 done();
+            })
+            .catch((err) => {
+                done(err);
             });
     });
 });

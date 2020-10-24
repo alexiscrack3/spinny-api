@@ -29,6 +29,9 @@ describe('GET /players', () => {
                 // expect(obj.created_at).toBe(player.created_at);
                 expect(errors.length).toBe(0);
                 done();
+            })
+            .catch((err) => {
+                done(err);
             });
     });
 
@@ -46,6 +49,9 @@ describe('GET /players', () => {
                 expect(err.code).toBe('INTERNAL_ERROR');
                 expect(err.message).toBe('Something went wrong.');
                 done();
+            })
+            .catch((err) => {
+                done(err);
             });
     });
 });
@@ -71,6 +77,9 @@ describe('GET /players/:id', () => {
                 // expect(data.created_at).toBe(player.created_at);
                 expect(errors.length).toBe(0);
                 done();
+            })
+            .catch((err) => {
+                done(err);
             });
     });
 
@@ -89,6 +98,9 @@ describe('GET /players/:id', () => {
                 expect(err.code).toBe('INVALID_PARAMETER');
                 expect(err.message).toBe('Player not found.');
                 done();
+            })
+            .catch((err) => {
+                done(err);
             });
     });
 
@@ -107,6 +119,9 @@ describe('GET /players/:id', () => {
                 expect(err.code).toBe('INTERNAL_ERROR');
                 expect(err.message).toBe('Something went wrong.');
                 done();
+            })
+            .catch((err) => {
+                done(err);
             });
     });
 });
@@ -140,6 +155,9 @@ describe('GET /players/me', () => {
                 // expect(data.created_at).toBe(player.created_at);
                 expect(errors.length).toBe(0);
                 done();
+            })
+            .catch((err) => {
+                done(err);
             });
     });
 
@@ -169,6 +187,9 @@ describe('GET /players/me', () => {
                 expect(err.code).toBe('UNAUTHORIZED');
                 expect(err.message).toBe('User is not authorized.');
                 done();
+            })
+            .catch((err) => {
+                done(err);
             });
     });
 
@@ -199,6 +220,9 @@ describe('GET /players/me', () => {
                 expect(err.code).toBe('INTERNAL_ERROR');
                 expect(err.message).toBe('Something went wrong.');
                 done();
+            })
+            .catch((err) => {
+                done(err);
             });
     });
 
@@ -228,6 +252,9 @@ describe('GET /players/me', () => {
                 expect(err.code).toBe('INTERNAL_ERROR');
                 expect(err.message).toBe('Something went wrong.');
                 done();
+            })
+            .catch((err) => {
+                done(err);
             });
     });
 
@@ -252,6 +279,9 @@ describe('GET /players/me', () => {
                 expect(err.code).toBe('INVALID_PARAMETER');
                 expect(err.message).toBe('Player not found.');
                 done();
+            })
+            .catch((err) => {
+                done(err);
             });
     });
 
@@ -276,6 +306,9 @@ describe('GET /players/me', () => {
                 expect(err.code).toBe('INTERNAL_ERROR');
                 expect(err.message).toBe('Something went wrong.');
                 done();
+            })
+            .catch((err) => {
+                done(err);
             });
     });
 });
@@ -303,6 +336,9 @@ describe('PUT /players/:id', () => {
                 // expect(data.created_at).toBe(player.created_at);
                 expect(errors.length).toBe(0);
                 done();
+            })
+            .catch((err) => {
+                done(err);
             });
     });
 
@@ -321,6 +357,9 @@ describe('PUT /players/:id', () => {
                 expect(err.code).toBe('INVALID_PARAMETER');
                 expect(err.message).toBe('Player not found.');
                 done();
+            })
+            .catch((err) => {
+                done(err);
             });
     });
 
@@ -344,6 +383,9 @@ describe('PUT /players/:id', () => {
                 expect(err.code).toBe('INTERNAL_ERROR');
                 expect(err.message).toBe('Something went wrong.');
                 done();
+            })
+            .catch((err) => {
+                done(err);
             });
     });
 });

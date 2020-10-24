@@ -116,6 +116,9 @@ describe('GET /clubs/:id', () => {
                 expect(data.name).toBe(body.name);
                 expect(errors.length).toBe(0);
                 done();
+            })
+            .catch((err) => {
+                done(err);
             });
     });
 
@@ -134,6 +137,9 @@ describe('GET /clubs/:id', () => {
                 expect(err.code).toBe('INVALID_PARAMETER');
                 expect(err.message).toBe('Club not found.');
                 done();
+            })
+            .catch((err) => {
+                done(err);
             });
     });
 
@@ -152,6 +158,9 @@ describe('GET /clubs/:id', () => {
                 expect(err.code).toBe('INTERNAL_ERROR');
                 expect(err.message).toBe('Something went wrong.');
                 done();
+            })
+            .catch((err) => {
+                done(err);
             });
     });
 });
