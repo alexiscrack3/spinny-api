@@ -1,14 +1,21 @@
-const config = require('config');
-
-const sendgrid = config.get('sendgrid');
+const APIError = require('../models/api-error');
+const APIResponse = require('../models/api-response');
 
 class FeedbackController {
-    constructor(emailService) {
-        this.emailService = emailService;
+    constructor(feedbackRepository) {
+        this.feedbackRepository = feedbackRepository;
     }
 
-    send(feedback) {
-        return this.emailService.sendFeedback(sendgrid.support, feedback);
+    send(req, res) {
+        this.feedbackRepository.send(req.body)
+            .then(() => {
+                res.status(204).json(new APIResponse());
+            })
+            .catch(() => {
+                res.status(500).json(new APIResponse(null, [
+                    new APIError('INTERNAL_ERROR', 'Something went wrong.'),
+                ]));
+            });
     }
 }
 

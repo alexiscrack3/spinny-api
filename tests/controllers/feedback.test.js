@@ -1,24 +1,68 @@
+const mongoose = require('mongoose');
 const sinon = require('sinon');
-const sgMail = require('@sendgrid/mail');
-const config = require('config');
-const FeedbackController = require('../../app/controllers/feedback');
+const request = require('supertest');
+const app = require('../../app');
 const EmailService = require('../../app/services/email');
 
-const sendgrid = config.get('sendgrid');
+describe('POST /feedback', () => {
+    afterEach(() => {
+        sinon.restore();
+    });
 
-describe('FeedbackController', () => {
-    describe('send', () => {
-        it('should invoke sendFeedback on email service', () => {
-            const emailService = new EmailService(sgMail);
-            const stub = sinon.stub(emailService, 'sendFeedback');
-            const testObject = new FeedbackController(emailService);
-            const feedback = {
-                message: '',
-            };
+    it('responds with no content', (done) => {
+        const body = {
+            player: {
+                id: new mongoose.Types.ObjectId().toHexString(),
+                first_name: 'Foo',
+                last_name: 'Bar',
+            },
+            message: 'message',
+        };
 
-            testObject.send(feedback);
+        sinon.stub(EmailService.prototype, 'sendFeedback').resolves();
 
-            expect(stub.calledWith(sendgrid.support, feedback)).toBeTruthy();
-        });
+        request(app)
+            .post('/feedback')
+            .send(body)
+            .expect(204)
+            .then((res) => {
+                const { data, errors } = res.body;
+                expect(data).toBeUndefined();
+                expect(errors).toBeUndefined();
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
+    });
+
+    it('responds with json containing an internal error', (done) => {
+        const body = {
+            player: {
+                id: new mongoose.Types.ObjectId().toHexString(),
+                first_name: 'Foo',
+                last_name: 'Bar',
+            },
+            message: 'message',
+        };
+
+        sinon.stub(EmailService.prototype, 'sendFeedback').rejects();
+
+        request(app)
+            .post('/feedback')
+            .send(body)
+            .expect('Content-Type', /json/)
+            .expect(500)
+            .then((res) => {
+                const { data, errors } = res.body;
+                const err = errors[0];
+                expect(data).toBeNull();
+                expect(err.code).toBe('INTERNAL_ERROR');
+                expect(err.message).toBe('Something went wrong.');
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
     });
 });

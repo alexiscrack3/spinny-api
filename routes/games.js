@@ -1,15 +1,15 @@
 const express = require('express');
-const GamesController = require('../app/controllers/games');
-const GameRoutes = require('../app/routes/game');
 const Game = require('../app/models/game');
+const GamesRepository = require('../app/repositories/games');
+const GamesController = require('../app/controllers/games');
 
-const gamesController = new GamesController(Game);
-const gameRoutes = new GameRoutes(gamesController);
+const gamesRepository = new GamesRepository(Game);
+const gamesController = new GamesController(gamesRepository);
 const gameRouter = express.Router();
 
 gameRouter
-    .get('/', (req, res) => gameRoutes.getAll(req, res))
-    .post('/', (req, res) => gameRoutes.create(req, res))
-    .delete('/:id', (req, res) => gameRoutes.deleteById(req, res));
+    .get('/', (req, res) => gamesController.getAll(req, res))
+    .post('/', (req, res) => gamesController.create(req, res))
+    .delete('/:id', (req, res) => gamesController.deleteById(req, res));
 
 module.exports = gameRouter;

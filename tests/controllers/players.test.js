@@ -1,74 +1,391 @@
 const mongoose = require('mongoose');
-const sinon = require('sinon');
-const PlayersController = require('../../app/controllers/players');
+const mockingoose = require('mockingoose').default;
+const request = require('supertest');
+const passport = require('passport');
+const MockStrategy = require('passport-mock-strategy');
+const app = require('../../app');
 const Player = require('../../app/models/player');
 
-describe('PlayersController', () => {
-    beforeEach(() => {
-        sinon.restore();
+describe('GET /players', () => {
+    it('responds with json containing a list of players', (done) => {
+        const body = {
+            email: 'user@spinny.com',
+            password: 'password',
+        };
+        const player = Player(body);
+        mockingoose(Player).toReturn([player], 'find');
+
+        request(app)
+            .get('/players')
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .then((res) => {
+                const { data, errors } = res.body;
+                const obj = data[0];
+                expect(data.length).toBe(1);
+                expect(obj._id).toBe(player.id);
+                expect(obj.email).toBe(player.email);
+                expect(obj.rating).toBe(player.rating);
+                // expect(obj.created_at).toBe(player.created_at);
+                expect(errors.length).toBe(0);
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
     });
 
-    describe('create', () => {
-        it('should invoke create on model', () => {
-            const body = {
-                email: 'user@spinny.io',
-            };
-            const stub = sinon.stub(Player, 'create');
-            const testObject = new PlayersController(Player);
+    it('responds with json containing an internal error', (done) => {
+        mockingoose(Player).toReturn(new Error(), 'find');
 
-            testObject.create(body);
+        request(app)
+            .get('/players')
+            .expect('Content-Type', /json/)
+            .expect(500)
+            .then((res) => {
+                const { data, errors } = res.body;
+                const err = errors[0];
+                expect(data).toBeNull();
+                expect(err.code).toBe('INTERNAL_ERROR');
+                expect(err.message).toBe('Something went wrong.');
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
+    });
+});
 
-            expect(stub.calledWith(body)).toBeTruthy();
-        });
+describe('GET /players/:id', () => {
+    it('responds with json containing a player', (done) => {
+        const body = {
+            email: 'user@spinny.com',
+            password: 'password',
+        };
+        const player = Player(body);
+        mockingoose(Player).toReturn(player, 'findOne');
+
+        request(app)
+            .get(`/players/${player.id}`)
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .then((res) => {
+                const { data, errors } = res.body;
+                expect(data._id).toBe(player.id);
+                expect(data.email).toBe(player.email);
+                expect(data.rating).toBe(player.rating);
+                // expect(data.created_at).toBe(player.created_at);
+                expect(errors.length).toBe(0);
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
     });
 
-    describe('updateById', () => {
-        it('should invoke findOneAndUpdate on model', () => {
-            const id = new mongoose.Types.ObjectId().toHexString();
-            const body = {
-                email: 'user@spinny.io',
-            };
-            const stub = sinon.stub(Player, 'findByIdAndUpdate');
-            const testObject = new PlayersController(Player);
+    it('responds with json containing an error when player is not found', (done) => {
+        const id = new mongoose.Types.ObjectId().toHexString();
+        mockingoose(Player).toReturn(null, 'findOne');
 
-            testObject.updateById(id, body);
-
-            expect(stub.calledWith(id, body, { new: true })).toBeTruthy();
-        });
+        request(app)
+            .get(`/players/${id}`)
+            .expect('Content-Type', /json/)
+            .expect(404)
+            .then((res) => {
+                const { data, errors } = res.body;
+                const err = errors[0];
+                expect(data).toBeNull();
+                expect(err.code).toBe('INVALID_PARAMETER');
+                expect(err.message).toBe('Player not found.');
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
     });
 
-    describe('getById', () => {
-        it('should invoke findById on model', () => {
-            const id = new mongoose.Types.ObjectId().toHexString();
-            const spy = sinon.spy(Player, 'findById');
-            const testObject = new PlayersController(Player);
+    it('responds with json containing an internal error', (done) => {
+        const id = new mongoose.Types.ObjectId().toHexString();
+        mockingoose(Player).toReturn(new Error(), 'findOne');
 
-            testObject.getById(id);
+        request(app)
+            .get(`/players/${id}`)
+            .expect('Content-Type', /json/)
+            .expect(500)
+            .then((res) => {
+                const { data, errors } = res.body;
+                const err = errors[0];
+                expect(data).toBeNull();
+                expect(err.code).toBe('INTERNAL_ERROR');
+                expect(err.message).toBe('Something went wrong.');
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
+    });
+});
 
-            expect(spy.calledWith(id)).toBeTruthy();
-        });
+describe('GET /players/me', () => {
+    it('responds with json containing user\'s profile', (done) => {
+        const body = {
+            email: 'user@spinny.com',
+            password: 'password',
+        };
+        const player = Player(body);
+        mockingoose(Player).toReturn(player, 'findOne');
+
+        passport.use(new MockStrategy({
+            name: 'jwt',
+            user: { id: player.id },
+            passReqToCallback: true,
+        }, (req, user, cb) => {
+            cb(null, user);
+        }));
+
+        request(app)
+            .get('/players/me')
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .then((res) => {
+                const { data, errors } = res.body;
+                expect(data._id).toBe(player.id);
+                expect(data.email).toBe(player.email);
+                expect(data.rating).toBe(player.rating);
+                // expect(data.created_at).toBe(player.created_at);
+                expect(errors.length).toBe(0);
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
     });
 
-    describe('getByEmail', () => {
-        it('should invoke findOne with email on model', () => {
-            const email = 'user@spinny.io';
-            const spy = sinon.spy(Player, 'findOne');
-            const testObject = new PlayersController(Player);
+    it('responds with json containing an unauthorized error when token is not valid', (done) => {
+        const body = {
+            email: 'user@spinny.com',
+            password: 'password',
+        };
+        const player = Player(body);
 
-            testObject.getByEmail(email);
+        passport.use(new MockStrategy({
+            name: 'jwt',
+            user: { id: player.id },
+            passReqToCallback: true,
+        }, (req, user, cb) => {
+            cb(null, false);
+        }));
 
-            expect(spy.calledWith({ email })).toBeTruthy();
-        });
+        request(app)
+            .get('/players/me')
+            .expect('Content-Type', /json/)
+            .expect(401)
+            .then((res) => {
+                const { data, errors } = res.body;
+                const err = errors[0];
+                expect(data).toBeNull();
+                expect(err.code).toBe('UNAUTHORIZED');
+                expect(err.message).toBe('User is not authorized.');
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
     });
 
-    describe('getAll', () => {
-        it('should invoke find on model', () => {
-            const testObject = new PlayersController(Player);
-            const spy = sinon.spy(Player, 'find');
+    it('responds with json containing an error when login fails', (done) => {
+        const body = {
+            email: 'user@spinny.com',
+            password: 'password',
+        };
+        const player = Player(body);
 
-            testObject.getAll();
+        passport.use(new MockStrategy({
+            name: 'jwt',
+            user: { id: player.id },
+            passReqToCallback: true,
+        }, (req, user, cb) => {
+            req.login = (loggedInUser, options, callback) => callback(new Error());
+            cb(null, user);
+        }));
 
-            expect(spy.calledOnce).toBeTruthy();
-        });
+        request(app)
+            .get('/players/me')
+            .expect('Content-Type', /json/)
+            .expect(500)
+            .then((res) => {
+                const { data, errors } = res.body;
+                const err = errors[0];
+                expect(data).toBeNull();
+                expect(err.code).toBe('INTERNAL_ERROR');
+                expect(err.message).toBe('Something went wrong.');
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
+    });
+
+    it('responds with json containing an internal error when authentication fails', (done) => {
+        const body = {
+            email: 'user@spinny.com',
+            password: 'password',
+        };
+        const player = Player(body);
+
+        passport.use(new MockStrategy({
+            name: 'jwt',
+            user: { id: player.id },
+            passReqToCallback: true,
+        }, (req, user, cb) => {
+            cb(new Error(), false);
+        }));
+
+        request(app)
+            .get('/players/me')
+            .expect('Content-Type', /json/)
+            .expect(500)
+            .then((res) => {
+                const { data, errors } = res.body;
+                const err = errors[0];
+                expect(data).toBeNull();
+                expect(err.code).toBe('INTERNAL_ERROR');
+                expect(err.message).toBe('Something went wrong.');
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
+    });
+
+    it('responds with json containing an error when player is not found', (done) => {
+        mockingoose(Player).toReturn(null, 'findOne');
+
+        passport.use(new MockStrategy({
+            name: 'jwt',
+            passReqToCallback: true,
+        }, (req, user, cb) => {
+            cb(null, user);
+        }));
+
+        request(app)
+            .get('/players/me')
+            .expect('Content-Type', /json/)
+            .expect(404)
+            .then((res) => {
+                const { data, errors } = res.body;
+                const err = errors[0];
+                expect(data).toBeNull();
+                expect(err.code).toBe('INVALID_PARAMETER');
+                expect(err.message).toBe('Player not found.');
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
+    });
+
+    it('responds with json containing an internal error', (done) => {
+        mockingoose(Player).toReturn(new Error(), 'findOne');
+
+        passport.use(new MockStrategy({
+            name: 'jwt',
+            passReqToCallback: true,
+        }, (req, user, cb) => {
+            cb(null, user);
+        }));
+
+        request(app)
+            .get('/players/me')
+            .expect('Content-Type', /json/)
+            .expect(500)
+            .then((res) => {
+                const { data, errors } = res.body;
+                const err = errors[0];
+                expect(data).toBeNull();
+                expect(err.code).toBe('INTERNAL_ERROR');
+                expect(err.message).toBe('Something went wrong.');
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
+    });
+});
+
+describe('PUT /players/:id', () => {
+    it('responds with json containing a player', (done) => {
+        const id = new mongoose.Types.ObjectId().toHexString();
+        const body = {
+            email: 'newuser@spinny.com',
+            password: 'password',
+        };
+        const player = Player(body);
+        mockingoose(Player).toReturn(player, 'findOneAndUpdate');
+
+        request(app)
+            .put(`/players/${id}`)
+            .send(body)
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .then((res) => {
+                const { data, errors } = res.body;
+                expect(data._id).toBe(player.id);
+                expect(data.email).toBe(player.email);
+                expect(data.rating).toBe(player.rating);
+                // expect(data.created_at).toBe(player.created_at);
+                expect(errors.length).toBe(0);
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
+    });
+
+    it('responds with json containing an error when player is not found', (done) => {
+        const id = new mongoose.Types.ObjectId().toHexString();
+        mockingoose(Player).toReturn(null, 'findOneAndUpdate');
+
+        request(app)
+            .put(`/players/${id}`)
+            .expect('Content-Type', /json/)
+            .expect(404)
+            .then((res) => {
+                const { data, errors } = res.body;
+                const err = errors[0];
+                expect(data).toBeNull();
+                expect(err.code).toBe('INVALID_PARAMETER');
+                expect(err.message).toBe('Player not found.');
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
+    });
+
+    it('responds with json containing an internal error', (done) => {
+        const id = new mongoose.Types.ObjectId().toHexString();
+        const body = {
+            email: 'user@spinny.com',
+            password: 'password123',
+        };
+        mockingoose(Player).toReturn(new Error(), 'findOneAndUpdate');
+
+        request(app)
+            .put(`/players/${id}`)
+            .send(body)
+            .expect('Content-Type', /json/)
+            .expect(500)
+            .then((res) => {
+                const { data, errors } = res.body;
+                const err = errors[0];
+                expect(data).toBeNull();
+                expect(err.code).toBe('INTERNAL_ERROR');
+                expect(err.message).toBe('Something went wrong.');
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
     });
 });

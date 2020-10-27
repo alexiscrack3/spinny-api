@@ -1,16 +1,16 @@
 const express = require('express');
-const ClubsController = require('../app/controllers/clubs');
-const ClubRoutes = require('../app/routes/club');
 const Club = require('../app/models/club');
+const ClubsRepository = require('../app/repositories/clubs');
+const ClubsController = require('../app/controllers/clubs');
 
-const clubsController = new ClubsController(Club);
-const clubRoutes = new ClubRoutes(clubsController);
+const clubsRepository = new ClubsRepository(Club);
+const clubsController = new ClubsController(clubsRepository);
 const clubRouter = express.Router();
 
 clubRouter
-    .get('/', (req, res) => clubRoutes.getAll(req, res))
-    .get('/:id', (req, res) => clubRoutes.getById(req, res))
-    .post('/', (req, res) => clubRoutes.create(req, res))
-    .put('/:id/players', (req, res) => clubRoutes.addPlayer(req, res));
+    .get('/', (req, res) => clubsController.getAll(req, res))
+    .get('/:id', (req, res) => clubsController.getById(req, res))
+    .post('/', (req, res) => clubsController.create(req, res))
+    .put('/:id/players', (req, res) => clubsController.addPlayer(req, res));
 
 module.exports = clubRouter;

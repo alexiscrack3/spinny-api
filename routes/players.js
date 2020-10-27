@@ -1,21 +1,21 @@
 const express = require('express');
-const AuthRoutes = require('../app/routes/auth');
-const PlayersController = require('../app/controllers/players');
-const PlayerRoutes = require('../app/routes/player');
+const AuthController = require('../app/controllers/auth');
 const Player = require('../app/models/player');
+const PlayersRepository = require('../app/repositories/players');
+const PlayersController = require('../app/controllers/players');
 
-const playersController = new PlayersController(Player);
-const playerRoutes = new PlayerRoutes(playersController);
+const playersRepository = new PlayersRepository(Player);
+const playersController = new PlayersController(playersRepository);
 const playerRouter = express.Router();
 
 playerRouter
-    .get('/', (req, res) => playerRoutes.getAll(req, res))
+    .get('/', (req, res) => playersController.getAll(req, res))
     .get(
         '/me',
-        AuthRoutes.authenticate,
-        (req, res) => playerRoutes.getProfile(req, res),
+        AuthController.authenticate,
+        (req, res) => playersController.getProfile(req, res),
     )
-    .get('/:id', (req, res) => playerRoutes.getById(req, res))
-    .put('/:id', (req, res) => playerRoutes.updateById(req, res));
+    .get('/:id', (req, res) => playersController.getById(req, res))
+    .put('/:id', (req, res) => playersController.updateById(req, res));
 
 module.exports = playerRouter;

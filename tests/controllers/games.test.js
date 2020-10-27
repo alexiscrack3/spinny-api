@@ -1,130 +1,145 @@
 const mongoose = require('mongoose');
-const sinon = require('sinon');
-const GamesController = require('../../app/controllers/games');
+const mockingoose = require('mockingoose').default;
+const request = require('supertest');
+const app = require('../../app');
 const Game = require('../../app/models/game');
 
-describe('GamesController', () => {
-    beforeEach(() => {
-        sinon.restore();
-    });
+describe('GET /games', () => {
+    it('responds with json containing a list of games', (done) => {
+        const body = {
+            winner: new mongoose.Types.ObjectId(),
+            loser: new mongoose.Types.ObjectId(),
+        };
+        const game = Game(body);
+        mockingoose(Game).toReturn([game], 'find');
 
-    describe('create', () => {
-        it('should create game when winner and loser are not the same', (done) => {
-            const body = {
-                winner: new mongoose.Types.ObjectId(),
-                loser: new mongoose.Types.ObjectId(),
-            };
-            const mock = sinon.mock(Game);
-            mock
-                .expects('create')
-                .resolves(body);
-
-            const testObject = new GamesController(Game);
-            testObject.create(body).then((game) => {
-                mock.verify();
-                mock.restore();
-                expect(body).toBe(game);
+        request(app)
+            .get('/games')
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .then((res) => {
+                const { data, errors } = res.body;
+                const obj = data[0];
+                expect(data.length).toBe(1);
+                expect(obj.winner.toString()).toBe(body.winner.toString());
+                expect(obj.loser.toString()).toBe(body.loser.toString());
+                expect(errors.length).toBe(0);
                 done();
-            }).catch((err) => {
+            })
+            .catch((err) => {
                 done(err);
             });
-        });
-
-        it('should not create game when winner and loser are the same', () => {
-            const id = new mongoose.Types.ObjectId();
-            const body = {
-                winner: id,
-                loser: id,
-            };
-
-            const testObject = new GamesController(Game);
-            return testObject.create(body).catch((err) => {
-                expect(err).toEqual(new Error('Winner and loser cannot be same player'));
-            });
-        });
     });
 
-    describe('deleteById', () => {
-        it('should delete game', (done) => {
-            const id = new mongoose.Types.ObjectId();
-            const body = {
-                _id: id,
-                winner: new mongoose.Types.ObjectId(),
-                loser: new mongoose.Types.ObjectId(),
-            };
-            const mock = sinon.mock(Game);
-            mock
-                .expects('findOneAndRemove')
-                .withArgs({ _id: id.toHexString() })
-                .yields(null, body);
+    it('responds with json containing an internal error', (done) => {
+        mockingoose(Game).toReturn(new Error(), 'find');
 
-            const testObject = new GamesController(Game);
-            testObject.deleteById(id.toHexString()).then((game) => {
-                mock.verify();
-                mock.restore();
-                expect(body).toBe(game);
+        request(app)
+            .get('/games')
+            .expect('Content-Type', /json/)
+            .expect(500)
+            .then((res) => {
+                const { data, errors } = res.body;
+                const err = errors[0];
+                expect(data).toBeNull();
+                expect(err.code).toBe('INTERNAL_ERROR');
+                expect(err.message).toBe('Something went wrong.');
                 done();
-            }).catch((err) => {
+            })
+            .catch((err) => {
                 done(err);
             });
-        });
+    });
+});
 
-        it('should return error', () => {
-            const id = new mongoose.Types.ObjectId();
-            const error = new Error();
-            const mock = sinon.mock(Game);
-            mock
-                .expects('findOneAndRemove')
-                .withArgs({ _id: id.toHexString() })
-                .yields(error, null);
+describe('POST /games', () => {
+    it('responds with json containing a game', (done) => {
+        const body = {
+            winner: new mongoose.Types.ObjectId(),
+            loser: new mongoose.Types.ObjectId(),
+        };
+        const game = Game(body);
+        mockingoose(Game).toReturn(game, 'save');
 
-            const testObject = new GamesController(Game);
-            return testObject.deleteById(id.toHexString()).catch((err) => {
-                mock.verify();
-                mock.restore();
-                expect(err).toBe(error);
+        request(app)
+            .post('/games')
+            .send(body)
+            .expect('Content-Type', /json/)
+            .expect(201)
+            .then((res) => {
+                const { data, errors } = res.body;
+                expect(data.winner).toBe(body.winner.toHexString());
+                expect(data.loser).toBe(body.loser.toHexString());
+                expect(errors.length).toBe(0);
+                done();
+            })
+            .catch((err) => {
+                done(err);
             });
-        });
-
-        it('should return error when id does not exist', () => {
-            const id = new mongoose.Types.ObjectId();
-            const mock = sinon.mock(Game);
-            mock
-                .expects('findOneAndRemove')
-                .withArgs({ _id: id.toHexString() })
-                .yields(null, null);
-
-            const testObject = new GamesController(Game);
-            return testObject.deleteById(id.toHexString()).catch((err) => {
-                mock.verify();
-                mock.restore();
-                expect(err).toEqual(new Error('Game id does not exist'));
-            });
-        });
     });
 
-    describe('getAll', () => {
-        it('should get list of games', (done) => {
-            const body = {
-                winner: new mongoose.Types.ObjectId(),
-                loser: new mongoose.Types.ObjectId(),
-            };
-            const results = [body];
-            const stub = sinon.stub(Game, 'find');
-            stub.returns({
-                find: sinon.stub().returnsThis(),
-                populate: sinon.stub().returnsThis(),
-                exec: sinon.stub().resolves(results),
-            });
+    it('responds with json containing an internal error', (done) => {
+        const statusCode = 500;
+        const body = {
+            winner: new mongoose.Types.ObjectId(),
+            loser: new mongoose.Types.ObjectId(),
+        };
+        mockingoose(Game).toReturn(new Error(), 'save');
 
-            const testObject = new GamesController(Game);
-            testObject.getAll().then((games) => {
-                stub.restore();
-                expect(results).toBe(games);
+        request(app)
+            .post('/games')
+            .send(body)
+            .expect('Content-Type', /json/)
+            .expect(statusCode)
+            .then((res) => {
+                const { data, errors } = res.body;
+                const err = errors[0];
+                expect(data).toBeNull();
+                expect(err.code).toBe('INTERNAL_ERROR');
+                expect(err.message).toBe('Something went wrong.');
                 done();
-            }).catch((err) => {
+            })
+            .catch((err) => {
                 done(err);
             });
-        });
+    });
+});
+
+describe('DELETE /games/:id', () => {
+    it('responds with no content', (done) => {
+        const id = new mongoose.Types.ObjectId();
+        const body = {
+            _id: id,
+            winner: new mongoose.Types.ObjectId(),
+            loser: new mongoose.Types.ObjectId(),
+        };
+        const game = Game(body);
+        mockingoose(Game).toReturn(game, 'findOneAndRemove');
+
+        request(app)
+            .delete(`/games/${id.toHexString()}`)
+            .expect(204, done);
+    });
+
+    it('responds with json containing an internal error', (done) => {
+        const statusCode = 500;
+        const id = new mongoose.Types.ObjectId().toHexString();
+        mockingoose(Game).toReturn(new Error(), 'findOneAndRemove');
+
+        request(app)
+            .delete(`/games/${id}`)
+            .expect('Content-Type', /json/)
+            .expect(statusCode)
+            .then((res) => {
+                const { data, errors } = res.body;
+                const err = errors[0];
+                expect(data).toBeNull();
+                expect(err.code).toBe('INTERNAL_ERROR');
+                expect(err.message).toBe('Something went wrong.');
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
     });
 });

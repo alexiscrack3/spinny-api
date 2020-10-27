@@ -1,128 +1,226 @@
 const mongoose = require('mongoose');
-const sinon = require('sinon');
-const ClubsController = require('../../app/controllers/clubs');
+const mockingoose = require('mockingoose').default;
+const request = require('supertest');
+const app = require('../../app');
 const Club = require('../../app/models/club');
 
-describe('ClubsController', () => {
-    beforeEach(() => {
-        sinon.restore();
-    });
+describe('POST /clubs', () => {
+    it('responds with json containing a club', (done) => {
+        const body = {
+            name: 'club',
+        };
+        const club = Club(body);
+        mockingoose(Club).toReturn(club, 'save');
 
-    describe('create', () => {
-        it('should invoke create on model', () => {
-            const body = {
-                name: 'club',
-            };
-            const stub = sinon.stub(Club, 'create');
-            const testObject = new ClubsController(Club);
-
-            testObject.create(body);
-
-            expect(stub.calledWith(body)).toBeTruthy();
-        });
-    });
-
-    describe('getById', () => {
-        it('should invoke findById on model', () => {
-            const id = new mongoose.Types.ObjectId().toHexString();
-            const spy = sinon.spy(Club, 'findById');
-            const testObject = new ClubsController(Club);
-
-            testObject.getById(id);
-
-            expect(spy.withArgs(id).calledOnce).toBeTruthy();
-        });
-    });
-
-    describe('getAll', () => {
-        it('should invoke find on model', () => {
-            const spy = sinon.spy(Club, 'find');
-            const testObject = new ClubsController(Club);
-
-            testObject.getAll();
-
-            expect(spy.calledOnce).toBeTruthy();
-        });
-    });
-
-    describe('getAllByPlayerId', () => {
-        it('should invoke find with playerId on model', () => {
-            const playerId = new mongoose.Types.ObjectId().toHexString();
-            const stub = sinon.stub(Club, 'find');
-            const populateSpy = sinon.stub();
-            const execSpy = sinon.stub();
-            stub.returns({
-                find: sinon.stub().returnsThis(),
-                populate: populateSpy.returnsThis(),
-                exec: execSpy,
-            });
-            const testObject = new ClubsController(Club);
-
-            testObject.getAllByPlayerId(playerId);
-
-            expect(stub.calledWith({ members: { $in: [playerId] } })).toBeTruthy();
-            expect(populateSpy.calledWith({ path: 'members', select: 'email' })).toBeTruthy();
-            expect(populateSpy.calledAfter(stub)).toBeTruthy();
-            expect(execSpy.calledAfter(populateSpy)).toBeTruthy();
-        });
-    });
-
-    describe('addPlayer', () => {
-        it('should add player to club', (done) => {
-            const id = new mongoose.Types.ObjectId().toHexString();
-            const playerId = new mongoose.Types.ObjectId().toHexString();
-            const clubMock = sinon.mock(Club);
-            clubMock
-                .expects('update')
-                .withArgs(
-                    { _id: id, members: { $nin: playerId } },
-                    { $push: { members: playerId } },
-                )
-                .yields(null, { nModified: 1 });
-
-            const testObject = new ClubsController(Club);
-            testObject.addPlayer(id, playerId).then(() => {
-                clubMock.verify();
-                clubMock.restore();
+        request(app)
+            .post('/clubs')
+            .send(body)
+            .expect('Content-Type', /json/)
+            .expect(201)
+            .then((res) => {
+                const { data, errors } = res.body;
+                expect(data.name).toBe(body.name);
+                expect(errors.length).toBe(0);
                 done();
-            }).catch((err) => {
+            })
+            .catch((err) => {
                 done(err);
             });
-        });
+    });
 
-        it('should return error', () => {
-            const id = new mongoose.Types.ObjectId().toHexString();
-            const playerId = new mongoose.Types.ObjectId().toHexString();
-            const error = new Error();
-            const clubMock = sinon.mock(Club);
-            clubMock
-                .expects('update')
-                .withArgs(
-                    { _id: id, members: { $nin: playerId } },
-                    { $push: { members: playerId } },
-                )
-                .yields(error, null);
-            const testObject = new ClubsController(Club);
-            return testObject.addPlayer(id, playerId).catch((err) => {
-                expect(err).toBe(error);
-            });
-        });
+    it('responds with json containing an internal error', (done) => {
+        const body = {
+            name: 'club',
+        };
+        mockingoose(Club).toReturn(new Error(), 'save');
 
-        it('should return error when player was not added to the club', () => {
-            const id = new mongoose.Types.ObjectId().toHexString();
-            const playerId = new mongoose.Types.ObjectId().toHexString();
-            const clubMock = sinon.mock(Club);
-            clubMock
-                .expects('update')
-                .withArgs(
-                    { _id: id, members: { $nin: playerId } },
-                    { $push: { members: playerId } },
-                )
-                .yields(null, { nModified: 0 });
-            const testObject = new ClubsController(Club);
-            return testObject.addPlayer(id, playerId).catch((err) => {
-                expect(err).toEqual(new Error('Player was not added to the club'));
+        request(app)
+            .post('/clubs')
+            .send(body)
+            .expect('Content-Type', /json/)
+            .expect(500)
+            .then((res) => {
+                const { data, errors } = res.body;
+                const err = errors[0];
+                expect(data).toBeNull();
+                expect(err.code).toBe('INTERNAL_ERROR');
+                expect(err.message).toBe('Something went wrong.');
+                done();
+            })
+            .catch((err) => {
+                done(err);
             });
-        });
+    });
+});
+
+describe('GET /clubs', () => {
+    it('responds with json containing a list of clubs', (done) => {
+        const body = {
+            name: 'club',
+        };
+        const club = Club(body);
+        mockingoose(Club).toReturn([club], 'find');
+
+        request(app)
+            .get('/clubs')
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .then((res) => {
+                const { data, errors } = res.body;
+                const obj = data[0];
+                expect(data.length).toBe(1);
+                expect(obj.name).toBe(body.name);
+                expect(errors.length).toBe(0);
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
+    });
+
+    it('responds with json containing an internal error', (done) => {
+        mockingoose(Club).toReturn(new Error(), 'find');
+
+        request(app)
+            .get('/clubs')
+            .expect('Content-Type', /json/)
+            .expect(500)
+            .then((res) => {
+                const { data, errors } = res.body;
+                const err = errors[0];
+                expect(data).toBeNull();
+                expect(err.code).toBe('INTERNAL_ERROR');
+                expect(err.message).toBe('Something went wrong.');
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
+    });
+});
+
+describe('GET /clubs/:id', () => {
+    it('responds with json containing a club', (done) => {
+        const body = {
+            name: 'club',
+        };
+        const club = Club(body);
+        mockingoose(Club).toReturn(club, 'findOne');
+
+        request(app)
+            .get(`/clubs/${club.id}`)
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .then((res) => {
+                const { data, errors } = res.body;
+                expect(data.name).toBe(body.name);
+                expect(errors.length).toBe(0);
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
+    });
+
+    it('responds with json containing an error when club is not found', (done) => {
+        const id = new mongoose.Types.ObjectId().toHexString();
+        mockingoose(Club).toReturn(null, 'findOne');
+
+        request(app)
+            .get(`/clubs/${id}`)
+            .expect('Content-Type', /json/)
+            .expect(404)
+            .then((res) => {
+                const { data, errors } = res.body;
+                const err = errors[0];
+                expect(data).toBeNull();
+                expect(err.code).toBe('INVALID_PARAMETER');
+                expect(err.message).toBe('Club not found.');
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
+    });
+
+    it('responds with json containing an internal error', (done) => {
+        const id = new mongoose.Types.ObjectId().toHexString();
+        mockingoose(Club).toReturn(new Error(), 'findOne');
+
+        request(app)
+            .get(`/clubs/${id}`)
+            .expect('Content-Type', /json/)
+            .expect(500)
+            .then((res) => {
+                const { data, errors } = res.body;
+                const err = errors[0];
+                expect(data).toBeNull();
+                expect(err.code).toBe('INTERNAL_ERROR');
+                expect(err.message).toBe('Something went wrong.');
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
+    });
+});
+
+describe('GET /clubs?playerId=:id', () => {
+    it('responds with json containing a list of clubs that a player belongs to', (done) => {
+        const id = new mongoose.Types.ObjectId().toHexString();
+        const body = {
+            name: 'club',
+        };
+        const club = Club(body);
+        mockingoose(Club).toReturn([club], 'find');
+
+        request(app)
+            .get('/clubs')
+            .query({ playerId: id })
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .then((res) => {
+                const { data, errors } = res.body;
+                const obj = data[0];
+                expect(data.length).toBe(1);
+                expect(obj.name).toBe(body.name);
+                expect(errors.length).toBe(0);
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
+    });
+});
+
+describe('PUT /clubs/:id/players', () => {
+    it('responds with no content', (done) => {
+        const id = new mongoose.Types.ObjectId().toHexString();
+        mockingoose(Club).toReturn({ nModified: 1 }, 'update');
+
+        request(app)
+            .put(`/clubs/${id}/players`)
+            .expect(204, done);
+    });
+
+    it('responds with json containing an internal error', (done) => {
+        const id = new mongoose.Types.ObjectId().toHexString();
+        mockingoose(Club).toReturn(new Error(), 'update');
+
+        request(app)
+            .put(`/clubs/${id}/players`)
+            .expect('Content-Type', /json/)
+            .expect(500)
+            .then((res) => {
+                const { data, errors } = res.body;
+                const err = errors[0];
+                expect(data).toBeNull();
+                expect(err.code).toBe('INTERNAL_ERROR');
+                expect(err.message).toBe('Something went wrong.');
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
     });
 });

@@ -1,27 +1,76 @@
-class PlayersController {
-    constructor(player) {
-        this.player = player;
+const APIError = require('../models/api-error');
+const APIResponse = require('../models/api-response');
+
+class PlayerController {
+    constructor(playersRepository) {
+        this.playersRepository = playersRepository;
     }
 
-    create(body) {
-        return this.player.create(body);
+    getAll(req, res) {
+        this.playersRepository.getAll()
+            .then((players) => {
+                res.json(new APIResponse(players));
+            })
+            .catch(() => {
+                res.status(500).json(new APIResponse(null, [
+                    new APIError('INTERNAL_ERROR', 'Something went wrong.'),
+                ]));
+            });
     }
 
-    updateById(id, body) {
-        return this.player.findByIdAndUpdate(id, body, { new: true });
+    getProfile(req, res) {
+        this.playersRepository.getById(req.user.id)
+            .then((player) => {
+                if (player) {
+                    res.json(new APIResponse(player));
+                } else {
+                    res.status(404).json(new APIResponse(null, [
+                        new APIError('INVALID_PARAMETER', 'Player not found.'),
+                    ]));
+                }
+            })
+            .catch(() => {
+                res.status(500).json(new APIResponse(null, [
+                    new APIError('INTERNAL_ERROR', 'Something went wrong.'),
+                ]));
+            });
     }
 
-    getById(id) {
-        return this.player.findById(id);
+    getById(req, res) {
+        this.playersRepository.getById(req.params.id)
+            .then((player) => {
+                if (player) {
+                    res.json(new APIResponse(player));
+                } else {
+                    res.status(404).json(new APIResponse(null, [
+                        new APIError('INVALID_PARAMETER', 'Player not found.'),
+                    ]));
+                }
+            })
+            .catch(() => {
+                res.status(500).json(new APIResponse(null, [
+                    new APIError('INTERNAL_ERROR', 'Something went wrong.'),
+                ]));
+            });
     }
 
-    getByEmail(email) {
-        return this.player.findOne({ email });
-    }
-
-    getAll() {
-        return this.player.find();
+    updateById(req, res) {
+        this.playersRepository.updateById(req.params.id, req.body)
+            .then((player) => {
+                if (player) {
+                    res.json(new APIResponse(player));
+                } else {
+                    res.status(404).json(new APIResponse(null, [
+                        new APIError('INVALID_PARAMETER', 'Player not found.'),
+                    ]));
+                }
+            })
+            .catch(() => {
+                res.status(500).json(new APIResponse(null, [
+                    new APIError('INTERNAL_ERROR', 'Something went wrong.'),
+                ]));
+            });
     }
 }
 
-module.exports = PlayersController;
+module.exports = PlayerController;
