@@ -5,8 +5,6 @@ const playerRouter = require('./players');
 const clubRouter = require('./clubs');
 const gameRouter = require('./games');
 
-require('../app/helpers/passport');
-
 const indexRouter = express.Router();
 
 indexRouter
@@ -17,6 +15,6 @@ module.exports = {
     '/auth': authRouter,
     '/feedback': feedbackRouter,
     '/players': playerRouter,
-    '/games': gameRouter,
     '/clubs': clubRouter,
+    '/games': gameRouter,
 };
