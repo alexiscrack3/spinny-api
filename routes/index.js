@@ -8,7 +8,13 @@ const gameRouter = require('./games');
 const indexRouter = express.Router();
 
 indexRouter
-    .get('/', (req, res) => { res.send('Hello World!'); });
+    .get('/', (req, res) => {
+        res.send('Hello World!');
+    })
+    .use((req, res, next) => {
+        res.set('X-Correlation-Id', req.correlationId());
+        next();
+    });
 
 module.exports = {
     '/': indexRouter,
