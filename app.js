@@ -2,7 +2,7 @@ const express = require('express');
 const createError = require('http-errors');
 const debug = require('debug')('spinny:app');
 const middlewares = require('./middlewares');
-const routes = require('./config/routes');
+const routes = require('./routes');
 const database = require('./db');
 
 const app = express();
