@@ -1,5 +1,6 @@
 const APIError = require('../models/api-error');
 const APIResponse = require('../models/api-response');
+const logger = require('../helpers/logger');
 
 class GameController {
     constructor(gamesRepository) {
@@ -11,7 +12,8 @@ class GameController {
             .then((game) => {
                 res.status(201).json(new APIResponse(game));
             })
-            .catch(() => {
+            .catch((err) => {
+                logger.error(err);
                 res.status(500).json(new APIResponse(null, [
                     new APIError('INTERNAL_ERROR', 'Something went wrong.'),
                 ]));
@@ -25,7 +27,8 @@ class GameController {
                     .status(204)
                     .end();
             })
-            .catch(() => {
+            .catch((err) => {
+                logger.error(err);
                 res.status(500).json(new APIResponse(null, [
                     new APIError('INTERNAL_ERROR', 'Something went wrong.'),
                 ]));
@@ -37,7 +40,8 @@ class GameController {
             .then((games) => {
                 res.json(new APIResponse(games));
             })
-            .catch(() => {
+            .catch((err) => {
+                logger.error(err);
                 res.status(500).json(new APIResponse(null, [
                     new APIError('INTERNAL_ERROR', 'Something went wrong.'),
                 ]));

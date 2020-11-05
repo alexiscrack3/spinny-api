@@ -3,11 +3,13 @@ const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const APIError = require('../models/api-error');
 const APIResponse = require('../models/api-response');
+const logger = require('../helpers/logger');
 
 class AuthController {
     static authenticateUser(req, res, next, user) {
         req.login(user, { session: false }, (err) => {
             if (err) {
+                logger.error(err);
                 res.status(500).json(new APIResponse(null, [
                     new APIError('INTERNAL_ERROR', 'Something went wrong.'),
                 ]));
@@ -20,6 +22,7 @@ class AuthController {
     static authenticateUserAndExpediteToken(req, res, user) {
         req.login(user, { session: false }, (err) => {
             if (err) {
+                logger.error(err);
                 res.status(500).json(new APIResponse(null, [
                     new APIError('INTERNAL_ERROR', 'Something went wrong.'),
                 ]));
@@ -39,6 +42,7 @@ class AuthController {
     static authenticate(req, res, next) {
         passport.authenticate('jwt', { session: false }, (err, user, info) => {
             if (err) {
+                logger.error(err);
                 res.status(500).json(new APIResponse(null, [
                     new APIError('INTERNAL_ERROR', 'Something went wrong.'),
                 ]));
@@ -55,6 +59,7 @@ class AuthController {
     signUp(req, res) {
         passport.authenticate('local-signup', { session: false }, (err, user) => {
             if (err || !user) {
+                logger.error(err);
                 res.status(400).json(new APIResponse(null, [
                     new APIError('INTERNAL_ERROR', 'Bad request.'),
                 ]));
@@ -67,6 +72,7 @@ class AuthController {
     signIn(req, res) {
         passport.authenticate('local-login', { session: false }, (err, user, info) => {
             if (err || !user) {
+                logger.error(err);
                 res.status(400).json(new APIResponse(null, [
                     new APIError('INTERNAL_ERROR', 'Bad request.'),
                 ]));

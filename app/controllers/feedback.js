@@ -1,5 +1,6 @@
 const APIError = require('../models/api-error');
 const APIResponse = require('../models/api-response');
+const logger = require('../helpers/logger');
 
 class FeedbackController {
     constructor(feedbackRepository) {
@@ -11,7 +12,8 @@ class FeedbackController {
             .then(() => {
                 res.status(204).json(new APIResponse());
             })
-            .catch(() => {
+            .catch((err) => {
+                logger.error(err);
                 res.status(500).json(new APIResponse(null, [
                     new APIError('INTERNAL_ERROR', 'Something went wrong.'),
                 ]));
