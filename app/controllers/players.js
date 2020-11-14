@@ -8,7 +8,8 @@ class PlayerController {
     }
 
     getAll(req, res) {
-        this.playersRepository.getAll()
+        const { skip = 0, limit = 0 } = req.query;
+        this.playersRepository.getAll(limit, skip)
             .then((players) => {
                 res.json(new APIResponse(players));
             })

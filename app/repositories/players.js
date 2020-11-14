@@ -19,8 +19,11 @@ class PlayersRepository {
         return this.player.findOne({ email });
     }
 
-    getAll() {
-        return this.player.find();
+    getAll(limit, skip) {
+        return this.player
+            .find()
+            .skip(skip * 1)
+            .limit(limit * 1);
     }
 }
 
