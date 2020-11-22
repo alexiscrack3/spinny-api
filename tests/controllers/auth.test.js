@@ -45,7 +45,7 @@ describe('POST /auth/sign_in', () => {
         request(app)
             .post('/auth/sign_in')
             .expect('Content-Type', /json/)
-            .expect(500)
+            .expect(400)
             .then((res) => {
                 const { data, errors } = res.body;
                 const err = errors[0];
@@ -67,7 +67,7 @@ describe('POST /auth/sign_in', () => {
         request(app)
             .post('/auth/sign_in')
             .expect('Content-Type', /json/)
-            .expect(500)
+            .expect(400)
             .then((res) => {
                 const { data, errors } = res.body;
                 const err = errors[0];

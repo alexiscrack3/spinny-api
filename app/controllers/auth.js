@@ -60,7 +60,7 @@ class AuthController {
         passport.authenticate('local-signup', { session: false }, (err, user) => {
             if (err || !user) {
                 logger.error(err);
-                res.status(500).json(new APIResponse(null, [
+                res.status(400).json(new APIResponse(null, [
                     new APIError('INTERNAL_ERROR', 'Bad request.'),
                 ]));
             } else {
@@ -73,7 +73,7 @@ class AuthController {
         passport.authenticate('local-login', { session: false }, (err, user, info) => {
             if (err || !user) {
                 logger.error(err);
-                res.status(500).json(new APIResponse(null, [
+                res.status(400).json(new APIResponse(null, [
                     new APIError('INTERNAL_ERROR', 'Bad request.'),
                 ]));
             } else {
