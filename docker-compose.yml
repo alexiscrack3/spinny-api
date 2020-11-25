@@ -1,16 +1,16 @@
 version: "3"
 
-services: 
+services:
     api:
         container_name: api
         env_file: .env
-        environment: 
+        environment:
             MONGO_HOSTNAME: db
             MONGO_PORT: $MONGO_PORT
             MONGO_DB: $MONGO_DB
-        depends_on: 
+        depends_on:
             - db
-        ports: 
+        ports:
             - "3000:3000"
             # - "3000-3010:3000"
         networks:
@@ -27,6 +27,8 @@ services:
     web:
         image: alexiscrack3/spinny-react:latest
         container_name: web
+        environment:
+            API_URL: api
         depends_on:
             - api
         ports:
