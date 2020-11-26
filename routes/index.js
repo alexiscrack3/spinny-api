@@ -17,10 +17,10 @@ indexRouter
     });
 
 module.exports = {
-    '/': indexRouter,
-    '/auth': authRouter,
-    '/feedback': feedbackRouter,
-    '/players': playerRouter,
-    '/clubs': clubRouter,
-    '/games': gameRouter,
+    '/api': indexRouter,
+    '/api/auth': authRouter,
+    '/api/feedback': feedbackRouter,
+    '/api/players': playerRouter,
+    '/api/clubs': clubRouter,
+    '/api/games': gameRouter,
 };
