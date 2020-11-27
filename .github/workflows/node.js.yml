@@ -26,4 +26,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
     - run: npm run build --if-present
-    - run: SECRET_KEY=supersecret SG_API_KEY=SG.xyz npm test
+    - run: npm test
+      env:
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        SG_API_KEY: ${{ secrets.SG_API_KEY }}
