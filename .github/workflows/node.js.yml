@@ -19,14 +19,20 @@ jobs:
         node-version: [10.x, 12.x, 14.x]
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
     - run: npm run build --if-present
-    - run: npm test
+    - run: npm run test:report
       env:
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
-        SG_API_KEY: ${{ secrets.SG_API_KEY }}
+        SG_API_KEY: ${{ secrets.SG_API_KEY }}x
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v2
+        with:
+          name: code-coverage-report
+          path: coverage
