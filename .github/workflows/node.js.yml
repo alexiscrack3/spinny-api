@@ -21,12 +21,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
-      env:
-        SECRET_KEY: 3smZZEo3XW
-        SG_API_KEY: "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"
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
     - run: npm run build --if-present
-    - run: npm test
+    - run: SECRET_KEY=supersecret SG_API_KEY=SG.xyz npm test
