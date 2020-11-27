@@ -27,9 +27,6 @@ services:
     web:
         image: alexiscrack3/spinny-react:latest
         container_name: web
-        environment:
-            REACT_APP_DOMAIN: api
-            REACT_APP_PORT: 3000
         depends_on:
             - api
         ports:
