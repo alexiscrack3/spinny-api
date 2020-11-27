@@ -23,7 +23,7 @@ jobs:
     - name: Use Node.js ${{ matrix.node-version }}
       env:
         SECRET_KEY: 3smZZEo3XW
-        SG_API_KEY: SG.TibktamWXJ
+        SG_API_KEY: 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
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
