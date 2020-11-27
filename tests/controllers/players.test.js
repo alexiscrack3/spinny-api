@@ -6,7 +6,7 @@ const MockStrategy = require('passport-mock-strategy');
 const app = require('../../app');
 const Player = require('../../app/models/player');
 
-describe('GET /players', () => {
+describe('GET /api/players', () => {
     it('responds with json containing a list of players', (done) => {
         const body = {
             email: 'user@spinny.com',
@@ -16,7 +16,7 @@ describe('GET /players', () => {
         mockingoose(Player).toReturn([player], 'find');
 
         request(app)
-            .get('/players')
+            .get('/api/players')
             .expect('Content-Type', /json/)
             .expect(200)
             .then((res) => {
@@ -39,7 +39,7 @@ describe('GET /players', () => {
         mockingoose(Player).toReturn(new Error(), 'find');
 
         request(app)
-            .get('/players')
+            .get('/api/players')
             .expect('Content-Type', /json/)
             .expect(500)
             .then((res) => {
@@ -56,7 +56,7 @@ describe('GET /players', () => {
     });
 });
 
-describe('GET /players/:id', () => {
+describe('GET /api/players/:id', () => {
     it('responds with json containing a player', (done) => {
         const body = {
             email: 'user@spinny.com',
@@ -66,7 +66,7 @@ describe('GET /players/:id', () => {
         mockingoose(Player).toReturn(player, 'findOne');
 
         request(app)
-            .get(`/players/${player.id}`)
+            .get(`/api/players/${player.id}`)
             .expect('Content-Type', /json/)
             .expect(200)
             .then((res) => {
@@ -88,7 +88,7 @@ describe('GET /players/:id', () => {
         mockingoose(Player).toReturn(null, 'findOne');
 
         request(app)
-            .get(`/players/${id}`)
+            .get(`/api/players/${id}`)
             .expect('Content-Type', /json/)
             .expect(404)
             .then((res) => {
@@ -109,7 +109,7 @@ describe('GET /players/:id', () => {
         mockingoose(Player).toReturn(new Error(), 'findOne');
 
         request(app)
-            .get(`/players/${id}`)
+            .get(`/api/players/${id}`)
             .expect('Content-Type', /json/)
             .expect(500)
             .then((res) => {
@@ -126,7 +126,7 @@ describe('GET /players/:id', () => {
     });
 });
 
-describe('GET /players/me', () => {
+describe('GET /api/players/me', () => {
     it('responds with json containing user\'s profile', (done) => {
         const body = {
             email: 'user@spinny.com',
@@ -144,7 +144,7 @@ describe('GET /players/me', () => {
         }));
 
         request(app)
-            .get('/players/me')
+            .get('/api/players/me')
             .expect('Content-Type', /json/)
             .expect(200)
             .then((res) => {
@@ -177,7 +177,7 @@ describe('GET /players/me', () => {
         }));
 
         request(app)
-            .get('/players/me')
+            .get('/api/players/me')
             .expect('Content-Type', /json/)
             .expect(401)
             .then((res) => {
@@ -210,7 +210,7 @@ describe('GET /players/me', () => {
         }));
 
         request(app)
-            .get('/players/me')
+            .get('/api/players/me')
             .expect('Content-Type', /json/)
             .expect(500)
             .then((res) => {
@@ -242,7 +242,7 @@ describe('GET /players/me', () => {
         }));
 
         request(app)
-            .get('/players/me')
+            .get('/api/players/me')
             .expect('Content-Type', /json/)
             .expect(500)
             .then((res) => {
@@ -269,7 +269,7 @@ describe('GET /players/me', () => {
         }));
 
         request(app)
-            .get('/players/me')
+            .get('/api/players/me')
             .expect('Content-Type', /json/)
             .expect(404)
             .then((res) => {
@@ -296,7 +296,7 @@ describe('GET /players/me', () => {
         }));
 
         request(app)
-            .get('/players/me')
+            .get('/api/players/me')
             .expect('Content-Type', /json/)
             .expect(500)
             .then((res) => {
@@ -313,7 +313,7 @@ describe('GET /players/me', () => {
     });
 });
 
-describe('PUT /players/:id', () => {
+describe('PUT /api/players/:id', () => {
     it('responds with json containing a player', (done) => {
         const id = new mongoose.Types.ObjectId().toHexString();
         const body = {
@@ -324,7 +324,7 @@ describe('PUT /players/:id', () => {
         mockingoose(Player).toReturn(player, 'findOneAndUpdate');
 
         request(app)
-            .put(`/players/${id}`)
+            .put(`/api/players/${id}`)
             .send(body)
             .expect('Content-Type', /json/)
             .expect(200)
@@ -347,7 +347,7 @@ describe('PUT /players/:id', () => {
         mockingoose(Player).toReturn(null, 'findOneAndUpdate');
 
         request(app)
-            .put(`/players/${id}`)
+            .put(`/api/players/${id}`)
             .expect('Content-Type', /json/)
             .expect(404)
             .then((res) => {
@@ -372,7 +372,7 @@ describe('PUT /players/:id', () => {
         mockingoose(Player).toReturn(new Error(), 'findOneAndUpdate');
 
         request(app)
-            .put(`/players/${id}`)
+            .put(`/api/players/${id}`)
             .send(body)
             .expect('Content-Type', /json/)
             .expect(500)

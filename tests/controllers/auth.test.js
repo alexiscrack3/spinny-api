@@ -4,7 +4,7 @@ const MockStrategy = require('passport-mock-strategy');
 const app = require('../../app');
 const Player = require('../../app/models/player');
 
-describe('POST /auth/sign_in', () => {
+describe('POST /api/auth/sign_in', () => {
     it('responds with json containing a user and token', (done) => {
         const body = {
             email: 'user@spinny.com',
@@ -21,7 +21,7 @@ describe('POST /auth/sign_in', () => {
         }));
 
         request(app)
-            .post('/auth/sign_in')
+            .post('/api/auth/sign_in')
             .send(`email=${player.email}&password=${player.password}`) // x-www-form-urlencoded
             .expect('Content-Type', /json/)
             .expect(200)
@@ -43,7 +43,7 @@ describe('POST /auth/sign_in', () => {
         }));
 
         request(app)
-            .post('/auth/sign_in')
+            .post('/api/auth/sign_in')
             .expect('Content-Type', /json/)
             .expect(400)
             .then((res) => {
@@ -65,7 +65,7 @@ describe('POST /auth/sign_in', () => {
         }));
 
         request(app)
-            .post('/auth/sign_in')
+            .post('/api/auth/sign_in')
             .expect('Content-Type', /json/)
             .expect(400)
             .then((res) => {
@@ -95,7 +95,7 @@ describe('POST /auth/sign_in', () => {
         }));
 
         request(app)
-            .post('/auth/sign_in')
+            .post('/api/auth/sign_in')
             .expect('Content-Type', /json/)
             .expect(500)
             .then((res) => {
@@ -112,7 +112,7 @@ describe('POST /auth/sign_in', () => {
     });
 });
 
-describe('POST /auth/sign_up', () => {
+describe('POST /api/auth/sign_up', () => {
     it('responds with json containing an user and token', (done) => {
         const body = {
             email: 'user@spinny.com',
@@ -129,7 +129,7 @@ describe('POST /auth/sign_up', () => {
         }));
 
         request(app)
-            .post('/auth/sign_up')
+            .post('/api/auth/sign_up')
             .send(body)
             .expect('Content-Type', /json/)
             .expect(200)
@@ -155,7 +155,7 @@ describe('POST /auth/sign_up', () => {
         }));
 
         request(app)
-            .post('/auth/sign_up')
+            .post('/api/auth/sign_up')
             .expect('Content-Type', /json/)
             .expect(statusCode)
             .then((res) => {
@@ -181,7 +181,7 @@ describe('POST /auth/sign_up', () => {
         }));
 
         request(app)
-            .post('/auth/sign_up')
+            .post('/api/auth/sign_up')
             .expect('Content-Type', /json/)
             .expect(statusCode)
             .then((res) => {
@@ -215,7 +215,7 @@ describe('POST /auth/sign_up', () => {
         }));
 
         request(app)
-            .post('/auth/sign_up')
+            .post('/api/auth/sign_up')
             .expect('Content-Type', /json/)
             .expect(statusCode)
             .then((res) => {

@@ -4,7 +4,7 @@ const request = require('supertest');
 const app = require('../../app');
 const Club = require('../../app/models/club');
 
-describe('POST /clubs', () => {
+describe('POST /api/clubs', () => {
     it('responds with json containing a club', (done) => {
         const body = {
             name: 'club',
@@ -13,7 +13,7 @@ describe('POST /clubs', () => {
         mockingoose(Club).toReturn(club, 'save');
 
         request(app)
-            .post('/clubs')
+            .post('/api/clubs')
             .send(body)
             .expect('Content-Type', /json/)
             .expect(201)
@@ -35,7 +35,7 @@ describe('POST /clubs', () => {
         mockingoose(Club).toReturn(new Error(), 'save');
 
         request(app)
-            .post('/clubs')
+            .post('/api/clubs')
             .send(body)
             .expect('Content-Type', /json/)
             .expect(500)
@@ -53,7 +53,7 @@ describe('POST /clubs', () => {
     });
 });
 
-describe('GET /clubs', () => {
+describe('GET /api/clubs', () => {
     it('responds with json containing a list of clubs', (done) => {
         const body = {
             name: 'club',
@@ -62,7 +62,7 @@ describe('GET /clubs', () => {
         mockingoose(Club).toReturn([club], 'find');
 
         request(app)
-            .get('/clubs')
+            .get('/api/clubs')
             .expect('Content-Type', /json/)
             .expect(200)
             .then((res) => {
@@ -82,7 +82,7 @@ describe('GET /clubs', () => {
         mockingoose(Club).toReturn(new Error(), 'find');
 
         request(app)
-            .get('/clubs')
+            .get('/api/clubs')
             .expect('Content-Type', /json/)
             .expect(500)
             .then((res) => {
@@ -99,7 +99,7 @@ describe('GET /clubs', () => {
     });
 });
 
-describe('GET /clubs/:id', () => {
+describe('GET /api/clubs/:id', () => {
     it('responds with json containing a club', (done) => {
         const body = {
             name: 'club',
@@ -108,7 +108,7 @@ describe('GET /clubs/:id', () => {
         mockingoose(Club).toReturn(club, 'findOne');
 
         request(app)
-            .get(`/clubs/${club.id}`)
+            .get(`/api/clubs/${club.id}`)
             .expect('Content-Type', /json/)
             .expect(200)
             .then((res) => {
@@ -127,7 +127,7 @@ describe('GET /clubs/:id', () => {
         mockingoose(Club).toReturn(null, 'findOne');
 
         request(app)
-            .get(`/clubs/${id}`)
+            .get(`/api/clubs/${id}`)
             .expect('Content-Type', /json/)
             .expect(404)
             .then((res) => {
@@ -148,7 +148,7 @@ describe('GET /clubs/:id', () => {
         mockingoose(Club).toReturn(new Error(), 'findOne');
 
         request(app)
-            .get(`/clubs/${id}`)
+            .get(`/api/clubs/${id}`)
             .expect('Content-Type', /json/)
             .expect(500)
             .then((res) => {
@@ -165,7 +165,7 @@ describe('GET /clubs/:id', () => {
     });
 });
 
-describe('GET /clubs?playerId=:id', () => {
+describe('GET /api/clubs?playerId=:id', () => {
     it('responds with json containing a list of clubs that a player belongs to', (done) => {
         const id = new mongoose.Types.ObjectId().toHexString();
         const body = {
@@ -175,7 +175,7 @@ describe('GET /clubs?playerId=:id', () => {
         mockingoose(Club).toReturn([club], 'find');
 
         request(app)
-            .get('/clubs')
+            .get('/api/clubs')
             .query({ playerId: id })
             .expect('Content-Type', /json/)
             .expect(200)
@@ -193,13 +193,13 @@ describe('GET /clubs?playerId=:id', () => {
     });
 });
 
-describe('PUT /clubs/:id/players', () => {
+describe('PUT /api/clubs/:id/players', () => {
     it('responds with no content', (done) => {
         const id = new mongoose.Types.ObjectId().toHexString();
         mockingoose(Club).toReturn({ nModified: 1 }, 'update');
 
         request(app)
-            .put(`/clubs/${id}/players`)
+            .put(`/api/clubs/${id}/players`)
             .expect(204, done);
     });
 
@@ -208,7 +208,7 @@ describe('PUT /clubs/:id/players', () => {
         mockingoose(Club).toReturn(new Error(), 'update');
 
         request(app)
-            .put(`/clubs/${id}/players`)
+            .put(`/api/clubs/${id}/players`)
             .expect('Content-Type', /json/)
             .expect(500)
             .then((res) => {

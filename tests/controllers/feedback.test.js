@@ -4,7 +4,7 @@ const request = require('supertest');
 const app = require('../../app');
 const EmailService = require('../../app/services/email');
 
-describe('POST /feedback', () => {
+describe('POST /api/feedback', () => {
     afterEach(() => {
         sinon.restore();
     });
@@ -22,7 +22,7 @@ describe('POST /feedback', () => {
         sinon.stub(EmailService.prototype, 'sendFeedback').resolves();
 
         request(app)
-            .post('/feedback')
+            .post('/api/feedback')
             .send(body)
             .expect(204)
             .then((res) => {
@@ -49,7 +49,7 @@ describe('POST /feedback', () => {
         sinon.stub(EmailService.prototype, 'sendFeedback').rejects();
 
         request(app)
-            .post('/feedback')
+            .post('/api/feedback')
             .send(body)
             .expect('Content-Type', /json/)
             .expect(500)

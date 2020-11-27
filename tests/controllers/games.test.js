@@ -4,7 +4,7 @@ const request = require('supertest');
 const app = require('../../app');
 const Game = require('../../app/models/game');
 
-describe('GET /games', () => {
+describe('GET /api/games', () => {
     it('responds with json containing a list of games', (done) => {
         const body = {
             winner: new mongoose.Types.ObjectId(),
@@ -14,7 +14,7 @@ describe('GET /games', () => {
         mockingoose(Game).toReturn([game], 'find');
 
         request(app)
-            .get('/games')
+            .get('/api/games')
             .expect('Content-Type', /json/)
             .expect(200)
             .then((res) => {
@@ -35,7 +35,7 @@ describe('GET /games', () => {
         mockingoose(Game).toReturn(new Error(), 'find');
 
         request(app)
-            .get('/games')
+            .get('/api/games')
             .expect('Content-Type', /json/)
             .expect(500)
             .then((res) => {
@@ -52,7 +52,7 @@ describe('GET /games', () => {
     });
 });
 
-describe('POST /games', () => {
+describe('POST /api/games', () => {
     it('responds with json containing a game', (done) => {
         const body = {
             winner: new mongoose.Types.ObjectId(),
@@ -62,7 +62,7 @@ describe('POST /games', () => {
         mockingoose(Game).toReturn(game, 'save');
 
         request(app)
-            .post('/games')
+            .post('/api/games')
             .send(body)
             .expect('Content-Type', /json/)
             .expect(201)
@@ -87,7 +87,7 @@ describe('POST /games', () => {
         mockingoose(Game).toReturn(new Error(), 'save');
 
         request(app)
-            .post('/games')
+            .post('/api/games')
             .send(body)
             .expect('Content-Type', /json/)
             .expect(statusCode)
@@ -105,7 +105,7 @@ describe('POST /games', () => {
     });
 });
 
-describe('DELETE /games/:id', () => {
+describe('DELETE /api/games/:id', () => {
     it('responds with no content', (done) => {
         const id = new mongoose.Types.ObjectId();
         const body = {
@@ -117,7 +117,7 @@ describe('DELETE /games/:id', () => {
         mockingoose(Game).toReturn(game, 'findOneAndRemove');
 
         request(app)
-            .delete(`/games/${id.toHexString()}`)
+            .delete(`/api/games/${id.toHexString()}`)
             .expect(204, done);
     });
 
@@ -127,7 +127,7 @@ describe('DELETE /games/:id', () => {
         mockingoose(Game).toReturn(new Error(), 'findOneAndRemove');
 
         request(app)
-            .delete(`/games/${id}`)
+            .delete(`/api/games/${id}`)
             .expect('Content-Type', /json/)
             .expect(statusCode)
             .then((res) => {
