@@ -30,7 +30,7 @@ jobs:
     - run: npm run test:report
       env:
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
-        SG_API_KEY: ${{ secrets.SG_API_KEY }}x
+        SG_API_KEY: ${{ secrets.SG_API_KEY }}
       - name: Archive code coverage results
         uses: actions/upload-artifact@v2
         with:
