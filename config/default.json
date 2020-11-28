@@ -1,4 +1,12 @@
 {
+    "digitalOcean": {
+        "space": "sfo2.digitaloceanspaces.com",
+        "bucket": {
+            "name": "spinny-space",
+            "acl": "public-read",
+            "directory": "pictures"
+        }
+    },
     "sendgrid": {
         "sender": "alexis.oc3@gmail.com",
         "support": "alexis.oc3@gmail.com",

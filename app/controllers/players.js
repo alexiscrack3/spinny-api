@@ -77,6 +77,33 @@ class PlayerController {
                 ]));
             });
     }
+
+    updateProfileImage(req, res) {
+        if (!req.file) {
+            const err = new Error('Image was not uploaded');
+            logger.error(err);
+            res.status(500).json(new APIResponse(null, [
+                new APIError('INTERNAL_ERROR', 'Something went wrong.'),
+            ]));
+        } else {
+            this.playersRepository.updateById(req.params.id, { image_url: req.file.originalname })
+                .then((player) => {
+                    if (player) {
+                        res.json(new APIResponse(player));
+                    } else {
+                        res.status(404).json(new APIResponse(null, [
+                            new APIError('INVALID_PARAMETER', 'Player not found.'),
+                        ]));
+                    }
+                })
+                .catch((err) => {
+                    logger.error(err);
+                    res.status(500).json(new APIResponse(null, [
+                        new APIError('INTERNAL_ERROR', 'Something went wrong.'),
+                    ]));
+                });
+        }
+    }
 }
 
 module.exports = PlayerController;
