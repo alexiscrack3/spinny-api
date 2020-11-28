@@ -1,4 +1,7 @@
 {
+    "jwt": {
+        "expiresIn": 120
+    },
     "digitalOcean": {
         "space": "sfo2.digitaloceanspaces.com",
         "bucket": {

@@ -1,9 +1,12 @@
 /* eslint-disable class-methods-use-this */
+const config = require('config');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const APIError = require('../models/api-error');
 const APIResponse = require('../models/api-response');
 const logger = require('../helpers/logger');
+
+const jwtConfig = config.get('jwt');
 
 class AuthController {
     static authenticateUser(req, res, next, user) {
@@ -29,7 +32,7 @@ class AuthController {
             } else {
                 // generate a signed son web token with the contents of user object and return it in the response
                 const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY, {
-                    expiresIn: 120, // seconds
+                    expiresIn: jwtConfig.expiresIn,
                 });
                 res.json(new APIResponse({
                     user,
