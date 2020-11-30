@@ -12,14 +12,14 @@ services:
             - "3000:3000"
             # - "3000-3010:3000"
         networks:
-            - custom-network
+            - spinny-network
     db:
         image: mongo
         container_name: db
         ports:
             - "27017:27017"
         networks:
-            - custom-network
+            - spinny-network
         volumes:
             - dbdata:/data/db
     web:
@@ -30,10 +30,10 @@ services:
         ports:
             - "80:80"
         networks:
-            - custom-network
+            - spinny-network
 
 networks:
-    custom-network:
+    spinny-network:
         driver: bridge
 
 volumes:
