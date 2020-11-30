@@ -21,7 +21,7 @@ services:
         networks:
             - spinny-network
         volumes:
-            - dbdata:/data/db
+            - spinny-volume:/data/db
     web:
         image: alexiscrack3/spinny-react:latest
         container_name: web
@@ -37,4 +37,4 @@ networks:
         driver: bridge
 
 volumes:
-  dbdata:
+  spinny-volume:
