@@ -1,4 +1,4 @@
-FROM mongo-express:latest
+FROM mongo-express:0.54
 
 RUN apk update && apk --no-cache --update add vim
 
