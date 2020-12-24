@@ -8,7 +8,9 @@ class ClubsRepository {
     }
 
     getById(id) {
-        return this.club.findById(id);
+        return this.club
+            .findById(id)
+            .populate('members');
     }
 
     getAll() {

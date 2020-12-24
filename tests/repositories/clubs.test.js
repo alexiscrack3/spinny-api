@@ -25,12 +25,19 @@ describe('ClubsRepository', () => {
     describe('getById', () => {
         it('should invoke findById on model', () => {
             const id = new mongoose.Types.ObjectId().toHexString();
-            const spy = sinon.spy(Club, 'findById');
+            const clubStub = sinon.stub(Club, 'findById');
+            const populateStub = sinon.stub();
+            clubStub.returns({
+                find: sinon.stub().returnsThis(),
+                populate: populateStub.returnsThis(),
+            });
             const testObject = new ClubsRepository(Club);
 
             testObject.getById(id);
 
-            expect(spy.withArgs(id).calledOnce).toBeTruthy();
+            expect(clubStub.withArgs(id).calledOnce).toBeTruthy();
+            expect(populateStub.calledWith('members')).toBeTruthy();
+            expect(populateStub.calledAfter(clubStub)).toBeTruthy();
         });
     });
 
@@ -48,22 +55,22 @@ describe('ClubsRepository', () => {
     describe('getAllByPlayerId', () => {
         it('should invoke find with playerId on model', () => {
             const playerId = new mongoose.Types.ObjectId().toHexString();
-            const stub = sinon.stub(Club, 'find');
-            const populateSpy = sinon.stub();
-            const execSpy = sinon.stub();
-            stub.returns({
+            const clubStub = sinon.stub(Club, 'find');
+            const populateStub = sinon.stub();
+            const execStub = sinon.stub();
+            clubStub.returns({
                 find: sinon.stub().returnsThis(),
-                populate: populateSpy.returnsThis(),
-                exec: execSpy,
+                populate: populateStub.returnsThis(),
+                exec: execStub,
             });
             const testObject = new ClubsRepository(Club);
 
             testObject.getAllByPlayerId(playerId);
 
-            expect(stub.calledWith({ members: { $in: [playerId] } })).toBeTruthy();
-            expect(populateSpy.calledWith({ path: 'members', select: 'email' })).toBeTruthy();
-            expect(populateSpy.calledAfter(stub)).toBeTruthy();
-            expect(execSpy.calledAfter(populateSpy)).toBeTruthy();
+            expect(clubStub.calledWith({ members: { $in: [playerId] } })).toBeTruthy();
+            expect(populateStub.calledWith({ path: 'members', select: 'email' })).toBeTruthy();
+            expect(populateStub.calledAfter(clubStub)).toBeTruthy();
+            expect(execStub.calledAfter(populateStub)).toBeTruthy();
         });
     });
 
