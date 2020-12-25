@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
+const opts = {
+    id: false, // disables id virtual getter
+    toJSON: { virtuals: true }, // includes virtuals when you convert a document to JSON
+};
 const clubSchema = new Schema({
     created_at: { type: Date, default: Date.now },
     name: {
@@ -11,6 +15,10 @@ const clubSchema = new Schema({
         unique: true,
     },
     members: [{ type: Schema.Types.ObjectId, ref: 'Player' }],
+}, opts);
+
+clubSchema.virtual('members_count').get(function () {
+    return this.members.length;
 });
 
 const Club = mongoose.model('Club', clubSchema);
