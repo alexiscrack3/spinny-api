@@ -4,10 +4,13 @@ const { Schema } = mongoose;
 
 const opts = {
     id: false, // disables id virtual getter
+    timestamps: {
+        createdAt: 'created_at',
+        updatedAt: 'updated_at',
+    },
     toJSON: { virtuals: true }, // includes virtuals when you convert a document to JSON
 };
 const clubSchema = new Schema({
-    created_at: { type: Date, default: Date.now },
     name: {
         type: String,
         required: true,
