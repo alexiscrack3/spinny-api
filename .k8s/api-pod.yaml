@@ -8,6 +8,7 @@ metadata:
 spec:
   containers:
     - name: api-ctr
-      image: alexiscrack3/spinny-api:latest
+      # image: alexiscrack3/spinny-api:latest
+      image: mongo
       ports:
         - containerPort: 3000
