@@ -11,4 +11,4 @@ spec:
       # image: alexiscrack3/spinny-api:latest
       image: mongo
       ports:
-        - containerPort: 3000
+        - containerPort: 27017
