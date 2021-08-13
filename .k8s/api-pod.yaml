@@ -7,10 +7,6 @@ metadata:
     version: v1
 spec:
   containers:
-    - name: db-ctr
-      image: mongo
-      ports:
-        - containerPort: 27017
     - name: api-ctr
       image: alexiscrack3/spinny-api:latest
       ports:
