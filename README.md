@@ -1,2 +1,0 @@
-# spinny-api
-spinny API

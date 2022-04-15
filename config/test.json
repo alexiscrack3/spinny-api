@@ -1,6 +1,0 @@
-{
-    "sendgrid": {
-        "sender": "test@spinny.io",
-        "templateId": "d-070089da53364d60a9cda9e282184a62"
-    }
-}
