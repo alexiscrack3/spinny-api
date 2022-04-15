@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  db:
+    image: mysql:5.7.37
+    platform: linux/x86_64
+    container_name: db
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_USER=${MYSQL_USER:-dbuser}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    ports:
+      - "3306:3306"
+    networks:
+      - data-network
+    volumes:
+      - data-volume:/var/lib/mysql
+
+networks:
+  data-network:
+    driver: bridge
+
+volumes:
+  data-volume:
+    driver: local
