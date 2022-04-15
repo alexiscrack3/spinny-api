@@ -5,3 +5,12 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+Player.delete_all
+
+5.times do
+  Player.create!(
+    first_name: Faker::Name.unique.first_name,
+    last_name: Faker::Name.unique.last_name
+  )
+end
