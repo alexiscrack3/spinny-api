@@ -5,12 +5,12 @@ class PlayersController < ApplicationController
   def index
     @players = Player.all
 
-    render json: @players
+    render json: ApiDocument.new(data: @players)
   end
 
   # GET /players/1
   def show
-    render json: @player
+    render json: ApiDocument.new(data: @player)
   end
 
   # POST /players
@@ -18,18 +18,22 @@ class PlayersController < ApplicationController
     @player = Player.new(player_params)
 
     if @player.save
-      render json: @player, status: :created, location: @player
+      render json: ApiDocument.new(data: @player),
+             status: :created,
+             location: @player
     else
-      render json: @player.errors, status: :unprocessable_entity
+      render json: ApiDocument.new(errors: @player.errors),
+             status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /players/1
   def update
     if @player.update(player_params)
-      render json: @player
+      render json: ApiDocument.new(data: @player)
     else
-      render json: @player.errors, status: :unprocessable_entity
+      render json: ApiDocument.new(errors: @player.errors),
+             status: :unprocessable_entity
     end
   end
 
