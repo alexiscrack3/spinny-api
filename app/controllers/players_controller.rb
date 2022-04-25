@@ -1,9 +1,13 @@
 class PlayersController < ApplicationController
   before_action :set_player, only: %i[show]
 
+  def initialize
+    @players_service = PlayersService.new
+  end
+
   # GET /players
   def index
-    result = PlayersService.players
+    result = @players_service.players
 
     render json: ApiDocument.new(data: result.data)
   end
@@ -19,7 +23,7 @@ class PlayersController < ApplicationController
 
   # POST /players
   def create
-    result = PlayersService.create(player_params)
+    result = @players_service.create(player_params)
 
     if result.success?
       render json: ApiDocument.new(data: result.data),
@@ -33,7 +37,7 @@ class PlayersController < ApplicationController
 
   # PATCH/PUT /players/1
   def update
-    result = PlayersService.update(params[:id], player_params)
+    result = @players_service.update(params[:id], player_params)
 
     if result.success?
       render json: ApiDocument.new(data: result.data)
@@ -45,7 +49,7 @@ class PlayersController < ApplicationController
 
   # DELETE /players/1
   def destroy
-    result = PlayersService.delete(params[:id])
+    result = @players_service.delete(params[:id])
 
     if result.success?
       render json: ApiDocument.new(data: result.data), status: :no_content
@@ -59,7 +63,7 @@ class PlayersController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_player
-    @result = PlayersService.player(params[:id])
+    @result = @players_service.player(params[:id])
   end
 
   # Only allow a list of trusted parameters through.

@@ -1,9 +1,9 @@
 class PlayersService
-  def self.players
+  def players
     Result.new(data: Player.all)
   end
 
-  def self.player(id)
+  def player(id)
     player = Player.find_by(id: id)
 
     if player
@@ -14,7 +14,7 @@ class PlayersService
     end
   end
 
-  def self.create(params)
+  def create(params)
     player = Player.new(params)
 
     if player.save
@@ -25,7 +25,7 @@ class PlayersService
     end
   end
 
-  def self.update(id, params)
+  def update(id, params)
     player = Player.find_by(id: id)
 
     if player.update(params)
@@ -36,7 +36,7 @@ class PlayersService
     end
   end
 
-  def self.delete(id)
+  def delete(id)
     begin
       Result.new(data: Player.destroy(id))
     rescue => exception
