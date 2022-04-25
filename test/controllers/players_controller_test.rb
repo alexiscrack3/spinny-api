@@ -23,7 +23,7 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
     assert_response :created
   end
 
-  test 'should not create player when player is not valid' do
+  test 'should not create player when it is not valid' do
     post players_url,
          params: {
            player: {
@@ -66,7 +66,7 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test 'should not update player when player is not valid' do
+  test 'should not update player when it is not valid' do
     patch player_url(@player),
           params: {
             player: {
@@ -88,5 +88,16 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :no_content
+  end
+
+  test 'should not destroy player when it does not exist' do
+    @player.id = -1
+    delete player_url(@player), as: :json
+
+    expected = [
+      { 'code' => ApiCode::SERVER_ERROR, 'message' => 'Player was not deleted' }
+    ]
+    assert_equal response.parsed_body['errors'], expected
+    assert_response :unprocessable_entity
   end
 end

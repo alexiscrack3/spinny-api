@@ -1,59 +1,65 @@
 class PlayersController < ApplicationController
-  before_action :set_player, only: %i[show update destroy]
+  before_action :set_player, only: %i[show]
 
   # GET /players
   def index
-    @players = Player.all
+    result = PlayersService.players
 
-    render json: ApiDocument.new(data: @players)
+    render json: ApiDocument.new(data: result.data)
   end
 
   # GET /players/1
   def show
-    if Player.exists?(params[:id])
-      render json: ApiDocument.new(data: @player)
+    if @result.success?
+      render json: ApiDocument.new(data: @result.data)
     else
-      errors = [ApiError.new(ApiCode::NOT_FOUND, 'Player was not found')]
-      render json: ApiDocument.new(errors: errors), status: :not_found
+      render json: ApiDocument.new(errors: @result.errors), status: :not_found
     end
   end
 
   # POST /players
   def create
-    @player = Player.new(player_params)
+    result = PlayersService.create(player_params)
 
-    if @player.save
-      render json: ApiDocument.new(data: @player),
+    if result.success?
+      render json: ApiDocument.new(data: result.data),
              status: :created,
-             location: @player
+             location: result.data
     else
-      errors = [ApiError.new(ApiCode::SERVER_ERROR, 'Player was not created')]
-      render json: ApiDocument.new(errors: errors),
+      render json: ApiDocument.new(errors: result.errors),
              status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /players/1
   def update
-    if @player.update(player_params)
-      render json: ApiDocument.new(data: @player)
+    result = PlayersService.update(params[:id], player_params)
+
+    if result.success?
+      render json: ApiDocument.new(data: result.data)
     else
-      errors = [ApiError.new(ApiCode::SERVER_ERROR, 'Player was not updated')]
-      render json: ApiDocument.new(errors: errors),
+      render json: ApiDocument.new(errors: result.errors),
              status: :unprocessable_entity
     end
   end
 
   # DELETE /players/1
   def destroy
-    @player.destroy
+    result = PlayersService.delete(params[:id])
+
+    if result.success?
+      render json: ApiDocument.new(data: result.data), status: :no_content
+    else
+      render json: ApiDocument.new(errors: result.errors),
+             status: :unprocessable_entity
+    end
   end
 
   private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_player
-    @player = Player.find_by(id: params[:id])
+    @result = PlayersService.player(params[:id])
   end
 
   # Only allow a list of trusted parameters through.
