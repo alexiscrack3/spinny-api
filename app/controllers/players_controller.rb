@@ -10,7 +10,12 @@ class PlayersController < ApplicationController
 
   # GET /players/1
   def show
-    render json: ApiDocument.new(data: @player)
+    if Player.exists?(params[:id])
+      render json: ApiDocument.new(data: @player)
+    else
+      errors = [ApiError.new(ApiCode::NOT_FOUND, 'Player was not found')]
+      render json: ApiDocument.new(errors: errors), status: :not_found
+    end
   end
 
   # POST /players
@@ -22,7 +27,8 @@ class PlayersController < ApplicationController
              status: :created,
              location: @player
     else
-      render json: ApiDocument.new(errors: @player.errors),
+      errors = [ApiError.new(ApiCode::SERVER_ERROR, 'Player was not created')]
+      render json: ApiDocument.new(errors: errors),
              status: :unprocessable_entity
     end
   end
@@ -32,7 +38,8 @@ class PlayersController < ApplicationController
     if @player.update(player_params)
       render json: ApiDocument.new(data: @player)
     else
-      render json: ApiDocument.new(errors: @player.errors),
+      errors = [ApiError.new(ApiCode::SERVER_ERROR, 'Player was not updated')]
+      render json: ApiDocument.new(errors: errors),
              status: :unprocessable_entity
     end
   end
@@ -46,7 +53,7 @@ class PlayersController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_player
-    @player = Player.find(params[:id])
+    @player = Player.find_by(id: params[:id])
   end
 
   # Only allow a list of trusted parameters through.
