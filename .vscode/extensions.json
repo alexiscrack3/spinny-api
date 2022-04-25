@@ -6,7 +6,10 @@
 	"recommendations": [
 		"rebornix.ruby",
 		"ms-azuretools.vscode-docker",
-		"esbenp.prettier-vscode"
+		"esbenp.prettier-vscode",
+		"aki77.rails-db-schema",
+		"hridoy.rails-snippets",
+		"kaiwood.endwise"
 	],
 	// List of extensions recommended by VS Code that should not be recommended for users of this workspace.
 	"unwantedRecommendations": [
