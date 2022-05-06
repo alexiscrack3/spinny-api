@@ -16,5 +16,22 @@ module Types
     def test_field
       'Hello World!'
     end
+
+    field :players,
+          [Types::PlayerType],
+          null: false,
+          description: 'List of players'
+
+    field :player, Types::PlayerType, null: true, description: 'A player' do
+      argument :id, ID, required: true
+    end
+
+    def players
+      Player.all
+    end
+
+    def player(id:)
+      Player.find(id)
+    end
   end
 end
