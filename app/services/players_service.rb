@@ -1,16 +1,16 @@
 class PlayersService
   def players
-    Result.new(data: Player.all)
+    Result.new(value: Player.all)
   end
 
   def player(id)
     player = Player.find_by(id: id)
 
     if player
-      Result.new(data: player)
+      Result.new(value: player)
     else
-      errors = [ApiError.new(ApiCode::NOT_FOUND, 'Player was not found')]
-      Result.new(errors: errors)
+      failure = ServiceFailure::NotFoundFailure.new('Player was not found')
+      Result.new(failure: failure)
     end
   end
 
@@ -18,10 +18,10 @@ class PlayersService
     player = Player.new(params)
 
     if player.save
-      Result.new(data: player)
+      Result.new(value: player)
     else
-      errors = [ApiError.new(ApiCode::SERVER_ERROR, 'Player was not created')]
-      Result.new(errors: errors)
+      failure = ServiceFailure::ValidationFailure.new('Player was not created')
+      Result.new(failure: failure)
     end
   end
 
@@ -29,19 +29,22 @@ class PlayersService
     player = Player.find_by(id: id)
 
     if player.update(params)
-      Result.new(data: player)
+      Result.new(value: player)
     else
-      errors = [ApiError.new(ApiCode::SERVER_ERROR, 'Player was not updated')]
-      Result.new(errors: errors)
+      failure = ServiceFailure::ValidationFailure.new('Player was not updated')
+      Result.new(failure: failure)
     end
   end
 
   def delete(id)
     begin
-      Result.new(data: Player.destroy(id))
+      Result.new(value: Player.destroy(id))
+    rescue ActiveRecord::RecordNotFound
+      failure = ServiceFailure::NotFoundFailure.new('Player was not found')
+      Result.new(failure: failure)
     rescue => exception
-      errors = [ApiError.new(ApiCode::SERVER_ERROR, 'Player was not deleted')]
-      Result.new(errors: errors)
+      failure = ServiceFailure::ServerFailure.new('Player was not deleted')
+      Result.new(failure: failure)
     end
   end
 end

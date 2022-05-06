@@ -9,15 +9,15 @@ class PlayersController < ApplicationController
   def index
     result = @players_service.players
 
-    render json: ApiDocument.new(data: result.data)
+    render json: ApiDocument.new(data: result.value)
   end
 
   # GET /players/1
   def show
     if @result.success?
-      render json: ApiDocument.new(data: @result.data)
+      render json: ApiDocument.new(data: @result.value)
     else
-      render json: ApiDocument.new(errors: @result.errors), status: :not_found
+      handle_error(@result.failure)
     end
   end
 
@@ -26,12 +26,11 @@ class PlayersController < ApplicationController
     result = @players_service.create(player_params)
 
     if result.success?
-      render json: ApiDocument.new(data: result.data),
+      render json: ApiDocument.new(data: result.value),
              status: :created,
-             location: result.data
+             location: result.value
     else
-      render json: ApiDocument.new(errors: result.errors),
-             status: :unprocessable_entity
+      handle_error(result.failure)
     end
   end
 
@@ -40,10 +39,9 @@ class PlayersController < ApplicationController
     result = @players_service.update(params[:id], player_params)
 
     if result.success?
-      render json: ApiDocument.new(data: result.data)
+      render json: ApiDocument.new(data: result.value)
     else
-      render json: ApiDocument.new(errors: result.errors),
-             status: :unprocessable_entity
+      handle_error(result.failure)
     end
   end
 
@@ -52,10 +50,9 @@ class PlayersController < ApplicationController
     result = @players_service.delete(params[:id])
 
     if result.success?
-      render json: ApiDocument.new(data: result.data), status: :no_content
+      render json: ApiDocument.new(data: result.value), status: :no_content
     else
-      render json: ApiDocument.new(errors: result.errors),
-             status: :unprocessable_entity
+      handle_error(result.failure)
     end
   end
 
@@ -69,5 +66,17 @@ class PlayersController < ApplicationController
   # Only allow a list of trusted parameters through.
   def player_params
     params.require(:player).permit(:first_name, :last_name)
+  end
+
+  def handle_error(error)
+    case error
+    when ServiceFailure::NotFoundFailure
+      apiError = ApiError.new(ApiCode::NOT_FOUND, error.message)
+      render json: ApiDocument.new(errors: [apiError]), status: :not_found
+    else
+      apiError = ApiError.new(ApiCode::SERVER_ERROR, error.message)
+      render json: ApiDocument.new(errors: [apiError]),
+             status: :unprocessable_entity
+    end
   end
 end

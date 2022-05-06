@@ -1,14 +1,13 @@
 class Result
-  attr_accessor :data, :errors, :warnings
+  attr_accessor :value, :failure
 
-  def initialize(data: nil, errors: [], warnings: [])
-    @data = data
-    @errors = errors
-    @warnings = warnings
+  def initialize(value: nil, failure: nil)
+    @value = value
+    @failure = failure
   end
 
   def success?
-    @errors.empty?
+    @failure.nil?
   end
 
   def failure?
