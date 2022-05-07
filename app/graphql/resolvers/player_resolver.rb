@@ -1,5 +1,5 @@
 module Resolvers
-  class PlayerResolver < Types::BaseResolver
+  class PlayerResolver < BaseResolver
     type Types::PlayerType, null: true
 
     argument :id, ID, required: true
