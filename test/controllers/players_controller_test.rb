@@ -22,7 +22,8 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
            params: {
              player: {
                first_name: @player.first_name,
-               last_name: @player.last_name
+               last_name: @player.last_name,
+               email: @player.email
              }
            },
            as: :json
@@ -38,7 +39,8 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
     post players_url,
          params: {
            player: {
-             last_name: @player.last_name
+             last_name: @player.last_name,
+             email: @player.email
            }
          },
          as: :json
@@ -68,7 +70,8 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
           params: {
             player: {
               first_name: @player.first_name,
-              last_name: @player.last_name
+              last_name: @player.last_name,
+              email: @player.email
             }
           },
           as: :json
@@ -83,7 +86,8 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
           params: {
             player: {
               first_name: nil,
-              last_name: @player.last_name
+              last_name: @player.last_name,
+              email: @player.email
             }
           },
           as: :json
