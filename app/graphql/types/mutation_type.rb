@@ -1,5 +1,6 @@
 module Types
   class MutationType < Types::BaseObject
+    field :player_delete, mutation: Mutations::PlayerDelete
     field :player_update, mutation: Mutations::PlayerUpdate
     field :player_create, mutation: Mutations::PlayerCreate
 
