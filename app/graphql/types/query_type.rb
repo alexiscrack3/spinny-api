@@ -22,16 +22,12 @@ module Types
           null: false,
           description: 'List of players'
 
-    field :player, Types::PlayerType, null: true, description: 'A player' do
-      argument :id, ID, required: true
-    end
+    field :player,
+          description: 'Get a player',
+          resolver: Resolvers::PlayerResolver
 
     def players
       Player.all
-    end
-
-    def player(id:)
-      Player.find(id)
     end
   end
 end
