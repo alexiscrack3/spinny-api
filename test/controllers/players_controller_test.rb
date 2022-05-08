@@ -20,9 +20,9 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
     assert_difference('Player.count') do
       params = {
         player: {
-          first_name: @player.first_name,
-          last_name: @player.last_name,
-          email: @player.email
+          first_name: Faker::Name.first_name,
+          last_name: Faker::Name.last_name,
+          email: 'user@spinny.io'
         }
       }
       post players_url, params: params, as: :json
@@ -61,9 +61,9 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
   test 'should update player' do
     params = {
       player: {
-        first_name: @player.first_name,
-        last_name: @player.last_name,
-        email: @player.email
+        first_name: Faker::Name.first_name,
+        last_name: Faker::Name.last_name,
+        email: 'user@spinny.io'
       }
     }
     patch player_url(@player), params: params, as: :json
@@ -74,8 +74,8 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
     params = {
       player: {
         first_name: nil,
-        last_name: @player.last_name,
-        email: @player.email
+        last_name: Faker::Name.last_name,
+        email: 'user@spinny.io'
       }
     }
     api_error = ApiError.new(ApiCode::SERVER_ERROR, 'Player was not updated')
