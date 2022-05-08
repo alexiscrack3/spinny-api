@@ -4,7 +4,15 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
   setup { @player = players(:one) }
 
   test 'should get index' do
+    players = [@player]
+    result = Result.new(value: players)
+    players_service = mock
+    players_service.stubs(:players).returns(result)
+    PlayersService.stubs(:new).returns(players_service)
+
     get players_url, as: :json
+
+    assert_equal response.parsed_body['data'], players.as_json
     assert_response :success
   end
 
@@ -24,9 +32,8 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should not create player when it is not valid' do
-    expected = [
-      { 'code' => ApiCode::SERVER_ERROR, 'message' => 'Player was not created' }
-    ]
+    api_error = ApiError.new(ApiCode::SERVER_ERROR, 'Player was not created')
+    expected = [api_error]
 
     post players_url,
          params: {
@@ -36,7 +43,7 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
          },
          as: :json
 
-    assert_equal response.parsed_body['errors'], expected
+    assert_equal response.parsed_body['errors'], expected.as_json
     assert_response :unprocessable_entity
   end
 
@@ -47,13 +54,12 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
 
   test 'should not show player when it does not exist' do
     @player.id = -1
-    expected = [
-      { 'code' => ApiCode::NOT_FOUND, 'message' => 'Player was not found' }
-    ]
+    api_error = ApiError.new(ApiCode::NOT_FOUND, 'Player was not found')
+    expected = [api_error]
 
     get player_url(@player), as: :json
 
-    assert_equal response.parsed_body['errors'], expected
+    assert_equal response.parsed_body['errors'], expected.as_json
     assert_response :not_found
   end
 
@@ -70,9 +76,8 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should not update player when it is not valid' do
-    expected = [
-      { 'code' => ApiCode::SERVER_ERROR, 'message' => 'Player was not updated' }
-    ]
+    api_error = ApiError.new(ApiCode::SERVER_ERROR, 'Player was not updated')
+    expected = [api_error]
 
     patch player_url(@player),
           params: {
@@ -83,7 +88,7 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
           },
           as: :json
 
-    assert_equal response.parsed_body['errors'], expected
+    assert_equal response.parsed_body['errors'], expected.as_json
     assert_response :unprocessable_entity
   end
 
@@ -97,20 +102,18 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
 
   test 'should not destroy player when it does not exist' do
     @player.id = -1
-    expected = [
-      { 'code' => ApiCode::NOT_FOUND, 'message' => 'Player was not found' }
-    ]
+    api_error = ApiError.new(ApiCode::NOT_FOUND, 'Player was not found')
+    expected = [api_error]
 
     delete player_url(@player), as: :json
 
-    assert_equal response.parsed_body['errors'], expected
+    assert_equal response.parsed_body['errors'], expected.as_json
     assert_response :not_found
   end
 
   test 'should not destroy player when something went wrong' do
-    expected = [
-      { 'code' => ApiCode::SERVER_ERROR, 'message' => 'Player was not deleted' }
-    ]
+    api_error = ApiError.new(ApiCode::SERVER_ERROR, 'Player was not deleted')
+    expected = [api_error]
     Player
       .stubs(:destroy)
       .with(@player.id.to_s)
@@ -118,7 +121,7 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
 
     delete player_url(@player), as: :json
 
-    assert_equal response.parsed_body['errors'], expected
+    assert_equal response.parsed_body['errors'], expected.as_json
     assert_response :unprocessable_entity
   end
 end
