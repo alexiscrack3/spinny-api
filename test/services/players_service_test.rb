@@ -26,9 +26,9 @@ class PlayersServiceTest < ActiveSupport::TestCase
 
   test 'should create player' do
     player_params = {
-      'first_name': Faker::Name.first_name,
-      'last_name': Faker::Name.last_name,
-      'email': Faker::Internet.email
+      first_name: Faker::Name.first_name,
+      last_name: Faker::Name.last_name,
+      email: Faker::Internet.email
     }
 
     result = @players_service.create(player_params)
@@ -49,9 +49,9 @@ class PlayersServiceTest < ActiveSupport::TestCase
   test 'should update player' do
     player = players(:one)
     player_params = {
-      'first_name': Faker::Name.first_name,
-      'last_name': Faker::Name.last_name,
-      'email': Faker::Internet.email
+      first_name: Faker::Name.first_name,
+      last_name: Faker::Name.last_name,
+      email: Faker::Internet.email
     }
 
     result = @players_service.update(player.id, player_params)

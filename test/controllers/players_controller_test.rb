@@ -18,32 +18,25 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
 
   test 'should create player' do
     assert_difference('Player.count') do
-      post players_url,
-           params: {
-             player: {
-               first_name: @player.first_name,
-               last_name: @player.last_name,
-               email: @player.email
-             }
-           },
-           as: :json
+      params = {
+        player: {
+          first_name: @player.first_name,
+          last_name: @player.last_name,
+          email: @player.email
+        }
+      }
+      post players_url, params: params, as: :json
     end
 
     assert_response :created
   end
 
   test 'should not create player when it is not valid' do
+    params = { player: { last_name: @player.last_name, email: @player.email } }
     api_error = ApiError.new(ApiCode::SERVER_ERROR, 'Player was not created')
     expected = [api_error]
 
-    post players_url,
-         params: {
-           player: {
-             last_name: @player.last_name,
-             email: @player.email
-           }
-         },
-         as: :json
+    post players_url, params: params, as: :json
 
     assert_equal response.parsed_body['errors'], expected.as_json
     assert_response :unprocessable_entity
@@ -66,31 +59,29 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should update player' do
-    patch player_url(@player),
-          params: {
-            player: {
-              first_name: @player.first_name,
-              last_name: @player.last_name,
-              email: @player.email
-            }
-          },
-          as: :json
+    params = {
+      player: {
+        first_name: @player.first_name,
+        last_name: @player.last_name,
+        email: @player.email
+      }
+    }
+    patch player_url(@player), params: params, as: :json
     assert_response :success
   end
 
   test 'should not update player when it is not valid' do
+    params = {
+      player: {
+        first_name: nil,
+        last_name: @player.last_name,
+        email: @player.email
+      }
+    }
     api_error = ApiError.new(ApiCode::SERVER_ERROR, 'Player was not updated')
     expected = [api_error]
 
-    patch player_url(@player),
-          params: {
-            player: {
-              first_name: nil,
-              last_name: @player.last_name,
-              email: @player.email
-            }
-          },
-          as: :json
+    patch player_url(@player), params: params, as: :json
 
     assert_equal response.parsed_body['errors'], expected.as_json
     assert_response :unprocessable_entity
