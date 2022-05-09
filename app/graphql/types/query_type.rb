@@ -26,6 +26,12 @@ module Types
           description: 'Get a player',
           resolver: Resolvers::PlayerResolver
 
+    field :clubs,
+          description: 'List of clubs',
+          resolver: Resolvers::ClubsResolver
+
+    field :club, description: 'Get a club', resolver: Resolvers::ClubResolver
+
     def players
       Player.all
     end
