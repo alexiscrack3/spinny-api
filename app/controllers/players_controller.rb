@@ -15,7 +15,7 @@ class PlayersController < ApplicationController
   # GET /players/1
   def show
     if @result.success?
-      render json: ApiDocument.new(data: @result.value)
+      render json: ApiDocument.new(data: @result.value.as_json(include: :clubs))
     else
       handle_error(@result.failure)
     end

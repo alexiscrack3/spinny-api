@@ -4,7 +4,7 @@ class PlayersService
   end
 
   def player(id)
-    player = Player.find_by(id: id)
+    player = Player.includes(:clubs).find_by(id: id)
 
     if player
       Result.new(value: player)
