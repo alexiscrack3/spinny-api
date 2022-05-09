@@ -10,11 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_08_214636) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_08_215259) do
   create_table "clubs", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "clubs_players", id: false, charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "player_id", null: false
+    t.bigint "club_id", null: false
+    t.index ["club_id"], name: "fk_rails_0b559365bb"
+    t.index ["player_id"], name: "fk_rails_99f428b8c5"
   end
 
   create_table "players", charset: "utf8mb4", force: :cascade do |t|
@@ -26,4 +33,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_08_214636) do
     t.index ["email"], name: "index_players_on_email", unique: true
   end
 
+  add_foreign_key "clubs_players", "clubs"
+  add_foreign_key "clubs_players", "players"
 end

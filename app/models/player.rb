@@ -11,6 +11,8 @@
 #
 class Player < ApplicationRecord
   before_save { self.email = email.downcase } # or email.downcase!
+  has_and_belongs_to_many :clubs
+
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
   validates_presence_of :first_name, message: "can't be blank"

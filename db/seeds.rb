@@ -15,3 +15,9 @@ Player.delete_all
     email: Faker::Internet.email
   )
 end
+
+Club.delete_all
+
+5.times { Club.create!(name: Faker::Team.name) }
+
+Club.first.players << Player.first

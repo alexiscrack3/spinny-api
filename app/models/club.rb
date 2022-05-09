@@ -8,4 +8,5 @@
 #  updated_at :datetime         not null
 #
 class Club < ApplicationRecord
+  has_and_belongs_to_many :players
 end
