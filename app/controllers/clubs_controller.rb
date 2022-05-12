@@ -4,6 +4,7 @@ class ClubsController < ApplicationController
   # before_action :set_club, only: %i[show update destroy]
 
   def initialize
+    super
     @clubs_service = ClubsService.new
   end
 

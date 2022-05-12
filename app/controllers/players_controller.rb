@@ -4,6 +4,7 @@ class PlayersController < ApplicationController
   before_action :set_player, only: %i[show]
 
   def initialize
+    super
     @players_service = PlayersService.new
   end
 
