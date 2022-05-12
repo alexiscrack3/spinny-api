@@ -7,7 +7,7 @@ class Failure
     @message = message
   end
 
-  def ==(failure)
-    self.message == failure.message
+  def ==(other)
+    message == other.message
   end
 end
