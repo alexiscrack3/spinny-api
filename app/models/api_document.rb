@@ -1,5 +1,5 @@
 class ApiDocument
-  def initialize(data: [], errors: [], warnings: [])
+  def initialize(data: nil, errors: [], warnings: [])
     @data = data
     @errors = errors
     @warnings = warnings
