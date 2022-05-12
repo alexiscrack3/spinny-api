@@ -39,14 +39,12 @@ class PlayersService
   end
 
   def delete(id)
-    begin
-      Result.new(value: Player.destroy(id))
-    rescue ActiveRecord::RecordNotFound
-      failure = ServiceFailure::NotFoundFailure.new('Player was not found')
-      Result.new(failure: failure)
-    rescue => exception
-      failure = ServiceFailure::ServerFailure.new('Player was not deleted')
-      Result.new(failure: failure)
-    end
+    Result.new(value: Player.destroy(id))
+  rescue ActiveRecord::RecordNotFound
+    failure = ServiceFailure::NotFoundFailure.new("Player was not found")
+    Result.new(failure: failure)
+  rescue => exception
+    failure = ServiceFailure::ServerFailure.new("Player was not deleted")
+    Result.new(failure: failure)
   end
 end
