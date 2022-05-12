@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Resolvers
   class ClubResolver < BaseResolver
     type Types::ClubType, null: true

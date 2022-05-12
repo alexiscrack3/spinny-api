@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApiError
   attr_accessor :code, :message
 

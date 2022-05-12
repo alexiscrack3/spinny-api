@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ClubsService
   def club(id)
     club = Club.find_by(id: id)

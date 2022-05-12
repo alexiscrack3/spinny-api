@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ClubsController < ApplicationController
   # before_action :set_club, only: %i[show update destroy]
 

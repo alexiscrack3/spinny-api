@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Resolvers
   class PlayerResolver < BaseResolver
     type Types::PlayerType, null: true

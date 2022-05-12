@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PlayersService
   def players
     Result.new(value: Player.all)
