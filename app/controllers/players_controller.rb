@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class PlayersController < ApplicationController
-  before_action :set_player, only: [:show]
-
   def initialize
     super
     @players_service = PlayersService.new
@@ -17,10 +15,11 @@ class PlayersController < ApplicationController
 
   # GET /players/1
   def show
-    if @result.success?
-      render json: ApiDocument.new(data: @result.value.as_json(include: :clubs))
+    result = @players_service.player(params[:id])
+    if result.success?
+      render json: ApiDocument.new(data: result.value.as_json(include: :clubs))
     else
-      handle_error(@result.failure)
+      handle_error(result.failure)
     end
   end
 
@@ -60,11 +59,6 @@ class PlayersController < ApplicationController
   end
 
   private
-
-  # Use callbacks to share common setup or constraints between actions.
-  def set_player
-    @result = @players_service.player(params[:id])
-  end
 
   # Only allow a list of trusted parameters through.
   def player_params
