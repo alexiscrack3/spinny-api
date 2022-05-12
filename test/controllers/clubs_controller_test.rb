@@ -35,7 +35,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create club" do
     club_params = ActionController::Parameters.new(club: { name: Faker::Team.name })
-                                              .require(:club).permit(:name)
+      .require(:club).permit(:name)
     club = Club.new(club_params)
     result = Result.new(value: club)
     @clubs_service.stubs(:create).with(club_params).returns(result)
@@ -48,7 +48,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
 
   test "should not create club when it is not valid" do
     club_params = ActionController::Parameters.new(club: { name: nil })
-                                              .require(:club).permit(:name)
+      .require(:club).permit(:name)
     message = "Club was not created"
     failure = ServiceFailure::ValidationFailure.new(message)
     result = Result.new(failure:)
@@ -64,7 +64,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
 
   test "should update club" do
     club_params = ActionController::Parameters.new(club: { name: Faker::Team.name })
-                                              .require(:club).permit(:name)
+      .require(:club).permit(:name)
 
     result = Result.new(value: @club)
     @clubs_service.stubs(:update).with(@club.id.to_s, club_params).returns(result)
@@ -77,7 +77,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
 
   test "should not update club when it is not valid" do
     club_params = ActionController::Parameters.new(club: { name: Faker::Team.name })
-                                              .require(:club).permit(:name)
+      .require(:club).permit(:name)
     message = "Club was not updated"
     failure = ServiceFailure::ValidationFailure.new(message)
     result = Result.new(failure:)

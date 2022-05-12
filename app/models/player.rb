@@ -20,14 +20,14 @@ class Player < ApplicationRecord
   validates_presence_of :first_name, message: "can't be blank"
   validates :last_name, presence: true
   validates :email,
-            presence: true,
-            length: {
-              maximum: 255
-            },
-            format: {
-              with: VALID_EMAIL_REGEX
-            },
-            uniqueness: {
-              case_sensitive: false
-            }
+    presence: true,
+    length: {
+      maximum: 255,
+    },
+    format: {
+      with: VALID_EMAIL_REGEX,
+    },
+    uniqueness: {
+      case_sensitive: false,
+    }
 end

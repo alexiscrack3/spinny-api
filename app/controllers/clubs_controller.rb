@@ -23,8 +23,8 @@ class ClubsController < ApplicationController
 
     if result.success?
       render json: ApiDocument.new(data: result.value),
-             status: :created,
-             location: result.value
+        status: :created,
+        location: result.value
     else
       handle_error(result.failure)
     end

@@ -11,7 +11,7 @@ class ApplicationController < ActionController::API
     else
       api_error = ApiError.new(ApiCode::SERVER_ERROR, error.message)
       render json: ApiDocument.new(errors: [api_error]),
-             status: :unprocessable_entity
+        status: :unprocessable_entity
     end
   end
 end
