@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PlayersController < ApplicationController
-  before_action :set_player, only: %i[show]
+  before_action :set_player, only: [:show]
 
   def initialize
     super
