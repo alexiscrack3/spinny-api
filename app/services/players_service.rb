@@ -43,7 +43,7 @@ class PlayersService
   rescue ActiveRecord::RecordNotFound
     failure = ServiceFailure::NotFoundFailure.new("Player was not found")
     Result.new(failure: failure)
-  rescue => exception
+  rescue => _
     failure = ServiceFailure::ServerFailure.new("Player was not deleted")
     Result.new(failure: failure)
   end

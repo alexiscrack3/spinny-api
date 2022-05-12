@@ -39,7 +39,7 @@ class ClubsService
   rescue ActiveRecord::RecordNotFound
     failure = ServiceFailure::NotFoundFailure.new("Club was not found")
     Result.new(failure: failure)
-  rescue => exception
+  rescue => _
     failure = ServiceFailure::ServerFailure.new("Club was not deleted")
     Result.new(failure: failure)
   end
