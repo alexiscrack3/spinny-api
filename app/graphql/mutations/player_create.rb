@@ -2,7 +2,7 @@
 
 module Mutations
   class PlayerCreate < BaseMutation
-    description 'Creates a new player'
+    description "Creates a new player"
 
     field :player, Types::PlayerType, null: false
 
@@ -11,8 +11,8 @@ module Mutations
     def resolve(player_input:)
       player = ::Player.new(**player_input)
       unless player.save
-        raise GraphQL::ExecutionError.new 'Error creating player',
                                           extensions: player.errors.to_hash
+        raise GraphQL::ExecutionError.new "Error creating player",
       end
 
       { player: player, errors: [] }

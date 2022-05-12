@@ -2,7 +2,7 @@
 
 module Mutations
   class PlayerDelete < BaseMutation
-    description 'Deletes a player by ID'
+    description "Deletes a player by ID"
 
     field :player, Types::PlayerType, null: false
 
@@ -11,8 +11,8 @@ module Mutations
     def resolve(id:)
       player = ::Player.find(id)
       unless player.destroy
-        raise GraphQL::ExecutionError.new 'Error deleting player',
                                           extensions: player.errors.to_hash
+        raise GraphQL::ExecutionError.new "Error deleting player",
       end
 
       { player: player, errors: [] }

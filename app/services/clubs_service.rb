@@ -5,7 +5,7 @@ class ClubsService
     if club
       Result.new(value: club)
     else
-      failure = ServiceFailure::NotFoundFailure.new('Club was not found')
+      failure = ServiceFailure::NotFoundFailure.new("Club was not found")
       Result.new(failure: failure)
     end
   end
@@ -16,7 +16,7 @@ class ClubsService
     if club.save
       Result.new(value: club)
     else
-      failure = ServiceFailure::ValidationFailure.new('Club was not created')
+      failure = ServiceFailure::ValidationFailure.new("Club was not created")
       Result.new(failure: failure)
     end
   end
@@ -27,7 +27,7 @@ class ClubsService
     if club.update(params)
       Result.new(value: club)
     else
-      failure = ServiceFailure::ValidationFailure.new('Club was not updated')
+      failure = ServiceFailure::ValidationFailure.new("Club was not updated")
       Result.new(failure: failure)
     end
   end

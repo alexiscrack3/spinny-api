@@ -9,7 +9,7 @@ class PlayersService
     if player
       Result.new(value: player)
     else
-      failure = ServiceFailure::NotFoundFailure.new('Player was not found')
+      failure = ServiceFailure::NotFoundFailure.new("Player was not found")
       Result.new(failure: failure)
     end
   end
@@ -20,7 +20,7 @@ class PlayersService
     if player.save
       Result.new(value: player)
     else
-      failure = ServiceFailure::ValidationFailure.new('Player was not created')
+      failure = ServiceFailure::ValidationFailure.new("Player was not created")
       Result.new(failure: failure)
     end
   end
@@ -31,7 +31,7 @@ class PlayersService
     if player.update(params)
       Result.new(value: player)
     else
-      failure = ServiceFailure::ValidationFailure.new('Player was not updated')
+      failure = ServiceFailure::ValidationFailure.new("Player was not updated")
       Result.new(failure: failure)
     end
   end

@@ -11,26 +11,26 @@ module Types
     field :test_field,
           String,
           null: false,
-          description: 'An example field added by the generator'
+      description: "An example field added by the generator"
 
     def test_field
-      'Hello World!'
+      "Hello World!"
     end
 
     field :players,
           [Types::PlayerType],
           null: false,
-          description: 'List of players'
+      description: "List of players"
 
     field :player,
-          description: 'Get a player',
           resolver: Resolvers::PlayerResolver
+      description: "Get a player",
 
     field :clubs,
-          description: 'List of clubs',
           resolver: Resolvers::ClubsResolver
+      description: "List of clubs",
 
-    field :club, description: 'Get a club', resolver: Resolvers::ClubResolver
+    field :club, description: "Get a club", resolver: Resolvers::ClubResolver
 
     def players
       Player.all

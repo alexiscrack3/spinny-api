@@ -2,7 +2,7 @@
 
 module Mutations
   class PlayerUpdate < BaseMutation
-    description 'Updates a player by id'
+    description "Updates a player by id"
 
     field :player, Types::PlayerType, null: false
 
@@ -12,8 +12,8 @@ module Mutations
     def resolve(id:, player_input:)
       player = ::Player.find(id)
       unless player.update(**player_input)
-        raise GraphQL::ExecutionError.new 'Error updating player',
                                           extensions: player.errors.to_hash
+        raise GraphQL::ExecutionError.new "Error updating player",
       end
 
       { player: player, errors: [] }
