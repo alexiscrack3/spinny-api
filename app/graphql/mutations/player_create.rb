@@ -11,8 +11,8 @@ module Mutations
     def resolve(player_input:)
       player = ::Player.new(**player_input)
       unless player.save
-                                          extensions: player.errors.to_hash
         raise GraphQL::ExecutionError.new "Error creating player",
+          extensions: player.errors.to_hash
       end
 
       { player: player, errors: [] }

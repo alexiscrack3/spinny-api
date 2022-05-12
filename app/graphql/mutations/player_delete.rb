@@ -11,8 +11,8 @@ module Mutations
     def resolve(id:)
       player = ::Player.find(id)
       unless player.destroy
-                                          extensions: player.errors.to_hash
         raise GraphQL::ExecutionError.new "Error deleting player",
+          extensions: player.errors.to_hash
       end
 
       { player: player, errors: [] }

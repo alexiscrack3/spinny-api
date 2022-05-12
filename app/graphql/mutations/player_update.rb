@@ -12,8 +12,8 @@ module Mutations
     def resolve(id:, player_input:)
       player = ::Player.find(id)
       unless player.update(**player_input)
-                                          extensions: player.errors.to_hash
         raise GraphQL::ExecutionError.new "Error updating player",
+          extensions: player.errors.to_hash
       end
 
       { player: player, errors: [] }

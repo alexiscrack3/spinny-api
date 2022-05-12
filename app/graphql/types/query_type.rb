@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Types
   class QueryType < Types::BaseObject
     # Add `node(id: ID!) and `nodes(ids: [ID!]!)`
@@ -9,8 +11,8 @@ module Types
 
     # TODO: remove me
     field :test_field,
-          String,
-          null: false,
+      String,
+      null: false,
       description: "An example field added by the generator"
 
     def test_field
@@ -18,17 +20,17 @@ module Types
     end
 
     field :players,
-          [Types::PlayerType],
-          null: false,
+      [Types::PlayerType],
+      null: false,
       description: "List of players"
 
     field :player,
-          resolver: Resolvers::PlayerResolver
       description: "Get a player",
+      resolver: Resolvers::PlayerResolver
 
     field :clubs,
-          resolver: Resolvers::ClubsResolver
       description: "List of clubs",
+      resolver: Resolvers::ClubsResolver
 
     field :club, description: "Get a club", resolver: Resolvers::ClubResolver
 
