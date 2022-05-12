@@ -67,16 +67,4 @@ class PlayersController < ApplicationController
   def player_params
     params.require(:player).permit(:first_name, :last_name, :email)
   end
-
-  def handle_error(error)
-    case error
-    when ServiceFailure::NotFoundFailure
-      apiError = ApiError.new(ApiCode::NOT_FOUND, error.message)
-      render json: ApiDocument.new(errors: [apiError]), status: :not_found
-    else
-      apiError = ApiError.new(ApiCode::SERVER_ERROR, error.message)
-      render json: ApiDocument.new(errors: [apiError]),
-             status: :unprocessable_entity
-    end
-  end
 end

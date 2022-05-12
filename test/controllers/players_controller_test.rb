@@ -16,32 +16,6 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test 'should create player' do
-    assert_difference('Player.count') do
-      params = {
-        player: {
-          first_name: Faker::Name.first_name,
-          last_name: Faker::Name.last_name,
-          email: 'user@spinny.io'
-        }
-      }
-      post players_url, params: params, as: :json
-    end
-
-    assert_response :created
-  end
-
-  test 'should not create player when it is not valid' do
-    params = { player: { last_name: @player.last_name, email: @player.email } }
-    api_error = ApiError.new(ApiCode::SERVER_ERROR, 'Player was not created')
-    expected = [api_error]
-
-    post players_url, params: params, as: :json
-
-    assert_equal response.parsed_body['errors'], expected.as_json
-    assert_response :unprocessable_entity
-  end
-
   test 'should show player' do
     get player_url(@player), as: :json
     assert_response :success
@@ -56,6 +30,32 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
 
     assert_equal response.parsed_body['errors'], expected.as_json
     assert_response :not_found
+  end
+
+  test 'should create player' do
+    assert_difference('Player.count') do
+      params = {
+        player: {
+          first_name: Faker::Name.first_name,
+          last_name: Faker::Name.last_name,
+          email: 'user@spinny.io'
+        }
+      }
+      post players_url, params:, as: :json
+    end
+
+    assert_response :created
+  end
+
+  test 'should not create player when it is not valid' do
+    params = { player: { last_name: @player.last_name, email: @player.email } }
+    api_error = ApiError.new(ApiCode::SERVER_ERROR, 'Player was not created')
+    expected = [api_error]
+
+    post players_url, params: params, as: :json
+
+    assert_equal response.parsed_body['errors'], expected.as_json
+    assert_response :unprocessable_entity
   end
 
   test 'should update player' do
@@ -106,7 +106,7 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
     assert_response :not_found
   end
 
-  test 'should not destroy player when something went wrong' do
+  test 'should not destroy player when something goes wrong' do
     api_error = ApiError.new(ApiCode::SERVER_ERROR, 'Player was not deleted')
     expected = [api_error]
     Player

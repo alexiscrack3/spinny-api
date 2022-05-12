@@ -87,7 +87,7 @@ class PlayersServiceTest < ActiveSupport::TestCase
     assert_equal result.failure, expected
   end
 
-  test 'should not delete player when something went wrong' do
+  test 'should not delete player when something goes wrong' do
     player = players(:one)
     expected = ServiceFailure::ServerFailure.new('Player was not deleted')
 

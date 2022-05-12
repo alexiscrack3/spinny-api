@@ -1,51 +1,64 @@
 class ClubsController < ApplicationController
-  before_action :set_club, only: %i[ show update destroy ]
+  # before_action :set_club, only: %i[show update destroy]
 
-  # GET /clubs
-  def index
-    @clubs = Club.all
-
-    render json: @clubs
+  def initialize
+    @clubs_service = ClubsService.new
   end
 
   # GET /clubs/1
   def show
-    render json: @club
+    result = @clubs_service.club(params[:id])
+    if result.success?
+      render json: ApiDocument.new(data: result.value)
+    else
+      handle_error(result.failure)
+    end
   end
 
   # POST /clubs
   def create
-    @club = Club.new(club_params)
+    result = @clubs_service.create(club_params)
 
-    if @club.save
-      render json: @club, status: :created, location: @club
+    if result.success?
+      render json: ApiDocument.new(data: result.value),
+             status: :created,
+             location: result.value
     else
-      render json: @club.errors, status: :unprocessable_entity
+      handle_error(result.failure)
     end
   end
 
   # PATCH/PUT /clubs/1
   def update
-    if @club.update(club_params)
-      render json: @club
+    result = @clubs_service.update(params[:id], club_params)
+
+    if result.success?
+      render json: ApiDocument.new(data: result.value)
     else
-      render json: @club.errors, status: :unprocessable_entity
+      handle_error(result.failure)
     end
   end
 
   # DELETE /clubs/1
   def destroy
-    @club.destroy
+    result = @clubs_service.delete(params[:id])
+
+    if result.success?
+      render json: nil, status: :no_content
+    else
+      handle_error(result.failure)
+    end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_club
-      @club = Club.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def club_params
-      params.require(:club).permit(:name)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  # def set_club
+  #   @club = Club.find(params[:id])
+  # end
+
+  # Only allow a list of trusted parameters through.
+  def club_params
+    params.require(:club).permit(:name)
+  end
 end
