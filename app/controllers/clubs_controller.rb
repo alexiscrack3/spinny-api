@@ -10,7 +10,7 @@ class ClubsController < ApplicationController
   def show
     result = @clubs_service.club(params[:id])
     if result.success?
-      render json: ApiDocument.new(data: result.value)
+      render json: ApiDocument.new(data: result.value.as_json(include: :players))
     else
       handle_error(result.failure)
     end

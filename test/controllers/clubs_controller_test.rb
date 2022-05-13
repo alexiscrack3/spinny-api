@@ -15,7 +15,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
 
     get club_url(@club), as: :json
 
-    assert_equal response.parsed_body["data"], @club.as_json
+    assert_equal response.parsed_body["data"], @club.as_json(include: :players)
     assert_response :success
   end
 
