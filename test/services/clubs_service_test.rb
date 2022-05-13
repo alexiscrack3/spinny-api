@@ -7,6 +7,11 @@ class ClubsServiceTest < ActiveSupport::TestCase
     @clubs_service = ClubsService.new
   end
 
+  test "should get all clubs" do
+    result = @clubs_service.clubs
+    assert_equal result.value, Club.all
+  end
+
   test "should get club by id" do
     club = clubs(:one)
     result = @clubs_service.club(club.id)

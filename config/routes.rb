@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  namespace :admin do
+    get 'clubs', to: 'clubs#index'
+  end
   resources :clubs, only: %i[show create update destroy]
   resources :players
 
