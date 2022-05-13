@@ -13,7 +13,8 @@
 #
 class Player < ApplicationRecord
   before_save { self.email = email.downcase } # or email.downcase!
-  has_and_belongs_to_many :clubs
+  has_many :memberships, dependent: :delete_all
+  has_many :clubs, through: :memberships
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 

@@ -8,7 +8,9 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
+Membership.delete_all
 Player.delete_all
+Club.delete_all
 
 5.times do
   Player.create!(
@@ -17,8 +19,6 @@ Player.delete_all
     email: Faker::Internet.email
   )
 end
-
-Club.delete_all
 
 5.times { Club.create!(name: Faker::Team.name) }
 
