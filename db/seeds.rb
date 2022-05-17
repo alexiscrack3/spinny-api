@@ -8,6 +8,7 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
+Game.delete_all
 Membership.delete_all
 Player.delete_all
 Club.delete_all
@@ -23,3 +24,7 @@ end
 5.times { Club.create!(name: Faker::Team.name) }
 
 Club.first.players << Player.first
+
+Club.first.players << Player.last
+
+1.times { Game.create!(winner: Membership.first, loser: Membership.last) }
