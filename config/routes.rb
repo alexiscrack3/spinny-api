@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :games
   namespace :admin do
     get 'clubs', to: 'clubs#index'
   end

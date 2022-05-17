@@ -9,3 +9,8 @@ two:
   first_name: MyString
   last_name: MyString
   email: foo.baz@spinny.io
+
+three:
+  first_name: MyString
+  last_name: MyString
+  email: bar.baz@spinny.io
