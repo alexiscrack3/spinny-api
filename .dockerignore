@@ -41,7 +41,8 @@ coverage/
 .gitattributes
 
 # Ignore docker
-.docker/
+/.docker/*
+!/.docker/docker-entrypoint.sh
 .dockerignore
 
 # Ignore node

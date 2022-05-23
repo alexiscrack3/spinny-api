@@ -26,6 +26,12 @@ COPY ["Gemfile", "Gemfile.lock", "/usr/src/"]
 
 RUN bundle install
 
+COPY [".docker/docker-entrypoint.sh", "/usr/bin/"]
+
+RUN chmod +x /usr/bin/docker-entrypoint.sh
+
+ENTRYPOINT ["docker-entrypoint.sh"]
+
 COPY [".", "/usr/src"]
 
 RUN bundle lock --add-platform aarch64-linux-musl
