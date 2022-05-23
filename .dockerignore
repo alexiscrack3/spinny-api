@@ -1,0 +1,51 @@
+# Ignore Byebug command history file
+.byebug_history
+
+# Ignore GitHub Workflows
+.github/
+
+# Ignore Intellij
+.idea/
+
+# Ignore Visual Studio Code
+.vscode/
+
+# Ignore master key for decrypting credentials and more
+config/master.key
+
+# Ignore code coverage
+coverage/
+
+# Ignore the default SQLite database
+/db/*.sqlite3
+/db/*.sqlite3-*
+
+# Ignore all logfiles and tempfiles
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+
+# Ignore test files
+/test/*
+
+# Ignore environment files
+*.env
+
+# Ignore database dumps
+*.dump
+
+# Ingore Git files
+.git/
+.gitignore
+.gitattributes
+
+# Ignore docker
+.docker/
+.dockerignore
+
+# Ignore node
+node_modules/
+
+# Misc files
+.cache
