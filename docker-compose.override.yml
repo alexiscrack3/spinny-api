@@ -5,7 +5,5 @@ services:
     build:
       context: .
       dockerfile: .docker/Dockerfile
-    environment:
-      - MYSQL_HOST=db
-    ports:
-      - 3000:3000
+      args:
+        - RAILS_ENVIRONMENT=development

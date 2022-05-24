@@ -7,6 +7,10 @@ services:
       - db
     env_file:
       - .env
+    environment:
+      - MYSQL_HOST=db
+    ports:
+      - 3000:3000
     networks:
       - api-network
       - data-network

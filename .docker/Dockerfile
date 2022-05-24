@@ -2,7 +2,9 @@ FROM ruby:3.1.0-alpine
 
 LABEL maintainer="Alexis Ortega <alexis.oc3@gmail.com>"
 
-ENV RAILS_ENV=production
+ARG RAILS_ENVIRONMENT=production
+
+ENV RAILS_ENV=$RAILS_ENVIRONMENT
 
 # ENV RAILS_LOG_TO_STDOUT=true
 
