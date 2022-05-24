@@ -15,8 +15,8 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   host: <%= ENV["MYSQL_HOST"] || "127.0.0.1" %>
   port: <%= ENV["MYSQL_PORT"] || 3306 %>
-  username: <%= ENV["MYSQL_USER"] %>
-  password: <%= ENV["MYSQL_PASSWORD"] %>
+  username: root
+  password: <%= ENV["MYSQL_ROOT_PASSWORD"] %>
   socket: /tmp/mysql.sock
 
 development:
@@ -53,5 +53,5 @@ test:
 production:
   <<: *default
   database: spinny_api_production
-  username: spinny_api
-  password: <%= ENV["SPINNY_API_DATABASE_PASSWORD"] %>
+  username: <%= ENV["MYSQL_USER"] %>
+  password: <%= ENV["MYSQL_PASSWORD"] %>

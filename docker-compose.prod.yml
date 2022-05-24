@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  api:
+    image: alexiscrack3/spinny-api:latest
+
+  db:
+    environment:
+      - MYSQL_USER=${MYSQL_USER:-spinny_api}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql

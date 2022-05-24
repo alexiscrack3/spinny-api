@@ -1,1 +1,1 @@
-GRANT ALL PRIVILEGES ON *.* TO 'dbuser';
+GRANT ALL PRIVILEGES ON *.* TO 'spinny_api';
