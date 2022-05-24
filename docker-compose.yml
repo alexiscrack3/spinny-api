@@ -4,7 +4,8 @@ services:
   api:
     container_name: api
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     env_file:
       - .env
     environment:
@@ -28,6 +29,12 @@ services:
       - data-network
     volumes:
       - data-volume:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+      # interval: 1m30s
+      timeout: 30s
+      retries: 5
+      # start_period: 30s
 
 networks:
   api-network:
