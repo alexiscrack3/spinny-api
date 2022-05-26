@@ -13,11 +13,11 @@ Membership.delete_all
 Player.delete_all
 Club.delete_all
 
-5.times do
+20.times do
   Player.create!(
     first_name: Faker::Name.unique.first_name,
     last_name: Faker::Name.unique.last_name,
-    email: Faker::Internet.email
+    email: Faker::Internet.unique.email
   )
 end
 
