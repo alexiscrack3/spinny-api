@@ -1,51 +1,60 @@
+# frozen_string_literal: true
+
 class GamesController < ApplicationController
-  before_action :set_game, only: %i[ show update destroy ]
-
-  # GET /games
-  def index
-    @games = Game.all
-
-    render json: @games
+  def initialize
+    super
+    @games_service = GamesService.new
   end
 
   # GET /games/1
   def show
-    render json: @game
+    result = @games_service.game(params[:id])
+    if result.success?
+      render json: ApiDocument.new(data: result.value)
+    else
+      handle_error(result.failure)
+    end
   end
 
   # POST /games
   def create
-    @game = Game.new(game_params)
+    result = @games_service.create(game_params)
 
-    if @game.save
-      render json: @game, status: :created, location: @game
+    if result.success?
+      render json: ApiDocument.new(data: result.value),
+        status: :created,
+        location: result.value
     else
-      render json: @game.errors, status: :unprocessable_entity
+      handle_error(result.failure)
     end
   end
 
   # PATCH/PUT /games/1
   def update
-    if @game.update(game_params)
-      render json: @game
+    result = @games_service.update(params[:id], game_params)
+
+    if result.success?
+      render json: ApiDocument.new(data: result.value)
     else
-      render json: @game.errors, status: :unprocessable_entity
+      handle_error(result.failure)
     end
   end
 
   # DELETE /games/1
   def destroy
-    @game.destroy
+    result = @games_service.delete(params[:id])
+
+    if result.success?
+      render json: ApiDocument.new(data: result.value), status: :no_content
+    else
+      handle_error(result.failure)
+    end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_game
-      @game = Game.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def game_params
-      params.require(:game).permit(:winner_id, :loser_id)
-    end
+  # Only allow a list of trusted parameters through.
+  def game_params
+    params.require(:game).permit(:winner_id, :loser_id)
+  end
 end
