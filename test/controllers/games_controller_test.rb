@@ -39,8 +39,8 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
   test "should create game when it is valid" do
     params = {
       game: {
-        winner: memberships(:one),
-        loser: memberships(:two),
+        winner_id: memberships(:one).id,
+        loser_id: memberships(:two).id,
       },
     }
     game_params = game_params(params)
@@ -57,8 +57,8 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
   test "should not create game when it is not valid" do
     params = {
       game: {
-        winner: nil,
-        loser: nil,
+        winner_id: nil,
+        loser_id: nil,
       },
     }
     game_params = game_params(params)
@@ -78,8 +78,8 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
   test "should update game when it is valid" do
     params = {
       game: {
-        winner: memberships(:two),
-        loser: memberships(:one),
+        winner_id: memberships(:two).id,
+        loser_id: memberships(:one).id,
       },
     }
     game_params = game_params(params)
@@ -95,8 +95,8 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
   test "should not update game when it is not valid" do
     params = {
       game: {
-        winner: nil,
-        loser: nil,
+        winner_id: nil,
+        loser_id: nil,
       },
     }
     game_params = game_params(params)
