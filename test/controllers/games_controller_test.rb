@@ -15,7 +15,10 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
 
     get game_url(@game), as: :json
 
-    assert_equal response.parsed_body["data"], @game.as_json
+    assert_equal response.parsed_body["data"], @game.as_json(
+      include: [:winner, :loser],
+      except: [:winner_id, :loser_id]
+    )
     assert_response :success
   end
 

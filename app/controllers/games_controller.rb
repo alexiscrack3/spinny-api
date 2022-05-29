@@ -10,7 +10,10 @@ class GamesController < ApplicationController
   def show
     result = @games_service.game(params[:id])
     if result.success?
-      render json: ApiDocument.new(data: result.value)
+      render json: ApiDocument.new(data: result.value.as_json(
+        include: [:winner, :loser],
+        except: [:winner_id, :loser_id]
+      ))
     else
       handle_error(result.failure)
     end
