@@ -48,7 +48,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
     result = Result.new(value: game)
     @games_service.stubs(:create).with(game_params).returns(result)
 
-    post games_url, params:, as: :json
+    post games_url, params: params, as: :json
 
     assert_equal response.parsed_body["data"], game.as_json
     assert_response :created

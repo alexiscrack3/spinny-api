@@ -67,7 +67,7 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
     result = Result.new(value: player)
     @players_service.stubs(:create).with(player_params).returns(result)
 
-    post players_url, params:, as: :json
+    post players_url, params: params, as: :json
 
     assert_equal response.parsed_body["data"], player.as_json
     assert_response :created
