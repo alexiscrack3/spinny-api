@@ -43,6 +43,8 @@ gem "graphql"
 gem "rubocop"
 gem "rubocop-shopify"
 
+gem "sidekiq", "~> 6.4"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: [:mri, :mingw, :x64_mingw]
