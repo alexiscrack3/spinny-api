@@ -1,0 +1,4 @@
+web: rails s
+# web: bundle exec puma -C config/puma.rb
+# logs: touch log/development.log && tail -f log/development.log
+worker: bundle exec sidekiq -e development -C config/sidekiq.yml
