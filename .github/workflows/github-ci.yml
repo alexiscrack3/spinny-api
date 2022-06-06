@@ -10,7 +10,7 @@ env:
 
 jobs:
   tests:
-    runs-on: ubuntu-${{ UBUNTU_VERSION }}
+    runs-on: ubuntu-${{ env.UBUNTU_VERSION }}
     name: tests
     services:
       # Label used to access the service container
@@ -50,7 +50,7 @@ jobs:
         run: |
           bin/rails test
   build:
-    runs-on: ubuntu-${{ UBUNTU_VERSION }}
+    runs-on: ubuntu-${{ env.UBUNTU_VERSION }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
