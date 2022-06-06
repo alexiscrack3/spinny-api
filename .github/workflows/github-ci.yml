@@ -11,13 +11,14 @@ jobs:
   tests:
     runs-on: ubuntu-20.04
     name: tests
+    env:
+      MYSQL_ROOT_PASSWORD: password
     services:
       # Label used to access the service container
       db:
         # Docker Hub image
         image: mysql:5.7
         env:
-          MYSQL_ROOT_PASSWORD: password
           MYSQL_DATABASE: spinny_api_test
         ports:
           - 3306:3306
