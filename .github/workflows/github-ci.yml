@@ -5,11 +5,52 @@ on:
     branches: [ main ]
 
 env:
+  UBUNTU_VERSION: 20.04
   IMAGE_NAME: alexiscrack3/spinny-api:latest
 
 jobs:
+  tests:
+    runs-on: ubuntu-${{ UBUNTU_VERSION }}
+    name: tests
+    services:
+      # Label used to access the service container
+      db:
+        # Docker Hub image
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: spinny_api_test
+        ports:
+          - 3306:3306
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          # Not needed with a .ruby-version file
+          ruby-version: 3.1.0
+          # runs 'bundle install' and caches installed gems automatically
+          bundler-cache: true
+      - name: Install dependencies
+        run: |
+          gem install bundler
+          bundler install
+      - name: Set up database
+        run: |
+          RAILS_ENV=test bin/rails db:create
+          RAILS_ENV=test bin/rails db:migrate
+      - name: Run tests
+        run: |
+          bin/rails test
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-${{ UBUNTU_VERSION }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
