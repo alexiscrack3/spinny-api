@@ -50,6 +50,12 @@ jobs:
       - name: Run tests
         run: |
           bin/rails test
+      - name: Upload test results
+        uses: actions/upload-artifact@master
+        if: always()
+        with:
+          name: html-reports
+          path: test/html_reports
   build:
     runs-on: ubuntu-20.04
     needs: tests
