@@ -1,0 +1,5 @@
+--dir
+.
+--ignore=vendor/
+--ignore=lib/generators/
+--ignore=test/lib/generators/
