@@ -1,14 +1,17 @@
+# typed: true
 # frozen_string_literal: true
 
 class ClubsController < ApplicationController
+  sig { void }
   def initialize
     super
-    @clubs_service = ClubsService.new
+    @clubs_service = T.let(ClubsService.new, ClubsService)
   end
 
   # GET /clubs/1
   def show
-    result = @clubs_service.club(params[:id])
+    id = T.cast(params[:id], T.nilable(Integer))
+    result = @clubs_service.club(id)
     if result.success?
       render json: ApiDocument.new(data: result.value.as_json(include: :players))
     else
@@ -31,7 +34,8 @@ class ClubsController < ApplicationController
 
   # PATCH/PUT /clubs/1
   def update
-    result = @clubs_service.update(params[:id], club_params)
+    id = T.cast(params[:id], T.nilable(Integer))
+    result = @clubs_service.update(id, club_params)
 
     if result.success?
       render json: ApiDocument.new(data: result.value)
@@ -42,7 +46,8 @@ class ClubsController < ApplicationController
 
   # DELETE /clubs/1
   def destroy
-    result = @clubs_service.delete(params[:id])
+    id = T.cast(params[:id], T.nilable(Integer))
+    result = @clubs_service.delete(id)
 
     if result.success?
       render json: nil, status: :no_content

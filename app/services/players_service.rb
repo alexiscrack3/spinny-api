@@ -1,12 +1,15 @@
+# typed: true
 # frozen_string_literal: true
 
-class PlayersService
+class PlayersService < ApplicationService
+  sig { returns(Result[T::Array[Player]]) }
   def players
     Result.new(value: Player.all)
   end
 
+  sig { params(id: T.nilable(Integer)).returns(Result[Player]) }
   def player(id)
-    player = Player.includes(:clubs).find_by(id: id)
+    player = T.let(Player.includes(:clubs).find_by(id: id), T.nilable(Player))
 
     if player
       Result.new(value: player)
@@ -16,8 +19,9 @@ class PlayersService
     end
   end
 
+  sig { params(params: T::Hash[String, T.untyped]).returns(Result[Player]) }
   def create(params)
-    player = Player.new(params)
+    player = T.let(Player.new(params), Player)
 
     if player.save
       Result.new(value: player)
@@ -27,10 +31,11 @@ class PlayersService
     end
   end
 
+  sig { params(id: T.nilable(Integer), params: T::Hash[String, T.untyped]).returns(Result[Player]) }
   def update(id, params)
-    player = Player.find_by(id: id)
+    player = T.let(Player.find_by(id: id), T.nilable(Player))
 
-    if player.update(params)
+    if player&.update(params)
       Result.new(value: player)
     else
       failure = ServiceFailure::ValidationFailure.new("Player was not updated")
@@ -38,6 +43,7 @@ class PlayersService
     end
   end
 
+  sig { params(id: T.nilable(Integer)).returns(Result[Player]) }
   def delete(id)
     Result.new(value: Player.destroy(id))
   rescue ActiveRecord::RecordNotFound

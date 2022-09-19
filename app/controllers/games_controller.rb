@@ -1,14 +1,17 @@
+# typed: true
 # frozen_string_literal: true
 
 class GamesController < ApplicationController
+  sig { void }
   def initialize
     super
-    @games_service = GamesService.new
+    @games_service = T.let(GamesService.new, GamesService)
   end
 
   # GET /games/1
   def show
-    result = @games_service.game(params[:id])
+    id = T.cast(params[:id], T.nilable(Integer))
+    result = @games_service.game(id)
     if result.success?
       render json: ApiDocument.new(data: result.value.as_json(
         include: [:winner, :loser],
@@ -34,7 +37,8 @@ class GamesController < ApplicationController
 
   # PATCH/PUT /games/1
   def update
-    result = @games_service.update(params[:id], game_params)
+    id = T.cast(params[:id], T.nilable(Integer))
+    result = @games_service.update(id, game_params)
 
     if result.success?
       render json: ApiDocument.new(data: result.value)
@@ -45,7 +49,8 @@ class GamesController < ApplicationController
 
   # DELETE /games/1
   def destroy
-    result = @games_service.delete(params[:id])
+    id = T.cast(params[:id], T.nilable(Integer))
+    result = @games_service.delete(id)
 
     if result.success?
       render json: ApiDocument.new(data: result.value), status: :no_content

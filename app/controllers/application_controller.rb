@@ -1,6 +1,9 @@
+# typed: true
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::API
+  extend T::Sig
+
   protected
 
   def handle_error(error)

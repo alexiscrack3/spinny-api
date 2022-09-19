@@ -1,10 +1,12 @@
+# typed: true
 # frozen_string_literal: true
 
 module Admin
   class ClubsController < ApplicationController
+    sig { void }
     def initialize
       super
-      @clubs_service = ClubsService.new
+      @clubs_service = T.let(ClubsService.new, ClubsService)
     end
 
     # GET /clubs
