@@ -1,4 +1,12 @@
 {
-    "sorbet.enabled": true,
-    "byesig.opacity": 0.5
+    "byesig.opacity": 0.5,
+    "byesig": {
+        "fold": false,
+        "opacity": 0.5,
+        "showIcon": false
+    },
+    "search.exclude": {
+        "**/sorbet/**": true
+    },
+    "sorbet.enabled": true
 }
