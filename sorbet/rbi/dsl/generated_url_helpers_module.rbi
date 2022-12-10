@@ -24,9 +24,6 @@ module GeneratedUrlHelpersModule
   def destroy_player_session_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def edit_player_password_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def edit_player_registration_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -42,9 +39,6 @@ module GeneratedUrlHelpersModule
   def graphql_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def new_player_password_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def new_player_registration_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -52,9 +46,6 @@ module GeneratedUrlHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def new_rails_conductor_inbound_email_source_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def player_password_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def player_registration_url(*args); end

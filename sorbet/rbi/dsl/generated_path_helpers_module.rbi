@@ -24,9 +24,6 @@ module GeneratedPathHelpersModule
   def destroy_player_session_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def edit_player_password_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def edit_player_registration_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -42,9 +39,6 @@ module GeneratedPathHelpersModule
   def graphql_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def new_player_password_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def new_player_registration_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -52,9 +46,6 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def new_rails_conductor_inbound_email_source_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def player_password_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def player_path(*args); end
