@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_10_170845) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_10_171349) do
   create_table "clubs", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -24,6 +24,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_10_170845) do
     t.datetime "updated_at", null: false
     t.index ["loser_id"], name: "index_games_on_loser_id"
     t.index ["winner_id"], name: "index_games_on_winner_id"
+  end
+
+  create_table "jwt_denylist", charset: "utf8mb4", force: :cascade do |t|
+    t.string "jti", null: false
+    t.datetime "exp", null: false
+    t.index ["jti"], name: "index_jwt_denylist_on_jti"
   end
 
   create_table "memberships", charset: "utf8mb4", force: :cascade do |t|

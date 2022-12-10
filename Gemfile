@@ -41,6 +41,7 @@ gem "rack-cors"
 gem "graphql"
 
 gem "devise"
+gem "devise-jwt"
 
 gem "rubocop"
 gem "rubocop-shopify", require: false

@@ -1,7 +1,15 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  devise_for :players
+  devise_for :players, path: 'players', path_names: {
+    sign_in: 'sign_in',
+    sign_out: 'sign_out',
+    registration: 'sign_up'
+  },
+  controllers: {
+      sessions: 'sessions',
+      registrations: 'registrations'
+  }
   namespace :admin do
     get 'clubs', to: 'clubs#index'
   end
