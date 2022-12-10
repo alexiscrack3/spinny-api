@@ -12,6 +12,10 @@
 #  email      :string(255)      not null
 #
 class Player < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
   before_save { self.email = email.downcase } # or email.downcase!
   has_many :memberships, dependent: :delete_all
   has_many :clubs, through: :memberships
