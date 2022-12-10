@@ -7,7 +7,7 @@ class PlayersService < ApplicationService
     Result.new(value: Player.all)
   end
 
-  sig { params(id: T.nilable(Integer)).returns(Result[Player]) }
+  sig { params(id: T.any(String, Integer)).returns(Result[Player]) }
   def player(id)
     player = T.let(Player.includes(:clubs).find_by(id: id), T.nilable(Player))
 
@@ -31,7 +31,7 @@ class PlayersService < ApplicationService
     end
   end
 
-  sig { params(id: T.nilable(Integer), params: T::Hash[String, T.untyped]).returns(Result[Player]) }
+  sig { params(id: T.any(String, Integer), params: T::Hash[String, T.untyped]).returns(Result[Player]) }
   def update(id, params)
     player = T.let(Player.find_by(id: id), T.nilable(Player))
 
@@ -43,7 +43,7 @@ class PlayersService < ApplicationService
     end
   end
 
-  sig { params(id: T.nilable(Integer)).returns(Result[Player]) }
+  sig { params(id: T.any(String, Integer)).returns(Result[Player]) }
   def delete(id)
     Result.new(value: Player.destroy(id))
   rescue ActiveRecord::RecordNotFound

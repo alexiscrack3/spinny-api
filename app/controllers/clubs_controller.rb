@@ -10,7 +10,7 @@ class ClubsController < ApplicationController
 
   # GET /clubs/1
   def show
-    id = T.cast(params[:id], T.nilable(Integer))
+    id = T.cast(params[:id], String)
     result = @clubs_service.club(id)
     if result.success?
       render json: ApiDocument.new(data: result.value.as_json(include: :players))
@@ -34,7 +34,7 @@ class ClubsController < ApplicationController
 
   # PATCH/PUT /clubs/1
   def update
-    id = T.cast(params[:id], T.nilable(Integer))
+    id = T.cast(params[:id], String)
     result = @clubs_service.update(id, club_params)
 
     if result.success?
@@ -46,7 +46,7 @@ class ClubsController < ApplicationController
 
   # DELETE /clubs/1
   def destroy
-    id = T.cast(params[:id], T.nilable(Integer))
+    id = T.cast(params[:id], String)
     result = @clubs_service.delete(id)
 
     if result.success?

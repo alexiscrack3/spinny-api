@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 class GamesService < ApplicationService
-  sig { params(id: T.nilable(Integer)).returns(Result[Game]) }
+  sig { params(id: T.any(String, Integer)).returns(Result[Game]) }
   def game(id)
     game = T.let(Game.find_by(id: id), T.nilable(Game))
 
@@ -26,7 +26,7 @@ class GamesService < ApplicationService
     end
   end
 
-  sig { params(id: T.nilable(Integer), params: T::Hash[String, T.untyped]).returns(Result[Game]) }
+  sig { params(id: T.any(String, Integer), params: T::Hash[String, T.untyped]).returns(Result[Game]) }
   def update(id, params)
     game = T.let(Game.find_by(id: id), T.nilable(Game))
 
@@ -38,7 +38,7 @@ class GamesService < ApplicationService
     end
   end
 
-  sig { params(id: T.nilable(Integer)).returns(Result[Game]) }
+  sig { params(id: T.any(String, Integer)).returns(Result[Game]) }
   def delete(id)
     Result.new(value: Game.destroy(id))
   rescue ActiveRecord::RecordNotFound

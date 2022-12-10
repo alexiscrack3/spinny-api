@@ -5,19 +5,21 @@ require "test_helper"
 class GamesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @game = games(:one)
-    @games_service = mock
-    GamesService.stubs(:new).returns(@games_service)
   end
 
   test "should show game when id exists" do
     result = Result.new(value: @game)
-    @games_service.stubs(:game).with(@game.id.to_s).returns(result)
+    GamesService
+      .any_instance
+      .stubs(:game)
+      .with(@game.id.to_s)
+      .returns(result)
 
     get game_url(@game), as: :json
 
     assert_equal response.parsed_body["data"], @game.as_json(
       include: [:winner, :loser],
-      except: [:winner_id, :loser_id]
+      except: [:winner_id, :loser_id],
     )
     assert_response :success
   end
@@ -26,7 +28,11 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
     message = "Game was not found"
     failure = ServiceFailure::NotFoundFailure.new(message)
     result = Result.new(failure:)
-    @games_service.stubs(:game).with(@game.id.to_s).returns(result)
+    GamesService
+      .any_instance
+      .stubs(:game)
+      .with(@game.id.to_s)
+      .returns(result)
     api_error = ApiError.new(ApiCode::NOT_FOUND, message)
     expected = [api_error]
 
@@ -46,7 +52,11 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
     game_params = game_params(params)
     game = Game.new(game_params)
     result = Result.new(value: game)
-    @games_service.stubs(:create).with(game_params).returns(result)
+    GamesService
+      .any_instance
+      .stubs(:create)
+      .with(game_params)
+      .returns(result)
 
     post games_url, params: params, as: :json
 
@@ -65,7 +75,11 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
     message = "Game was not created"
     failure = ServiceFailure::ValidationFailure.new(message)
     result = Result.new(failure:)
-    @games_service.stubs(:create).with(game_params).returns(result)
+    GamesService
+      .any_instance
+      .stubs(:create)
+      .with(game_params)
+      .returns(result)
     api_error = ApiError.new(ApiCode::SERVER_ERROR, message)
     expected = [api_error]
 
@@ -84,7 +98,11 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
     }
     game_params = game_params(params)
     result = Result.new(value: @game)
-    @games_service.stubs(:update).with(@game.id.to_s, game_params).returns(result)
+    GamesService
+      .any_instance
+      .stubs(:update)
+      .with(@game.id.to_s, game_params)
+      .returns(result)
 
     patch game_url(@game), params: params, as: :json
 
@@ -103,7 +121,11 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
     message = "Game was not updated"
     failure = ServiceFailure::ValidationFailure.new(message)
     result = Result.new(failure:)
-    @games_service.stubs(:update).with(@game.id.to_s, game_params).returns(result)
+    GamesService
+      .any_instance
+      .stubs(:update)
+      .with(@game.id.to_s, game_params)
+      .returns(result)
     api_error = ApiError.new(ApiCode::SERVER_ERROR, message)
     expected = [api_error]
 
@@ -115,7 +137,11 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
 
   test "should delete game" do
     result = Result.new(value: @game)
-    @games_service.stubs(:delete).with(@game.id.to_s).returns(result)
+    GamesService
+      .any_instance
+      .stubs(:delete)
+      .with(@game.id.to_s)
+      .returns(result)
 
     delete game_url(@game), as: :json
 
@@ -127,7 +153,11 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
     message = "Game was not found"
     failure = ServiceFailure::NotFoundFailure.new(message)
     result = Result.new(failure:)
-    @games_service.stubs(:delete).with(@game.id.to_s).returns(result)
+    GamesService
+      .any_instance
+      .stubs(:delete)
+      .with(@game.id.to_s)
+      .returns(result)
     api_error = ApiError.new(ApiCode::NOT_FOUND, message)
     expected = [api_error]
 
@@ -141,7 +171,11 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
     message = "Game was not deleted"
     failure = ServiceFailure::ServerFailure.new(message)
     result = Result.new(failure:)
-    @games_service.stubs(:delete).with(@game.id.to_s).returns(result)
+    GamesService
+      .any_instance
+      .stubs(:delete)
+      .with(@game.id.to_s)
+      .returns(result)
     api_error = ApiError.new(ApiCode::SERVER_ERROR, message)
     expected = [api_error]
 

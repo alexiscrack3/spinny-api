@@ -6,14 +6,15 @@ module Admin
   class ClubsControllerTest < ActionDispatch::IntegrationTest
     setup do
       @club = clubs(:one)
-      @clubs_service = mock
-      ClubsService.stubs(:new).returns(@clubs_service)
     end
 
     test "should show clubs when they exist" do
       clubs = [@club]
       result = Result.new(value: clubs)
-      @clubs_service.stubs(:clubs).returns(result)
+      ClubsService
+        .any_instance
+        .stubs(:clubs)
+        .returns(result)
 
       get admin_clubs_url, as: :json
 
@@ -23,7 +24,10 @@ module Admin
 
     test "should not show clubs when they do not exist" do
       result = Result.new(value: [])
-      @clubs_service.stubs(:clubs).returns(result)
+      ClubsService
+        .any_instance
+        .stubs(:clubs)
+        .returns(result)
 
       get admin_clubs_url, as: :json
 

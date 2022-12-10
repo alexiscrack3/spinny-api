@@ -10,12 +10,12 @@ class GamesController < ApplicationController
 
   # GET /games/1
   def show
-    id = T.cast(params[:id], T.nilable(Integer))
+    id = T.cast(params[:id], String)
     result = @games_service.game(id)
     if result.success?
       render json: ApiDocument.new(data: result.value.as_json(
         include: [:winner, :loser],
-        except: [:winner_id, :loser_id]
+        except: [:winner_id, :loser_id],
       ))
     else
       handle_error(result.failure)
@@ -37,7 +37,7 @@ class GamesController < ApplicationController
 
   # PATCH/PUT /games/1
   def update
-    id = T.cast(params[:id], T.nilable(Integer))
+    id = T.cast(params[:id], String)
     result = @games_service.update(id, game_params)
 
     if result.success?
@@ -49,7 +49,7 @@ class GamesController < ApplicationController
 
   # DELETE /games/1
   def destroy
-    id = T.cast(params[:id], T.nilable(Integer))
+    id = T.cast(params[:id], String)
     result = @games_service.delete(id)
 
     if result.success?

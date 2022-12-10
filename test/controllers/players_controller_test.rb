@@ -5,14 +5,15 @@ require "test_helper"
 class PlayersControllerTest < ActionDispatch::IntegrationTest
   setup do
     @player = players(:one)
-    @players_service = mock
-    PlayersService.stubs(:new).returns(@players_service)
   end
 
   test "should show players when they exist" do
     players = [@player]
     result = Result.new(value: players)
-    @players_service.stubs(:players).returns(result)
+    PlayersService
+      .any_instance
+      .stubs(:players)
+      .returns(result)
 
     get players_url, as: :json
 
@@ -22,7 +23,10 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
 
   test "should not show players when they do not exist" do
     result = Result.new(value: [])
-    @players_service.stubs(:players).returns(result)
+    PlayersService
+      .any_instance
+      .stubs(:players)
+      .returns(result)
 
     get players_url, as: :json
 
@@ -32,7 +36,11 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
 
   test "should show player when id exists" do
     result = Result.new(value: @player)
-    @players_service.stubs(:player).with(@player.id.to_s).returns(result)
+    PlayersService
+      .any_instance
+      .stubs(:player)
+      .with(@player.id.to_s)
+      .returns(result)
 
     get player_url(@player), as: :json
 
@@ -44,7 +52,11 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
     message = "Player was not found"
     failure = ServiceFailure::NotFoundFailure.new(message)
     result = Result.new(failure:)
-    @players_service.stubs(:player).with(@player.id.to_s).returns(result)
+    PlayersService
+      .any_instance
+      .stubs(:player)
+      .with(@player.id.to_s)
+      .returns(result)
     api_error = ApiError.new(ApiCode::NOT_FOUND, message)
     expected = [api_error]
 
@@ -65,7 +77,11 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
     player_params = player_params(params)
     player = Player.new(player_params)
     result = Result.new(value: player)
-    @players_service.stubs(:create).with(player_params).returns(result)
+    PlayersService
+      .any_instance
+      .stubs(:create)
+      .with(player_params)
+      .returns(result)
 
     post players_url, params: params, as: :json
 
@@ -85,7 +101,11 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
     message = "Player was not created"
     failure = ServiceFailure::ValidationFailure.new(message)
     result = Result.new(failure:)
-    @players_service.stubs(:create).with(player_params).returns(result)
+    PlayersService
+      .any_instance
+      .stubs(:create)
+      .with(player_params)
+      .returns(result)
     api_error = ApiError.new(ApiCode::SERVER_ERROR, message)
     expected = [api_error]
 
@@ -105,7 +125,11 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
     }
     player_params = player_params(params)
     result = Result.new(value: @player)
-    @players_service.stubs(:update).with(@player.id.to_s, player_params).returns(result)
+    PlayersService
+      .any_instance
+      .stubs(:update)
+      .with(@player.id.to_s, player_params)
+      .returns(result)
 
     patch player_url(@player), params: params, as: :json
 
@@ -125,7 +149,11 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
     message = "Player was not updated"
     failure = ServiceFailure::ValidationFailure.new(message)
     result = Result.new(failure:)
-    @players_service.stubs(:update).with(@player.id.to_s, player_params).returns(result)
+    PlayersService
+      .any_instance
+      .stubs(:update)
+      .with(@player.id.to_s, player_params)
+      .returns(result)
     api_error = ApiError.new(ApiCode::SERVER_ERROR, message)
     expected = [api_error]
 
@@ -137,7 +165,11 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
 
   test "should delete player" do
     result = Result.new(value: @player)
-    @players_service.stubs(:delete).with(@player.id.to_s).returns(result)
+    PlayersService
+      .any_instance
+      .stubs(:delete)
+      .with(@player.id.to_s)
+      .returns(result)
 
     delete player_url(@player), as: :json
 
@@ -149,7 +181,11 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
     message = "Player was not found"
     failure = ServiceFailure::NotFoundFailure.new(message)
     result = Result.new(failure:)
-    @players_service.stubs(:delete).with(@player.id.to_s).returns(result)
+    PlayersService
+      .any_instance
+      .stubs(:delete)
+      .with(@player.id.to_s)
+      .returns(result)
     api_error = ApiError.new(ApiCode::NOT_FOUND, message)
     expected = [api_error]
 
@@ -163,7 +199,11 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
     message = "Player was not deleted"
     failure = ServiceFailure::ServerFailure.new(message)
     result = Result.new(failure:)
-    @players_service.stubs(:delete).with(@player.id.to_s).returns(result)
+    PlayersService
+      .any_instance
+      .stubs(:delete)
+      .with(@player.id.to_s)
+      .returns(result)
     api_error = ApiError.new(ApiCode::SERVER_ERROR, message)
     expected = [api_error]
 
@@ -181,7 +221,7 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
       .permit(
         :first_name,
         :last_name,
-        :email
+        :email,
       )
   end
 end
