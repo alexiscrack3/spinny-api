@@ -41,13 +41,13 @@ gem "rack-cors"
 gem "graphql"
 
 gem "rubocop"
-gem "rubocop-shopify"
+gem "rubocop-shopify", require: false
 
 gem "sidekiq", "~> 6.4"
 
-gem 'sorbet', :group => :development
-gem 'sorbet-runtime'
-gem 'tapioca', require: false, :group => :development
+gem "sorbet", group: :development
+gem "sorbet-runtime"
+gem "tapioca", require: false, group: :development
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

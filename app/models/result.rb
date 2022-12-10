@@ -17,7 +17,7 @@ class Result
     type_parameters(:V)
       .params(
         value: T.nilable(V),
-        failure: T.nilable(Failure)
+        failure: T.nilable(Failure),
       ).void
   end
   def initialize(value: nil, failure: nil)

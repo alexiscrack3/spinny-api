@@ -7,6 +7,7 @@ AllCops:
   UseCache: true
   CacheRootDirectory: tmp/rubocop
   Exclude:
+    - app/graphql/spinny_api_schema.rb
     - db/schema.rb
     - bin/*
     - config/**/*

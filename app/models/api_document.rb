@@ -8,7 +8,7 @@ class ApiDocument
     params(
       data: T.untyped,
       errors: T::Array[ApiError],
-      warnings: T::Array[T.untyped]
+      warnings: T::Array[T.untyped],
     ).void
   end
   def initialize(data: nil, errors: [], warnings: [])
