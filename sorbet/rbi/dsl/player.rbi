@@ -182,6 +182,8 @@ class Player
     sig { params(ids: T::Array[T.untyped]).returns(T::Array[T.untyped]) }
     def club_ids=(ids); end
 
+    # This method is created by ActiveRecord on the `Player` class because it declared `has_many :clubs, through: :memberships`.
+    # 🔗 [Rails guide for `has_many_through` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-through-association)
     sig { returns(::Club::PrivateCollectionProxy) }
     def clubs; end
 
@@ -194,6 +196,8 @@ class Player
     sig { params(ids: T::Array[T.untyped]).returns(T::Array[T.untyped]) }
     def membership_ids=(ids); end
 
+    # This method is created by ActiveRecord on the `Player` class because it declared `has_many :memberships`.
+    # 🔗 [Rails guide for `has_many` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-association)
     sig { returns(::Membership::PrivateCollectionProxy) }
     def memberships; end
 
@@ -472,6 +476,51 @@ class Player
     sig { void }
     def email_will_change!; end
 
+    sig { returns(::String) }
+    def encrypted_password; end
+
+    sig { params(value: ::String).returns(::String) }
+    def encrypted_password=(value); end
+
+    sig { returns(T::Boolean) }
+    def encrypted_password?; end
+
+    sig { returns(T.nilable(::String)) }
+    def encrypted_password_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def encrypted_password_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def encrypted_password_came_from_user?; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def encrypted_password_change; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def encrypted_password_change_to_be_saved; end
+
+    sig { returns(T::Boolean) }
+    def encrypted_password_changed?; end
+
+    sig { returns(T.nilable(::String)) }
+    def encrypted_password_in_database; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def encrypted_password_previous_change; end
+
+    sig { returns(T::Boolean) }
+    def encrypted_password_previously_changed?; end
+
+    sig { returns(T.nilable(::String)) }
+    def encrypted_password_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def encrypted_password_was; end
+
+    sig { void }
+    def encrypted_password_will_change!; end
+
     sig { returns(T.nilable(::String)) }
     def first_name; end
 
@@ -614,6 +663,9 @@ class Player
     def restore_email!; end
 
     sig { void }
+    def restore_encrypted_password!; end
+
+    sig { void }
     def restore_first_name!; end
 
     sig { void }
@@ -636,6 +688,12 @@ class Player
 
     sig { returns(T::Boolean) }
     def saved_change_to_email?; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def saved_change_to_encrypted_password; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_encrypted_password?; end
 
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def saved_change_to_first_name; end
@@ -711,6 +769,9 @@ class Player
 
     sig { returns(T::Boolean) }
     def will_save_change_to_email?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_encrypted_password?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_first_name?; end

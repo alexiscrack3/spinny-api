@@ -182,6 +182,8 @@ class Club
     sig { params(ids: T::Array[T.untyped]).returns(T::Array[T.untyped]) }
     def membership_ids=(ids); end
 
+    # This method is created by ActiveRecord on the `Club` class because it declared `has_many :memberships`.
+    # 🔗 [Rails guide for `has_many` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-association)
     sig { returns(::Membership::PrivateCollectionProxy) }
     def memberships; end
 
@@ -194,6 +196,8 @@ class Club
     sig { params(ids: T::Array[T.untyped]).returns(T::Array[T.untyped]) }
     def player_ids=(ids); end
 
+    # This method is created by ActiveRecord on the `Club` class because it declared `has_many :players, through: :memberships`.
+    # 🔗 [Rails guide for `has_many_through` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-through-association)
     sig { returns(::Player::PrivateCollectionProxy) }
     def players; end
 

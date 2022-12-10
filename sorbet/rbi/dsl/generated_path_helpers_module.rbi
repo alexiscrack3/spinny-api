@@ -12,10 +12,22 @@ module GeneratedPathHelpersModule
   def admin_clubs_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def cancel_player_registration_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def club_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def clubs_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def destroy_player_session_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def edit_player_password_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def edit_player_registration_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def game_path(*args); end
@@ -30,10 +42,28 @@ module GeneratedPathHelpersModule
   def graphql_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def new_player_password_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def new_player_registration_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def new_player_session_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def new_rails_conductor_inbound_email_source_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def player_password_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def player_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def player_registration_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def player_session_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def players_path(*args); end
