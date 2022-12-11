@@ -17,10 +17,10 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def register_success
-    render json: { message: "Signed up.", user: current_player }, status: :ok
+    render json: ApiDocument.new(data: current_player), status: :ok
   end
 
   def register_failed
-    render json: { message: "Signed up failure." }, status: :unprocessable_entity
+    render json: ApiDocument.new(errors: ["Something went wrong"]), status: :unprocessable_entity
   end
 end
