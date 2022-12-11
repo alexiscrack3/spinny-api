@@ -18,7 +18,7 @@ class SessionsController < Devise::SessionsController
   end
 
   def log_out_failure
-    error = ApiError.new("SERVER_ERROR", "Logged out failure.")
+    error = ApiError.new(ApiCode::SERVER_ERROR, "Logged out failure.")
     render json: ApiDocument.new(errors: [error]), status: :unauthorized
   end
 end
