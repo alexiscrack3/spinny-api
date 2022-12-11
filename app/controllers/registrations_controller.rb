@@ -21,6 +21,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def register_failed
-    render json: ApiDocument.new(errors: ["Something went wrong"]), status: :unprocessable_entity
+    error = ApiError.new("SERVER_ERROR", "Something went wrong")
+    render json: ApiDocument.new(errors: [error]), status: :unprocessable_entity
   end
 end

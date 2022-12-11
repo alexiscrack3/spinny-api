@@ -10,14 +10,15 @@ class SessionsController < Devise::SessionsController
   end
 
   def respond_to_on_destroy
-    current_user ? log_out_success : log_out_failure
+    current_player ? log_out_success : log_out_failure
   end
 
   def log_out_success
-    render json: { message: "Logged out." }, status: :ok
+    render json: ApiDocument.new(data: nil), status: :ok
   end
 
   def log_out_failure
-    render json: { message: "Logged out failure." }, status: :unauthorized
+    error = ApiError.new("SERVER_ERROR", "Logged out failure.")
+    render json: ApiDocument.new(errors: [error]), status: :unauthorized
   end
 end
