@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 
 class PlayersController < ApplicationController
+  before_action :authenticate_player!
   sig { void }
   def initialize
     super

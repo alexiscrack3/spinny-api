@@ -3,8 +3,11 @@
 require "test_helper"
 
 class PlayersControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   setup do
     @player = players(:one)
+    sign_in @player
   end
 
   test "should show players when they exist" do
