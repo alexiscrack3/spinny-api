@@ -8,7 +8,7 @@ class Failure
   attr_reader :message
 
   sig { params(message: T.nilable(String)).void }
-  def initialize(message)
+  def initialize(message = nil)
     @message = message
   end
 

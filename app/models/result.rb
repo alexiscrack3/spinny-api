@@ -34,4 +34,15 @@ class Result
   def failure?
     !success?
   end
+
+  sig { params(other: Result[Result::V]).returns(T::Boolean) }
+  def ==(other)
+    @value == other.value
+  end
+
+  class << self
+    def empty
+      new(value: nil, failure: nil)
+    end
+  end
 end
