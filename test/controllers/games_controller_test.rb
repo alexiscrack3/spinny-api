@@ -17,10 +17,10 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
 
     get game_url(@game), as: :json
 
-    assert_equal response.parsed_body["data"], @game.as_json(
+    assert_equal @game.as_json(
       include: [:winner, :loser],
       except: [:winner_id, :loser_id],
-    )
+    ), response.parsed_body["data"]
     assert_response :success
   end
 
@@ -38,7 +38,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
 
     get game_url(@game), as: :json
 
-    assert_equal response.parsed_body["errors"], expected.as_json
+    assert_equal expected.as_json, response.parsed_body["errors"]
     assert_response :not_found
   end
 
@@ -60,7 +60,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
 
     post games_url, params: params, as: :json
 
-    assert_equal response.parsed_body["data"], game.as_json
+    assert_equal game.as_json, response.parsed_body["data"]
     assert_response :created
   end
 
@@ -85,7 +85,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
 
     post games_url, params: params, as: :json
 
-    assert_equal response.parsed_body["errors"], expected.as_json
+    assert_equal expected.as_json, response.parsed_body["errors"]
     assert_response :unprocessable_entity
   end
 
@@ -106,7 +106,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
 
     patch game_url(@game), params: params, as: :json
 
-    assert_equal response.parsed_body["data"], @game.as_json
+    assert_equal @game.as_json, response.parsed_body["data"]
     assert_response :success
   end
 
@@ -131,7 +131,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
 
     patch game_url(@game), params: params, as: :json
 
-    assert_equal response.parsed_body["errors"], expected.as_json
+    assert_equal expected.as_json, response.parsed_body["errors"]
     assert_response :unprocessable_entity
   end
 
@@ -163,7 +163,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
 
     delete game_url(@game), as: :json
 
-    assert_equal response.parsed_body["errors"], expected.as_json
+    assert_equal expected.as_json, response.parsed_body["errors"]
     assert_response :not_found
   end
 
@@ -181,7 +181,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
 
     delete game_url(@game), as: :json
 
-    assert_equal response.parsed_body["errors"], expected.as_json
+    assert_equal expected.as_json, response.parsed_body["errors"]
     assert_response :unprocessable_entity
   end
 

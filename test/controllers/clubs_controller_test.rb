@@ -22,7 +22,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
 
     get clubs_url, as: :json
 
-    assert_equal response.parsed_body["data"], clubs.as_json
+    assert_equal clubs.as_json, response.parsed_body["data"]
     assert_response :success
   end
 
@@ -42,7 +42,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
 
     get club_url(@club), as: :json
 
-    assert_equal response.parsed_body["data"], @club.as_json(include: :players)
+    assert_equal @club.as_json(include: :players), response.parsed_body["data"]
     assert_response :success
   end
 
@@ -60,7 +60,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
 
     get club_url(@club), as: :json
 
-    assert_equal response.parsed_body["errors"], expected.as_json
+    assert_equal expected.as_json, response.parsed_body["errors"]
     assert_response :not_found
   end
 
@@ -76,7 +76,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
 
     post clubs_url, params: params, as: :json
 
-    assert_equal response.parsed_body["data"], club.as_json
+    assert_equal club.as_json, response.parsed_body["data"]
     assert_response :created
   end
 
@@ -95,7 +95,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
 
     post clubs_url, params: params, as: :json
 
-    assert_equal response.parsed_body["errors"], expected.as_json
+    assert_equal expected.as_json, response.parsed_body["errors"]
     assert_response :unprocessable_entity
   end
 
@@ -111,7 +111,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
 
     patch club_url(@club), params: params, as: :json
 
-    assert_equal response.parsed_body["data"], @club.as_json
+    assert_equal @club.as_json, response.parsed_body["data"]
     assert_response :success
   end
 
@@ -131,7 +131,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
 
     patch club_url(@club), params: params, as: :json
 
-    assert_equal response.parsed_body["errors"], expected.as_json
+    assert_equal expected.as_json, response.parsed_body["errors"]
     assert_response :unprocessable_entity
   end
 
@@ -163,7 +163,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
 
     delete club_url(@club), as: :json
 
-    assert_equal response.parsed_body["errors"], expected.as_json
+    assert_equal expected.as_json, response.parsed_body["errors"]
     assert_response :not_found
   end
 
@@ -181,7 +181,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
 
     delete club_url(@club), as: :json
 
-    assert_equal response.parsed_body["errors"], expected.as_json
+    assert_equal expected.as_json, response.parsed_body["errors"]
     assert_response :unprocessable_entity
   end
 

@@ -18,7 +18,7 @@ module Admin
 
       get admin_clubs_url, as: :json
 
-      assert_equal response.parsed_body["data"], clubs.as_json
+      assert_equal clubs.as_json, response.parsed_body["data"]
       assert_response :success
     end
 
@@ -31,7 +31,7 @@ module Admin
 
       get admin_clubs_url, as: :json
 
-      assert_equal response.parsed_body["data"], []
+      assert_equal [], response.parsed_body["data"]
       assert_response :success
     end
   end

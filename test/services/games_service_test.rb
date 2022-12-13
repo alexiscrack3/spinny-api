@@ -10,7 +10,7 @@ class GamesServiceTest < ActiveSupport::TestCase
   test "should get game by id" do
     game = games(:one)
     result = @games_service.game(game.id)
-    assert_equal result.value, game
+    assert_equal game, result.value
   end
 
   test "should not get game by id when id does not exist" do
@@ -18,7 +18,7 @@ class GamesServiceTest < ActiveSupport::TestCase
     expected = ServiceFailure::NotFoundFailure.new("Game was not found")
 
     assert_nil result.value
-    assert_equal result.failure, expected
+    assert_equal expected, result.failure
   end
 
   test "should create game" do
@@ -42,7 +42,7 @@ class GamesServiceTest < ActiveSupport::TestCase
 
     result = @games_service.create(game_params)
 
-    assert_equal result.failure, expected
+    assert_equal expected, result.failure
   end
 
   test "should update game" do
@@ -56,9 +56,9 @@ class GamesServiceTest < ActiveSupport::TestCase
 
     result = @games_service.update(game.id, game_params)
 
-    assert_equal result.value.id, game.id
-    assert_equal result.value.winner_id, game_params[:winner].id
-    assert_equal result.value.loser_id, game_params[:loser].id
+    assert_equal game.id, result.value.id
+    assert_equal game_params[:winner].id, result.value.winner_id
+    assert_equal game_params[:loser].id, result.value.loser_id
   end
 
   test "should not update game when it is not valid" do
@@ -68,7 +68,7 @@ class GamesServiceTest < ActiveSupport::TestCase
 
     result = @games_service.update(game.id, game_params)
 
-    assert_equal result.failure, expected
+    assert_equal expected, result.failure
   end
 
   test "should delete game" do
@@ -76,7 +76,7 @@ class GamesServiceTest < ActiveSupport::TestCase
 
     result = @games_service.delete(game.id)
 
-    assert_equal result.value, game
+    assert_equal game, result.value
   end
 
   test "should not delete game when it does not exist" do
@@ -84,7 +84,7 @@ class GamesServiceTest < ActiveSupport::TestCase
 
     result = @games_service.delete(-1)
 
-    assert_equal result.failure, expected
+    assert_equal expected, result.failure
   end
 
   test "should not delete game when something goes wrong" do
@@ -98,6 +98,6 @@ class GamesServiceTest < ActiveSupport::TestCase
 
     result = @games_service.delete(game.id)
 
-    assert_equal result.failure, expected
+    assert_equal expected, result.failure
   end
 end

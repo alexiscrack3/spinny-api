@@ -9,13 +9,13 @@ class PlayersServiceTest < ActiveSupport::TestCase
 
   test "should get all players" do
     result = @players_service.players
-    assert_equal result.value, Player.all
+    assert_equal Player.all, result.value
   end
 
   test "should get player by id" do
     player = players(:one)
     result = @players_service.player(player.id)
-    assert_equal result.value, player
+    assert_equal player, result.value
   end
 
   test "should not get player by id when id does not exist" do
@@ -23,7 +23,7 @@ class PlayersServiceTest < ActiveSupport::TestCase
     expected = ServiceFailure::NotFoundFailure.new("Player was not found")
 
     assert_nil result.value
-    assert_equal result.failure, expected
+    assert_equal expected, result.failure
   end
 
   test "should create player" do
@@ -35,8 +35,8 @@ class PlayersServiceTest < ActiveSupport::TestCase
 
     result = @players_service.create(player_params)
 
-    assert_equal result.value.first_name, player_params[:first_name]
-    assert_equal result.value.last_name, player_params[:last_name]
+    assert_equal player_params[:first_name], result.value.first_name
+    assert_equal player_params[:last_name], result.value.last_name
   end
 
   test "should not create player when it is not valid" do
@@ -45,7 +45,7 @@ class PlayersServiceTest < ActiveSupport::TestCase
 
     result = @players_service.create(player_params)
 
-    assert_equal result.failure, expected
+    assert_equal expected, result.failure
   end
 
   test "should update player" do
@@ -58,9 +58,9 @@ class PlayersServiceTest < ActiveSupport::TestCase
 
     result = @players_service.update(player.id, player_params)
 
-    assert_equal result.value.id, player.id
-    assert_equal result.value.first_name, player_params[:first_name]
-    assert_equal result.value.last_name, player_params[:last_name]
+    assert_equal player.id, result.value.id
+    assert_equal player_params[:first_name], result.value.first_name
+    assert_equal player_params[:last_name], result.value.last_name
   end
 
   test "should not update player when it is not valid" do
@@ -70,7 +70,7 @@ class PlayersServiceTest < ActiveSupport::TestCase
 
     result = @players_service.update(player.id, player_params)
 
-    assert_equal result.failure, expected
+    assert_equal expected, result.failure
   end
 
   test "should delete player" do
@@ -78,7 +78,7 @@ class PlayersServiceTest < ActiveSupport::TestCase
 
     result = @players_service.delete(player.id)
 
-    assert_equal result.value, player
+    assert_equal player, result.value
   end
 
   test "should not delete player when it does not exist" do
@@ -86,7 +86,7 @@ class PlayersServiceTest < ActiveSupport::TestCase
 
     result = @players_service.delete(-1)
 
-    assert_equal result.failure, expected
+    assert_equal expected, result.failure
   end
 
   test "should not delete player when something goes wrong" do
@@ -100,6 +100,6 @@ class PlayersServiceTest < ActiveSupport::TestCase
 
     result = @players_service.delete(player.id)
 
-    assert_equal result.failure, expected
+    assert_equal expected, result.failure
   end
 end

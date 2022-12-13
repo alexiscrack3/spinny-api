@@ -20,7 +20,7 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
 
     get players_url, as: :json
 
-    assert_equal response.parsed_body["data"], players.as_json
+    assert_equal players.as_json, response.parsed_body["data"]
     assert_response :success
   end
 
@@ -33,7 +33,7 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
 
     get players_url, as: :json
 
-    assert_equal response.parsed_body["data"], []
+    assert_equal [], response.parsed_body["data"]
     assert_response :success
   end
 
@@ -47,7 +47,7 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
 
     get player_url(@player), as: :json
 
-    assert_equal response.parsed_body["data"], @player.as_json(include: :clubs)
+    assert_equal @player.as_json(include: :clubs), response.parsed_body["data"]
     assert_response :success
   end
 
@@ -65,7 +65,7 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
 
     get player_url(@player), as: :json
 
-    assert_equal response.parsed_body["errors"], expected.as_json
+    assert_equal expected.as_json, response.parsed_body["errors"]
     assert_response :not_found
   end
 
@@ -88,7 +88,7 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
 
     post players_url, params: params, as: :json
 
-    assert_equal response.parsed_body["data"], player.as_json
+    assert_equal player.as_json, response.parsed_body["data"]
     assert_response :created
   end
 
@@ -114,7 +114,7 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
 
     post players_url, params: params, as: :json
 
-    assert_equal response.parsed_body["errors"], expected.as_json
+    assert_equal expected.as_json, response.parsed_body["errors"]
     assert_response :unprocessable_entity
   end
 
@@ -136,7 +136,7 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
 
     patch player_url(@player), params: params, as: :json
 
-    assert_equal response.parsed_body["data"], @player.as_json
+    assert_equal @player.as_json, response.parsed_body["data"]
     assert_response :success
   end
 
@@ -162,7 +162,7 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
 
     patch player_url(@player), params: params, as: :json
 
-    assert_equal response.parsed_body["errors"], expected.as_json
+    assert_equal expected.as_json, response.parsed_body["errors"]
     assert_response :unprocessable_entity
   end
 
@@ -194,7 +194,7 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
 
     delete player_url(@player), as: :json
 
-    assert_equal response.parsed_body["errors"], expected.as_json
+    assert_equal expected.as_json, response.parsed_body["errors"]
     assert_response :not_found
   end
 
@@ -212,7 +212,7 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
 
     delete player_url(@player), as: :json
 
-    assert_equal response.parsed_body["errors"], expected.as_json
+    assert_equal expected.as_json, response.parsed_body["errors"]
     assert_response :unprocessable_entity
   end
 

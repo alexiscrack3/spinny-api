@@ -9,7 +9,7 @@ class ClubsServiceTest < ActiveSupport::TestCase
 
   test "should get all clubs" do
     result = @clubs_service.clubs
-    assert_equal result.value, Club.all
+    assert_equal Club.all, result.value
   end
 
   test "should get all clubs by player id" do
@@ -24,7 +24,7 @@ class ClubsServiceTest < ActiveSupport::TestCase
   test "should get club by id" do
     club = clubs(:one)
     result = @clubs_service.club(club.id)
-    assert_equal result.value, club
+    assert_equal club, result.value
   end
 
   test "should not get club by id when id does not exist" do
@@ -32,7 +32,7 @@ class ClubsServiceTest < ActiveSupport::TestCase
     expected = ServiceFailure::NotFoundFailure.new("Club was not found")
 
     assert_nil result.value
-    assert_equal result.failure, expected
+    assert_equal expected, result.failure
   end
 
   test "should create club" do
@@ -40,7 +40,7 @@ class ClubsServiceTest < ActiveSupport::TestCase
 
     result = @clubs_service.create(club_params)
 
-    assert_equal result.value.name, club_params[:name]
+    assert_equal club_params[:name], result.value.name
   end
 
   test "should not create club when it is not valid" do
@@ -49,7 +49,7 @@ class ClubsServiceTest < ActiveSupport::TestCase
 
     result = @clubs_service.create(club_params)
 
-    assert_equal result.failure, expected
+    assert_equal expected, result.failure
   end
 
   test "should update club" do
@@ -58,8 +58,8 @@ class ClubsServiceTest < ActiveSupport::TestCase
 
     result = @clubs_service.update(club.id, club_params)
 
-    assert_equal result.value.id, club.id
-    assert_equal result.value.name, club_params[:name]
+    assert_equal club.id, result.value.id
+    assert_equal club_params[:name], result.value.name
   end
 
   test "should not update club when it is not valid" do
@@ -69,7 +69,7 @@ class ClubsServiceTest < ActiveSupport::TestCase
 
     result = @clubs_service.update(club.id, club_params)
 
-    assert_equal result.failure, expected
+    assert_equal expected, result.failure
   end
 
   test "should delete club" do
@@ -77,7 +77,7 @@ class ClubsServiceTest < ActiveSupport::TestCase
 
     result = @clubs_service.delete(club.id)
 
-    assert_equal result.value, club
+    assert_equal club, result.value
   end
 
   test "should not delete club when it does not exist" do
@@ -85,7 +85,7 @@ class ClubsServiceTest < ActiveSupport::TestCase
 
     result = @clubs_service.delete(-1)
 
-    assert_equal result.failure, expected
+    assert_equal expected, result.failure
   end
 
   test "should not delete club when something goes wrong" do
@@ -99,6 +99,6 @@ class ClubsServiceTest < ActiveSupport::TestCase
 
     result = @clubs_service.delete(club.id)
 
-    assert_equal result.failure, expected
+    assert_equal expected, result.failure
   end
 end
