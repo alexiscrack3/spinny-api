@@ -7,3 +7,11 @@ one:
 two:
   player: three
   club: two
+
+three:
+  player: one
+  club: one
+
+four:
+  player: one
+  club: two

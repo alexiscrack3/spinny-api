@@ -3,8 +3,33 @@
 require "test_helper"
 
 class ClubsControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   setup do
     @club = clubs(:one)
+    @player = players(:one)
+  end
+
+  test "should show clubs when player is signed in" do
+    sign_in @player
+    clubs = [@club]
+    result = Result.new(value: clubs)
+    ClubsService
+      .any_instance
+      .stubs(:clubs_by_player_id)
+      .with(@player.id)
+      .returns(result)
+
+    get clubs_url, as: :json
+
+    assert_equal response.parsed_body["data"], clubs.as_json
+    assert_response :success
+  end
+
+  test "should not show clubs when player is not signed in" do
+    get clubs_url, as: :json
+
+    assert_response :unauthorized
   end
 
   test "should show club when id exists" do

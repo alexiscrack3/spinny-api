@@ -12,6 +12,15 @@ class ClubsServiceTest < ActiveSupport::TestCase
     assert_equal result.value, Club.all
   end
 
+  test "should get all clubs by player id" do
+    player = players(:one)
+    club_a = clubs(:one)
+    club_b = clubs(:two)
+    club_b.update(created_at: club_a.created_at + 1.day)
+    result = @clubs_service.clubs_by_player_id(player.id)
+    assert_equal [club_a, club_b], result.value
+  end
+
   test "should get club by id" do
     club = clubs(:one)
     result = @clubs_service.club(club.id)

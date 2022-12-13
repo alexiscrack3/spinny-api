@@ -7,6 +7,16 @@ class ClubsService < ApplicationService
     Result.new(value: Club.all)
   end
 
+  sig { params(player_id: Integer).returns(Result[T::Array[Club]]) }
+  def clubs_by_player_id(player_id)
+    clubs = Club
+      .joins(:memberships)
+      .where(memberships: { player_id: player_id })
+      .order(:created_at)
+      .to_a
+    Result.new(value: clubs)
+  end
+
   sig { params(id: T.any(String, Integer)).returns(Result[Club]) }
   def club(id)
     club = T.let(Club.includes(:players).find_by(id: id), T.nilable(Club))

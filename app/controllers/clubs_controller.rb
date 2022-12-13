@@ -2,10 +2,18 @@
 # frozen_string_literal: true
 
 class ClubsController < ApplicationController
+  before_action :authenticate_player!, only: [:index]
+
   sig { void }
   def initialize
     super
     @clubs_service = T.let(ClubsService.new, ClubsService)
+  end
+
+  # GET /clubs
+  def index
+    data = @clubs_service.clubs_by_player_id(current_player.id).value
+    render json: ApiDocument.new(data: data)
   end
 
   # GET /clubs/1
