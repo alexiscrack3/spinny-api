@@ -10,11 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_10_171349) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_20_031133) do
   create_table "clubs", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "description"
   end
 
   create_table "games", charset: "utf8mb4", force: :cascade do |t|

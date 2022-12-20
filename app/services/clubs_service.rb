@@ -19,7 +19,7 @@ class ClubsService < ApplicationService
 
   sig { params(id: T.any(String, Integer)).returns(Result[Club]) }
   def club(id)
-    club = T.let(Club.includes(:players).find_by(id: id), T.nilable(Club))
+    club = Club.includes(:players).find_by(id: id)
 
     if club
       Result.new(value: club)
@@ -29,9 +29,9 @@ class ClubsService < ApplicationService
     end
   end
 
-  sig { params(params: T::Hash[String, T.untyped]).returns(Result[Club]) }
+  sig { params(params: ActionController::Parameters).returns(Result[Club]) }
   def create(params)
-    club = T.let(Club.new(params), Club)
+    club = Club.new(params)
 
     if club.save
       Result.new(value: club)
@@ -43,7 +43,7 @@ class ClubsService < ApplicationService
 
   sig { params(id: T.any(String, Integer), params: T::Hash[String, T.untyped]).returns(Result[Club]) }
   def update(id, params)
-    club = T.let(Club.find_by(id: id), T.nilable(Club))
+    club = Club.find_by(id: id)
 
     if club&.update(params)
       Result.new(value: club)

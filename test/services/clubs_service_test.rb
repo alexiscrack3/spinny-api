@@ -36,15 +36,19 @@ class ClubsServiceTest < ActiveSupport::TestCase
   end
 
   test "should create club" do
-    club_params = { name: Faker::Team.name }
+    club_params = ActionController::Parameters.new(
+      name: Faker::Team.name,
+      description: Faker::Lorem.sentence,
+    ).permit(:name, :description)
 
     result = @clubs_service.create(club_params)
 
     assert_equal club_params[:name], result.value.name
+    assert_equal club_params[:description], result.value.description
   end
 
   test "should not create club when it is not valid" do
-    club_params = {}
+    club_params = ActionController::Parameters.new
     expected = ServiceFailure::ValidationFailure.new("Club was not created")
 
     result = @clubs_service.create(club_params)

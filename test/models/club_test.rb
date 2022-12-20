@@ -11,18 +11,23 @@ class ClubTest < ActiveSupport::TestCase
     assert @club.valid?
   end
 
-  test "club should not valid when name is nil" do
+  test "club should not be valid when name is nil" do
     @club.name = nil
     assert_not @club.valid?
   end
 
-  test "club should not valid when name is empty" do
+  test "club should not be valid when name is empty" do
     @club.name = ""
     assert_not @club.valid?
   end
 
-  test "club should not valid when name is blank" do
+  test "club should not be valid when name is blank" do
     @club.name = " "
+    assert_not @club.valid?
+  end
+
+  test "club should not be valid when description exceeds 255 characters" do
+    @club.description = "a" * 256
     assert_not @club.valid?
   end
 end

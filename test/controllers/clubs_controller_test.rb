@@ -65,7 +65,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create club when it is valid" do
-    params = { club: { name: Faker::Team.name } }
+    params = { club: { name: Faker::Team.name, description: Faker::Lorem.sentence } }
     club_params = club_params(params)
     club = Club.new(club_params)
     result = Result.new(value: club)
@@ -190,6 +190,9 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
   def club_params(params)
     ActionController::Parameters.new(params)
       .require(:club)
-      .permit(:name)
+      .permit(
+        :name,
+        :description,
+      )
   end
 end

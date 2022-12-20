@@ -2,6 +2,8 @@
 
 one:
   name: MyString
+  description: <%= Faker::Lorem.sentence %>
 
 two:
   name: MyString
+  description: <%= Faker::Lorem.sentence %>
