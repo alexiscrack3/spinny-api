@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::API
+  include Devise::Controllers::Helpers
   extend T::Sig
 
   protected
