@@ -18,8 +18,8 @@ module Mocha::ClassMethods
 end
 
 class Mocha::Expectation
-  sig { params(expected_parameters: T.untyped, matching_block: T.nilable(T.proc.params(actual_parameters: T.untyped).void)).returns(Mocha::Expectation) }
-  def with(*expected_parameters, &matching_block); end
+  sig { params(expected_parameters_or_matchers: T.untyped, kwargs: T.untyped, matching_block: T.nilable(T.proc.params(actual_parameters: T.untyped).void)).returns(Mocha::Expectation) }
+  def with(*expected_parameters_or_matchers, **kwargs, &matching_block); end
 
   sig { params(values: T.untyped).returns(Mocha::Expectation) }
   def returns(*values); end

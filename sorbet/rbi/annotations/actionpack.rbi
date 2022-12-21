@@ -4,18 +4,6 @@
 # This file was pulled from a central RBI files repository.
 # Please run `bin/tapioca annotations` to update it.
 
-module AbstractController::Helpers
-  mixes_in_class_methods ::AbstractController::Helpers::ClassMethods
-end
-
-module AbstractController::UrlFor
-  mixes_in_class_methods ::AbstractController::UrlFor::ClassMethods
-end
-
-class ActionController::Base < ::ActionController::Metal
-  include ::ActiveSupport::Rescuable
-end
-
 class ActionController::API
   MODULES = T.let(T.unsafe(nil), T::Array[T.untyped])
 end
@@ -23,10 +11,6 @@ end
 module ActionController::Flash::ClassMethods
   sig { params(types: Symbol).void }
   def add_flash_types(*types); end
-end
-
-module ActionController::Helpers
-  mixes_in_class_methods ::ActionController::Helpers::ClassMethods
 end
 
 module ActionController::Helpers::ClassMethods
@@ -217,14 +201,6 @@ class ActionController::Parameters
   def values_at(*keys); end
 end
 
-module ActionController::Renderers
-  mixes_in_class_methods ::ActionController::Renderers::ClassMethods
-end
-
-module ActionController::Rendering
-  mixes_in_class_methods ::ActionController::Rendering::ClassMethods
-end
-
 module ActionController::RequestForgeryProtection
   sig { returns(T::Boolean) }
   def protect_against_forgery?; end
@@ -244,8 +220,6 @@ module ActionController::StrongParameters
 end
 
 module ActionDispatch::Http::Parameters
-  mixes_in_class_methods ::ActionDispatch::Http::Parameters::ClassMethods
-
   sig { returns(ActionController::Parameters) }
   def parameters; end
 
@@ -265,17 +239,84 @@ module ActionDispatch::Integration::Runner
 end
 
 class ActionDispatch::IntegrationTest
-  # @method_missing: delegated to ActionDispatch::Integration::Runner
+  # The following methods are accessible on `IntegrationTest`
+  # through the following delegation chain:
+  # - `IntegrationTest` includes `IntegrationTest::Behavior`
+  # - `IntegrationTest::Behavior` includes `Integration::Runner`
+  # - `Integration::Runner#method_missing` delegates to `Integration::Session`
+  #
+  # Then `Integration::Session` either implements the methods
+  # directly or further delegates to `TestProcess` (included) or
+  # `TestResponse` / `Request` (via `delegate`).
+  #
+  # Cf. https://github.com/Shopify/rbi-central/pull/138 for more context.
+  # @method_missing: delegated to ActionDispatch::TestProcess
   sig { returns(ActionDispatch::Flash::FlashHash) }
   def flash; end
 
-  # @method_missing: delegated to ActionDispatch::Integration::Runner
+  # @method_missing: delegated to ActionDispatch::TestProcess
   sig { returns(ActionDispatch::Request::Session) }
   def session; end
+
+  # @method_missing: delegated to ActionDispatch::TestResponse
+  sig { returns(T.nilable(Integer)) }
+  def status; end
+
+  # @method_missing: delegated to ActionDispatch::TestResponse
+  sig { returns(T.nilable(String)) }
+  def status_message; end
+
+  # @method_missing: delegated to ActionDispatch::TestResponse
+  sig { returns(T.nilable(ActionDispatch::Response::Header)) }
+  def headers; end
+
+  # @method_missing: delegated to ActionDispatch::TestResponse
+  sig { returns(T.nilable(String)) }
+  def body; end
+
+  # @method_missing: delegated to ActionDispatch::TestResponse
+  sig { returns(T.nilable(T::Boolean)) }
+  def redirect?; end
+
+  # @method_missing: delegated to ActionDispatch::Request
+  sig { returns(T.nilable(String)) }
+  def path; end
+
+  # @method_missing: delegated to ActionDispatch::Integration::Session
+  sig { returns(String) }
+  def host; end
+
+  # @method_missing: delegated to ActionDispatch::Integration::Session
+  sig { params(host: String).returns(String) }
+  attr_writer :host
+
+  # @method_missing: delegated to ActionDispatch::Integration::Session
+  sig { returns(T.nilable(String)) }
+  attr_accessor :remote_addr
+
+  # @method_missing: delegated to ActionDispatch::Integration::Session
+  sig { returns(T.nilable(String)) }
+  attr_accessor :accept
+
+  # @method_missing: delegated to ActionDispatch::Integration::Session
+  sig { returns(Rack::Test::CookieJar) }
+  def cookies; end
+
+  # @method_missing: delegated to ActionDispatch::Integration::Session
+  sig { returns(T.nilable(ActionController::Base)) }
+  attr_reader :controller
+
+  # @method_missing: delegated to ActionDispatch::Integration::Session
+  sig { returns(ActionDispatch::TestRequest) }
+  attr_reader :request
 
   # @method_missing: delegated to ActionDispatch::Integration::Session
   sig { returns(ActionDispatch::TestResponse) }
   attr_reader :response
+
+  # @method_missing: delegated to ActionDispatch::Integration::Session
+  sig { returns(Integer) }
+  attr_accessor :request_count
 end
 
 class ActionDispatch::Request
