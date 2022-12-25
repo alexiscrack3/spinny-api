@@ -58,12 +58,16 @@ class ClubsServiceTest < ActiveSupport::TestCase
 
   test "should update club" do
     club = clubs(:one)
-    club_params = { name: Faker::Team.name }
+    club_params = {
+      name: Faker::Team.name,
+      description: Faker::Lorem.sentence,
+    }
 
     result = @clubs_service.update(club.id, club_params)
 
     assert_equal club.id, result.value.id
     assert_equal club_params[:name], result.value.name
+    assert_equal club_params[:description], result.value.description
   end
 
   test "should not update club when it is not valid" do

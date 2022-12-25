@@ -41,7 +41,12 @@ class ClubsService < ApplicationService
     end
   end
 
-  sig { params(id: T.any(String, Integer), params: T::Hash[String, T.untyped]).returns(Result[Club]) }
+  sig do
+    params(
+      id: T.any(String, Integer),
+      params: ActionController::Parameters,
+    ).returns(Result[Club])
+  end
   def update(id, params)
     club = Club.find_by(id: id)
 

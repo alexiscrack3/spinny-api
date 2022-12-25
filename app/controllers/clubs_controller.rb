@@ -73,7 +73,8 @@ class ClubsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def club_params
-    params.require(:club).permit(
+    required = T.cast(params.require(:club), ActionController::Parameters)
+    required.permit(
       :name,
       :description,
     )
