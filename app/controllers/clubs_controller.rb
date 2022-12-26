@@ -12,8 +12,15 @@ class ClubsController < ApplicationController
 
   # GET /clubs
   def index
-    data = @clubs_service.clubs_by_player_id(current_player.id).value
-    render json: ApiDocument.new(data: data)
+    player_id = current_player&.id
+    if player_id.present?
+      data = @clubs_service.clubs_by_player_id(player_id).value
+      render json: ApiDocument.new(data: data)
+    else
+      message = "Player id does not have an id"
+      api_error = ApiError.new(ApiCode::SERVER_ERROR, message)
+      render json: ApiDocument.new(errors: [api_error]), status: :unprocessable_entity
+    end
   end
 
   # GET /clubs/1

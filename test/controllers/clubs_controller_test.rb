@@ -26,6 +26,19 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should not show clubs when player does not have an id" do
+    @player.id = nil
+    sign_in @player
+    message = "Player id does not have an id"
+    api_error = ApiError.new(ApiCode::SERVER_ERROR, message)
+    expected = [api_error]
+
+    get clubs_url, as: :json
+
+    assert_equal expected.as_json, response.parsed_body["errors"]
+    assert_response :unprocessable_entity
+  end
+
   test "should not show clubs when player is not signed in" do
     get clubs_url, as: :json
 
