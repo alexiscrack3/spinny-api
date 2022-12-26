@@ -1,8 +1,11 @@
+# typed: true
 # frozen_string_literal: true
 
 require "test_helper"
 
 class ClubsServiceTest < ActiveSupport::TestCase
+  extend T::Sig
+
   def setup
     @clubs_service = ClubsService.new
   end
@@ -49,11 +52,13 @@ class ClubsServiceTest < ActiveSupport::TestCase
     }
     club_params = club_params(params)
 
-    result = @clubs_service.create(club_params)
+    assert_difference("Club.count", 1) do
+      result = @clubs_service.create(club_params)
 
-    assert_equal club_params[:name], result.value.name
-    assert_equal club_params[:description], result.value.description
-    assert_equal club_params[:owner_id], result.value.owner_id
+      assert_equal club_params[:name], result.value.name
+      assert_equal club_params[:description], result.value.description
+      assert_equal club_params[:owner_id], result.value.owner_id
+    end
   end
 
   test "should not create club when it is not valid" do
@@ -73,7 +78,7 @@ class ClubsServiceTest < ActiveSupport::TestCase
         name: Faker::Team.name,
         description: Faker::Lorem.sentence,
         owner_id: owner.id,
-      }
+      },
     }
     club_params = club_params(params)
 
@@ -91,7 +96,7 @@ class ClubsServiceTest < ActiveSupport::TestCase
       club: {
         name: nil,
         owner_id: nil,
-      }
+      },
     }
     club_params = club_params(params)
     expected = ServiceFailure::ValidationFailure.new("Club was not updated")
@@ -104,9 +109,11 @@ class ClubsServiceTest < ActiveSupport::TestCase
   test "should delete club" do
     club = clubs(:one)
 
-    result = @clubs_service.delete(club.id)
+    assert_difference("Club.count", -1) do
+      result = @clubs_service.delete(club.id)
 
-    assert_equal club, result.value
+      assert_equal club, result.value
+    end
   end
 
   test "should not delete club when it does not exist" do
@@ -132,13 +139,15 @@ class ClubsServiceTest < ActiveSupport::TestCase
 
   private
 
+  sig { params(params: T::Hash[String, T.untyped]).returns(ActionController::Parameters) }
   def club_params(params)
-    ActionController::Parameters.new(params)
-      .require(:club)
-      .permit(
-        :name,
-        :description,
-        :owner_id,
-      )
+    T.cast(
+      ActionController::Parameters.new(params).require(:club),
+      ActionController::Parameters,
+    ).permit(
+      :name,
+      :description,
+      :owner_id,
+    )
   end
 end
