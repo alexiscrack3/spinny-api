@@ -19,7 +19,10 @@ class ClubsService < ApplicationService
 
   sig { params(id: T.any(String, Integer)).returns(Result[Club]) }
   def club(id)
-    club = Club.includes(:players).find_by(id: id)
+    club = Club
+      .includes(:owner)
+      .includes(:players)
+      .find_by(id: id)
 
     if club
       Result.new(value: club)

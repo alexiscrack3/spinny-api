@@ -42,7 +42,11 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
 
     get club_url(@club), as: :json
 
-    assert_equal @club.as_json(include: :players), response.parsed_body["data"]
+    json = {
+      include: [:owner, :players],
+      except: [:owner_id],
+    }
+    assert_equal @club.as_json(json), response.parsed_body["data"]
     assert_response :success
   end
 
@@ -65,10 +69,12 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create club when it is valid" do
+    sign_in @player
     params = {
       club: {
         name: Faker::Team.name,
         description: Faker::Lorem.sentence,
+        owner_id: players(:one).id,
       },
     }
     club_params = club_params(params)
@@ -86,7 +92,8 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should not create club when it is not valid" do
-    params = { club: { name: nil } }
+    sign_in @player
+    params = { club: { name: nil, owner_id: @player.id } }
     club_params = club_params(params)
     message = "Club was not created"
     failure = ServiceFailure::ValidationFailure.new(message)
@@ -102,6 +109,12 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
 
     assert_equal expected.as_json, response.parsed_body["errors"]
     assert_response :unprocessable_entity
+  end
+
+  test "should not show create club when player is not signed in" do
+    post clubs_url, params: nil, as: :json
+
+    assert_response :unauthorized
   end
 
   test "should update club when it is valid" do
@@ -203,6 +216,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
       .permit(
         :name,
         :description,
+        :owner_id,
       )
   end
 end

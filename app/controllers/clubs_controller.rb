@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 class ClubsController < ApplicationController
-  before_action :authenticate_player!, only: [:index]
+  before_action :authenticate_player!, only: [:index, :create]
 
   sig { void }
   def initialize
@@ -21,7 +21,11 @@ class ClubsController < ApplicationController
     id = T.cast(params[:id], String)
     result = @clubs_service.club(id)
     if result.success?
-      render json: ApiDocument.new(data: result.value.as_json(include: :players))
+      json = {
+        include: [:owner, :players],
+        except: [:owner_id],
+      }
+      render json: ApiDocument.new(data: result.value.as_json(json))
     else
       handle_error(result.failure)
     end
@@ -29,6 +33,7 @@ class ClubsController < ApplicationController
 
   # POST /clubs
   def create
+    params[:club][:owner_id] = current_player.id
     result = @clubs_service.create(club_params)
 
     if result.success?
@@ -77,6 +82,7 @@ class ClubsController < ApplicationController
     required.permit(
       :name,
       :description,
+      :owner_id,
     )
   end
 end

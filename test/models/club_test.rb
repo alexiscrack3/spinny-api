@@ -4,7 +4,10 @@ require "test_helper"
 
 class ClubTest < ActiveSupport::TestCase
   def setup
-    @club = Club.new(name: Faker::Team.name)
+    @club = Club.new(
+      name: Faker::Team.name,
+      owner: players(:one),
+    )
   end
 
   test "club should be valid" do

@@ -10,12 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_20_031133) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_25_170105) do
   create_table "clubs", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "description"
+    t.bigint "owner_id", null: false
+    t.index ["owner_id"], name: "index_clubs_on_owner_id"
   end
 
   create_table "games", charset: "utf8mb4", force: :cascade do |t|
@@ -53,6 +55,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_20_031133) do
     t.index ["email"], name: "index_players_on_email", unique: true
   end
 
+  add_foreign_key "clubs", "players", column: "owner_id"
   add_foreign_key "games", "memberships", column: "loser_id", on_delete: :cascade
   add_foreign_key "games", "memberships", column: "winner_id", on_delete: :cascade
   add_foreign_key "memberships", "clubs", on_delete: :cascade

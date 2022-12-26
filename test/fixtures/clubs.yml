@@ -1,9 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
+  name: First club
   description: <%= Faker::Lorem.sentence %>
+  owner: players(:one)
 
 two:
-  name: MyString
+  name: Second club
   description: <%= Faker::Lorem.sentence %>
+  owner: players(:one)

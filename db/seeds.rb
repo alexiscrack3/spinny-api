@@ -39,12 +39,14 @@ end
 club = Club.create!(
   name: "Road Runners",
   description: "A ping pong club",
+  owner_id: hero.id,
 )
 
 5.times do
   Club.create!(
     name: Faker::Team.name,
     description: Faker::Lorem.sentence,
+    owner_id: hero.id,
   )
 end
 
