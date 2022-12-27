@@ -1908,7 +1908,7 @@ class Faker::Code < ::Faker::Base
     # source://faker//lib/faker/default/code.rb#32
     def isbn(base: T.unsafe(nil)); end
 
-    # Produces a random NPI (National Provider Identifer) code.
+    # Produces a random NPI (National Provider Identifier) code.
     #
     # @example
     #   Faker::Code.npi #=> "9804062802"
@@ -3869,7 +3869,7 @@ class Faker::Drone < ::Faker::Base
     # source://faker//lib/faker/default/drone.rb#15
     def name; end
 
-    # Returns operating temprature for drone in Fahrenheit
+    # Returns operating temperature for drone in Fahrenheit
     #
     # @example
     #   Faker::Drone.operating_temperature #=> "14-104F"
@@ -4350,7 +4350,7 @@ class Faker::Food < ::Faker::Base
     # source://faker//lib/faker/default/food.rb#95
     def measurement; end
 
-    # Retrieves metric mesurements
+    # Retrieves metric measurements
     #
     # @example
     #   Faker::Food.metric_measurement #=> "centiliter"
@@ -4467,7 +4467,7 @@ class Faker::Games; end
 # source://faker//lib/faker/games/clash_of_clans.rb#5
 class Faker::Games::ClashOfClans < ::Faker::Base
   class << self
-    # Produces the name of a defensive buiding from Clash Of Clans.
+    # Produces the name of a defensive building from Clash Of Clans.
     #
     # @example
     #   Faker::Games::ClashOfClans.defensive_building #=> "Cannon"
@@ -5106,7 +5106,7 @@ class Faker::Games::Minecraft < ::Faker::Base
     # Produces the name of a mob from Minecraft.
     #
     # @example
-    #   Faker::Games::Minecraft.item #=> "Sheep"
+    #   Faker::Games::Minecraft.mob #=> "Sheep"
     # @return [String]
     #
     # source://faker//lib/faker/games/minecraft.rb#94
@@ -5135,7 +5135,7 @@ class Faker::Games::Myst < ::Faker::Base
     # source://faker//lib/faker/games/myst.rb#42
     def age; end
 
-    # Produces the name of a chracter from Myst.
+    # Produces the name of a character from Myst.
     #
     # @example
     #   Faker::Games::Myst.character #=> "Gehn"
@@ -6317,7 +6317,7 @@ class Faker::Internet < ::Faker::Base
     # @param urlsafe [Boolean] Toggles charset to '-' and '_' instead of '+' and '/'.
     # @return [String]
     #
-    # source://faker//lib/faker/default/internet.rb#519
+    # source://faker//lib/faker/default/internet.rb#530
     def base64(length: T.unsafe(nil), padding: T.unsafe(nil), urlsafe: T.unsafe(nil)); end
 
     # Generate Web Crawler's user agents
@@ -6329,7 +6329,7 @@ class Faker::Internet < ::Faker::Base
     # @param vendor [String] Name of vendor, supported vendors are googlebot, bingbot, duckduckbot, baiduspider, yandexbot
     # @return [String]
     #
-    # source://faker//lib/faker/default/internet.rb#481
+    # source://faker//lib/faker/default/internet.rb#492
     def bot_user_agent(vendor: T.unsafe(nil)); end
 
     # Generates random token
@@ -6339,7 +6339,7 @@ class Faker::Internet < ::Faker::Base
     # @example
     #   Faker::Internet.device_token  #=> "749f535671cf6b34d8e794d212d00c703b96274e07161b18b082d0d70ef1052f"
     #
-    # source://faker//lib/faker/default/internet.rb#448
+    # source://faker//lib/faker/default/internet.rb#459
     def device_token; end
 
     # Returns the domain name
@@ -6353,7 +6353,7 @@ class Faker::Internet < ::Faker::Base
     # @param domain [String]
     # @return [String]
     #
-    # source://faker//lib/faker/default/internet.rb#196
+    # source://faker//lib/faker/default/internet.rb#207
     def domain_name(subdomain: T.unsafe(nil), domain: T.unsafe(nil)); end
 
     # Returns the domain suffix e.g. com, org, co, biz, info etc.
@@ -6363,7 +6363,7 @@ class Faker::Internet < ::Faker::Base
     #   Faker::Internet.domain_suffix   #=> "biz"
     # @return [String]
     #
-    # source://faker//lib/faker/default/internet.rb#247
+    # source://faker//lib/faker/default/internet.rb#258
     def domain_suffix; end
 
     # Returns the domain word for internet
@@ -6372,7 +6372,7 @@ class Faker::Internet < ::Faker::Base
     #   Faker::Internet.domain_word   #=> "senger"
     # @return [String]
     #
-    # source://faker//lib/faker/default/internet.rb#236
+    # source://faker//lib/faker/default/internet.rb#247
     def domain_word; end
 
     # Returns the email address
@@ -6399,7 +6399,7 @@ class Faker::Internet < ::Faker::Base
     # @param string [String]
     # @return [String]
     #
-    # source://faker//lib/faker/default/internet.rb#225
+    # source://faker//lib/faker/default/internet.rb#236
     def fix_umlauts(string: T.unsafe(nil)); end
 
     # Returns the email address with domain either gmail.com, yahoo.com or hotmail.com
@@ -6419,7 +6419,7 @@ class Faker::Internet < ::Faker::Base
     #   Faker::Internet.ip_v4_address   #=> "97.117.128.93"
     # @return [String]
     #
-    # source://faker//lib/faker/default/internet.rb#274
+    # source://faker//lib/faker/default/internet.rb#285
     def ip_v4_address; end
 
     # Returns Ipv4 address with CIDR, range from 1 to 31
@@ -6429,7 +6429,7 @@ class Faker::Internet < ::Faker::Base
     #   Faker::Internet.ip_v4_cidr  #=> "129.162.99.74/24"
     # @return [String]
     #
-    # source://faker//lib/faker/default/internet.rb#377
+    # source://faker//lib/faker/default/internet.rb#388
     def ip_v4_cidr; end
 
     # Returns Ipv6 address
@@ -6438,7 +6438,7 @@ class Faker::Internet < ::Faker::Base
     #   Faker::Internet.ip_v6_address   #=> "7754:76d4:c7aa:7646:ea68:1abb:4055:4343"
     # @return [String]
     #
-    # source://faker//lib/faker/default/internet.rb#388
+    # source://faker//lib/faker/default/internet.rb#399
     def ip_v6_address; end
 
     # Returns Ipv6 address with CIDR, range between 1 to 127
@@ -6447,7 +6447,7 @@ class Faker::Internet < ::Faker::Base
     #   Faker::Internet.ip_v6_cidr  #=> "beca:9b99:4bb6:9712:af2f:516f:8507:96e1/99"
     # @return [String]
     #
-    # source://faker//lib/faker/default/internet.rb#399
+    # source://faker//lib/faker/default/internet.rb#410
     def ip_v6_cidr; end
 
     # Returns the MAC address
@@ -6459,7 +6459,7 @@ class Faker::Internet < ::Faker::Base
     #   Faker::Internet.mac_address(prefix: 'aa:44')  #=> "aa:44:30:88:6e:95"
     # @return [String]
     #
-    # source://faker//lib/faker/default/internet.rb#261
+    # source://faker//lib/faker/default/internet.rb#272
     def mac_address(prefix: T.unsafe(nil)); end
 
     # Produces a randomized string of characters suitable for passwords
@@ -6490,7 +6490,7 @@ class Faker::Internet < ::Faker::Base
     #   Faker::Internet.private_ip_v4_address   #=> "127.120.80.42"
     # @return [String]
     #
-    # source://faker//lib/faker/default/internet.rb#286
+    # source://faker//lib/faker/default/internet.rb#297
     def private_ip_v4_address; end
 
     # Returns lambda to check if address passed is private or not
@@ -6500,7 +6500,7 @@ class Faker::Internet < ::Faker::Base
     #   Faker::Internet.private_net_checker.call("148.120.80.42")   #=> false
     # @return [Lambda]
     #
-    # source://faker//lib/faker/default/internet.rb#334
+    # source://faker//lib/faker/default/internet.rb#345
     def private_net_checker; end
 
     # Returns the private network regular expressions
@@ -6509,7 +6509,7 @@ class Faker::Internet < ::Faker::Base
     #   Faker::Internet.private_nets_regex  #=> [/^10\./, /^100\.(6[4-9]|[7-9]\d|1[0-1]\d|12[0-7])\./, /^127\./, /^169\.254\./, /^172\.(1[6-9]|2\d|3[0-1])\./, /^192\.0\.0\./, /^192\.168\./, /^198\.(1[8-9])\./]
     # @return [Array]
     #
-    # source://faker//lib/faker/default/internet.rb#313
+    # source://faker//lib/faker/default/internet.rb#324
     def private_nets_regex; end
 
     # Returns the public IPv4 address
@@ -6518,7 +6518,7 @@ class Faker::Internet < ::Faker::Base
     #   Faker::Internet.public_ip_v4_address   #=> "127.120.80.42"
     # @return [String]
     #
-    # source://faker//lib/faker/default/internet.rb#297
+    # source://faker//lib/faker/default/internet.rb#308
     def public_ip_v4_address; end
 
     # Returns lambda function to check address passed is reserved or not
@@ -6528,7 +6528,7 @@ class Faker::Internet < ::Faker::Base
     #   Faker::Internet.reserved_net_checker.call('192.88.199.255')  #=> false
     # @return [Lambda]
     #
-    # source://faker//lib/faker/default/internet.rb#365
+    # source://faker//lib/faker/default/internet.rb#376
     def reserved_net_checker; end
 
     # Returns the reserved network regular expressions
@@ -6537,7 +6537,7 @@ class Faker::Internet < ::Faker::Base
     #   Faker::Internet.reserved_nets_regex   #=> [/^0\./, /^192\.0\.2\./, /^192\.88\.99\./, /^198\.51\.100\./, /^203\.0\.113\./, /^(22[4-9]|23\d)\./, /^(24\d|25[0-5])\./]
     # @return [Array]
     #
-    # source://faker//lib/faker/default/internet.rb#345
+    # source://faker//lib/faker/default/internet.rb#356
     def reserved_nets_regex; end
 
     # Returns the email address with fixed domain name as 'example'
@@ -6562,7 +6562,7 @@ class Faker::Internet < ::Faker::Base
     # @param glue [String] Separator to add between words passed, default used are '-' or '_'
     # @return [String]
     #
-    # source://faker//lib/faker/default/internet.rb#434
+    # source://faker//lib/faker/default/internet.rb#445
     def slug(words: T.unsafe(nil), glue: T.unsafe(nil)); end
 
     # Returns URL
@@ -6577,7 +6577,7 @@ class Faker::Internet < ::Faker::Base
     # @param scheme [String]
     # @return [String]
     #
-    # source://faker//lib/faker/default/internet.rb#417
+    # source://faker//lib/faker/default/internet.rb#428
     def url(host: T.unsafe(nil), path: T.unsafe(nil), scheme: T.unsafe(nil)); end
 
     # Produces a randomized hash of internet user details
@@ -6588,7 +6588,7 @@ class Faker::Internet < ::Faker::Base
     #   Faker::Internet.user('username', 'email', 'password') #=> { username: 'alexie', email: 'alexie@example.net', password: 'DtEf9P8wS31iMyC' }
     # @return [hash]
     #
-    # source://faker//lib/faker/default/internet.rb#542
+    # source://faker//lib/faker/default/internet.rb#553
     def user(*args); end
 
     # Generates the random browser identifier
@@ -6601,7 +6601,7 @@ class Faker::Internet < ::Faker::Base
     # @param vendor [String] Name of vendor, supported vendors are aol, chrome, firefox, internet_explorer, netscape, opera, safari
     # @return [String]
     #
-    # source://faker//lib/faker/default/internet.rb#464
+    # source://faker//lib/faker/default/internet.rb#475
     def user_agent(vendor: T.unsafe(nil)); end
 
     # Returns the username
@@ -6638,15 +6638,15 @@ class Faker::Internet < ::Faker::Base
     #   Faker::Internet.uuid  #=> "8a6cdd40-6d78-4fdb-912b-190e3057197f"
     # @return [String]
     #
-    # source://faker//lib/faker/default/internet.rb#494
+    # source://faker//lib/faker/default/internet.rb#505
     def uuid; end
 
     private
 
-    # source://faker//lib/faker/default/internet.rb#566
+    # source://faker//lib/faker/default/internet.rb#577
     def construct_email(local_part, domain_name); end
 
-    # source://faker//lib/faker/default/internet.rb#553
+    # source://faker//lib/faker/default/internet.rb#564
     def sanitize_email_local_part(local_part); end
   end
 end
@@ -6732,7 +6732,7 @@ class Faker::Invoice < ::Faker::Base
 
     private
 
-    # Calculates weigthed sum
+    # Calculates weighted sum
     #
     # For example with 12345678, [1,2]
     # Ref.num. 1 2 3 4 5 6 7 8
@@ -6798,6 +6798,47 @@ class Faker::JapaneseMedia::Conan < ::Faker::Base
     #
     # source://faker//lib/faker/japanese_media/conan.rb#42
     def vehicle; end
+  end
+end
+
+# source://faker//lib/faker/japanese_media/cowboy_bebop.rb#5
+class Faker::JapaneseMedia::CowboyBebop < ::Faker::Base
+  class << self
+    # Produces a character from Cowboy Bebop.
+    #
+    # @example
+    #   Faker::JapaneseMedia::CowboyBebop.character #=> "Spike Spiegel"
+    # @return [String]
+    #
+    # source://faker//lib/faker/japanese_media/cowboy_bebop.rb#16
+    def character; end
+
+    # Produces an episode from Cowboy Bebop.
+    #
+    # @example
+    #   Faker::JapaneseMedia::CowboyBebop.episode #=> "Honky Tonk Women"
+    # @return [String]
+    #
+    # source://faker//lib/faker/japanese_media/cowboy_bebop.rb#29
+    def episode; end
+
+    # Produces a quote from Cowboy Bebop.
+    #
+    # @example
+    #   Faker::JapaneseMedia::CowboyBebop.quote #=> "Bang!!!"
+    # @return [String]
+    #
+    # source://faker//lib/faker/japanese_media/cowboy_bebop.rb#55
+    def quote; end
+
+    # Produces a song title from Cowboy Bebop.
+    #
+    # @example
+    #   Faker::JapaneseMedia::CowboyBebop.songs #=> "Live in Baghdad"
+    # @return [String]
+    #
+    # source://faker//lib/faker/japanese_media/cowboy_bebop.rb#42
+    def song; end
   end
 end
 
@@ -7565,35 +7606,6 @@ class Faker::LoremFlickr < ::Faker::Base
   end
 end
 
-# source://faker//lib/faker/default/lorem_pixel.rb#4
-class Faker::LoremPixel < ::Faker::Base
-  class << self
-    # source://faker//lib/faker/default/lorem_pixel.rb#46
-    def _deprecated_image(size: T.unsafe(nil), is_gray: T.unsafe(nil), category: T.unsafe(nil), number: T.unsafe(nil), text: T.unsafe(nil), secure: T.unsafe(nil)); end
-
-    # Produces a random image URL from lorempixel.com.
-    #
-    # @example
-    #   Faker::LoremPixel.image #=> "https://lorempixel.com/300/300"
-    #   Faker::LoremPixel.image(size: "50x60") #=> "https://lorempixel.com/50/60"
-    #   Faker::LoremPixel.image(size: "50x60", is_gray: true) #=> "https://lorempixel.com/g/50/60"
-    #   Faker::LoremPixel.image(size: "50x60", is_gray: false, category: 'sports') #=> "https://lorempixel.com/50/60/sports"
-    #   Faker::LoremPixel.image(size: "50x60", is_gray: false, category: 'sports', number: 3) #=> "https://lorempixel.com/50/60/sports/3"
-    #   Faker::LoremPixel.image(size: "50x60", is_gray: false, category: 'sports', number: 3, text: 'Dummy-text') #=> "https://lorempixel.com/50/60/sports/3/Dummy-text"
-    #   Faker::LoremPixel.image(size: "50x60", is_gray: false, category: 'sports', number: nil, text: 'Dummy-text') #=> "https://lorempixel.com/50/60/sports/Dummy-text"
-    #   Faker::LoremPixel.image(secure: false) #=> "http://lorempixel.com/300/300"
-    # @param size [String] Specifies the size of image to generate.
-    # @param is_gray [Boolean] Determines if the image is gray.
-    # @param category [Symbol] Adds the category of the generated image to the URL.
-    # @param text [Integer] Adds dummy text as part of the URL.
-    # @param secure [Boolean] Changes the image URL between http and https.
-    # @param number [Integer] Adds a number as part of the URL.
-    # @raise [ArgumentError]
-    # @return [String]
-    def image(*args, **_arg1, &block); end
-  end
-end
-
 # source://faker//lib/faker/default/markdown.rb#4
 class Faker::Markdown < ::Faker::Base
   class << self
@@ -7718,7 +7730,7 @@ class Faker::Measurement < ::Faker::Base
     #   Faker::Measurement.height(amount: 1.4) #=> "1.4 inches"
     #   Faker::Measurement.height(amount: "none") #=> "inch"
     #   Faker::Measurement.height(amount: "all") #=> "inches"
-    # @param amount [Integer] Speficies the random height value.
+    # @param amount [Integer] Specifies the random height value.
     # @return [String]
     #
     # source://faker//lib/faker/default/measurement.rb#22
@@ -7729,7 +7741,7 @@ class Faker::Measurement < ::Faker::Base
     # @example
     #   Faker::Measurement.length #=> "1 yard"
     #   Faker::Measurement.length(amount: 1.4) #=> "1.4 yards"
-    # @param amount [Integer] Speficies the random length value.
+    # @param amount [Integer] Specifies the random length value.
     # @return [String]
     #
     # source://faker//lib/faker/default/measurement.rb#37
@@ -7740,7 +7752,7 @@ class Faker::Measurement < ::Faker::Base
     # @example
     #   Faker::Measurement.metric_height #=> "2 meters"
     #   Faker::Measurement.metric_height(amount: 1.4) #=> "1.4 meters"
-    # @param amount [Integer] Speficies the random height value.
+    # @param amount [Integer] Specifies the random height value.
     # @return [String]
     #
     # source://faker//lib/faker/default/measurement.rb#82
@@ -7751,7 +7763,7 @@ class Faker::Measurement < ::Faker::Base
     # @example
     #   Faker::Measurement.metric_length #=> "0 decimeters"
     #   Faker::Measurement.metric_length(amount: 1.4) #=> "1.4 decimeters"
-    # @param amount [Integer] Speficies the random length value.
+    # @param amount [Integer] Specifies the random length value.
     # @return [String]
     #
     # source://faker//lib/faker/default/measurement.rb#97
@@ -7762,7 +7774,7 @@ class Faker::Measurement < ::Faker::Base
     # @example
     #   Faker::Measurement.metric_volume #=> "1 liter"
     #   Faker::Measurement.metric_volume(amount: 1.4) #=> "1.4 liters"
-    # @param amount [Integer] Speficies the random volume value.
+    # @param amount [Integer] Specifies the random volume value.
     # @return [String]
     #
     # source://faker//lib/faker/default/measurement.rb#112
@@ -7773,7 +7785,7 @@ class Faker::Measurement < ::Faker::Base
     # @example
     #   Faker::Measurement.metric_weight #=> "8 grams"
     #   Faker::Measurement.metric_weight(amount: 1.4) #=> "1.4 grams"
-    # @param amount [Integer] Speficies the random weight value.
+    # @param amount [Integer] Specifies the random weight value.
     # @return [String]
     #
     # source://faker//lib/faker/default/measurement.rb#127
@@ -7784,7 +7796,7 @@ class Faker::Measurement < ::Faker::Base
     # @example
     #   Faker::Measurement.volume #=> "10 cups"
     #   Faker::Measurement.volume(amount: 1.4) #=> "1.4 cups"
-    # @param amount [Integer] Speficies the random volume value.
+    # @param amount [Integer] Specifies the random volume value.
     # @return [String]
     #
     # source://faker//lib/faker/default/measurement.rb#52
@@ -7795,7 +7807,7 @@ class Faker::Measurement < ::Faker::Base
     # @example
     #   Faker::Measurement.weight #=> "3 pounds"
     #   Faker::Measurement.weight(amount: 1.4) #=> "1.4 pounds"
-    # @param amount [Integer] Speficies the random weight value.
+    # @param amount [Integer] Specifies the random weight value.
     # @return [String]
     #
     # source://faker//lib/faker/default/measurement.rb#67
@@ -9845,7 +9857,7 @@ class Faker::PhoneNumber < ::Faker::Base
     #   Faker::PhoneNumber.subscriber_number #=> "3873"
     #   Faker::PhoneNumber.subscriber_number(length: 2) #=> "39"
     #   Faker::PhoneNumber.extension #=> "3764"
-    # @param length [Integer] Speficies the length of the return value.
+    # @param length [Integer] Specifies the length of the return value.
     # @return [String]
     #
     # source://faker//lib/faker/default/phone_number.rb#126
@@ -9875,7 +9887,7 @@ class Faker::PhoneNumber < ::Faker::Base
     #   Faker::PhoneNumber.subscriber_number #=> "3873"
     #   Faker::PhoneNumber.subscriber_number(length: 2) #=> "39"
     #   Faker::PhoneNumber.extension #=> "3764"
-    # @param length [Integer] Speficies the length of the return value.
+    # @param length [Integer] Specifies the length of the return value.
     # @return [String]
     #
     # source://faker//lib/faker/default/phone_number.rb#126
@@ -10791,7 +10803,7 @@ class Faker::Sport < ::Faker::Base
     #   Faker::Sport.ancient_olympics_sport #=> "Pankration"
     # @return [String]
     #
-    # source://faker//lib/faker/sports/sport.rb#105
+    # source://faker//lib/faker/sports/sport.rb#111
     def ancient_olympics_sport; end
 
     # Produces a sport from the modern olympics or paralympics, summer or winter.
@@ -10817,7 +10829,7 @@ class Faker::Sport < ::Faker::Base
     #   Faker::Sport.summer_olympics_sport #=> "Archery"
     # @return [String]
     #
-    # source://faker//lib/faker/sports/sport.rb#40
+    # source://faker//lib/faker/sports/sport.rb#46
     def summer_olympics_sport; end
 
     # Produces a sport from the summer paralympics.
@@ -10826,7 +10838,7 @@ class Faker::Sport < ::Faker::Base
     #   Faker::Sport.summer_paralympics_sport #=> "Wheelchair Basketball"
     # @return [String]
     #
-    # source://faker//lib/faker/sports/sport.rb#66
+    # source://faker//lib/faker/sports/sport.rb#72
     def summer_paralympics_sport; end
 
     # Produces an unusual sport.
@@ -10835,7 +10847,7 @@ class Faker::Sport < ::Faker::Base
     #   Faker::Sport.unusual_sport #=> "Camel Jumping"
     # @return [String]
     #
-    # source://faker//lib/faker/sports/sport.rb#92
+    # source://faker//lib/faker/sports/sport.rb#98
     def unusual_sport; end
 
     # Produces a sport from the winter olympics.
@@ -10844,7 +10856,7 @@ class Faker::Sport < ::Faker::Base
     #   Faker::Sport.winter_olympics_sport #=> "Bobsleigh"
     # @return [String]
     #
-    # source://faker//lib/faker/sports/sport.rb#53
+    # source://faker//lib/faker/sports/sport.rb#59
     def winter_olympics_sport; end
 
     # Produces a sport from the winter paralympics.
@@ -10853,7 +10865,7 @@ class Faker::Sport < ::Faker::Base
     #   Faker::Sport.winter_paralympics_sport #=> "Para Ice Hockey"
     # @return [String]
     #
-    # source://faker//lib/faker/sports/sport.rb#79
+    # source://faker//lib/faker/sports/sport.rb#85
     def winter_paralympics_sport; end
   end
 end
@@ -12303,6 +12315,38 @@ class Faker::TvShows::SouthPark < ::Faker::Base
   end
 end
 
+# source://faker//lib/faker/tv_shows/spongebob.rb#5
+class Faker::TvShows::Spongebob < ::Faker::Base
+  class << self
+    # Produces a character from Spongebob.
+    #
+    # @example
+    #   Faker::TvShows::Spongebob.character #=> "Patrick"
+    # @return [String]
+    #
+    # source://faker//lib/faker/tv_shows/spongebob.rb#18
+    def character; end
+
+    # Produces an episode from Spongebob.
+    #
+    # @example
+    #   Faker::TvShows::Spongebob.episode #=> "Reef Blower"
+    # @return [String]
+    #
+    # source://faker//lib/faker/tv_shows/spongebob.rb#44
+    def episode; end
+
+    # Produces a quote from Spongebob.
+    #
+    # @example
+    #   Faker::TvShows::Spongebob.quote #=> "I'm ready! I'm ready!"
+    # @return [String]
+    #
+    # source://faker//lib/faker/tv_shows/spongebob.rb#31
+    def quote; end
+  end
+end
+
 # source://faker//lib/faker/tv_shows/star_trek.rb#5
 class Faker::TvShows::StarTrek < ::Faker::Base
   class << self
@@ -12979,7 +13023,7 @@ class Faker::Vehicle < ::Faker::Base
     #   Faker::Vehicle.car_options #=> ["DVD System", "MP3 (Single Disc)", "Tow Package", "CD (Multi Disc)", "Cassette Player", "Bucket Seats", "Cassette Player", "Leather Interior", "AM/FM Stereo", "Third Row Seats"]
     # @return [Array<String>]
     #
-    # source://faker//lib/faker/default/vehicle.rb#189
+    # source://faker//lib/faker/default/vehicle.rb#196
     def car_options; end
 
     # Produces a random car type.
@@ -12988,7 +13032,7 @@ class Faker::Vehicle < ::Faker::Base
     #   Faker::Vehicle.car_type #=> "Sedan"
     # @return [String]
     #
-    # source://faker//lib/faker/default/vehicle.rb#160
+    # source://faker//lib/faker/default/vehicle.rb#167
     def car_type; end
 
     # Produces a random vehicle color.
@@ -12997,7 +13041,7 @@ class Faker::Vehicle < ::Faker::Base
     #   Faker::Vehicle.color #=> "Red"
     # @return [String]
     #
-    # source://faker//lib/faker/default/vehicle.rb#108
+    # source://faker//lib/faker/default/vehicle.rb#115
     def color; end
 
     # Produces a random vehicle door count.
@@ -13007,7 +13051,7 @@ class Faker::Vehicle < ::Faker::Base
     #   Faker::Vehicle.door_count #=> 3
     # @return [Integer]
     #
-    # source://faker//lib/faker/default/vehicle.rb#216
+    # source://faker//lib/faker/default/vehicle.rb#223
     def door_count; end
 
     # Produces a random vehicle door count.
@@ -13017,7 +13061,7 @@ class Faker::Vehicle < ::Faker::Base
     #   Faker::Vehicle.door_count #=> 3
     # @return [Integer]
     #
-    # source://faker//lib/faker/default/vehicle.rb#216
+    # source://faker//lib/faker/default/vehicle.rb#223
     def doors; end
 
     # Produces a random vehicle drive type.
@@ -13026,7 +13070,7 @@ class Faker::Vehicle < ::Faker::Base
     #   Faker::Vehicle.drive_type #=> "4x2/2-wheel drive"
     # @return [String]
     #
-    # source://faker//lib/faker/default/vehicle.rb#134
+    # source://faker//lib/faker/default/vehicle.rb#141
     def drive_type; end
 
     # Produces a random engine cylinder count.
@@ -13036,7 +13080,7 @@ class Faker::Vehicle < ::Faker::Base
     #   Faker::Vehicle.engine #=> 4
     # @return [String]
     #
-    # source://faker//lib/faker/default/vehicle.rb#174
+    # source://faker//lib/faker/default/vehicle.rb#181
     def engine; end
 
     # Produces a random engine cylinder count.
@@ -13046,7 +13090,7 @@ class Faker::Vehicle < ::Faker::Base
     #   Faker::Vehicle.engine #=> 4
     # @return [String]
     #
-    # source://faker//lib/faker/default/vehicle.rb#174
+    # source://faker//lib/faker/default/vehicle.rb#181
     def engine_size; end
 
     # Produces a random vehicle fuel type.
@@ -13055,7 +13099,7 @@ class Faker::Vehicle < ::Faker::Base
     #   Faker::Vehicle.fuel_type #=> "Diesel"
     # @return [String]
     #
-    # source://faker//lib/faker/default/vehicle.rb#147
+    # source://faker//lib/faker/default/vehicle.rb#154
     def fuel_type; end
 
     # Produces a random mileage/kilometrage for a vehicle.
@@ -13069,10 +13113,10 @@ class Faker::Vehicle < ::Faker::Base
     # @param max [Integer] Specific maximum limit for mileage generation.
     # @return [Integer]
     #
-    # source://faker//lib/faker/default/vehicle.rb#248
+    # source://faker//lib/faker/default/vehicle.rb#255
     def kilometrage(min: T.unsafe(nil), max: T.unsafe(nil)); end
 
-    # source://faker//lib/faker/default/vehicle.rb#265
+    # source://faker//lib/faker/default/vehicle.rb#272
     def license_plate(state_abbreviation: T.unsafe(nil)); end
 
     # Produces a random vehicle make.
@@ -13081,7 +13125,7 @@ class Faker::Vehicle < ::Faker::Base
     #   Faker::Vehicle.make #=> "Honda"
     # @return [String]
     #
-    # source://faker//lib/faker/default/vehicle.rb#50
+    # source://faker//lib/faker/default/vehicle.rb#57
     def make; end
 
     # Produces a random vehicle make and model.
@@ -13090,7 +13134,7 @@ class Faker::Vehicle < ::Faker::Base
     #   Faker::Vehicle.make_and_model #=> "Dodge Charger"
     # @return [String]
     #
-    # source://faker//lib/faker/default/vehicle.rb#80
+    # source://faker//lib/faker/default/vehicle.rb#87
     def make_and_model; end
 
     # Produces a random vehicle manufacturer.
@@ -13099,7 +13143,7 @@ class Faker::Vehicle < ::Faker::Base
     #   Faker::Vehicle.manufacture #=> "Lamborghini"
     # @return [String]
     #
-    # source://faker//lib/faker/default/vehicle.rb#37
+    # source://faker//lib/faker/default/vehicle.rb#44
     def manufacture; end
 
     # Produces a random mileage/kilometrage for a vehicle.
@@ -13113,7 +13157,7 @@ class Faker::Vehicle < ::Faker::Base
     # @param max [Integer] Specific maximum limit for mileage generation.
     # @return [Integer]
     #
-    # source://faker//lib/faker/default/vehicle.rb#248
+    # source://faker//lib/faker/default/vehicle.rb#255
     def mileage(min: T.unsafe(nil), max: T.unsafe(nil)); end
 
     # Produces a random vehicle model.
@@ -13124,10 +13168,10 @@ class Faker::Vehicle < ::Faker::Base
     # @param make_of_model [String] Specific valid vehicle make.
     # @return [String]
     #
-    # source://faker//lib/faker/default/vehicle.rb#65
+    # source://faker//lib/faker/default/vehicle.rb#72
     def model(make_of_model: T.unsafe(nil)); end
 
-    # source://faker//lib/faker/default/vehicle.rb#281
+    # source://faker//lib/faker/default/vehicle.rb#288
     def singapore_license_plate; end
 
     # Produces a random list of standard specs.
@@ -13136,7 +13180,7 @@ class Faker::Vehicle < ::Faker::Base
     #   Faker::Vehicle.standard_specs #=> ["Full-size spare tire w/aluminum alloy wheel", "Back-up camera", "Carpeted cargo area", "Silver accent IP trim finisher -inc: silver shifter finisher", "Back-up camera", "Water-repellent windshield & front door glass", "Floor carpeting"]
     # @return [Array<String>]
     #
-    # source://faker//lib/faker/default/vehicle.rb#202
+    # source://faker//lib/faker/default/vehicle.rb#209
     def standard_specs; end
 
     # Produces a random vehicle style.
@@ -13145,7 +13189,7 @@ class Faker::Vehicle < ::Faker::Base
     #   Faker::Vehicle.style #=> "ESi"
     # @return [String]
     #
-    # source://faker//lib/faker/default/vehicle.rb#95
+    # source://faker//lib/faker/default/vehicle.rb#102
     def style; end
 
     # Produces a random vehicle transmission.
@@ -13154,7 +13198,7 @@ class Faker::Vehicle < ::Faker::Base
     #   Faker::Vehicle.transmission #=> "Automanual"
     # @return [String]
     #
-    # source://faker//lib/faker/default/vehicle.rb#121
+    # source://faker//lib/faker/default/vehicle.rb#128
     def transmission; end
 
     # Produces a car version
@@ -13163,7 +13207,7 @@ class Faker::Vehicle < ::Faker::Base
     #   Faker::Vehicle.version #=> "40 TFSI Premium"
     # @return [String]
     #
-    # source://faker//lib/faker/default/vehicle.rb#296
+    # source://faker//lib/faker/default/vehicle.rb#303
     def version; end
 
     # Produces a random vehicle VIN number.
@@ -13181,25 +13225,13 @@ class Faker::Vehicle < ::Faker::Base
     #   Faker::Vehicle.year #=> 2008
     # @return [Integer]
     #
-    # source://faker//lib/faker/default/vehicle.rb#230
+    # source://faker//lib/faker/default/vehicle.rb#237
     def year; end
 
     private
 
     # source://faker//lib/faker/default/vehicle.rb#309
-    def calculate_vin_check_digit(vin); end
-
-    # source://faker//lib/faker/default/vehicle.rb#302
-    def first_eight(number); end
-
-    # source://faker//lib/faker/default/vehicle.rb#302
-    def last_eight(number); end
-
-    # source://faker//lib/faker/default/vehicle.rb#330
     def singapore_checksum(plate_number); end
-
-    # source://faker//lib/faker/default/vehicle.rb#322
-    def vin_char_to_number(char); end
   end
 end
 
@@ -13216,16 +13248,16 @@ Faker::Vehicle::SG_CHECKSUM_CHARS = T.let(T.unsafe(nil), String)
 Faker::Vehicle::SG_CHECKSUM_WEIGHTS = T.let(T.unsafe(nil), Array)
 
 # source://faker//lib/faker/default/vehicle.rb#9
-Faker::Vehicle::VIN_LETTERS = T.let(T.unsafe(nil), String)
-
-# source://faker//lib/faker/default/vehicle.rb#10
-Faker::Vehicle::VIN_MAP = T.let(T.unsafe(nil), String)
+Faker::Vehicle::VIN_KEYSPACE = T.let(T.unsafe(nil), Array)
 
 # source://faker//lib/faker/default/vehicle.rb#12
 Faker::Vehicle::VIN_REGEX = T.let(T.unsafe(nil), Regexp)
 
+# source://faker//lib/faker/default/vehicle.rb#10
+Faker::Vehicle::VIN_TRANSLITERATION = T.let(T.unsafe(nil), Hash)
+
 # source://faker//lib/faker/default/vehicle.rb#11
-Faker::Vehicle::VIN_WEIGHTS = T.let(T.unsafe(nil), String)
+Faker::Vehicle::VIN_WEIGHT = T.let(T.unsafe(nil), Array)
 
 # source://faker//lib/faker/default/verb.rb#4
 class Faker::Verb < ::Faker::Base

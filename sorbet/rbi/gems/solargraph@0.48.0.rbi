@@ -827,17 +827,17 @@ class Solargraph::ComplexType
   # source://solargraph//lib/solargraph/complex_type.rb#14
   def initialize(types = T.unsafe(nil)); end
 
-  # source://solargraph//lib/solargraph/complex_type.rb#47
+  # source://solargraph//lib/solargraph/complex_type.rb#57
   def [](index); end
 
   # @return [Boolean]
   #
-  # source://solargraph//lib/solargraph/complex_type.rb#73
+  # source://solargraph//lib/solargraph/complex_type.rb#83
   def all?(&block); end
 
   # @return [Boolean]
   #
-  # source://solargraph//lib/solargraph/complex_type.rb#77
+  # source://solargraph//lib/solargraph/complex_type.rb#87
   def any?(&block); end
 
   # @return [Array]
@@ -846,24 +846,30 @@ class Solargraph::ComplexType
   # source://solargraph//lib/solargraph/complex_type.rb#39
   def each(&block); end
 
+  # @return [Enumerator<UniqueType>]
+  # @yieldparam [UniqueType]
+  #
+  # source://solargraph//lib/solargraph/complex_type.rb#45
+  def each_unique_type(&block); end
+
   # source://solargraph//lib/solargraph/complex_type.rb#29
   def first; end
 
-  # source://solargraph//lib/solargraph/complex_type.rb#43
+  # source://solargraph//lib/solargraph/complex_type.rb#53
   def length; end
 
   # source://solargraph//lib/solargraph/complex_type.rb#33
   def map(&block); end
 
-  # source://solargraph//lib/solargraph/complex_type.rb#59
+  # source://solargraph//lib/solargraph/complex_type.rb#69
   def method_missing(name, *args, &block); end
 
-  # source://solargraph//lib/solargraph/complex_type.rb#54
+  # source://solargraph//lib/solargraph/complex_type.rb#64
   def namespace; end
 
   # @return [Boolean]
   #
-  # source://solargraph//lib/solargraph/complex_type.rb#94
+  # source://solargraph//lib/solargraph/complex_type.rb#104
   def nullable?; end
 
   # @param api_map [ApiMap]
@@ -873,21 +879,21 @@ class Solargraph::ComplexType
   # source://solargraph//lib/solargraph/complex_type.rb#21
   def qualify(api_map, context = T.unsafe(nil)); end
 
-  # source://solargraph//lib/solargraph/complex_type.rb#51
+  # source://solargraph//lib/solargraph/complex_type.rb#61
   def select(&block); end
 
   # @param dst [String]
   # @return [ComplexType]
   #
-  # source://solargraph//lib/solargraph/complex_type.rb#87
+  # source://solargraph//lib/solargraph/complex_type.rb#97
   def self_to(dst); end
 
   # @return [Boolean]
   #
-  # source://solargraph//lib/solargraph/complex_type.rb#81
+  # source://solargraph//lib/solargraph/complex_type.rb#91
   def selfy?; end
 
-  # source://solargraph//lib/solargraph/complex_type.rb#69
+  # source://solargraph//lib/solargraph/complex_type.rb#79
   def to_s; end
 
   private
@@ -899,12 +905,12 @@ class Solargraph::ComplexType
   #   This behavior may change depending on which result is expected
   #   from YARD conventions. See https://github.com/lsegal/yard/issues/1257
   #
-  # source://solargraph//lib/solargraph/complex_type.rb#106
+  # source://solargraph//lib/solargraph/complex_type.rb#116
   def reduce_class(dst); end
 
   # @return [Boolean]
   #
-  # source://solargraph//lib/solargraph/complex_type.rb#65
+  # source://solargraph//lib/solargraph/complex_type.rb#75
   def respond_to_missing?(name, include_private = T.unsafe(nil)); end
 
   class << self
@@ -921,30 +927,30 @@ class Solargraph::ComplexType
     # @param partial [Boolean] True if the string is part of a another type
     # @return [ComplexType, Array, nil]
     #
-    # source://solargraph//lib/solargraph/complex_type.rb#129
+    # source://solargraph//lib/solargraph/complex_type.rb#139
     def parse(*strings, partial: T.unsafe(nil)); end
 
     # @param strings [Array<String>]
     # @return [ComplexType]
     #
-    # source://solargraph//lib/solargraph/complex_type.rb#209
+    # source://solargraph//lib/solargraph/complex_type.rb#219
     def try_parse(*strings); end
   end
 end
 
-# source://solargraph//lib/solargraph/complex_type.rb#223
+# source://solargraph//lib/solargraph/complex_type.rb#233
 Solargraph::ComplexType::BOOLEAN = T.let(T.unsafe(nil), Solargraph::ComplexType)
 
-# source://solargraph//lib/solargraph/complex_type.rb#221
+# source://solargraph//lib/solargraph/complex_type.rb#231
 Solargraph::ComplexType::NIL = T.let(T.unsafe(nil), Solargraph::ComplexType)
 
-# source://solargraph//lib/solargraph/complex_type.rb#220
+# source://solargraph//lib/solargraph/complex_type.rb#230
 Solargraph::ComplexType::ROOT = T.let(T.unsafe(nil), Solargraph::ComplexType)
 
-# source://solargraph//lib/solargraph/complex_type.rb#222
+# source://solargraph//lib/solargraph/complex_type.rb#232
 Solargraph::ComplexType::SELF = T.let(T.unsafe(nil), Solargraph::ComplexType)
 
-# source://solargraph//lib/solargraph/complex_type.rb#219
+# source://solargraph//lib/solargraph/complex_type.rb#229
 Solargraph::ComplexType::SYMBOL = T.let(T.unsafe(nil), Solargraph::ComplexType)
 
 # Methods for accessing type data.
@@ -963,6 +969,12 @@ module Solargraph::ComplexType::TypeMethods
   #
   # source://solargraph//lib/solargraph/complex_type/type_methods.rb#21
   def duck_type?; end
+
+  # @return [Enumerator<UniqueType>]
+  # @yieldparam [UniqueType]
+  #
+  # source://solargraph//lib/solargraph/complex_type/type_methods.rb#131
+  def each_unique_type(&block); end
 
   # @return [Boolean]
   #
@@ -1054,7 +1066,7 @@ module Solargraph::ComplexType::TypeMethods
   def void?; end
 end
 
-# source://solargraph//lib/solargraph/complex_type.rb#218
+# source://solargraph//lib/solargraph/complex_type.rb#228
 Solargraph::ComplexType::UNDEFINED = T.let(T.unsafe(nil), Solargraph::ComplexType)
 
 # An individual type signature. A complex type can consist of multiple
@@ -1094,7 +1106,7 @@ Solargraph::ComplexType::UniqueType::BOOLEAN = T.let(T.unsafe(nil), Solargraph::
 # source://solargraph//lib/solargraph/complex_type/unique_type.rb#71
 Solargraph::ComplexType::UniqueType::UNDEFINED = T.let(T.unsafe(nil), Solargraph::ComplexType::UniqueType)
 
-# source://solargraph//lib/solargraph/complex_type.rb#217
+# source://solargraph//lib/solargraph/complex_type.rb#227
 Solargraph::ComplexType::VOID = T.let(T.unsafe(nil), Solargraph::ComplexType)
 
 # source://solargraph//lib/solargraph.rb#16
@@ -1281,7 +1293,7 @@ class Solargraph::Diagnostics::Rubocop < ::Solargraph::Diagnostics::Base
   # @param _api_map [Solargraph::ApiMap]
   # @return [Array<Hash>]
   #
-  # source://solargraph//lib/solargraph/diagnostics/rubocop.rb#24
+  # source://solargraph//lib/solargraph/diagnostics/rubocop.rb#25
   def diagnose(source, _api_map); end
 
   private
@@ -1289,25 +1301,25 @@ class Solargraph::Diagnostics::Rubocop < ::Solargraph::Diagnostics::Base
   # @param resp [Hash]
   # @return [Array<Hash>]
   #
-  # source://solargraph//lib/solargraph/diagnostics/rubocop.rb#48
+  # source://solargraph//lib/solargraph/diagnostics/rubocop.rb#49
   def make_array(resp); end
 
   # @param off [Hash]
   # @return [Position]
   #
-  # source://solargraph//lib/solargraph/diagnostics/rubocop.rb#87
+  # source://solargraph//lib/solargraph/diagnostics/rubocop.rb#88
   def offense_ending_position(off); end
 
   # @param off [Hash]
   # @return [Range]
   #
-  # source://solargraph//lib/solargraph/diagnostics/rubocop.rb#75
+  # source://solargraph//lib/solargraph/diagnostics/rubocop.rb#76
   def offense_range(off); end
 
   # @param off [Hash]
   # @return [Position]
   #
-  # source://solargraph//lib/solargraph/diagnostics/rubocop.rb#81
+  # source://solargraph//lib/solargraph/diagnostics/rubocop.rb#82
   def offense_start_position(off); end
 
   # Convert a RuboCop offense to an LSP diagnostic
@@ -1315,14 +1327,14 @@ class Solargraph::Diagnostics::Rubocop < ::Solargraph::Diagnostics::Base
   # @param off [Hash] Offense received from Rubocop
   # @return [Hash] LSP diagnostic
   #
-  # source://solargraph//lib/solargraph/diagnostics/rubocop.rb#62
+  # source://solargraph//lib/solargraph/diagnostics/rubocop.rb#63
   def offense_to_diagnostic(off); end
 
   # Extracts the rubocop version from _args_
   #
   # @return [String]
   #
-  # source://solargraph//lib/solargraph/diagnostics/rubocop.rb#42
+  # source://solargraph//lib/solargraph/diagnostics/rubocop.rb#43
   def rubocop_version; end
 end
 
@@ -4166,6 +4178,13 @@ class Solargraph::Parser::Legacy::NodeProcessors::CasgnNode < ::Solargraph::Pars
 
   # source://solargraph//lib/solargraph/parser/legacy/node_processors/casgn_node.rb#10
   def process; end
+
+  private
+
+  # @return [String]
+  #
+  # source://solargraph//lib/solargraph/parser/legacy/node_processors/casgn_node.rb#24
+  def const_name; end
 end
 
 # source://solargraph//lib/solargraph/parser/legacy/node_processors/cvasgn_node.rb#7
@@ -4789,6 +4808,13 @@ end
 class Solargraph::Parser::Rubyvm::NodeProcessors::CasgnNode < ::Solargraph::Parser::NodeProcessor::Base
   # source://solargraph//lib/solargraph/parser/rubyvm/node_processors/casgn_node.rb#8
   def process; end
+
+  private
+
+  # @return [String]
+  #
+  # source://solargraph//lib/solargraph/parser/rubyvm/node_processors/casgn_node.rb#22
+  def const_name; end
 end
 
 # source://solargraph//lib/solargraph/parser/rubyvm/node_processors/cvasgn_node.rb#7
@@ -5731,40 +5757,48 @@ class Solargraph::Pin::Method < ::Solargraph::Pin::Closure
 
   # @return [ComplexType]
   #
-  # source://solargraph//lib/solargraph/pin/method.rb#144
+  # source://solargraph//lib/solargraph/pin/method.rb#145
   def generate_complex_type; end
 
-  # source://solargraph//lib/solargraph/pin/method.rb#231
+  # source://solargraph//lib/solargraph/pin/method.rb#232
   def infer_from_iv(api_map); end
 
   # @param api_map [ApiMap]
   # @return [ComplexType]
   #
-  # source://solargraph//lib/solargraph/pin/method.rb#206
+  # source://solargraph//lib/solargraph/pin/method.rb#207
   def infer_from_return_nodes(api_map); end
 
   # @return [Parser::AST::Node, nil]
   #
-  # source://solargraph//lib/solargraph/pin/method.rb#195
+  # source://solargraph//lib/solargraph/pin/method.rb#196
   def method_body_node; end
+
+  # When YARD parses an overload tag, it includes rest modifiers in the parameters names.
+  #
+  # @param arg [String]
+  # @return [Array(String, Symbol)]
+  #
+  # source://solargraph//lib/solargraph/pin/method.rb#249
+  def parse_overload_param(name); end
 
   # @param ref [String]
   # @param api_map [ApiMap]
   # @return [ComplexType]
   #
-  # source://solargraph//lib/solargraph/pin/method.rb#177
+  # source://solargraph//lib/solargraph/pin/method.rb#178
   def resolve_reference(ref, api_map); end
 
   # @param api_map [ApiMap]
   # @return [ComplexType, nil]
   #
-  # source://solargraph//lib/solargraph/pin/method.rb#152
+  # source://solargraph//lib/solargraph/pin/method.rb#153
   def see_reference(api_map); end
 
   # @param api_map [ApiMap]
   # @return [ComplexType, nil]
   #
-  # source://solargraph//lib/solargraph/pin/method.rb#165
+  # source://solargraph//lib/solargraph/pin/method.rb#166
   def typify_from_super(api_map); end
 end
 
@@ -6813,14 +6847,14 @@ class Solargraph::Source::Chain::Call < ::Solargraph::Source::Chain::Link
   # @param parameters [Array<String>]
   # @return [Boolean]
   #
-  # source://solargraph//lib/solargraph/source/chain/call.rb#185
+  # source://solargraph//lib/solargraph/source/chain/call.rb#188
   def arguments_match(arguments, parameters); end
 
   # @param docstring [YARD::Docstring]
   # @param context [ComplexType]
   # @return [ComplexType]
   #
-  # source://solargraph//lib/solargraph/source/chain/call.rb#173
+  # source://solargraph//lib/solargraph/source/chain/call.rb#176
   def extra_return_type(docstring, context); end
 
   # @param pins [Array<Pin::Base>]
@@ -6829,7 +6863,7 @@ class Solargraph::Source::Chain::Call < ::Solargraph::Source::Chain::Link
   # @param locals [Pin::LocalVariable]
   # @return [Array<Pin::Base>]
   #
-  # source://solargraph//lib/solargraph/source/chain/call.rb#50
+  # source://solargraph//lib/solargraph/source/chain/call.rb#53
   def inferred_pins(pins, api_map, context, locals); end
 
   # @param pin [Pin]
@@ -6839,7 +6873,7 @@ class Solargraph::Source::Chain::Call < ::Solargraph::Source::Chain::Link
   # @param locals [Array<Pin::Base>]
   # @return [Pin::ProxyType]
   #
-  # source://solargraph//lib/solargraph/source/chain/call.rb#150
+  # source://solargraph//lib/solargraph/source/chain/call.rb#153
   def inner_process_macro(pin, macro, api_map, context, locals); end
 
   # @param pin [Pin::Method]
@@ -6848,7 +6882,7 @@ class Solargraph::Source::Chain::Call < ::Solargraph::Source::Chain::Link
   # @param locals [Pin::Base]
   # @return [Pin::ProxyType]
   #
-  # source://solargraph//lib/solargraph/source/chain/call.rb#134
+  # source://solargraph//lib/solargraph/source/chain/call.rb#137
   def process_directive(pin, api_map, context, locals); end
 
   # @param pin [Pin::Method]
@@ -6857,14 +6891,14 @@ class Solargraph::Source::Chain::Call < ::Solargraph::Source::Chain::Link
   # @param locals [Pin::Base]
   # @return [Pin::Base]
   #
-  # source://solargraph//lib/solargraph/source/chain/call.rb#121
+  # source://solargraph//lib/solargraph/source/chain/call.rb#124
   def process_macro(pin, api_map, context, locals); end
 
   # @param api_map [ApiMap]
   # @param name_pin [Pin::Base]
   # @return [Array<Pin::Base>]
   #
-  # source://solargraph//lib/solargraph/source/chain/call.rb#197
+  # source://solargraph//lib/solargraph/source/chain/call.rb#200
   def super_pins(api_map, name_pin); end
 end
 
@@ -8648,21 +8682,15 @@ class Solargraph::YardMap
 
   private
 
-  # @param spec [Gem::Specification]
-  # @return [void]
-  #
-  # source://solargraph//lib/solargraph/yard_map.rb#278
-  def add_gem_dependencies(spec); end
-
   # @return [YardMap::Cache]
   #
   # source://solargraph//lib/solargraph/yard_map.rb#173
   def cache; end
 
-  # source://solargraph//lib/solargraph/yard_map.rb#377
+  # source://solargraph//lib/solargraph/yard_map.rb#359
   def load_core_pins; end
 
-  # source://solargraph//lib/solargraph/yard_map.rb#419
+  # source://solargraph//lib/solargraph/yard_map.rb#401
   def load_stdlib_pins(base); end
 
   # @return [Hash]
@@ -8675,10 +8703,15 @@ class Solargraph::YardMap
   # source://solargraph//lib/solargraph/yard_map.rb#183
   def pins_by_class(klass); end
 
-  # source://solargraph//lib/solargraph/yard_map.rb#256
+  # @param r [String]
+  #
+  # source://solargraph//lib/solargraph/yard_map.rb#254
+  def pins_for_require(r, already_errored); end
+
+  # source://solargraph//lib/solargraph/yard_map.rb#233
   def process_error(req, result, already_errored, yd = T.unsafe(nil)); end
 
-  # source://solargraph//lib/solargraph/yard_map.rb#271
+  # source://solargraph//lib/solargraph/yard_map.rb#248
   def process_gemsets; end
 
   # @return [void]
@@ -8691,13 +8724,13 @@ class Solargraph::YardMap
   # @raise [NoYardocError]
   # @return [Array<Pin::Base>]
   #
-  # source://solargraph//lib/solargraph/yard_map.rb#306
+  # source://solargraph//lib/solargraph/yard_map.rb#288
   def process_yardoc(y, spec = T.unsafe(nil)); end
 
-  # source://solargraph//lib/solargraph/yard_map.rb#397
+  # source://solargraph//lib/solargraph/yard_map.rb#379
   def read_core_and_save_cache(yd, ser); end
 
-  # source://solargraph//lib/solargraph/yard_map.rb#443
+  # source://solargraph//lib/solargraph/yard_map.rb#425
   def read_stdlib_and_save_cache(base, ser); end
 
   # @param ns [YARD::CodeObjects::NamespaceObject]
@@ -8709,13 +8742,13 @@ class Solargraph::YardMap
   # @param path [String]
   # @return [Gem::Specification]
   #
-  # source://solargraph//lib/solargraph/yard_map.rb#360
+  # source://solargraph//lib/solargraph/yard_map.rb#342
   def spec_for_require(path); end
 
   # @param spec [Gem::Specification]
   # @return [String]
   #
-  # source://solargraph//lib/solargraph/yard_map.rb#348
+  # source://solargraph//lib/solargraph/yard_map.rb#330
   def yardoc_file_for_spec(spec); end
 end
 
