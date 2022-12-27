@@ -88,9 +88,12 @@ class ClubsService < ApplicationService
     end
 
     exists = Membership.exists?(club_id: club_id, player_id: player_id)
-    unless exists
+    if exists
+      failure = ServiceFailure::DuplicateKeyFailure.new("Club id and Player id already exists")
+      Result.new(failure: failure)
+    else
       Membership.create(club_id: club_id, player_id: player_id)
+      Result.new
     end
-    Result.new
   end
 end

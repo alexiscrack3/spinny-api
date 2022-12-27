@@ -170,10 +170,11 @@ class ClubsServiceTest < ActiveSupport::TestCase
   test "should not add player to club when player has already joined" do
     club = clubs(:club_with_players)
     player = players(:player_with_club)
+    expected = ServiceFailure::DuplicateKeyFailure.new("Club id and Player id already exists")
 
     assert_difference("Membership.count", 0) do
       result = @clubs_service.join(club_id: club.id, player_id: player.id)
-      refute result.value
+      assert_equal expected, result.failure
     end
   end
 
