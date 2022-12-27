@@ -254,8 +254,8 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
       club_id: club.id.to_s,
       player_id: player.id,
     }
-    message = "Club id is null"
-    failure = ServiceFailure::ArgumentNullFailure.new(message)
+    message = "Club id and Player id already exists"
+    failure = ServiceFailure::DuplicateKeyFailure.new(message)
     result = Result.new(failure:)
     ClubsService
       .any_instance
@@ -280,6 +280,65 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
     }
 
     post club_members_url(club), params: params, as: :json
+
+    assert_response :unauthorized
+  end
+
+  test "should remove player from club when player has signed in" do
+    club = clubs(:club_with_players)
+    player = players(:player_with_club)
+    sign_in player
+    params = {
+      club_id: club.id.to_s,
+      player_id: player.id,
+    }
+    result = Result.new(value: nil)
+    ClubsService
+      .any_instance
+      .stubs(:join)
+      .with(params)
+      .returns(result)
+
+    delete club_members_url(club), params: params, as: :json
+
+    assert_nil response.parsed_body["data"]
+    assert_response :no_content
+  end
+
+  test "should not remove player from club when membership was not deleted" do
+    club = clubs(:club_with_players)
+    player = players(:player_with_club)
+    sign_in player
+    params = {
+      club_id: club.id.to_s,
+      player_id: player.id,
+    }
+    message = "Membership already exists"
+    failure = ServiceFailure::NotFoundFailure.new(message)
+    result = Result.new(failure:)
+    ClubsService
+      .any_instance
+      .stubs(:leave)
+      .with(params)
+      .returns(result)
+    api_error = ApiError.new(ApiCode::NOT_FOUND, message)
+    expected = [api_error]
+
+    delete club_members_url(club), params: params, as: :json
+
+    assert_equal expected.as_json, response.parsed_body["errors"]
+    assert_response :not_found
+  end
+
+  test "should not remove player from club when player has not signed in" do
+    club = clubs(:club_with_players)
+    player = players(:free_agent)
+    params = {
+      club_id: club.id,
+      player_id: player.id,
+    }
+
+    delete club_members_url(club), params: params, as: :json
 
     assert_response :unauthorized
   end

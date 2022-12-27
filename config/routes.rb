@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   resources :players
   resources :clubs, only: %i[index show create update destroy] do
     post :members, to: 'clubs#join'
+    delete :members, to: 'clubs#leave'
   end
   resources :games, only: %i[show create update destroy]
 

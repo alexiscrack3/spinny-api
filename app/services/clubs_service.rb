@@ -76,7 +76,7 @@ class ClubsService < ApplicationService
     params(
       club_id: T.nilable(T.any(String, Integer)),
       player_id: T.nilable(T.any(String, Integer)),
-    ).returns(Result[T::Boolean])
+    ).returns(Result[T.nilable(NilClass)])
   end
   def join(club_id:, player_id:)
     if club_id.nil?
@@ -94,6 +94,31 @@ class ClubsService < ApplicationService
     else
       Membership.create(club_id: club_id, player_id: player_id)
       Result.new
+    end
+  end
+
+  sig do
+    params(
+      club_id: T.nilable(T.any(String, Integer)),
+      player_id: T.nilable(T.any(String, Integer)),
+    ).returns(Result[T.nilable(NilClass)])
+  end
+  def leave(club_id:, player_id:)
+    if club_id.nil?
+      failure = ServiceFailure::ArgumentNullFailure.new("Club id is null")
+      return Result.new(failure: failure)
+    elsif player_id.nil?
+      failure = ServiceFailure::ArgumentNullFailure.new("Player id is null")
+      return Result.new(failure: failure)
+    end
+
+    exists = Membership.exists?(club_id: club_id, player_id: player_id)
+    if exists
+      Membership.destroy_by(club_id: club_id, player_id: player_id)
+      Result.new
+    else
+      failure = ServiceFailure::NotFoundFailure.new("Membership already exists")
+      Result.new(failure: failure)
     end
   end
 end

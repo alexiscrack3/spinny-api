@@ -178,6 +178,47 @@ class ClubsServiceTest < ActiveSupport::TestCase
     end
   end
 
+  test "should remove player from club when player has already joined" do
+    club = clubs(:club_with_players)
+    player = players(:player_with_club)
+
+    assert_difference("Membership.count", -1) do
+      result = @clubs_service.leave(club_id: club.id, player_id: player.id)
+      assert_nil result.value
+    end
+  end
+
+  test "should not remove player from club when club id is nil" do
+    player = players(:player_with_club)
+    expected = ServiceFailure::ArgumentNullFailure.new("Club id is null")
+
+    assert_difference("Membership.count", 0) do
+      result = @clubs_service.leave(club_id: nil, player_id: player.id)
+      assert_equal expected, result.failure
+    end
+  end
+
+  test "should not remove player from club when player id is nil" do
+    club = clubs(:club_with_players)
+    expected = ServiceFailure::ArgumentNullFailure.new("Player id is null")
+
+    assert_difference("Membership.count", 0) do
+      result = @clubs_service.leave(club_id: club.id, player_id: nil)
+      assert_equal expected, result.failure
+    end
+  end
+
+  test "should not remove player from club when player has not joined yet" do
+    club = clubs(:empty_club)
+    player = players(:player_with_club)
+    expected = ServiceFailure::NotFoundFailure.new("Membership already exists")
+
+    assert_difference("Membership.count", 0) do
+      result = @clubs_service.leave(club_id: club.id, player_id: player.id)
+      assert_equal expected, result.failure
+    end
+  end
+
   private
 
   sig { params(params: T::Hash[String, T.untyped]).returns(ActionController::Parameters) }

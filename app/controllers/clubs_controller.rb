@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 class ClubsController < ApplicationController
-  before_action :authenticate_player!, only: [:index, :create, :join]
+  before_action :authenticate_player!, only: [:index, :create, :join, :leave]
 
   sig { void }
   def initialize
@@ -84,6 +84,19 @@ class ClubsController < ApplicationController
 
     if result.success?
       render json: result, status: :created
+    else
+      handle_error(result.failure)
+    end
+  end
+
+  def leave
+    club_id = join_params[:club_id]
+    player_id = join_params[:player_id]
+
+    result = @clubs_service.leave(club_id: club_id, player_id: player_id)
+
+    if result.success?
+      render json: nil, status: :no_content
     else
       handle_error(result.failure)
     end
