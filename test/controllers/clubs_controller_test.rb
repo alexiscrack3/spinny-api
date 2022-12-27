@@ -1,16 +1,18 @@
+# typed: true
 # frozen_string_literal: true
 
 require "test_helper"
 
 class ClubsControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
+  extend T::Sig
 
   setup do
-    @club = clubs(:one)
-    @player = players(:one)
+    @club = clubs(:club_with_players)
+    @player = players(:admin)
   end
 
-  test "should show clubs when player is signed in" do
+  test "should show clubs when player has signed in" do
     sign_in @player
     clubs = [@club]
     result = Result.new(value: clubs)
@@ -87,7 +89,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
       club: {
         name: Faker::Team.name,
         description: Faker::Lorem.sentence,
-        owner_id: players(:one).id,
+        owner_id: players(:admin).id,
       },
     }
     club_params = club_params(params)
@@ -96,7 +98,8 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
     ClubsService
       .any_instance
       .stubs(:create)
-      .with(club_params).returns(result)
+      .with(club_params)
+      .returns(result)
 
     post clubs_url, params: params, as: :json
 
@@ -114,7 +117,8 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
     ClubsService
       .any_instance
       .stubs(:create)
-      .with(club_params).returns(result)
+      .with(club_params)
+      .returns(result)
     api_error = ApiError.new(ApiCode::SERVER_ERROR, message)
     expected = [api_error]
 
@@ -221,11 +225,70 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_entity
   end
 
+  test "should add player to club when player has signed in" do
+    club = clubs(:empty_club)
+    player = players(:free_agent)
+    sign_in player
+    params = {
+      club_id: club.id.to_s,
+      player_id: player.id,
+    }
+    result = Result.new(value: nil)
+    ClubsService
+      .any_instance
+      .stubs(:join)
+      .with(params)
+      .returns(result)
+
+    post club_members_url(club), params: params, as: :json
+
+    assert_nil response.parsed_body["data"]
+    assert_response :created
+  end
+
+  test "should not add player to club when membership was not created" do
+    club = clubs(:empty_club)
+    player = players(:free_agent)
+    sign_in player
+    params = {
+      club_id: club.id.to_s,
+      player_id: player.id,
+    }
+    message = "Club id is null"
+    failure = ServiceFailure::ArgumentNullFailure.new(message)
+    result = Result.new(failure:)
+    ClubsService
+      .any_instance
+      .stubs(:join)
+      .with(params)
+      .returns(result)
+    api_error = ApiError.new(ApiCode::SERVER_ERROR, message)
+    expected = [api_error]
+
+    post club_members_url(club), params: params, as: :json
+
+    assert_equal expected.as_json, response.parsed_body["errors"]
+    assert_response :unprocessable_entity
+  end
+
+  test "should not add player to club when player has not signed in" do
+    club = clubs(:empty_club)
+    player = players(:free_agent)
+    params = {
+      club_id: club.id,
+      player_id: player.id,
+    }
+
+    post club_members_url(club), params: params, as: :json
+
+    assert_response :unauthorized
+  end
+
   private
 
+  sig { params(params: T::Hash[String, T.untyped]).returns(ActionController::Parameters) }
   def club_params(params)
-    ActionController::Parameters.new(params)
-      .require(:club)
+    T.cast(ActionController::Parameters.new(params).require(:club), ActionController::Parameters)
       .permit(
         :name,
         :description,

@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 class ClubsController < ApplicationController
-  before_action :authenticate_player!, only: [:index, :create]
+  before_action :authenticate_player!, only: [:index, :create, :join]
 
   sig { void }
   def initialize
@@ -76,6 +76,19 @@ class ClubsController < ApplicationController
     end
   end
 
+  def join
+    club_id = join_params[:club_id]
+    player_id = join_params[:player_id]
+
+    result = @clubs_service.join(club_id: club_id, player_id: player_id)
+
+    if result.success?
+      render json: result, status: :created
+    else
+      handle_error(result.failure)
+    end
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -90,6 +103,13 @@ class ClubsController < ApplicationController
       :name,
       :description,
       :owner_id,
+    )
+  end
+
+  def join_params
+    params.permit(
+      :club_id,
+      :player_id,
     )
   end
 end

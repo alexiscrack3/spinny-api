@@ -13,7 +13,7 @@ class PlayersServiceTest < ActiveSupport::TestCase
   end
 
   test "should get player by id" do
-    player = players(:one)
+    player = players(:admin)
     result = @players_service.player(player.id)
     assert_equal player, result.value
   end
@@ -49,7 +49,7 @@ class PlayersServiceTest < ActiveSupport::TestCase
   end
 
   test "should update player" do
-    player = players(:one)
+    player = players(:admin)
     player_params = {
       first_name: Faker::Name.first_name,
       last_name: Faker::Name.last_name,
@@ -64,7 +64,7 @@ class PlayersServiceTest < ActiveSupport::TestCase
   end
 
   test "should not update player when it is not valid" do
-    player = players(:one)
+    player = players(:admin)
     player_params = { "first_name": nil, "last_name": Faker::Name.last_name }
     expected = ServiceFailure::ValidationFailure.new("Player was not updated")
 
@@ -74,7 +74,7 @@ class PlayersServiceTest < ActiveSupport::TestCase
   end
 
   test "should delete player" do
-    player = players(:one)
+    player = players(:free_agent)
 
     result = @players_service.delete(player.id)
 
@@ -90,7 +90,7 @@ class PlayersServiceTest < ActiveSupport::TestCase
   end
 
   test "should not delete player when something goes wrong" do
-    player = players(:one)
+    player = players(:admin)
     expected = ServiceFailure::ServerFailure.new("Player was not deleted")
 
     Player

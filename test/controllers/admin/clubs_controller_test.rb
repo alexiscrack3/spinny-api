@@ -5,7 +5,7 @@ require "test_helper"
 module Admin
   class ClubsControllerTest < ActionDispatch::IntegrationTest
     setup do
-      @club = clubs(:one)
+      @club = clubs(:club_with_players)
     end
 
     test "should show clubs when they exist" do

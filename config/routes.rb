@@ -14,7 +14,9 @@ Rails.application.routes.draw do
     get 'clubs', to: 'clubs#index'
   end
   resources :players
-  resources :clubs, only: %i[index show create update destroy]
+  resources :clubs, only: %i[index show create update destroy] do
+    post :members, to: 'clubs#join'
+  end
   resources :games, only: %i[show create update destroy]
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

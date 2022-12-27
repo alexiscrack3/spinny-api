@@ -71,4 +71,26 @@ class ClubsService < ApplicationService
     failure = ServiceFailure::ServerFailure.new("Club was not deleted")
     Result.new(failure: failure)
   end
+
+  sig do
+    params(
+      club_id: T.nilable(T.any(String, Integer)),
+      player_id: T.nilable(T.any(String, Integer)),
+    ).returns(Result[T::Boolean])
+  end
+  def join(club_id:, player_id:)
+    if club_id.nil?
+      failure = ServiceFailure::ArgumentNullFailure.new("Club id is null")
+      return Result.new(failure: failure)
+    elsif player_id.nil?
+      failure = ServiceFailure::ArgumentNullFailure.new("Player id is null")
+      return Result.new(failure: failure)
+    end
+
+    exists = Membership.exists?(club_id: club_id, player_id: player_id)
+    unless exists
+      Membership.create(club_id: club_id, player_id: player_id)
+    end
+    Result.new
+  end
 end

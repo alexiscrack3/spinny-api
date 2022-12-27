@@ -6,7 +6,7 @@ class ClubTest < ActiveSupport::TestCase
   def setup
     @club = Club.new(
       name: Faker::Team.name,
-      owner: players(:one),
+      owner: players(:admin),
     )
   end
 

@@ -6,7 +6,7 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    @player = players(:one)
+    @player = players(:admin)
     sign_in @player
   end
 

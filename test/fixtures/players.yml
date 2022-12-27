@@ -1,16 +1,16 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  first_name: Admin
-  last_name: MyString
+admin:
+  first_name: Foo
+  last_name: Bar
   email: foo.bar@spinny.io
 
-two:
-  first_name: MyString
-  last_name: MyString
+player_with_club:
+  first_name: Lionel
+  last_name: Messi
   email: foo.baz@spinny.io
 
-three:
-  first_name: MyString
-  last_name: MyString
+free_agent:
+  first_name: Cristiano
+  last_name: Ronaldo
   email: bar.baz@spinny.io

@@ -16,9 +16,9 @@ class ClubsServiceTest < ActiveSupport::TestCase
   end
 
   test "should get all clubs by player id" do
-    player = players(:one)
-    club_a = clubs(:one)
-    club_b = clubs(:two)
+    player = players(:player_with_club)
+    club_a = clubs(:club_with_players)
+    club_b = clubs(:another_club_with_players)
     club_b.update_attribute(:created_at, club_a.created_at + 1.day)
 
     result = @clubs_service.clubs_by_player_id(player.id)
@@ -27,7 +27,7 @@ class ClubsServiceTest < ActiveSupport::TestCase
   end
 
   test "should get club by id" do
-    club = clubs(:one)
+    club = clubs(:club_with_players)
     result = @clubs_service.club(club.id)
     assert_equal club, result.value
   end
@@ -42,7 +42,7 @@ class ClubsServiceTest < ActiveSupport::TestCase
   end
 
   test "should create club" do
-    owner = players(:one)
+    owner = players(:admin)
     params = {
       club: {
         name: Faker::Team.name,
@@ -71,8 +71,8 @@ class ClubsServiceTest < ActiveSupport::TestCase
   end
 
   test "should update club" do
-    club = clubs(:one)
-    owner = players(:one)
+    club = clubs(:club_with_players)
+    owner = players(:admin)
     params = {
       club: {
         name: Faker::Team.name,
@@ -91,7 +91,7 @@ class ClubsServiceTest < ActiveSupport::TestCase
   end
 
   test "should not update club when it is not valid" do
-    club = clubs(:one)
+    club = clubs(:club_with_players)
     params = {
       club: {
         name: nil,
@@ -107,7 +107,7 @@ class ClubsServiceTest < ActiveSupport::TestCase
   end
 
   test "should delete club" do
-    club = clubs(:one)
+    club = clubs(:club_with_players)
 
     assert_difference("Club.count", -1) do
       result = @clubs_service.delete(club.id)
@@ -125,7 +125,7 @@ class ClubsServiceTest < ActiveSupport::TestCase
   end
 
   test "should not delete club when something goes wrong" do
-    club = clubs(:one)
+    club = clubs(:club_with_players)
     expected = ServiceFailure::ServerFailure.new("Club was not deleted")
     Club
       .stubs(:destroy)
@@ -135,6 +135,46 @@ class ClubsServiceTest < ActiveSupport::TestCase
     result = @clubs_service.delete(club.id)
 
     assert_equal expected, result.failure
+  end
+
+  test "should add player to club when player has not joined yet" do
+    club = clubs(:empty_club)
+    player = players(:free_agent)
+
+    assert_difference("Membership.count", 1) do
+      result = @clubs_service.join(club_id: club.id, player_id: player.id)
+      assert_nil result.value
+    end
+  end
+
+  test "should not add player to club when club id is nil" do
+    player = players(:player_with_club)
+    expected = ServiceFailure::ArgumentNullFailure.new("Club id is null")
+
+    assert_difference("Membership.count", 0) do
+      result = @clubs_service.join(club_id: nil, player_id: player.id)
+      assert_equal expected, result.failure
+    end
+  end
+
+  test "should not add player to club when player id is nil" do
+    club = clubs(:empty_club)
+    expected = ServiceFailure::ArgumentNullFailure.new("Player id is null")
+
+    assert_difference("Membership.count", 0) do
+      result = @clubs_service.join(club_id: club.id, player_id: nil)
+      assert_equal expected, result.failure
+    end
+  end
+
+  test "should not add player to club when player has already joined" do
+    club = clubs(:club_with_players)
+    player = players(:player_with_club)
+
+    assert_difference("Membership.count", 0) do
+      result = @clubs_service.join(club_id: club.id, player_id: player.id)
+      refute result.value
+    end
   end
 
   private
