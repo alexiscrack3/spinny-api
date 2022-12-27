@@ -73,6 +73,12 @@ class Club
     sig { params(attributes: T.untyped, block: T.nilable(T.proc.params(object: ::Club).void)).returns(::Club) }
     def find_or_initialize_by(attributes, &block); end
 
+    sig { params(signed_id: T.untyped, purpose: T.untyped).returns(T.nilable(::Club)) }
+    def find_signed(signed_id, purpose: nil); end
+
+    sig { params(signed_id: T.untyped, purpose: T.untyped).returns(::Club) }
+    def find_signed!(signed_id, purpose: nil); end
+
     sig { params(arg: T.untyped, args: T.untyped).returns(::Club) }
     def find_sole_by(arg, *args); end
 
@@ -176,6 +182,15 @@ class Club
   end
 
   module GeneratedAssociationMethods
+    sig { params(args: T.untyped, blk: T.untyped).returns(::Player) }
+    def build_owner(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(::Player) }
+    def create_owner(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(::Player) }
+    def create_owner!(*args, &blk); end
+
     sig { returns(T::Array[T.untyped]) }
     def membership_ids; end
 
@@ -190,6 +205,12 @@ class Club
     sig { params(value: T::Enumerable[::Membership]).void }
     def memberships=(value); end
 
+    sig { returns(T.nilable(::Player)) }
+    def owner; end
+
+    sig { params(value: T.nilable(::Player)).void }
+    def owner=(value); end
+
     sig { returns(T::Array[T.untyped]) }
     def player_ids; end
 
@@ -203,6 +224,9 @@ class Club
 
     sig { params(value: T::Enumerable[::Player]).void }
     def players=(value); end
+
+    sig { returns(T.nilable(::Player)) }
+    def reload_owner; end
   end
 
   module GeneratedAssociationRelationMethods
@@ -431,6 +455,51 @@ class Club
     sig { void }
     def created_at_will_change!; end
 
+    sig { returns(T.nilable(::String)) }
+    def description; end
+
+    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    def description=(value); end
+
+    sig { returns(T::Boolean) }
+    def description?; end
+
+    sig { returns(T.nilable(::String)) }
+    def description_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def description_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def description_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def description_change; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def description_change_to_be_saved; end
+
+    sig { returns(T::Boolean) }
+    def description_changed?; end
+
+    sig { returns(T.nilable(::String)) }
+    def description_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def description_previous_change; end
+
+    sig { returns(T::Boolean) }
+    def description_previously_changed?; end
+
+    sig { returns(T.nilable(::String)) }
+    def description_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def description_was; end
+
+    sig { void }
+    def description_will_change!; end
+
     sig { returns(T.nilable(::Integer)) }
     def id; end
 
@@ -521,14 +590,65 @@ class Club
     sig { void }
     def name_will_change!; end
 
+    sig { returns(::Integer) }
+    def owner_id; end
+
+    sig { params(value: ::Integer).returns(::Integer) }
+    def owner_id=(value); end
+
+    sig { returns(T::Boolean) }
+    def owner_id?; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def owner_id_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def owner_id_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def owner_id_came_from_user?; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def owner_id_change; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def owner_id_change_to_be_saved; end
+
+    sig { returns(T::Boolean) }
+    def owner_id_changed?; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def owner_id_in_database; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def owner_id_previous_change; end
+
+    sig { returns(T::Boolean) }
+    def owner_id_previously_changed?; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def owner_id_previously_was; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def owner_id_was; end
+
+    sig { void }
+    def owner_id_will_change!; end
+
     sig { void }
     def restore_created_at!; end
+
+    sig { void }
+    def restore_description!; end
 
     sig { void }
     def restore_id!; end
 
     sig { void }
     def restore_name!; end
+
+    sig { void }
+    def restore_owner_id!; end
 
     sig { void }
     def restore_updated_at!; end
@@ -538,6 +658,12 @@ class Club
 
     sig { returns(T::Boolean) }
     def saved_change_to_created_at?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def saved_change_to_description; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_description?; end
 
     sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
     def saved_change_to_id; end
@@ -550,6 +676,12 @@ class Club
 
     sig { returns(T::Boolean) }
     def saved_change_to_name?; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def saved_change_to_owner_id; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_owner_id?; end
 
     sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
     def saved_change_to_updated_at; end
@@ -606,10 +738,16 @@ class Club
     def will_save_change_to_created_at?; end
 
     sig { returns(T::Boolean) }
+    def will_save_change_to_description?; end
+
+    sig { returns(T::Boolean) }
     def will_save_change_to_id?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_name?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_owner_id?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_updated_at?; end

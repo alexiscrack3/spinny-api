@@ -15,6 +15,9 @@ module GeneratedPathHelpersModule
   def cancel_player_registration_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def club_members_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def club_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }

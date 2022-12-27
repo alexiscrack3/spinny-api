@@ -15,6 +15,9 @@ module GeneratedUrlHelpersModule
   def cancel_player_registration_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def club_members_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def club_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
