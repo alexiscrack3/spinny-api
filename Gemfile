@@ -46,7 +46,7 @@ gem "devise-jwt"
 gem "rubocop"
 gem "rubocop-shopify", require: false
 
-gem "sidekiq", "~> 6.4"
+gem "sidekiq", "~> 7.0"
 
 gem "sorbet", group: :development
 gem "sorbet-runtime"
