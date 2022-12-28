@@ -7,6 +7,7 @@ class ClubTest < ActiveSupport::TestCase
     @club = Club.new(
       name: Faker::Team.name,
       description: nil,
+      cover_image_url: nil,
       owner: players(:admin),
       players_count: 0,
       players: [],

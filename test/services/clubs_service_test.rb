@@ -47,6 +47,7 @@ class ClubsServiceTest < ActiveSupport::TestCase
       club: {
         name: Faker::Team.name,
         description: Faker::Lorem.sentence,
+        cover_image_url: Faker::Avatar.image,
         owner_id: owner.id,
       },
     }
@@ -57,6 +58,7 @@ class ClubsServiceTest < ActiveSupport::TestCase
 
       assert_equal club_params[:name], result.value.name
       assert_equal club_params[:description], result.value.description
+      assert_equal club_params[:cover_image_url], result.value.cover_image_url
       assert_equal club_params[:owner_id], result.value.owner_id
     end
   end

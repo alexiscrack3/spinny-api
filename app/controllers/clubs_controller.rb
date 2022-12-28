@@ -115,6 +115,7 @@ class ClubsController < ApplicationController
     required.permit(
       :name,
       :description,
+      :cover_image_url,
       :owner_id,
     )
   end
