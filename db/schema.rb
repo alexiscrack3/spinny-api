@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_25_170105) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_27_211206) do
   create_table "clubs", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "description"
     t.bigint "owner_id", null: false
+    t.integer "players_count", default: 0
     t.index ["owner_id"], name: "index_clubs_on_owner_id"
   end
 

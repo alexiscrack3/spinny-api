@@ -4,16 +4,19 @@ club_with_players:
   name: Smart Aces
   description: <%= Faker::Lorem.sentence %>
   owner: admin
+  players_count: 1
   players: player_with_club # a, b, c
 
 another_club_with_players:
   name: Smart Aces
   description: <%= Faker::Lorem.sentence %>
   owner: admin
+  players_count: 1
   players: player_with_club
 
 empty_club:
   name: Empty Club
   description: <%= Faker::Lorem.sentence %>
   owner: admin
+  players_count: 0
   players: []

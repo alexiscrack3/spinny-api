@@ -18,4 +18,12 @@ class Club < ApplicationRecord
 
   validates_presence_of :name, message: "can't be blank"
   validates :description, length: { maximum: 255 }
+
+  before_save :set_players_count
+
+  private
+
+  def set_players_count
+    self.players_count = players.length
+  end
 end

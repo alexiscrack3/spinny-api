@@ -6,7 +6,10 @@ class ClubTest < ActiveSupport::TestCase
   def setup
     @club = Club.new(
       name: Faker::Team.name,
+      description: nil,
       owner: players(:admin),
+      players_count: 0,
+      players: [],
     )
   end
 
@@ -32,5 +35,12 @@ class ClubTest < ActiveSupport::TestCase
   test "club should not be valid when description exceeds 255 characters" do
     @club.description = "a" * 256
     assert_not @club.valid?
+  end
+
+  test "club should set players_count when a club is saved" do
+    @club.players << players(:free_agent)
+    @club.save
+
+    assert_equal @club.players_count, 1
   end
 end
