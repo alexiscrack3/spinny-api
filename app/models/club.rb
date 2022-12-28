@@ -10,7 +10,7 @@
 #  updated_at      :datetime         not null
 #  description     :string(255)
 #  owner_id        :bigint           not null
-#  players_count   :integer          default(0)
+#  players_count   :integer          default(0), not null
 #  cover_image_url :string(255)
 #
 class Club < ApplicationRecord
