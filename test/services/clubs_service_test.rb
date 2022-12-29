@@ -79,6 +79,7 @@ class ClubsServiceTest < ActiveSupport::TestCase
       club: {
         name: Faker::Team.name,
         description: Faker::Lorem.sentence,
+        cover_image_url: Faker::Avatar.image,
         owner_id: owner.id,
       },
     }

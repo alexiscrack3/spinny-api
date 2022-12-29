@@ -139,6 +139,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
     params = {
       club: {
         name: Faker::Team.name,
+        cover_image_url: Faker::Avatar.image,
         description: Faker::Lorem.sentence,
       },
     }
