@@ -41,7 +41,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_entity
   end
 
-  test "should not show clubs when player is not signed in" do
+  test "should not show clubs when player has not signed in" do
     get clubs_url, as: :json
 
     assert_response :unauthorized
@@ -129,7 +129,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_entity
   end
 
-  test "should not show create club when player is not signed in" do
+  test "should not show create club when player has not signed in" do
     post clubs_url, params: nil, as: :json
 
     assert_response :unauthorized

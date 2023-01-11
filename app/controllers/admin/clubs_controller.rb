@@ -3,13 +3,15 @@
 
 module Admin
   class ClubsController < ApplicationController
+    before_action :authenticate_player!, only: [:index]
+
     sig { void }
     def initialize
       super
       @clubs_service = T.let(ClubsService.new, ClubsService)
     end
 
-    # GET /clubs
+    # GET /admin/clubs
     def index
       result = @clubs_service.clubs
 
