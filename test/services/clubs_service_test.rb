@@ -72,6 +72,28 @@ class ClubsServiceTest < ActiveSupport::TestCase
     assert_equal expected, result.failure
   end
 
+  test "should not create club when membership was not saved" do
+    owner = players(:admin)
+    params = {
+      club: {
+        name: Faker::Team.name,
+        description: Faker::Lorem.sentence,
+        cover_image_url: Faker::Avatar.image,
+        owner_id: owner.id,
+      },
+    }
+    club_params = club_params(params)
+    expected = ServiceFailure::ValidationFailure.new("Membership was not created")
+    membership = mock.tap { |m| m.stubs(:save).returns(false) }
+    Membership
+      .stubs(:new)
+      .returns(membership)
+
+    result = @clubs_service.create(club_params)
+
+    assert_equal expected, result.failure
+  end
+
   test "should update club" do
     club = clubs(:club_with_players)
     owner = players(:admin)
@@ -146,7 +168,23 @@ class ClubsServiceTest < ActiveSupport::TestCase
 
     assert_difference("Membership.count", 1) do
       result = @clubs_service.join(club_id: club.id, player_id: player.id)
-      assert_nil result.value
+      assert_equal club.id, result.value.club_id
+      assert_equal player.id, result.value.player_id
+    end
+  end
+
+  test "should not add player to club when membership was not saved" do
+    club = clubs(:empty_club)
+    player = players(:free_agent)
+    expected = ServiceFailure::ServerFailure.new("Membership was not created")
+    membership = mock.tap { |m| m.stubs(:save).returns(false) }
+    Membership
+      .stubs(:new)
+      .returns(membership)
+
+    assert_difference("Membership.count", 0) do
+      result = @clubs_service.join(club_id: club.id, player_id: player.id)
+      assert_equal expected, result.failure
     end
   end
 

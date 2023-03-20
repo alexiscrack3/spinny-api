@@ -37,7 +37,12 @@ class ClubsService < ApplicationService
     club = Club.new(params)
 
     if club.save
-      Result.new(value: club)
+      result = join(club_id: club.id, player_id: club.owner_id)
+      if result.success?
+        Result.new(value: club)
+      else
+        Result.new(failure: result.failure)
+      end
     else
       failure = ServiceFailure::ValidationFailure.new("Club was not created")
       Result.new(failure: failure)
@@ -76,7 +81,7 @@ class ClubsService < ApplicationService
     params(
       club_id: T.nilable(T.any(String, Integer)),
       player_id: T.nilable(T.any(String, Integer)),
-    ).returns(Result[T.nilable(NilClass)])
+    ).returns(Result[Membership])
   end
   def join(club_id:, player_id:)
     if club_id.nil?
@@ -92,8 +97,13 @@ class ClubsService < ApplicationService
       failure = ServiceFailure::DuplicateKeyFailure.new("Club id and Player id already exists")
       Result.new(failure: failure)
     else
-      Membership.create(club_id: club_id, player_id: player_id)
-      Result.new
+      membership = Membership.new(club_id:, player_id:)
+      if membership.save
+        Result.new(value: membership)
+      else
+        failure = ServiceFailure::ServerFailure.new("Membership was not created")
+        Result.new(failure: failure)
+      end
     end
   end
 
