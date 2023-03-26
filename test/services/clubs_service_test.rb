@@ -162,6 +162,24 @@ class ClubsServiceTest < ActiveSupport::TestCase
     assert_equal expected, result.failure
   end
 
+  test "should get members of club when club has any members" do
+    club = clubs(:empty_club)
+    player = players(:free_agent)
+    club.players << player
+
+    result = @clubs_service.members_by_club_id(club.id)
+
+    assert_equal result.value, [player]
+  end
+
+  test "should not get members of club when club is empty" do
+    club = clubs(:empty_club)
+
+    result = @clubs_service.members_by_club_id(club.id)
+
+    assert_empty result.value
+  end
+
   test "should add player to club when player has not joined yet" do
     club = clubs(:empty_club)
     player = players(:free_agent)

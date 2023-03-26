@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 class ClubsController < ApplicationController
-  before_action :authenticate_player!, only: [:index, :create, :join, :leave]
+  before_action :authenticate_player!, only: [:index, :create, :members, :join, :leave]
 
   sig { void }
   def initialize
@@ -14,10 +14,10 @@ class ClubsController < ApplicationController
   def index
     player_id = current_player&.id
     if player_id.present?
-      data = @clubs_service.clubs_by_player_id(player_id).value
-      render json: ApiDocument.new(data: data)
+      result = @clubs_service.clubs_by_player_id(player_id)
+      render json: ApiDocument.new(data: result.value)
     else
-      message = "Player id does not have an id"
+      message = "Player id is required"
       api_error = ApiError.new(ApiCode::SERVER_ERROR, message)
       render json: ApiDocument.new(errors: [api_error]), status: :unprocessable_entity
     end
@@ -76,6 +76,12 @@ class ClubsController < ApplicationController
     end
   end
 
+  def members
+    club_id = members_params[:club_id]
+    result = @clubs_service.members_by_club_id(club_id)
+    render json: ApiDocument.new(data: result.value)
+  end
+
   def join
     club_id = join_params[:club_id]
     player_id = join_params[:player_id]
@@ -117,6 +123,12 @@ class ClubsController < ApplicationController
       :description,
       :cover_image_url,
       :owner_id,
+    )
+  end
+
+  def members_params
+    params.permit(
+      :club_id,
     )
   end
 

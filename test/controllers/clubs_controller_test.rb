@@ -31,7 +31,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
   test "should not show clubs when player does not have an id" do
     @player.id = nil
     sign_in @player
-    message = "Player id does not have an id"
+    message = "Player id is required"
     api_error = ApiError.new(ApiCode::SERVER_ERROR, message)
     expected = [api_error]
 
@@ -225,6 +225,23 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
 
     assert_equal expected.as_json, response.parsed_body["errors"]
     assert_response :unprocessable_entity
+  end
+
+  test "should get members of club" do
+    club = clubs(:empty_club)
+    player = players(:free_agent)
+    players = [player]
+    result = Result.new(value: players)
+    ClubsService
+      .any_instance
+      .stubs(:members_by_club_id)
+      .with(club.id.to_s)
+      .returns(result)
+
+    get club_members_url(club), as: :json
+
+    assert_equal players.as_json, response.parsed_body["data"]
+    assert_response :success
   end
 
   test "should add player to club when player has signed in" do

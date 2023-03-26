@@ -80,6 +80,19 @@ class ClubsService < ApplicationService
   sig do
     params(
       club_id: T.nilable(T.any(String, Integer)),
+    ).returns(Result[Club])
+  end
+  def members_by_club_id(club_id)
+    players = Player
+      .joins(:memberships)
+      .where(memberships: { club_id: club_id })
+
+    Result.new(value: players)
+  end
+
+  sig do
+    params(
+      club_id: T.nilable(T.any(String, Integer)),
       player_id: T.nilable(T.any(String, Integer)),
     ).returns(Result[Membership])
   end
