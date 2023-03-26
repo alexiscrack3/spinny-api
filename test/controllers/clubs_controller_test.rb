@@ -48,6 +48,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show club when id exists" do
+    sign_in @player
     result = Result.new(value: @club)
     ClubsService
       .any_instance
@@ -66,6 +67,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should not show club when it does not exist" do
+    sign_in @player
     message = "Club was not found"
     failure = ServiceFailure::NotFoundFailure.new(message)
     result = Result.new(failure:)
