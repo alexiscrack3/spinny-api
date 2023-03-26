@@ -13,17 +13,10 @@ Membership.delete_all
 Club.delete_all
 Player.delete_all
 
-owner = Player.create!(
+hero = Player.create!(
   first_name: "Alexis",
   last_name: "Ortega",
   email: "alexis@gmail.com",
-  password: "123456",
-)
-
-hero = Player.create!(
-  first_name: Faker::Name.unique.first_name,
-  last_name: Faker::Name.unique.last_name,
-  email: Faker::Internet.unique.email,
   password: "123456",
 )
 
@@ -43,21 +36,23 @@ opponent = Player.create!(
   )
 end
 
-Club.create!(
-  name: "Road Runners",
-  description: "A ping pong club",
-  owner_id: owner.id,
-  players: [
-    hero,
-    opponent,
-  ],
-)
-
-5.times do
+10.times do
   Club.create!(
     name: Faker::Team.name,
     description: Faker::Lorem.sentence,
-    owner_id: owner.id,
+    owner_id: hero.id,
+    players: [
+      hero,
+      opponent,
+    ],
+  )
+end
+
+20.times do
+  Club.create!(
+    name: Faker::Team.name,
+    description: Faker::Lorem.sentence,
+    owner_id: hero.id,
   )
 end
 
