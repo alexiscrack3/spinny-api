@@ -5,8 +5,23 @@
 
 # typed: false
 
-module ::DEBUGGER__::TrapInterceptor; end
 module Mocha::Mock; end
+module Redis::Commands::Bitmaps; end
+module Redis::Commands::Cluster; end
+module Redis::Commands::Connection; end
+module Redis::Commands::Geo; end
+module Redis::Commands::Hashes; end
+module Redis::Commands::HyperLogLog; end
+module Redis::Commands::Keys; end
+module Redis::Commands::Lists; end
+module Redis::Commands::Pubsub; end
+module Redis::Commands::Scripting; end
+module Redis::Commands::Server; end
+module Redis::Commands::Sets; end
+module Redis::Commands::SortedSets; end
+module Redis::Commands::Streams; end
+module Redis::Commands::Strings; end
+module Redis::Commands::Transactions; end
 module Sidekiq::Process; end
 module Sidekiq::SortedEntry; end
 module Sidekiq::Web; end
