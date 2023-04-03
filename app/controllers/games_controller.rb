@@ -63,6 +63,7 @@ class GamesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def game_params
-    params.require(:game).permit(:winner_id, :loser_id)
+    controller_params = T.cast(params.require(:game), ActionController::Parameters)
+    controller_params.permit(:winner_id, :loser_id)
   end
 end

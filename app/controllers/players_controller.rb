@@ -3,6 +3,7 @@
 
 class PlayersController < ApplicationController
   before_action :authenticate_player!
+
   sig { void }
   def initialize
     super
@@ -68,6 +69,7 @@ class PlayersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def player_params
-    params.require(:player).permit(:first_name, :last_name, :email)
+    controller_params = T.cast(params.require(:player), ActionController::Parameters)
+    controller_params.permit(:first_name, :last_name, :email)
   end
 end
