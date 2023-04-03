@@ -599,6 +599,13 @@ end
 # source://bootsnap//lib/bootsnap/load_path_cache.rb#16
 Bootsnap::LoadPathCache::DLEXT = T.let(T.unsafe(nil), String)
 
+# This is nil on linux and darwin, but I think it's '.o' on some other
+# platform.  I'm not really sure which, but it seems better to replicate
+# ruby's semantics as faithfully as possible.
+#
+# source://bootsnap//lib/bootsnap/load_path_cache.rb#20
+Bootsnap::LoadPathCache::DLEXT2 = T.let(T.unsafe(nil), T.untyped)
+
 # source://bootsnap//lib/bootsnap/load_path_cache.rb#11
 Bootsnap::LoadPathCache::DL_EXTENSIONS = T.let(T.unsafe(nil), Array)
 
@@ -906,6 +913,9 @@ module Kernel
   class << self
     # source://bootsnap//lib/bootsnap/load_path_cache/core_ext/kernel_require.rb#37
     def load(path, wrap = T.unsafe(nil)); end
+
+    # source://bootsnap//lib/bootsnap/load_path_cache/core_ext/kernel_require.rb#8
+    def zeitwerk_original_require(path); end
   end
 end
 
@@ -915,13 +925,13 @@ class Module
   def autoload(const, path); end
 end
 
-# source://activesupport/7.0.2.3/lib/active_support/core_ext/module/delegation.rb#13
+# source://activesupport/7.0.4/lib/active_support/core_ext/module/delegation.rb#13
 Module::DELEGATION_RESERVED_KEYWORDS = T.let(T.unsafe(nil), Array)
 
-# source://activesupport/7.0.2.3/lib/active_support/core_ext/module/delegation.rb#14
+# source://activesupport/7.0.4/lib/active_support/core_ext/module/delegation.rb#14
 Module::DELEGATION_RESERVED_METHOD_NAMES = T.let(T.unsafe(nil), Set)
 
-# source://activesupport/7.0.2.3/lib/active_support/core_ext/module/delegation.rb#10
+# source://activesupport/7.0.4/lib/active_support/core_ext/module/delegation.rb#10
 Module::RUBY_RESERVED_KEYWORDS = T.let(T.unsafe(nil), Array)
 
 module Psych

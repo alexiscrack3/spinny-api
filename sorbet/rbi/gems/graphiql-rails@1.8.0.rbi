@@ -22,19 +22,19 @@ module GraphiQL::Rails
     # source://graphiql-rails//lib/graphiql/rails.rb#21
     def config=(_arg0); end
 
-    # source://railties/7.0.2.3/lib/rails/engine.rb#405
+    # source://railties/7.0.4/lib/rails/engine.rb#405
     def railtie_helpers_paths; end
 
-    # source://railties/7.0.2.3/lib/rails/engine.rb#394
+    # source://railties/7.0.4/lib/rails/engine.rb#394
     def railtie_namespace; end
 
-    # source://railties/7.0.2.3/lib/rails/engine.rb#409
+    # source://railties/7.0.4/lib/rails/engine.rb#409
     def railtie_routes_url_helpers(include_path_helpers = T.unsafe(nil)); end
 
-    # source://railties/7.0.2.3/lib/rails/engine.rb#397
+    # source://railties/7.0.4/lib/rails/engine.rb#397
     def table_name_prefix; end
 
-    # source://railties/7.0.2.3/lib/rails/engine.rb#401
+    # source://railties/7.0.4/lib/rails/engine.rb#401
     def use_relative_model_naming?; end
   end
 end
@@ -138,14 +138,14 @@ class GraphiQL::Rails::EditorsController < ::ActionController::Base
 
   private
 
-  # source://actionview/7.0.2.3/lib/action_view/layouts.rb#325
+  # source://actionview/7.0.4/lib/action_view/layouts.rb#328
   def _layout(lookup_context, formats); end
 
   class << self
-    # source://actionpack/7.0.2.3/lib/abstract_controller/helpers.rb#11
+    # source://actionpack/7.0.4/lib/abstract_controller/helpers.rb#11
     def _helper_methods; end
 
-    # source://actionpack/7.0.2.3/lib/action_controller/metal.rb#210
+    # source://actionpack/7.0.4/lib/action_controller/metal.rb#210
     def middleware_stack; end
   end
 end

@@ -7,101 +7,14 @@
 # source://responders//lib/responders.rb#6
 module ActionController
   class << self
-    # See <tt>Renderers.add</tt>
-    #
     # source://actionpack/7.0.4/lib/action_controller/metal/renderers.rb#7
     def add_renderer(key, &block); end
 
-    # See <tt>Renderers.remove</tt>
-    #
     # source://actionpack/7.0.4/lib/action_controller/metal/renderers.rb#12
     def remove_renderer(key); end
   end
 end
 
-# API Controller is a lightweight version of ActionController::Base,
-# created for applications that don't require all functionalities that a complete
-# \Rails controller provides, allowing you to create controllers with just the
-# features that you need for API only applications.
-#
-# An API Controller is different from a normal controller in the sense that
-# by default it doesn't include a number of features that are usually required
-# by browser access only: layouts and templates rendering,
-# flash, assets, and so on. This makes the entire controller stack thinner,
-# suitable for API applications. It doesn't mean you won't have such
-# features if you need them: they're all available for you to include in
-# your application, they're just not part of the default API controller stack.
-#
-# Normally, +ApplicationController+ is the only controller that inherits from
-# <tt>ActionController::API</tt>. All other controllers in turn inherit from
-# +ApplicationController+.
-#
-# A sample controller could look like this:
-#
-#   class PostsController < ApplicationController
-#     def index
-#       posts = Post.all
-#       render json: posts
-#     end
-#   end
-#
-# Request, response, and parameters objects all work the exact same way as
-# ActionController::Base.
-#
-# == Renders
-#
-# The default API Controller stack includes all renderers, which means you
-# can use <tt>render :json</tt> and siblings freely in your controllers. Keep
-# in mind that templates are not going to be rendered, so you need to ensure
-# your controller is calling either <tt>render</tt> or <tt>redirect_to</tt> in
-# all actions, otherwise it will return 204 No Content.
-#
-#   def show
-#     post = Post.find(params[:id])
-#     render json: post
-#   end
-#
-# == Redirects
-#
-# Redirects are used to move from one action to another. You can use the
-# <tt>redirect_to</tt> method in your controllers in the same way as in
-# ActionController::Base. For example:
-#
-#   def create
-#     redirect_to root_url and return if not_authorized?
-#     # do stuff here
-#   end
-#
-# == Adding New Behavior
-#
-# In some scenarios you may want to add back some functionality provided by
-# ActionController::Base that is not present by default in
-# <tt>ActionController::API</tt>, for instance <tt>MimeResponds</tt>. This
-# module gives you the <tt>respond_to</tt> method. Adding it is quite simple,
-# you just need to include the module in a specific controller or in
-# +ApplicationController+ in case you want it available in your entire
-# application:
-#
-#   class ApplicationController < ActionController::API
-#     include ActionController::MimeResponds
-#   end
-#
-#   class PostsController < ApplicationController
-#     def index
-#       posts = Post.all
-#
-#       respond_to do |format|
-#         format.json { render json: posts }
-#         format.xml  { render xml: posts }
-#       end
-#     end
-#   end
-#
-# Make sure to check the modules included in ActionController::Base
-# if you want to use any other functionality that is not provided
-# by <tt>ActionController::API</tt> out of the box.
-#
-# @abstract It cannot be directly instantiated. Subclasses must implement the `abstract` methods below.
 class ActionController::API < ::ActionController::Metal
   include ::ActionDispatch::Routing::PolymorphicRoutes
   include ::ActionController::Head
@@ -287,19 +200,6 @@ class ActionController::API < ::ActionController::Metal
     # source://responders//lib/action_controller/respond_with.rb#11
     def responder?; end
 
-    # Shortcut helper that returns all the ActionController::API modules except
-    # the ones passed as arguments:
-    #
-    #   class MyAPIBaseController < ActionController::Metal
-    #     ActionController::API.without_modules(:UrlFor).each do |left|
-    #       include left
-    #     end
-    #   end
-    #
-    # This gives better control over what you want to exclude and makes it easier
-    # to create an API controller class, instead of listing the modules required
-    # manually.
-    #
     # source://actionpack/7.0.4/lib/action_controller/api.rb#104
     def without_modules(*modules); end
   end
@@ -308,166 +208,6 @@ end
 # source://actionpack/7.0.4/lib/action_controller/api.rb#112
 ActionController::API::MODULES = T.let(T.unsafe(nil), Array)
 
-# Action Controllers are the core of a web request in \Rails. They are made up of one or more actions that are executed
-# on request and then either it renders a template or redirects to another action. An action is defined as a public method
-# on the controller, which will automatically be made accessible to the web-server through \Rails Routes.
-#
-# By default, only the ApplicationController in a \Rails application inherits from <tt>ActionController::Base</tt>. All other
-# controllers inherit from ApplicationController. This gives you one class to configure things such as
-# request forgery protection and filtering of sensitive request parameters.
-#
-# A sample controller could look like this:
-#
-#   class PostsController < ApplicationController
-#     def index
-#       @posts = Post.all
-#     end
-#
-#     def create
-#       @post = Post.create params[:post]
-#       redirect_to posts_path
-#     end
-#   end
-#
-# Actions, by default, render a template in the <tt>app/views</tt> directory corresponding to the name of the controller and action
-# after executing code in the action. For example, the +index+ action of the PostsController would render the
-# template <tt>app/views/posts/index.html.erb</tt> by default after populating the <tt>@posts</tt> instance variable.
-#
-# Unlike index, the create action will not render a template. After performing its main purpose (creating a
-# new post), it initiates a redirect instead. This redirect works by returning an external
-# <tt>302 Moved</tt> HTTP response that takes the user to the index action.
-#
-# These two methods represent the two basic action archetypes used in Action Controllers: Get-and-show and do-and-redirect.
-# Most actions are variations on these themes.
-#
-# == Requests
-#
-# For every request, the router determines the value of the +controller+ and +action+ keys. These determine which controller
-# and action are called. The remaining request parameters, the session (if one is available), and the full request with
-# all the HTTP headers are made available to the action through accessor methods. Then the action is performed.
-#
-# The full request object is available via the request accessor and is primarily used to query for HTTP headers:
-#
-#   def server_ip
-#     location = request.env["REMOTE_ADDR"]
-#     render plain: "This server hosted at #{location}"
-#   end
-#
-# == Parameters
-#
-# All request parameters, whether they come from a query string in the URL or form data submitted through a POST request are
-# available through the <tt>params</tt> method which returns a hash. For example, an action that was performed through
-# <tt>/posts?category=All&limit=5</tt> will include <tt>{ "category" => "All", "limit" => "5" }</tt> in <tt>params</tt>.
-#
-# It's also possible to construct multi-dimensional parameter hashes by specifying keys using brackets, such as:
-#
-#   <input type="text" name="post[name]" value="david">
-#   <input type="text" name="post[address]" value="hyacintvej">
-#
-# A request coming from a form holding these inputs will include <tt>{ "post" => { "name" => "david", "address" => "hyacintvej" } }</tt>.
-# If the address input had been named <tt>post[address][street]</tt>, the <tt>params</tt> would have included
-# <tt>{ "post" => { "address" => { "street" => "hyacintvej" } } }</tt>. There's no limit to the depth of the nesting.
-#
-# == Sessions
-#
-# Sessions allow you to store objects in between requests. This is useful for objects that are not yet ready to be persisted,
-# such as a Signup object constructed in a multi-paged process, or objects that don't change much and are needed all the time, such
-# as a User object for a system that requires login. The session should not be used, however, as a cache for objects where it's likely
-# they could be changed unknowingly. It's usually too much work to keep it all synchronized -- something databases already excel at.
-#
-# You can place objects in the session by using the <tt>session</tt> method, which accesses a hash:
-#
-#   session[:person] = Person.authenticate(user_name, password)
-#
-# You can retrieve it again through the same hash:
-#
-#   "Hello #{session[:person]}"
-#
-# For removing objects from the session, you can either assign a single key to +nil+:
-#
-#   # removes :person from session
-#   session[:person] = nil
-#
-# or you can remove the entire session with +reset_session+.
-#
-# By default, sessions are stored in an encrypted browser cookie (see
-# ActionDispatch::Session::CookieStore). Thus the user will not be able to
-# read or edit the session data. However, the user can keep a copy of the
-# cookie even after it has expired, so you should avoid storing sensitive
-# information in cookie-based sessions.
-#
-# == Responses
-#
-# Each action results in a response, which holds the headers and document to be sent to the user's browser. The actual response
-# object is generated automatically through the use of renders and redirects and requires no user intervention.
-#
-# == Renders
-#
-# Action Controller sends content to the user by using one of five rendering methods. The most versatile and common is the rendering
-# of a template. Included in the Action Pack is the Action View, which enables rendering of ERB templates. It's automatically configured.
-# The controller passes objects to the view by assigning instance variables:
-#
-#   def show
-#     @post = Post.find(params[:id])
-#   end
-#
-# Which are then automatically available to the view:
-#
-#   Title: <%= @post.title %>
-#
-# You don't have to rely on the automated rendering. For example, actions that could result in the rendering of different templates
-# will use the manual rendering methods:
-#
-#   def search
-#     @results = Search.find(params[:query])
-#     case @results.count
-#       when 0 then render action: "no_results"
-#       when 1 then render action: "show"
-#       when 2..10 then render action: "show_many"
-#     end
-#   end
-#
-# Read more about writing ERB and Builder templates in ActionView::Base.
-#
-# == Redirects
-#
-# Redirects are used to move from one action to another. For example, after a <tt>create</tt> action, which stores a blog entry to the
-# database, we might like to show the user the new entry. Because we're following good DRY principles (Don't Repeat Yourself), we're
-# going to reuse (and redirect to) a <tt>show</tt> action that we'll assume has already been created. The code might look like this:
-#
-#   def create
-#     @entry = Entry.new(params[:entry])
-#     if @entry.save
-#       # The entry was saved correctly, redirect to show
-#       redirect_to action: 'show', id: @entry.id
-#     else
-#       # things didn't go so well, do something else
-#     end
-#   end
-#
-# In this case, after saving our new entry to the database, the user is redirected to the <tt>show</tt> method, which is then executed.
-# Note that this is an external HTTP-level redirection which will cause the browser to make a second request (a GET to the show action),
-# and not some internal re-routing which calls both "create" and then "show" within one request.
-#
-# Learn more about <tt>redirect_to</tt> and what options you have in ActionController::Redirecting.
-#
-# == Calling multiple redirects or renders
-#
-# An action may contain only a single render or a single redirect. Attempting to try to do either again will result in a DoubleRenderError:
-#
-#   def do_something
-#     redirect_to action: "elsewhere"
-#     render action: "overthere" # raises DoubleRenderError
-#   end
-#
-# If you need to redirect on the condition of something, then be sure to add "and return" to halt execution.
-#
-#   def do_something
-#     redirect_to(action: "elsewhere") and return if monkeys.nil?
-#     render action: "overthere" # won't be called if monkeys is nil
-#   end
-#
-# @abstract It cannot be directly instantiated. Subclasses must implement the `abstract` methods below.
 class ActionController::Base < ::ActionController::Metal
   include ::ActionDispatch::Routing::PolymorphicRoutes
   include ::ActionController::Head
@@ -1020,19 +760,6 @@ class ActionController::Base < ::ActionController::Metal
     # source://actionpack/7.0.4/lib/action_controller/metal/request_forgery_protection.rb#97
     def urlsafe_csrf_tokens=(urlsafe_csrf_tokens); end
 
-    # Shortcut helper that returns all the modules included in
-    # ActionController::Base except the ones passed as arguments:
-    #
-    #   class MyBaseController < ActionController::Metal
-    #     ActionController::Base.without_modules(:ParamsWrapper, :Streaming).each do |left|
-    #       include left
-    #     end
-    #   end
-    #
-    # This gives better control over what you want to exclude and makes it
-    # easier to create a bare controller class, instead of listing the modules
-    # required manually.
-    #
     # source://actionpack/7.0.4/lib/action_controller/base.rb#198
     def without_modules(*modules); end
   end
@@ -1041,8 +768,6 @@ end
 # source://actionpack/7.0.4/lib/action_controller/base.rb#206
 ActionController::Base::MODULES = T.let(T.unsafe(nil), Array)
 
-# Define some internal variables that should not be propagated to the view.
-#
 # source://actionpack/7.0.4/lib/action_controller/base.rb#261
 ActionController::Base::PROTECTED_IVARS = T.let(T.unsafe(nil), Array)
 

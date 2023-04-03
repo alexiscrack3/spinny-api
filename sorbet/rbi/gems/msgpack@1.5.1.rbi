@@ -15,7 +15,7 @@ class Array
   def to_msgpack_with_packer(packer); end
 end
 
-# source://activesupport/7.0.2.3/lib/active_support/core_ext/array/deprecated_conversions.rb#4
+# source://activesupport/7.0.4/lib/active_support/core_ext/array/deprecated_conversions.rb#4
 Array::NOT_SET = T.let(T.unsafe(nil), Object)
 
 Bignum = Integer
@@ -295,10 +295,10 @@ class String
   def to_msgpack_with_packer(packer); end
 end
 
-# source://activesupport/7.0.2.3/lib/active_support/core_ext/object/blank.rb#104
+# source://activesupport/7.0.4/lib/active_support/core_ext/object/blank.rb#104
 String::BLANK_RE = T.let(T.unsafe(nil), Regexp)
 
-# source://activesupport/7.0.2.3/lib/active_support/core_ext/object/blank.rb#105
+# source://activesupport/7.0.4/lib/active_support/core_ext/object/blank.rb#105
 String::ENCODED_BLANKS = T.let(T.unsafe(nil), Concurrent::Map)
 
 # source://msgpack//lib/msgpack/symbol.rb#1

@@ -486,6 +486,7 @@ Module::RUBY_RESERVED_KEYWORDS = T.let(T.unsafe(nil), Array)
 
 class Object < ::BasicObject
   include ::Kernel
+  include ::PP::ObjectMixin
 
   private
 

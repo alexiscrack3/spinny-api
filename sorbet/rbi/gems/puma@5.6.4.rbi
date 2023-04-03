@@ -2256,6 +2256,9 @@ class Puma::IOBuffer < ::String
   def reset; end
 end
 
+# source://puma//lib/puma/detect.rb#11
+Puma::IS_JRUBY = T.let(T.unsafe(nil), FalseClass)
+
 # @version 5.2.0
 #
 # source://puma//lib/puma/detect.rb#19
@@ -2263,6 +2266,9 @@ Puma::IS_MRI = T.let(T.unsafe(nil), TrueClass)
 
 # source://puma//lib/puma/detect.rb#13
 Puma::IS_OSX = T.let(T.unsafe(nil), TrueClass)
+
+# source://puma//lib/puma/detect.rb#15
+Puma::IS_WINDOWS = T.let(T.unsafe(nil), FalseClass)
 
 # Puma deliberately avoids the use of the json gem and instead performs JSON
 # serialization without any external dependencies. In a puma cluster, loading
@@ -2706,6 +2712,8 @@ Puma::MiniSSL::HAS_TLS1_3 = T.let(T.unsafe(nil), TrueClass)
 
 Puma::MiniSSL::OPENSSL_LIBRARY_VERSION = T.let(T.unsafe(nil), String)
 Puma::MiniSSL::OPENSSL_NO_SSL3 = T.let(T.unsafe(nil), TrueClass)
+Puma::MiniSSL::OPENSSL_NO_TLS1 = T.let(T.unsafe(nil), FalseClass)
+Puma::MiniSSL::OPENSSL_NO_TLS1_1 = T.let(T.unsafe(nil), FalseClass)
 Puma::MiniSSL::OPENSSL_VERSION = T.let(T.unsafe(nil), String)
 
 class Puma::MiniSSL::SSLContext
