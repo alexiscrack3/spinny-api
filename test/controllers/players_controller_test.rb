@@ -24,6 +24,14 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should not show players when player has not signed in" do
+    sign_out @player
+
+    get players_url, as: :json
+
+    assert_response :unauthorized
+  end
+
   test "should not show players when they do not exist" do
     result = Result.new(value: [])
     PlayersService
@@ -49,6 +57,14 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
 
     assert_equal @player.as_json(include: :clubs), response.parsed_body["data"]
     assert_response :success
+  end
+
+  test "should not show player when player has not signed in" do
+    sign_out @player
+
+    get player_url(@player), as: :json
+
+    assert_response :unauthorized
   end
 
   test "should not show player when it does not exist" do
@@ -88,6 +104,14 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
 
     assert_equal player.as_json, response.parsed_body["data"]
     assert_response :created
+  end
+
+  test "should not create player when player has not signed in" do
+    sign_out @player
+
+    post players_url, params: nil, as: :json
+
+    assert_response :unauthorized
   end
 
   test "should not create player when it is not valid" do
@@ -134,6 +158,14 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should not update player when player has not signed in" do
+    sign_out @player
+
+    patch player_url(@player), params: nil, as: :json
+
+    assert_response :unauthorized
+  end
+
   test "should not update player when it is not valid" do
     params = {
       first_name: nil,
@@ -170,6 +202,14 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
 
     assert_nil response.parsed_body["data"]
     assert_response :no_content
+  end
+
+  test "should not delete player when player has not signed in" do
+    sign_out @player
+
+    delete player_url(@player), as: :json
+
+    assert_response :unauthorized
   end
 
   test "should not delete player when it does not exist" do
