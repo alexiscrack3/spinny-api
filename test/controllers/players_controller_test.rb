@@ -33,7 +33,7 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
 
     get players_url, as: :json
 
-    assert_equal [], response.parsed_body["data"]
+    assert_empty response.parsed_body["data"]
     assert_response :success
   end
 
@@ -71,14 +71,12 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
 
   test "should create player when it is valid" do
     params = {
-      player: {
-        first_name: Faker::Name.first_name,
-        last_name: Faker::Name.last_name,
-        email: Faker::Internet.email,
-      },
+      first_name: Faker::Name.first_name,
+      last_name: Faker::Name.last_name,
+      email: Faker::Internet.email,
     }
     player_params = player_params(params)
-    player = Player.new(player_params)
+    player = Player.new(params)
     result = Result.new(value: player)
     PlayersService
       .any_instance
@@ -94,11 +92,9 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
 
   test "should not create player when it is not valid" do
     params = {
-      player: {
-        first_name: nil,
-        last_name: Faker::Name.last_name,
-        email: Faker::Internet.email,
-      },
+      first_name: nil,
+      last_name: Faker::Name.last_name,
+      email: Faker::Internet.email,
     }
     player_params = player_params(params)
     message = "Player was not created"
@@ -120,11 +116,9 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
 
   test "should update player when it is valid" do
     params = {
-      player: {
-        first_name: Faker::Name.first_name,
-        last_name: Faker::Name.last_name,
-        email: Faker::Internet.email,
-      },
+      first_name: Faker::Name.first_name,
+      last_name: Faker::Name.last_name,
+      email: Faker::Internet.email,
     }
     player_params = player_params(params)
     result = Result.new(value: @player)
@@ -142,11 +136,9 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
 
   test "should not update player when it is not valid" do
     params = {
-      player: {
-        first_name: nil,
-        last_name: Faker::Name.last_name,
-        email: "user@spinny.io",
-      },
+      first_name: nil,
+      last_name: Faker::Name.last_name,
+      email: "user@spinny.io",
     }
     player_params = player_params(params)
     message = "Player was not updated"
@@ -219,7 +211,7 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
   private
 
   def player_params(params)
-    ActionController::Parameters.new(params)
+    ActionController::Parameters.new({ player: params })
       .require(:player)
       .permit(
         :first_name,
