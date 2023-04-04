@@ -13,7 +13,7 @@ class ApplicationController < ActionController::API
       api_error = ApiError.new(ApiCode::NOT_FOUND, error.message)
       render json: ApiDocument.new(errors: [api_error]), status: :not_found
     else
-      api_error = ApiError.new(ApiCode::SERVER_ERROR, error.message)
+      api_error = ApiError.new(ApiCode::INTERNAL_SERVER, error.message)
       render json: ApiDocument.new(errors: [api_error]),
         status: :unprocessable_entity
     end

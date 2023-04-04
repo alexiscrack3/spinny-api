@@ -32,7 +32,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
     @player.id = nil
     sign_in @player
     message = "Player id is required"
-    api_error = ApiError.new(ApiCode::SERVER_ERROR, message)
+    api_error = ApiError.new(ApiCode::INTERNAL_SERVER, message)
     expected = [api_error]
 
     get clubs_url, as: :json
@@ -138,7 +138,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
       .stubs(:create)
       .with(club_params)
       .returns(result)
-    api_error = ApiError.new(ApiCode::SERVER_ERROR, message)
+    api_error = ApiError.new(ApiCode::INTERNAL_SERVER, message)
     expected = [api_error]
 
     post clubs_url, params: params, as: :json
@@ -196,7 +196,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
       .stubs(:update)
       .with(@club.id.to_s, club_params)
       .returns(result)
-    api_error = ApiError.new(ApiCode::SERVER_ERROR, message)
+    api_error = ApiError.new(ApiCode::INTERNAL_SERVER, message)
     expected = [api_error]
 
     patch club_url(@club), params: params, as: :json
@@ -257,7 +257,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
       .stubs(:delete)
       .with(@club.id.to_s)
       .returns(result)
-    api_error = ApiError.new(ApiCode::SERVER_ERROR, message)
+    api_error = ApiError.new(ApiCode::INTERNAL_SERVER, message)
     expected = [api_error]
 
     delete club_url(@club), as: :json
@@ -329,7 +329,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
       .stubs(:join)
       .with(params)
       .returns(result)
-    api_error = ApiError.new(ApiCode::SERVER_ERROR, message)
+    api_error = ApiError.new(ApiCode::INTERNAL_SERVER, message)
     expected = [api_error]
 
     post club_members_url(club), params: params, as: :json

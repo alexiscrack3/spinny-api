@@ -129,7 +129,7 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
       .stubs(:create)
       .with(player_params)
       .returns(result)
-    api_error = ApiError.new(ApiCode::SERVER_ERROR, message)
+    api_error = ApiError.new(ApiCode::INTERNAL_SERVER, message)
     expected = [api_error]
 
     post players_url, params: params, as: :json
@@ -181,7 +181,7 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
       .stubs(:update)
       .with(@player.id.to_s, player_params)
       .returns(result)
-    api_error = ApiError.new(ApiCode::SERVER_ERROR, message)
+    api_error = ApiError.new(ApiCode::INTERNAL_SERVER, message)
     expected = [api_error]
 
     patch player_url(@player), params: params, as: :json
@@ -239,7 +239,7 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
       .stubs(:delete)
       .with(@player.id.to_s)
       .returns(result)
-    api_error = ApiError.new(ApiCode::SERVER_ERROR, message)
+    api_error = ApiError.new(ApiCode::INTERNAL_SERVER, message)
     expected = [api_error]
 
     delete player_url(@player), as: :json

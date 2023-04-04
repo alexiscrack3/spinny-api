@@ -18,7 +18,7 @@ class ClubsController < ApplicationController
       render json: ApiDocument.new(data: result.value)
     else
       message = "Player id is required"
-      api_error = ApiError.new(ApiCode::SERVER_ERROR, message)
+      api_error = ApiError.new(ApiCode::INTERNAL_SERVER, message)
       render json: ApiDocument.new(errors: [api_error]), status: :unprocessable_entity
     end
   end

@@ -76,7 +76,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
       .stubs(:create)
       .with(game_params)
       .returns(result)
-    api_error = ApiError.new(ApiCode::SERVER_ERROR, message)
+    api_error = ApiError.new(ApiCode::INTERNAL_SERVER, message)
     expected = [api_error]
 
     post games_url, params: params, as: :json
@@ -118,7 +118,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
       .stubs(:update)
       .with(@game.id.to_s, game_params)
       .returns(result)
-    api_error = ApiError.new(ApiCode::SERVER_ERROR, message)
+    api_error = ApiError.new(ApiCode::INTERNAL_SERVER, message)
     expected = [api_error]
 
     patch game_url(@game), params: params, as: :json
@@ -168,7 +168,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
       .stubs(:delete)
       .with(@game.id.to_s)
       .returns(result)
-    api_error = ApiError.new(ApiCode::SERVER_ERROR, message)
+    api_error = ApiError.new(ApiCode::INTERNAL_SERVER, message)
     expected = [api_error]
 
     delete game_url(@game), as: :json
