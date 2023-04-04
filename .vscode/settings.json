@@ -1,12 +1,27 @@
 {
+    "byesig.fold": false,
     "byesig.opacity": 0.5,
-    "byesig": {
-        "fold": false,
-        "opacity": 0.5,
-        "showIcon": false
+    "byesig.showIcon": false,
+    "files.exclude": {
+        "**/.DS_Store": true,
+        "**/.git": true,
+        "**/.hg": true,
+        "**/.svn": true,
+        "**/CVS": true,
+        "**/Thumbs.db": true
+    },
+    "files.watcherExclude": {
+        "**/.git/objects/**": true,
+        "**/.git/subtree-cache/**": true,
+        "**/node_modules/**": true,
+        "**/sorbet/rbi/shims/gems": true,
+        "**/sorbet/rbi/gems": true
     },
     "search.exclude": {
-        "**/sorbet/**": true
+        "**/tmp/**": true,
+        "**/.git": true,
+        "**/.DS_Store": true,
+        "**/node_modules": true
     },
     "sorbet.enabled": true
 }
