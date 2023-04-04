@@ -70,7 +70,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
     sign_in @player
     message = "Club was not found"
     failure = ServiceFailure::NotFoundFailure.new(message)
-    result = Result.new(failure:)
+    result = Result.new(value: nil, failure:)
     ClubsService
       .any_instance
       .stubs(:club)
@@ -116,7 +116,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
     club_params = club_params(params)
     message = "Club was not created"
     failure = ServiceFailure::ValidationFailure.new(message)
-    result = Result.new(failure:)
+    result = Result.new(value: nil, failure:)
     ClubsService
       .any_instance
       .stubs(:create)
@@ -164,7 +164,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
     club_params = club_params(params)
     message = "Club was not updated"
     failure = ServiceFailure::ValidationFailure.new(message)
-    result = Result.new(failure:)
+    result = Result.new(value: nil, failure:)
     ClubsService
       .any_instance
       .stubs(:update)
@@ -196,7 +196,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
   test "should not delete club when it does not exist" do
     message = "Club was not found"
     failure = ServiceFailure::NotFoundFailure.new(message)
-    result = Result.new(failure:)
+    result = Result.new(value: nil, failure:)
     ClubsService
       .any_instance
       .stubs(:delete)
@@ -214,7 +214,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
   test "should not delete club when something goes wrong" do
     message = "Club was not deleted"
     failure = ServiceFailure::ServerFailure.new(message)
-    result = Result.new(failure:)
+    result = Result.new(value: nil, failure:)
     ClubsService
       .any_instance
       .stubs(:delete)
@@ -278,7 +278,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
     }
     message = "Club id and Player id already exists"
     failure = ServiceFailure::DuplicateKeyFailure.new(message)
-    result = Result.new(failure:)
+    result = Result.new(value: nil, failure:)
     ClubsService
       .any_instance
       .stubs(:join)
@@ -337,7 +337,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
     }
     message = "Membership already exists"
     failure = ServiceFailure::NotFoundFailure.new(message)
-    result = Result.new(failure:)
+    result = Result.new(value: nil, failure:)
     ClubsService
       .any_instance
       .stubs(:leave)

@@ -27,7 +27,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
   test "should not show game when it does not exist" do
     message = "Game was not found"
     failure = ServiceFailure::NotFoundFailure.new(message)
-    result = Result.new(failure:)
+    result = Result.new(value: nil, failure:)
     GamesService
       .any_instance
       .stubs(:game)
@@ -74,7 +74,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
     game_params = game_params(params)
     message = "Game was not created"
     failure = ServiceFailure::ValidationFailure.new(message)
-    result = Result.new(failure:)
+    result = Result.new(value: nil, failure:)
     GamesService
       .any_instance
       .stubs(:create)
@@ -120,7 +120,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
     game_params = game_params(params)
     message = "Game was not updated"
     failure = ServiceFailure::ValidationFailure.new(message)
-    result = Result.new(failure:)
+    result = Result.new(value: nil, failure:)
     GamesService
       .any_instance
       .stubs(:update)
@@ -152,7 +152,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
   test "should not delete game when it does not exist" do
     message = "Game was not found"
     failure = ServiceFailure::NotFoundFailure.new(message)
-    result = Result.new(failure:)
+    result = Result.new(value: nil, failure:)
     GamesService
       .any_instance
       .stubs(:delete)
@@ -170,7 +170,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
   test "should not delete game when something goes wrong" do
     message = "Game was not deleted"
     failure = ServiceFailure::ServerFailure.new(message)
-    result = Result.new(failure:)
+    result = Result.new(value: nil, failure:)
     GamesService
       .any_instance
       .stubs(:delete)

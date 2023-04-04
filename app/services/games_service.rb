@@ -10,7 +10,7 @@ class GamesService < ApplicationService
       Result.new(value: game)
     else
       failure = ServiceFailure::NotFoundFailure.new("Game was not found")
-      Result.new(failure: failure)
+      Result.new(value: nil, failure: failure)
     end
   end
 
@@ -22,7 +22,7 @@ class GamesService < ApplicationService
       Result.new(value: game)
     else
       failure = ServiceFailure::ValidationFailure.new("Game was not created")
-      Result.new(failure: failure)
+      Result.new(value: nil, failure: failure)
     end
   end
 
@@ -34,7 +34,7 @@ class GamesService < ApplicationService
       Result.new(value: game)
     else
       failure = ServiceFailure::ValidationFailure.new("Game was not updated")
-      Result.new(failure: failure)
+      Result.new(value: nil, failure: failure)
     end
   end
 
@@ -43,9 +43,9 @@ class GamesService < ApplicationService
     Result.new(value: Game.destroy(id))
   rescue ActiveRecord::RecordNotFound
     failure = ServiceFailure::NotFoundFailure.new("Game was not found")
-    Result.new(failure: failure)
+    Result.new(value: nil, failure: failure)
   rescue => _
     failure = ServiceFailure::ServerFailure.new("Game was not deleted")
-    Result.new(failure: failure)
+    Result.new(value: nil, failure: failure)
   end
 end

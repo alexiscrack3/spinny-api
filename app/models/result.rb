@@ -7,7 +7,7 @@ class Result
 
   V = type_member
 
-  sig { returns(T.nilable(V)) }
+  sig { returns(V) }
   attr_accessor :value
 
   sig { returns(T.nilable(Failure)) }
@@ -16,11 +16,11 @@ class Result
   sig do
     type_parameters(:V)
       .params(
-        value: T.nilable(V),
+        value: T.type_parameter(:V),
         failure: T.nilable(Failure),
       ).void
   end
-  def initialize(value: nil, failure: nil)
+  def initialize(value:, failure: nil)
     @value = value
     @failure = failure
   end
@@ -35,7 +35,7 @@ class Result
     !success?
   end
 
-  sig { params(other: Result[Result::V]).returns(T::Boolean) }
+  sig { params(other: Result[V]).returns(T::Boolean) }
   def ==(other)
     @value == other.value
   end

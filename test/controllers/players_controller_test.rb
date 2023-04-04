@@ -54,7 +54,7 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
   test "should not show player when it does not exist" do
     message = "Player was not found"
     failure = ServiceFailure::NotFoundFailure.new(message)
-    result = Result.new(failure:)
+    result = Result.new(value: nil, failure:)
     PlayersService
       .any_instance
       .stubs(:player)
@@ -103,7 +103,7 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
     player_params = player_params(params)
     message = "Player was not created"
     failure = ServiceFailure::ValidationFailure.new(message)
-    result = Result.new(failure:)
+    result = Result.new(value: nil, failure:)
     PlayersService
       .any_instance
       .stubs(:create)
@@ -151,7 +151,7 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
     player_params = player_params(params)
     message = "Player was not updated"
     failure = ServiceFailure::ValidationFailure.new(message)
-    result = Result.new(failure:)
+    result = Result.new(value: nil, failure:)
     PlayersService
       .any_instance
       .stubs(:update)
@@ -183,7 +183,7 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
   test "should not delete player when it does not exist" do
     message = "Player was not found"
     failure = ServiceFailure::NotFoundFailure.new(message)
-    result = Result.new(failure:)
+    result = Result.new(value: nil, failure:)
     PlayersService
       .any_instance
       .stubs(:delete)
@@ -201,7 +201,7 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
   test "should not delete player when something goes wrong" do
     message = "Player was not deleted"
     failure = ServiceFailure::ServerFailure.new(message)
-    result = Result.new(failure:)
+    result = Result.new(value: nil, failure:)
     PlayersService
       .any_instance
       .stubs(:delete)

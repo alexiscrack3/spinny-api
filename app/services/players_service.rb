@@ -15,7 +15,7 @@ class PlayersService < ApplicationService
       Result.new(value: player)
     else
       failure = ServiceFailure::NotFoundFailure.new("Player was not found")
-      Result.new(failure: failure)
+      Result.new(value: nil, failure: failure)
     end
   end
 
@@ -27,7 +27,7 @@ class PlayersService < ApplicationService
       Result.new(value: player)
     else
       failure = ServiceFailure::ValidationFailure.new("Player was not created")
-      Result.new(failure: failure)
+      Result.new(value: nil, failure: failure)
     end
   end
 
@@ -39,7 +39,7 @@ class PlayersService < ApplicationService
       Result.new(value: player)
     else
       failure = ServiceFailure::ValidationFailure.new("Player was not updated")
-      Result.new(failure: failure)
+      Result.new(value: nil, failure: failure)
     end
   end
 
@@ -48,9 +48,9 @@ class PlayersService < ApplicationService
     Result.new(value: Player.destroy(id))
   rescue ActiveRecord::RecordNotFound
     failure = ServiceFailure::NotFoundFailure.new("Player was not found")
-    Result.new(failure: failure)
+    Result.new(value: nil, failure: failure)
   rescue => _
     failure = ServiceFailure::ServerFailure.new("Player was not deleted")
-    Result.new(failure: failure)
+    Result.new(value: nil, failure: failure)
   end
 end

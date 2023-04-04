@@ -28,7 +28,7 @@ class ClubsService < ApplicationService
       Result.new(value: club)
     else
       failure = ServiceFailure::NotFoundFailure.new("Club was not found")
-      Result.new(failure: failure)
+      Result.new(value: nil, failure: failure)
     end
   end
 
@@ -41,11 +41,11 @@ class ClubsService < ApplicationService
       if result.success?
         Result.new(value: club)
       else
-        Result.new(failure: result.failure)
+        Result.new(value: nil, failure: result.failure)
       end
     else
       failure = ServiceFailure::ValidationFailure.new("Club was not created")
-      Result.new(failure: failure)
+      Result.new(value: nil, failure: failure)
     end
   end
 
@@ -62,7 +62,7 @@ class ClubsService < ApplicationService
       Result.new(value: club)
     else
       failure = ServiceFailure::ValidationFailure.new("Club was not updated")
-      Result.new(failure: failure)
+      Result.new(value: nil, failure: failure)
     end
   end
 
@@ -71,10 +71,10 @@ class ClubsService < ApplicationService
     Result.new(value: Club.destroy(id))
   rescue ActiveRecord::RecordNotFound
     failure = ServiceFailure::NotFoundFailure.new("Club was not found")
-    Result.new(failure: failure)
+    Result.new(value: nil, failure: failure)
   rescue => _
     failure = ServiceFailure::ServerFailure.new("Club was not deleted")
-    Result.new(failure: failure)
+    Result.new(value: nil, failure: failure)
   end
 
   sig do
@@ -99,23 +99,23 @@ class ClubsService < ApplicationService
   def join(club_id:, player_id:)
     if club_id.nil?
       failure = ServiceFailure::ArgumentNullFailure.new("Club id is null")
-      return Result.new(failure: failure)
+      return Result.new(value: nil, failure: failure)
     elsif player_id.nil?
       failure = ServiceFailure::ArgumentNullFailure.new("Player id is null")
-      return Result.new(failure: failure)
+      return Result.new(value: nil, failure: failure)
     end
 
     exists = Membership.exists?(club_id: club_id, player_id: player_id)
     if exists
       failure = ServiceFailure::DuplicateKeyFailure.new("Club id and Player id already exists")
-      Result.new(failure: failure)
+      Result.new(value: nil, failure: failure)
     else
       membership = Membership.new(club_id:, player_id:)
       if membership.save
         Result.new(value: membership)
       else
         failure = ServiceFailure::ServerFailure.new("Membership was not created")
-        Result.new(failure: failure)
+        Result.new(value: nil, failure: failure)
       end
     end
   end
@@ -129,19 +129,19 @@ class ClubsService < ApplicationService
   def leave(club_id:, player_id:)
     if club_id.nil?
       failure = ServiceFailure::ArgumentNullFailure.new("Club id is null")
-      return Result.new(failure: failure)
+      return Result.new(value: nil, failure: failure)
     elsif player_id.nil?
       failure = ServiceFailure::ArgumentNullFailure.new("Player id is null")
-      return Result.new(failure: failure)
+      return Result.new(value: nil, failure: failure)
     end
 
     exists = Membership.exists?(club_id: club_id, player_id: player_id)
     if exists
       Membership.destroy_by(club_id: club_id, player_id: player_id)
-      Result.new
+      Result.new(value: nil)
     else
       failure = ServiceFailure::NotFoundFailure.new("Membership already exists")
-      Result.new(failure: failure)
+      Result.new(value: nil, failure: failure)
     end
   end
 end
