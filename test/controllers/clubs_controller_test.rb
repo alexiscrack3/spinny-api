@@ -213,7 +213,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
 
   test "should not delete club when something goes wrong" do
     message = "Club was not deleted"
-    failure = ServiceFailure::ServerFailure.new(message)
+    failure = ServiceFailure::InternalServer.new(message)
     result = Result.new(value: nil, failure:)
     ClubsService
       .any_instance

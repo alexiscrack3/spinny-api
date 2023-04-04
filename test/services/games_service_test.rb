@@ -89,7 +89,7 @@ class GamesServiceTest < ActiveSupport::TestCase
 
   test "should not delete game when something goes wrong" do
     game = games(:one)
-    expected = ServiceFailure::ServerFailure.new("Game was not deleted")
+    expected = ServiceFailure::InternalServer.new("Game was not deleted")
 
     Game
       .stubs(:destroy)

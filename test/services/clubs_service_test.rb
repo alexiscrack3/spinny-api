@@ -151,7 +151,7 @@ class ClubsServiceTest < ActiveSupport::TestCase
 
   test "should not delete club when something goes wrong" do
     club = clubs(:club_with_players)
-    expected = ServiceFailure::ServerFailure.new("Club was not deleted")
+    expected = ServiceFailure::InternalServer.new("Club was not deleted")
     Club
       .stubs(:destroy)
       .with(club.id)
@@ -194,7 +194,7 @@ class ClubsServiceTest < ActiveSupport::TestCase
   test "should not add player to club when membership was not saved" do
     club = clubs(:empty_club)
     player = players(:free_agent)
-    expected = ServiceFailure::ServerFailure.new("Membership was not created")
+    expected = ServiceFailure::InternalServer.new("Membership was not created")
     membership = mock.tap { |m| m.stubs(:save).returns(false) }
     Membership
       .stubs(:new)

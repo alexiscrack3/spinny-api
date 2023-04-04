@@ -169,7 +169,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
 
   test "should not delete game when something goes wrong" do
     message = "Game was not deleted"
-    failure = ServiceFailure::ServerFailure.new(message)
+    failure = ServiceFailure::InternalServer.new(message)
     result = Result.new(value: nil, failure:)
     GamesService
       .any_instance

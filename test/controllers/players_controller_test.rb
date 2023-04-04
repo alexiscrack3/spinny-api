@@ -192,7 +192,7 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
 
   test "should not delete player when something goes wrong" do
     message = "Player was not deleted"
-    failure = ServiceFailure::ServerFailure.new(message)
+    failure = ServiceFailure::InternalServer.new(message)
     result = Result.new(value: nil, failure:)
     PlayersService
       .any_instance

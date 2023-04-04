@@ -73,7 +73,7 @@ class ClubsService < ApplicationService
     failure = ServiceFailure::NotFound.new("Club was not found")
     Result.new(value: nil, failure: failure)
   rescue => _
-    failure = ServiceFailure::ServerFailure.new("Club was not deleted")
+    failure = ServiceFailure::InternalServer.new("Club was not deleted")
     Result.new(value: nil, failure: failure)
   end
 
@@ -114,7 +114,7 @@ class ClubsService < ApplicationService
       if membership.save
         Result.new(value: membership)
       else
-        failure = ServiceFailure::ServerFailure.new("Membership was not created")
+        failure = ServiceFailure::InternalServer.new("Membership was not created")
         Result.new(value: nil, failure: failure)
       end
     end

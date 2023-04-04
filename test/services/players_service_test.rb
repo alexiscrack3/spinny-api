@@ -91,7 +91,7 @@ class PlayersServiceTest < ActiveSupport::TestCase
 
   test "should not delete player when something goes wrong" do
     player = players(:admin)
-    expected = ServiceFailure::ServerFailure.new("Player was not deleted")
+    expected = ServiceFailure::InternalServer.new("Player was not deleted")
 
     Player
       .stubs(:destroy)

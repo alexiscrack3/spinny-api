@@ -9,5 +9,5 @@ module ServiceFailure
 
   class NotFound < Failure; end
 
-  class ServerFailure < Failure; end
+  class InternalServer < Failure; end
 end

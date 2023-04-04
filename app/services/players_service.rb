@@ -50,7 +50,7 @@ class PlayersService < ApplicationService
     failure = ServiceFailure::NotFound.new("Player was not found")
     Result.new(value: nil, failure: failure)
   rescue => _
-    failure = ServiceFailure::ServerFailure.new("Player was not deleted")
+    failure = ServiceFailure::InternalServer.new("Player was not deleted")
     Result.new(value: nil, failure: failure)
   end
 end

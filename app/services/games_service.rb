@@ -45,7 +45,7 @@ class GamesService < ApplicationService
     failure = ServiceFailure::NotFound.new("Game was not found")
     Result.new(value: nil, failure: failure)
   rescue => _
-    failure = ServiceFailure::ServerFailure.new("Game was not deleted")
+    failure = ServiceFailure::InternalServer.new("Game was not deleted")
     Result.new(value: nil, failure: failure)
   end
 end
