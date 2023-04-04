@@ -33,7 +33,7 @@ class ClubsServiceTest < ActiveSupport::TestCase
   end
 
   test "should not get club by id when id does not exist" do
-    expected = ServiceFailure::NotFoundFailure.new("Club was not found")
+    expected = ServiceFailure::NotFound.new("Club was not found")
 
     result = @clubs_service.club(-1)
 
@@ -142,7 +142,7 @@ class ClubsServiceTest < ActiveSupport::TestCase
   end
 
   test "should not delete club when it does not exist" do
-    expected = ServiceFailure::NotFoundFailure.new("Club was not found")
+    expected = ServiceFailure::NotFound.new("Club was not found")
 
     result = @clubs_service.delete(-1)
 
@@ -270,7 +270,7 @@ class ClubsServiceTest < ActiveSupport::TestCase
   test "should not remove player from club when player has not joined yet" do
     club = clubs(:empty_club)
     player = players(:player_with_club)
-    expected = ServiceFailure::NotFoundFailure.new("Membership already exists")
+    expected = ServiceFailure::NotFound.new("Membership already exists")
 
     assert_difference("Membership.count", 0) do
       result = @clubs_service.leave(club_id: club.id, player_id: player.id)

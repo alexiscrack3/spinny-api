@@ -53,7 +53,7 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
 
   test "should not show player when it does not exist" do
     message = "Player was not found"
-    failure = ServiceFailure::NotFoundFailure.new(message)
+    failure = ServiceFailure::NotFound.new(message)
     result = Result.new(value: nil, failure:)
     PlayersService
       .any_instance
@@ -182,7 +182,7 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
 
   test "should not delete player when it does not exist" do
     message = "Player was not found"
-    failure = ServiceFailure::NotFoundFailure.new(message)
+    failure = ServiceFailure::NotFound.new(message)
     result = Result.new(value: nil, failure:)
     PlayersService
       .any_instance

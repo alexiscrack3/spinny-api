@@ -7,7 +7,7 @@ module ServiceFailure
 
   class ValidationFailure < Failure; end
 
-  class NotFoundFailure < Failure; end
+  class NotFound < Failure; end
 
   class ServerFailure < Failure; end
 end

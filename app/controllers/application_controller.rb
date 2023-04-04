@@ -9,7 +9,7 @@ class ApplicationController < ActionController::API
 
   def handle_error(error)
     case error
-    when ServiceFailure::NotFoundFailure
+    when ServiceFailure::NotFound
       api_error = ApiError.new(ApiCode::NOT_FOUND, error.message)
       render json: ApiDocument.new(errors: [api_error]), status: :not_found
     else

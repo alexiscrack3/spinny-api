@@ -26,7 +26,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
 
   test "should not show game when it does not exist" do
     message = "Game was not found"
-    failure = ServiceFailure::NotFoundFailure.new(message)
+    failure = ServiceFailure::NotFound.new(message)
     result = Result.new(value: nil, failure:)
     GamesService
       .any_instance
@@ -151,7 +151,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
 
   test "should not delete game when it does not exist" do
     message = "Game was not found"
-    failure = ServiceFailure::NotFoundFailure.new(message)
+    failure = ServiceFailure::NotFound.new(message)
     result = Result.new(value: nil, failure:)
     GamesService
       .any_instance

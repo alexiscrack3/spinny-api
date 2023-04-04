@@ -9,7 +9,7 @@ class GamesService < ApplicationService
     if game
       Result.new(value: game)
     else
-      failure = ServiceFailure::NotFoundFailure.new("Game was not found")
+      failure = ServiceFailure::NotFound.new("Game was not found")
       Result.new(value: nil, failure: failure)
     end
   end
@@ -42,7 +42,7 @@ class GamesService < ApplicationService
   def delete(id)
     Result.new(value: Game.destroy(id))
   rescue ActiveRecord::RecordNotFound
-    failure = ServiceFailure::NotFoundFailure.new("Game was not found")
+    failure = ServiceFailure::NotFound.new("Game was not found")
     Result.new(value: nil, failure: failure)
   rescue => _
     failure = ServiceFailure::ServerFailure.new("Game was not deleted")

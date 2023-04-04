@@ -20,7 +20,7 @@ class PlayersServiceTest < ActiveSupport::TestCase
 
   test "should not get player by id when id does not exist" do
     result = @players_service.player(-1)
-    expected = ServiceFailure::NotFoundFailure.new("Player was not found")
+    expected = ServiceFailure::NotFound.new("Player was not found")
 
     assert_nil result.value
     assert_equal expected, result.failure
@@ -82,7 +82,7 @@ class PlayersServiceTest < ActiveSupport::TestCase
   end
 
   test "should not delete player when it does not exist" do
-    expected = ServiceFailure::NotFoundFailure.new("Player was not found")
+    expected = ServiceFailure::NotFound.new("Player was not found")
 
     result = @players_service.delete(-1)
 

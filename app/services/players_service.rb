@@ -14,7 +14,7 @@ class PlayersService < ApplicationService
     if player
       Result.new(value: player)
     else
-      failure = ServiceFailure::NotFoundFailure.new("Player was not found")
+      failure = ServiceFailure::NotFound.new("Player was not found")
       Result.new(value: nil, failure: failure)
     end
   end
@@ -47,7 +47,7 @@ class PlayersService < ApplicationService
   def delete(id)
     Result.new(value: Player.destroy(id))
   rescue ActiveRecord::RecordNotFound
-    failure = ServiceFailure::NotFoundFailure.new("Player was not found")
+    failure = ServiceFailure::NotFound.new("Player was not found")
     Result.new(value: nil, failure: failure)
   rescue => _
     failure = ServiceFailure::ServerFailure.new("Player was not deleted")

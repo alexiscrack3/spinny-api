@@ -27,7 +27,7 @@ class ClubsService < ApplicationService
     if club
       Result.new(value: club)
     else
-      failure = ServiceFailure::NotFoundFailure.new("Club was not found")
+      failure = ServiceFailure::NotFound.new("Club was not found")
       Result.new(value: nil, failure: failure)
     end
   end
@@ -70,7 +70,7 @@ class ClubsService < ApplicationService
   def delete(id)
     Result.new(value: Club.destroy(id))
   rescue ActiveRecord::RecordNotFound
-    failure = ServiceFailure::NotFoundFailure.new("Club was not found")
+    failure = ServiceFailure::NotFound.new("Club was not found")
     Result.new(value: nil, failure: failure)
   rescue => _
     failure = ServiceFailure::ServerFailure.new("Club was not deleted")
@@ -140,7 +140,7 @@ class ClubsService < ApplicationService
       Membership.destroy_by(club_id: club_id, player_id: player_id)
       Result.new(value: nil)
     else
-      failure = ServiceFailure::NotFoundFailure.new("Membership already exists")
+      failure = ServiceFailure::NotFound.new("Membership already exists")
       Result.new(value: nil, failure: failure)
     end
   end

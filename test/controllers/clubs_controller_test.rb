@@ -69,7 +69,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
   test "should not show club when it does not exist" do
     sign_in @player
     message = "Club was not found"
-    failure = ServiceFailure::NotFoundFailure.new(message)
+    failure = ServiceFailure::NotFound.new(message)
     result = Result.new(value: nil, failure:)
     ClubsService
       .any_instance
@@ -195,7 +195,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
 
   test "should not delete club when it does not exist" do
     message = "Club was not found"
-    failure = ServiceFailure::NotFoundFailure.new(message)
+    failure = ServiceFailure::NotFound.new(message)
     result = Result.new(value: nil, failure:)
     ClubsService
       .any_instance
@@ -336,7 +336,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
       player_id: player.id,
     }
     message = "Membership already exists"
-    failure = ServiceFailure::NotFoundFailure.new(message)
+    failure = ServiceFailure::NotFound.new(message)
     result = Result.new(value: nil, failure:)
     ClubsService
       .any_instance
