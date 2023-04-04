@@ -208,7 +208,7 @@ class ClubsServiceTest < ActiveSupport::TestCase
 
   test "should not add player to club when club id is nil" do
     player = players(:player_with_club)
-    expected = ServiceFailure::ArgumentNullFailure.new("Club id is null")
+    expected = ServiceFailure::ArgumentNull.new("Club id is null")
 
     assert_difference("Membership.count", 0) do
       result = @clubs_service.join(club_id: nil, player_id: player.id)
@@ -218,7 +218,7 @@ class ClubsServiceTest < ActiveSupport::TestCase
 
   test "should not add player to club when player id is nil" do
     club = clubs(:empty_club)
-    expected = ServiceFailure::ArgumentNullFailure.new("Player id is null")
+    expected = ServiceFailure::ArgumentNull.new("Player id is null")
 
     assert_difference("Membership.count", 0) do
       result = @clubs_service.join(club_id: club.id, player_id: nil)
@@ -249,7 +249,7 @@ class ClubsServiceTest < ActiveSupport::TestCase
 
   test "should not remove player from club when club id is nil" do
     player = players(:player_with_club)
-    expected = ServiceFailure::ArgumentNullFailure.new("Club id is null")
+    expected = ServiceFailure::ArgumentNull.new("Club id is null")
 
     assert_difference("Membership.count", 0) do
       result = @clubs_service.leave(club_id: nil, player_id: player.id)
@@ -259,7 +259,7 @@ class ClubsServiceTest < ActiveSupport::TestCase
 
   test "should not remove player from club when player id is nil" do
     club = clubs(:club_with_players)
-    expected = ServiceFailure::ArgumentNullFailure.new("Player id is null")
+    expected = ServiceFailure::ArgumentNull.new("Player id is null")
 
     assert_difference("Membership.count", 0) do
       result = @clubs_service.leave(club_id: club.id, player_id: nil)

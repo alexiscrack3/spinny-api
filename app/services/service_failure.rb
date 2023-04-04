@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module ServiceFailure
-  class ArgumentNullFailure < Failure; end
+  class ArgumentNull < Failure; end
 
   class DuplicateKeyFailure < Failure; end
 

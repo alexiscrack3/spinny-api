@@ -98,10 +98,10 @@ class ClubsService < ApplicationService
   end
   def join(club_id:, player_id:)
     if club_id.nil?
-      failure = ServiceFailure::ArgumentNullFailure.new("Club id is null")
+      failure = ServiceFailure::ArgumentNull.new("Club id is null")
       return Result.new(value: nil, failure: failure)
     elsif player_id.nil?
-      failure = ServiceFailure::ArgumentNullFailure.new("Player id is null")
+      failure = ServiceFailure::ArgumentNull.new("Player id is null")
       return Result.new(value: nil, failure: failure)
     end
 
@@ -128,10 +128,10 @@ class ClubsService < ApplicationService
   end
   def leave(club_id:, player_id:)
     if club_id.nil?
-      failure = ServiceFailure::ArgumentNullFailure.new("Club id is null")
+      failure = ServiceFailure::ArgumentNull.new("Club id is null")
       return Result.new(value: nil, failure: failure)
     elsif player_id.nil?
-      failure = ServiceFailure::ArgumentNullFailure.new("Player id is null")
+      failure = ServiceFailure::ArgumentNull.new("Player id is null")
       return Result.new(value: nil, failure: failure)
     end
 
