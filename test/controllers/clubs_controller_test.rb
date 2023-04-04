@@ -42,6 +42,8 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should not show clubs when player has not signed in" do
+    sign_out @player
+
     get clubs_url, as: :json
 
     assert_response :unauthorized
@@ -64,6 +66,14 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
     }
     assert_equal @club.as_json(json), response.parsed_body["data"]
     assert_response :success
+  end
+
+  test "should not show club when player has not signed in" do
+    sign_out @player
+
+    get club_url(@club), as: :json
+
+    assert_response :unauthorized
   end
 
   test "should not show club when it does not exist" do
@@ -108,6 +118,14 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
     assert_response :created
   end
 
+  test "should not create club when player has not signed in" do
+    sign_out @player
+
+    post clubs_url, params: nil, as: :json
+
+    assert_response :unauthorized
+  end
+
   test "should not create club when it is not valid" do
     sign_in @player
     params = { name: nil, owner_id: @player.id }
@@ -130,12 +148,15 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should not show create club when player has not signed in" do
+    sign_out @player
+
     post clubs_url, params: nil, as: :json
 
     assert_response :unauthorized
   end
 
   test "should update club when it is valid" do
+    sign_in @player
     params = {
       name: Faker::Team.name,
       cover_image_url: Faker::Avatar.image,
@@ -155,7 +176,16 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should not update club when player has not signed in" do
+    sign_out @player
+
+    patch club_url(@club), params: nil, as: :json
+
+    assert_response :unauthorized
+  end
+
   test "should not update club when it is not valid" do
+    sign_in @player
     params = { name: nil }
     club_params = club_params(params)
     message = "Club was not updated"
@@ -176,6 +206,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should delete club when id exists" do
+    sign_in @player
     result = Result.new(value: @club)
     ClubsService
       .any_instance
@@ -189,7 +220,16 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
     assert_response :no_content
   end
 
+  test "should not delete club when player has not signed in" do
+    sign_out @player
+
+    delete club_url(@club), as: :json
+
+    assert_response :unauthorized
+  end
+
   test "should not delete club when it does not exist" do
+    sign_in @player
     message = "Club was not found"
     failure = ServiceFailure::NotFound.new(message)
     result = Result.new(value: nil, failure:)
@@ -208,6 +248,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should not delete club when something goes wrong" do
+    sign_in @player
     message = "Club was not deleted"
     failure = ServiceFailure::InternalServer.new(message)
     result = Result.new(value: nil, failure:)
@@ -241,6 +282,14 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
 
     assert_equal players.as_json, response.parsed_body["data"]
     assert_response :success
+  end
+
+  test "should not get members of club when player has not signed in" do
+    sign_out @player
+
+    get club_members_url(@club), as: :json
+
+    assert_response :unauthorized
   end
 
   test "should add player to club when player has signed in" do
@@ -290,6 +339,8 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should not add player to club when player has not signed in" do
+    sign_out @player
+
     club = clubs(:empty_club)
     player = players(:free_agent)
     params = {
@@ -349,6 +400,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should not remove player from club when player has not signed in" do
+    sign_out @player
     club = clubs(:club_with_players)
     player = players(:free_agent)
     params = {
