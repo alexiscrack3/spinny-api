@@ -26,7 +26,7 @@ class PlayersService < ApplicationService
     if player.save
       Result.new(value: player)
     else
-      failure = ServiceFailure::ValidationFailure.new("Player was not created")
+      failure = ServiceFailure::RecordValidation.new("Player was not created")
       Result.new(value: nil, failure: failure)
     end
   end
@@ -38,7 +38,7 @@ class PlayersService < ApplicationService
     if player&.update(params)
       Result.new(value: player)
     else
-      failure = ServiceFailure::ValidationFailure.new("Player was not updated")
+      failure = ServiceFailure::RecordValidation.new("Player was not updated")
       Result.new(value: nil, failure: failure)
     end
   end

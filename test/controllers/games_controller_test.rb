@@ -73,7 +73,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
     }
     game_params = game_params(params)
     message = "Game was not created"
-    failure = ServiceFailure::ValidationFailure.new(message)
+    failure = ServiceFailure::RecordValidation.new(message)
     result = Result.new(value: nil, failure:)
     GamesService
       .any_instance
@@ -119,7 +119,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
     }
     game_params = game_params(params)
     message = "Game was not updated"
-    failure = ServiceFailure::ValidationFailure.new(message)
+    failure = ServiceFailure::RecordValidation.new(message)
     result = Result.new(value: nil, failure:)
     GamesService
       .any_instance

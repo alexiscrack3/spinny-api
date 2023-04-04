@@ -41,7 +41,7 @@ class PlayersServiceTest < ActiveSupport::TestCase
 
   test "should not create player when it is not valid" do
     player_params = { "last_name": Faker::Name.last_name }
-    expected = ServiceFailure::ValidationFailure.new("Player was not created")
+    expected = ServiceFailure::RecordValidation.new("Player was not created")
 
     result = @players_service.create(player_params)
 
@@ -66,7 +66,7 @@ class PlayersServiceTest < ActiveSupport::TestCase
   test "should not update player when it is not valid" do
     player = players(:admin)
     player_params = { "first_name": nil, "last_name": Faker::Name.last_name }
-    expected = ServiceFailure::ValidationFailure.new("Player was not updated")
+    expected = ServiceFailure::RecordValidation.new("Player was not updated")
 
     result = @players_service.update(player.id, player_params)
 

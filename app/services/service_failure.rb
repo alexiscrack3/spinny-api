@@ -5,7 +5,7 @@ module ServiceFailure
 
   class DuplicateKey < Failure; end
 
-  class ValidationFailure < Failure; end
+  class RecordValidation < Failure; end
 
   class NotFound < Failure; end
 

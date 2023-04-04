@@ -38,7 +38,7 @@ class GamesServiceTest < ActiveSupport::TestCase
 
   test "should not create game when it is not valid" do
     game_params = { "winner": nil, "loser": nil }
-    expected = ServiceFailure::ValidationFailure.new("Game was not created")
+    expected = ServiceFailure::RecordValidation.new("Game was not created")
 
     result = @games_service.create(game_params)
 
@@ -64,7 +64,7 @@ class GamesServiceTest < ActiveSupport::TestCase
   test "should not update game when it is not valid" do
     game = games(:one)
     game_params = { "winner": nil, "loser": nil }
-    expected = ServiceFailure::ValidationFailure.new("Game was not updated")
+    expected = ServiceFailure::RecordValidation.new("Game was not updated")
 
     result = @games_service.update(game.id, game_params)
 

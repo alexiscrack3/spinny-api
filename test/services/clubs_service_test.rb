@@ -65,7 +65,7 @@ class ClubsServiceTest < ActiveSupport::TestCase
 
   test "should not create club when it is not valid" do
     club_params = ActionController::Parameters.new
-    expected = ServiceFailure::ValidationFailure.new("Club was not created")
+    expected = ServiceFailure::RecordValidation.new("Club was not created")
 
     result = @clubs_service.create(club_params)
 
@@ -83,7 +83,7 @@ class ClubsServiceTest < ActiveSupport::TestCase
       },
     }
     club_params = club_params(params)
-    expected = ServiceFailure::ValidationFailure.new("Membership was not created")
+    expected = ServiceFailure::RecordValidation.new("Membership was not created")
     membership = mock.tap { |m| m.stubs(:save).returns(false) }
     Membership
       .stubs(:new)
@@ -124,7 +124,7 @@ class ClubsServiceTest < ActiveSupport::TestCase
       },
     }
     club_params = club_params(params)
-    expected = ServiceFailure::ValidationFailure.new("Club was not updated")
+    expected = ServiceFailure::RecordValidation.new("Club was not updated")
 
     result = @clubs_service.update(club.id, club_params)
 

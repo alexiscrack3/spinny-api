@@ -115,7 +115,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
     params = { club: { name: nil, owner_id: @player.id } }
     club_params = club_params(params)
     message = "Club was not created"
-    failure = ServiceFailure::ValidationFailure.new(message)
+    failure = ServiceFailure::RecordValidation.new(message)
     result = Result.new(value: nil, failure:)
     ClubsService
       .any_instance
@@ -163,7 +163,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
     params = { club: { name: nil } }
     club_params = club_params(params)
     message = "Club was not updated"
-    failure = ServiceFailure::ValidationFailure.new(message)
+    failure = ServiceFailure::RecordValidation.new(message)
     result = Result.new(value: nil, failure:)
     ClubsService
       .any_instance

@@ -98,7 +98,7 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
     }
     player_params = player_params(params)
     message = "Player was not created"
-    failure = ServiceFailure::ValidationFailure.new(message)
+    failure = ServiceFailure::RecordValidation.new(message)
     result = Result.new(value: nil, failure:)
     PlayersService
       .any_instance
@@ -142,7 +142,7 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
     }
     player_params = player_params(params)
     message = "Player was not updated"
-    failure = ServiceFailure::ValidationFailure.new(message)
+    failure = ServiceFailure::RecordValidation.new(message)
     result = Result.new(value: nil, failure:)
     PlayersService
       .any_instance

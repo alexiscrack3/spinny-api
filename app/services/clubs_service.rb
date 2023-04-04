@@ -44,7 +44,7 @@ class ClubsService < ApplicationService
         Result.new(value: nil, failure: result.failure)
       end
     else
-      failure = ServiceFailure::ValidationFailure.new("Club was not created")
+      failure = ServiceFailure::RecordValidation.new("Club was not created")
       Result.new(value: nil, failure: failure)
     end
   end
@@ -61,7 +61,7 @@ class ClubsService < ApplicationService
     if club&.update(params)
       Result.new(value: club)
     else
-      failure = ServiceFailure::ValidationFailure.new("Club was not updated")
+      failure = ServiceFailure::RecordValidation.new("Club was not updated")
       Result.new(value: nil, failure: failure)
     end
   end
