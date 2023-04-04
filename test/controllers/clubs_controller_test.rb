@@ -88,15 +88,13 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
   test "should create club when it is valid" do
     sign_in @player
     params = {
-      club: {
-        name: Faker::Team.name,
-        description: Faker::Lorem.sentence,
-        cover_image_url: Faker::Avatar.image,
-        owner_id: players(:admin).id,
-      },
+      name: Faker::Team.name,
+      description: Faker::Lorem.sentence,
+      cover_image_url: Faker::Avatar.image,
+      owner_id: players(:admin).id,
     }
     club_params = club_params(params)
-    club = Club.new(club_params)
+    club = Club.new(params)
     result = Result.new(value: club)
     ClubsService
       .any_instance
@@ -112,7 +110,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
 
   test "should not create club when it is not valid" do
     sign_in @player
-    params = { club: { name: nil, owner_id: @player.id } }
+    params = { name: nil, owner_id: @player.id }
     club_params = club_params(params)
     message = "Club was not created"
     failure = ServiceFailure::RecordValidation.new(message)
@@ -139,11 +137,9 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
 
   test "should update club when it is valid" do
     params = {
-      club: {
-        name: Faker::Team.name,
-        cover_image_url: Faker::Avatar.image,
-        description: Faker::Lorem.sentence,
-      },
+      name: Faker::Team.name,
+      cover_image_url: Faker::Avatar.image,
+      description: Faker::Lorem.sentence,
     }
     club_params = club_params(params)
     result = Result.new(value: @club)
@@ -160,7 +156,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should not update club when it is not valid" do
-    params = { club: { name: nil } }
+    params = { name: nil }
     club_params = club_params(params)
     message = "Club was not updated"
     failure = ServiceFailure::RecordValidation.new(message)
@@ -369,7 +365,8 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
 
   sig { params(params: T::Hash[String, T.untyped]).returns(ActionController::Parameters) }
   def club_params(params)
-    T.cast(ActionController::Parameters.new(params).require(:club), ActionController::Parameters)
+    T.cast(ActionController::Parameters.new({ club: params })
+      .require(:club), ActionController::Parameters)
       .permit(
         :name,
         :description,

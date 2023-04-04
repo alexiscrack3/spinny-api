@@ -42,7 +42,7 @@ module Admin
 
       get admin_clubs_url, as: :json
 
-      assert_equal [], response.parsed_body["data"]
+      assert_empty response.parsed_body["data"]
       assert_response :success
     end
   end
