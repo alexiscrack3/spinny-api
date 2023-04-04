@@ -277,7 +277,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
       player_id: player.id,
     }
     message = "Club id and Player id already exists"
-    failure = ServiceFailure::DuplicateKeyFailure.new(message)
+    failure = ServiceFailure::DuplicateKey.new(message)
     result = Result.new(value: nil, failure:)
     ClubsService
       .any_instance

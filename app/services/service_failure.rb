@@ -3,7 +3,7 @@
 module ServiceFailure
   class ArgumentNull < Failure; end
 
-  class DuplicateKeyFailure < Failure; end
+  class DuplicateKey < Failure; end
 
   class ValidationFailure < Failure; end
 
