@@ -40,7 +40,8 @@ class ClubsController < ApplicationController
 
   # POST /clubs
   def create
-    params[:club][:owner_id] = current_player&.id
+    controller_params = T.cast(params[:club], ActionController::Parameters)
+    controller_params[:owner_id] = current_player&.id
     result = @clubs_service.create(club_params)
 
     if result.success?

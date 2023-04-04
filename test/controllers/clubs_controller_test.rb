@@ -230,6 +230,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get members of club" do
+    sign_in @player
     club = clubs(:empty_club)
     player = players(:free_agent)
     players = [player]
