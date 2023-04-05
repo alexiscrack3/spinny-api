@@ -3,7 +3,7 @@
 
 class GamesService < ApplicationService
   sig { params(id: T.any(String, Integer)).returns(Result[Game]) }
-  def game(id)
+  def find(id)
     game = T.let(Game.find_by(id: id), T.nilable(Game))
 
     if game

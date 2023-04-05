@@ -11,7 +11,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
     result = Result.new(value: @game)
     GamesService
       .any_instance
-      .stubs(:game)
+      .stubs(:find)
       .with(@game.id.to_s)
       .returns(result)
 
@@ -30,7 +30,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
     result = Result.new(value: nil, failure:)
     GamesService
       .any_instance
-      .stubs(:game)
+      .stubs(:find)
       .with(@game.id.to_s)
       .returns(result)
     api_error = ApiError.new(ApiCode::NOT_FOUND, message)

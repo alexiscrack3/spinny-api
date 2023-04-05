@@ -11,7 +11,7 @@ class GamesController < ApplicationController
   # GET /games/1
   def show
     id = T.cast(params[:id], String)
-    result = @games_service.game(id)
+    result = @games_service.find(id)
     if result.success?
       render json: ApiDocument.new(data: result.value.as_json(
         include: [:winner, :loser],

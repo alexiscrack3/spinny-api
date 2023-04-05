@@ -9,12 +9,12 @@ class GamesServiceTest < ActiveSupport::TestCase
 
   test "should get game by id" do
     game = games(:one)
-    result = @games_service.game(game.id)
+    result = @games_service.find(game.id)
     assert_equal game, result.value
   end
 
   test "should not get game by id when id does not exist" do
-    result = @games_service.game(-1)
+    result = @games_service.find(-1)
     expected = ServiceFailure::NotFound.new("Game was not found")
 
     assert_nil result.value
