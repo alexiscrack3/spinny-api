@@ -415,15 +415,14 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
 
   private
 
-  sig { params(params: T::Hash[String, T.untyped]).returns(ActionController::Parameters) }
-  def club_params(params)
-    T.cast(ActionController::Parameters.new({ club: params })
-      .require(:club), ActionController::Parameters)
-      .permit(
-        :name,
-        :description,
-        :cover_image_url,
-        :owner_id,
-      )
+  def club_params(club)
+    params = ActionController::Parameters.new({ club: })
+    permitted = T.cast(params.require(:club), ActionController::Parameters)
+    permitted.permit(
+      :name,
+      :description,
+      :cover_image_url,
+      :owner_id,
+    )
   end
 end

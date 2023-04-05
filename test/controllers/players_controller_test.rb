@@ -1,3 +1,4 @@
+# typed: true
 # frozen_string_literal: true
 
 require "test_helper"
@@ -250,13 +251,13 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
 
   private
 
-  def player_params(params)
-    ActionController::Parameters.new({ player: params })
-      .require(:player)
-      .permit(
-        :first_name,
-        :last_name,
-        :email,
-      )
+  def player_params(player)
+    params = ActionController::Parameters.new({ player: })
+    permitted = T.cast(params.require(:player), ActionController::Parameters)
+    permitted.permit(
+      :first_name,
+      :last_name,
+      :email,
+    )
   end
 end

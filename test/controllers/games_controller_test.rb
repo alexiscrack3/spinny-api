@@ -1,3 +1,4 @@
+# typed: true
 # frozen_string_literal: true
 
 require "test_helper"
@@ -179,9 +180,12 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
 
   private
 
-  def game_params(params)
-    ActionController::Parameters.new({ game: params })
-      .require(:game)
-      .permit(:winner_id, :loser_id)
+  def game_params(game)
+    params = ActionController::Parameters.new({ game: })
+    permitted = T.cast(params.require(:game), ActionController::Parameters)
+    permitted.permit(
+      :winner_id,
+      :loser_id,
+    )
   end
 end
