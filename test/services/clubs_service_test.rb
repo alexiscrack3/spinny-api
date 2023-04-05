@@ -6,8 +6,8 @@ require "test_helper"
 class ClubsServiceTest < ActiveSupport::TestCase
   extend T::Sig
 
-  def setup
-    @clubs_service = ClubsService.new
+  setup do
+    @clubs_service = T.let(ClubsService.new, ClubsService)
   end
 
   test "should get all clubs" do

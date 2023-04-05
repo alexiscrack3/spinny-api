@@ -1,10 +1,11 @@
+# typed: true
 # frozen_string_literal: true
 
 require "test_helper"
 
 class PlayersServiceTest < ActiveSupport::TestCase
-  def setup
-    @players_service = PlayersService.new
+  setup do
+    @players_service = T.let(PlayersService.new, PlayersService)
   end
 
   test "should get all players" do

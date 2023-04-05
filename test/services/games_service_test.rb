@@ -1,10 +1,11 @@
+# typed: true
 # frozen_string_literal: true
 
 require "test_helper"
 
 class GamesServiceTest < ActiveSupport::TestCase
-  def setup
-    @games_service = GamesService.new
+  setup do
+    @games_service = T.let(GamesService.new, GamesService)
   end
 
   test "should get game by id" do
