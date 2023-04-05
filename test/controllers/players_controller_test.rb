@@ -86,59 +86,6 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
     assert_response :not_found
   end
 
-  test "should create player when it is valid" do
-    params = {
-      first_name: Faker::Name.first_name,
-      last_name: Faker::Name.last_name,
-      email: Faker::Internet.email,
-    }
-    player_params = player_params(params)
-    player = Player.new(params)
-    result = Result.new(value: player)
-    PlayersService
-      .any_instance
-      .stubs(:create)
-      .with(player_params)
-      .returns(result)
-
-    post players_url, params: params, as: :json
-
-    assert_equal player.as_json, response.parsed_body["data"]
-    assert_response :created
-  end
-
-  test "should not create player when player has not signed in" do
-    sign_out @player
-
-    post players_url, params: nil, as: :json
-
-    assert_response :unauthorized
-  end
-
-  test "should not create player when it is not valid" do
-    params = {
-      first_name: nil,
-      last_name: Faker::Name.last_name,
-      email: Faker::Internet.email,
-    }
-    player_params = player_params(params)
-    message = "Player was not created"
-    failure = ServiceFailure::RecordValidation.new(message)
-    result = Result.new(value: nil, failure:)
-    PlayersService
-      .any_instance
-      .stubs(:create)
-      .with(player_params)
-      .returns(result)
-    api_error = ApiError.new(ApiCode::INTERNAL_SERVER, message)
-    expected = [api_error]
-
-    post players_url, params: params, as: :json
-
-    assert_equal expected.as_json, response.parsed_body["errors"]
-    assert_response :unprocessable_entity
-  end
-
   test "should update player when it is valid" do
     params = {
       first_name: Faker::Name.first_name,
@@ -186,64 +133,6 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
     expected = [api_error]
 
     patch player_url(@player), params: params, as: :json
-
-    assert_equal expected.as_json, response.parsed_body["errors"]
-    assert_response :unprocessable_entity
-  end
-
-  test "should delete player" do
-    result = Result.new(value: @player)
-    PlayersService
-      .any_instance
-      .stubs(:delete)
-      .with(@player.id.to_s)
-      .returns(result)
-
-    delete player_url(@player), as: :json
-
-    assert_nil response.parsed_body["data"]
-    assert_response :no_content
-  end
-
-  test "should not delete player when player has not signed in" do
-    sign_out @player
-
-    delete player_url(@player), as: :json
-
-    assert_response :unauthorized
-  end
-
-  test "should not delete player when it does not exist" do
-    message = "Player was not found"
-    failure = ServiceFailure::NotFound.new(message)
-    result = Result.new(value: nil, failure:)
-    PlayersService
-      .any_instance
-      .stubs(:delete)
-      .with(@player.id.to_s)
-      .returns(result)
-    api_error = ApiError.new(ApiCode::NOT_FOUND, message)
-    expected = [api_error]
-
-    delete player_url(@player), as: :json
-
-    assert_equal expected.as_json, response.parsed_body["errors"]
-    assert_response :not_found
-  end
-
-  test "should not delete player when something goes wrong" do
-    message = "Player was not deleted"
-    failure = ServiceFailure::InternalServer.new(message)
-    result = Result.new(value: nil, failure:)
-    PlayersService
-      .any_instance
-      .stubs(:delete)
-      .with(@player.id.to_s)
-      .returns(result)
-    api_error = ApiError.new(ApiCode::INTERNAL_SERVER, message)
-    expected = [api_error]
-
-    delete player_url(@player), as: :json
 
     assert_equal expected.as_json, response.parsed_body["errors"]
     assert_response :unprocessable_entity

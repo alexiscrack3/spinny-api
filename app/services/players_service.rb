@@ -19,18 +19,6 @@ class PlayersService < ApplicationService
     end
   end
 
-  sig { params(params: T::Hash[String, T.untyped]).returns(Result[Player]) }
-  def create(params)
-    player = T.let(Player.new(params), Player)
-
-    if player.save
-      Result.new(value: player)
-    else
-      failure = ServiceFailure::RecordValidation.new("Player was not created")
-      Result.new(value: nil, failure: failure)
-    end
-  end
-
   sig { params(id: T.any(String, Integer), params: T::Hash[String, T.untyped]).returns(Result[Player]) }
   def update(id, params)
     player = T.let(Player.find_by(id: id), T.nilable(Player))
@@ -41,16 +29,5 @@ class PlayersService < ApplicationService
       failure = ServiceFailure::RecordValidation.new("Player was not updated")
       Result.new(value: nil, failure: failure)
     end
-  end
-
-  sig { params(id: T.any(String, Integer)).returns(Result[Player]) }
-  def delete(id)
-    Result.new(value: Player.destroy(id))
-  rescue ActiveRecord::RecordNotFound
-    failure = ServiceFailure::NotFound.new("Player was not found")
-    Result.new(value: nil, failure: failure)
-  rescue => _
-    failure = ServiceFailure::InternalServer.new("Player was not deleted")
-    Result.new(value: nil, failure: failure)
   end
 end

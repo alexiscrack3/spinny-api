@@ -15,14 +15,14 @@ Rails.application.routes.draw do
   end
 
   get 'players/me', to: 'players#me'
-  resources :players
+  resources :players, only: %i[index show update]
 
-  resources :clubs, only: %i[index show create update destroy] do
+  resources :clubs do
     get :members, to: 'clubs#members'
     post :members, to: 'clubs#join'
     delete :members, to: 'clubs#leave'
   end
-  resources :games, only: %i[show create update destroy]
+  resources :games, except: %i[index]
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

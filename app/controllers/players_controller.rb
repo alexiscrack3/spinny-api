@@ -28,19 +28,6 @@ class PlayersController < ApplicationController
     end
   end
 
-  # POST /players
-  def create
-    result = @players_service.create(player_params)
-
-    if result.success?
-      render json: ApiDocument.new(data: result.value),
-        status: :created,
-        location: result.value
-    else
-      handle_error(result.failure)
-    end
-  end
-
   # PATCH/PUT /players/1
   def update
     id = T.cast(params[:id], String)
@@ -48,18 +35,6 @@ class PlayersController < ApplicationController
 
     if result.success?
       render json: ApiDocument.new(data: result.value)
-    else
-      handle_error(result.failure)
-    end
-  end
-
-  # DELETE /players/1
-  def destroy
-    id = T.cast(params[:id], String)
-    result = @players_service.delete(id)
-
-    if result.success?
-      render json: ApiDocument.new(data: result.value), status: :no_content
     else
       handle_error(result.failure)
     end
