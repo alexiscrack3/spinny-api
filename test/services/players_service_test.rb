@@ -8,18 +8,18 @@ class PlayersServiceTest < ActiveSupport::TestCase
   end
 
   test "should get all players" do
-    result = @players_service.players
+    result = @players_service.find_all
     assert_equal Player.all, result.value
   end
 
   test "should get player by id" do
     player = players(:admin)
-    result = @players_service.player(player.id)
+    result = @players_service.find(player.id)
     assert_equal player, result.value
   end
 
   test "should not get player by id when id does not exist" do
-    result = @players_service.player(-1)
+    result = @players_service.find(-1)
     expected = ServiceFailure::NotFound.new("Player was not found")
 
     assert_nil result.value
@@ -33,10 +33,12 @@ class PlayersServiceTest < ActiveSupport::TestCase
       email: Faker::Internet.email,
     }
 
-    result = @players_service.create(player_params)
+    assert_difference "Player.count", 1 do
+      result = @players_service.create(player_params)
 
-    assert_equal player_params[:first_name], result.value.first_name
-    assert_equal player_params[:last_name], result.value.last_name
+      assert_equal player_params[:first_name], result.value.first_name
+      assert_equal player_params[:last_name], result.value.last_name
+    end
   end
 
   test "should not create player when it is not valid" do

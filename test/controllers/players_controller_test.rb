@@ -15,7 +15,7 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
     result = Result.new(value: players)
     PlayersService
       .any_instance
-      .stubs(:players)
+      .stubs(:find_all)
       .returns(result)
 
     get players_url, as: :json
@@ -36,7 +36,7 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
     result = Result.new(value: [])
     PlayersService
       .any_instance
-      .stubs(:players)
+      .stubs(:find_all)
       .returns(result)
 
     get players_url, as: :json
@@ -49,7 +49,7 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
     result = Result.new(value: @player)
     PlayersService
       .any_instance
-      .stubs(:player)
+      .stubs(:find)
       .with(@player.id.to_s)
       .returns(result)
 
@@ -73,7 +73,7 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
     result = Result.new(value: nil, failure:)
     PlayersService
       .any_instance
-      .stubs(:player)
+      .stubs(:find)
       .with(@player.id.to_s)
       .returns(result)
     api_error = ApiError.new(ApiCode::NOT_FOUND, message)

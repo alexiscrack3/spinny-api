@@ -12,7 +12,7 @@ class PlayersController < ApplicationController
 
   # GET /players
   def index
-    result = @players_service.players
+    result = @players_service.find_all
 
     render json: ApiDocument.new(data: result.value)
   end
@@ -20,7 +20,7 @@ class PlayersController < ApplicationController
   # GET /players/1
   def show
     id = T.cast(params[:id], String)
-    result = @players_service.player(id)
+    result = @players_service.find(id)
     if result.success?
       render json: ApiDocument.new(data: result.value.as_json(include: :clubs))
     else

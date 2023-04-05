@@ -3,12 +3,12 @@
 
 class PlayersService < ApplicationService
   sig { returns(Result[T::Array[Player]]) }
-  def players
+  def find_all
     Result.new(value: Player.all)
   end
 
   sig { params(id: T.any(String, Integer)).returns(Result[Player]) }
-  def player(id)
+  def find(id)
     player = T.let(Player.includes(:clubs).find_by(id: id), T.nilable(Player))
 
     if player
