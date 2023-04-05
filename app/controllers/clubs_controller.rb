@@ -14,7 +14,7 @@ class ClubsController < ApplicationController
   def index
     player_id = current_player&.id
     if player_id.present?
-      result = @clubs_service.clubs_by_player_id(player_id)
+      result = @clubs_service.find_all_by_player_id(player_id)
       render json: ApiDocument.new(data: result.value)
     else
       message = "Player id is required"
@@ -26,7 +26,7 @@ class ClubsController < ApplicationController
   # GET /clubs/1
   def show
     id = T.cast(params[:id], String)
-    result = @clubs_service.club(id)
+    result = @clubs_service.find(id)
     if result.success?
       json = {
         include: [:owner, :players],

@@ -13,7 +13,7 @@ module Admin
 
     # GET /admin/clubs
     def index
-      result = @clubs_service.clubs
+      result = @clubs_service.find_all
 
       render json: ApiDocument.new(data: result.value)
     end

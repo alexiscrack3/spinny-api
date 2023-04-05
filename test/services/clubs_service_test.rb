@@ -11,7 +11,7 @@ class ClubsServiceTest < ActiveSupport::TestCase
   end
 
   test "should get all clubs" do
-    result = @clubs_service.clubs
+    result = @clubs_service.find_all
     assert_equal Club.all, result.value
   end
 
@@ -21,21 +21,21 @@ class ClubsServiceTest < ActiveSupport::TestCase
     club_b = clubs(:another_club_with_players)
     club_b.update_attribute(:created_at, club_a.created_at + 1.day)
 
-    result = @clubs_service.clubs_by_player_id(player.id)
+    result = @clubs_service.find_all_by_player_id(player.id)
 
     assert_equal [club_a, club_b], result.value
   end
 
   test "should get club by id" do
     club = clubs(:club_with_players)
-    result = @clubs_service.club(club.id)
+    result = @clubs_service.find(club.id)
     assert_equal club, result.value
   end
 
   test "should not get club by id when id does not exist" do
     expected = ServiceFailure::NotFound.new("Club was not found")
 
-    result = @clubs_service.club(-1)
+    result = @clubs_service.find(-1)
 
     assert_nil result.value
     assert_equal expected, result.failure

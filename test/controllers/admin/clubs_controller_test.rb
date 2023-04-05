@@ -17,7 +17,7 @@ module Admin
       result = Result.new(value: clubs)
       ClubsService
         .any_instance
-        .stubs(:clubs)
+        .stubs(:find_all)
         .returns(result)
 
       get admin_clubs_url, as: :json
@@ -37,7 +37,7 @@ module Admin
       result = Result.new(value: [])
       ClubsService
         .any_instance
-        .stubs(:clubs)
+        .stubs(:find_all)
         .returns(result)
 
       get admin_clubs_url, as: :json

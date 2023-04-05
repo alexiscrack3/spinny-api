@@ -18,7 +18,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
     result = Result.new(value: clubs)
     ClubsService
       .any_instance
-      .stubs(:clubs_by_player_id)
+      .stubs(:find_all_by_player_id)
       .with(@player.id)
       .returns(result)
 
@@ -54,7 +54,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
     result = Result.new(value: @club)
     ClubsService
       .any_instance
-      .stubs(:club)
+      .stubs(:find)
       .with(@club.id.to_s)
       .returns(result)
 
@@ -83,7 +83,7 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
     result = Result.new(value: nil, failure:)
     ClubsService
       .any_instance
-      .stubs(:club)
+      .stubs(:find)
       .with(@club.id.to_s)
       .returns(result)
     api_error = ApiError.new(ApiCode::NOT_FOUND, message)

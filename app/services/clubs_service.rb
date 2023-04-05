@@ -3,12 +3,12 @@
 
 class ClubsService < ApplicationService
   sig { returns(Result[T::Array[Club]]) }
-  def clubs
+  def find_all
     Result.new(value: Club.all)
   end
 
   sig { params(player_id: Integer).returns(Result[T::Array[Club]]) }
-  def clubs_by_player_id(player_id)
+  def find_all_by_player_id(player_id)
     clubs = Club
       .joins(:memberships)
       .where(memberships: { player_id: player_id })
@@ -18,7 +18,7 @@ class ClubsService < ApplicationService
   end
 
   sig { params(id: T.any(String, Integer)).returns(Result[Club]) }
-  def club(id)
+  def find(id)
     club = Club
       .includes(:owner)
       .includes(:players)
