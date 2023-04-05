@@ -249,6 +249,21 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_entity
   end
 
+  test "should show current player when player has signed in" do
+    get players_me_url, as: :json
+
+    assert_equal @player.as_json, response.parsed_body["data"]
+    assert_response :success
+  end
+
+  test "should not show current player when player has not signed in" do
+    sign_out @player
+
+    get players_me_url, as: :json
+
+    assert_response :unauthorized
+  end
+
   private
 
   def player_params(player)

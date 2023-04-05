@@ -13,7 +13,10 @@ Rails.application.routes.draw do
   namespace :admin do
     get 'clubs', to: 'clubs#index'
   end
+
+  get 'players/me', to: 'players#me'
   resources :players
+
   resources :clubs, only: %i[index show create update destroy] do
     get :members, to: 'clubs#members'
     post :members, to: 'clubs#join'

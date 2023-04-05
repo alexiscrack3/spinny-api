@@ -65,6 +65,11 @@ class PlayersController < ApplicationController
     end
   end
 
+  # GET /players/me
+  def me
+    render json: ApiDocument.new(data: current_player)
+  end
+
   private
 
   # Only allow a list of trusted parameters through.
