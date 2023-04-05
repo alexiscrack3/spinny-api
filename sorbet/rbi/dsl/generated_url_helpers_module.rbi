@@ -60,6 +60,9 @@ module GeneratedUrlHelpersModule
   def player_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def players_me_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def players_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }

@@ -60,6 +60,9 @@ module GeneratedPathHelpersModule
   def player_session_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def players_me_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def players_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
