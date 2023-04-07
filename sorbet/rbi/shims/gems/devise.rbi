@@ -11,4 +11,8 @@ module Devise
       def current_player; end
     end
   end
+
+  class RegistrationsController; end
+
+  class SessionsController; end
 end
