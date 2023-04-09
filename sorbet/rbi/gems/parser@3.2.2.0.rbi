@@ -22,8 +22,8 @@ end
 module Parser::AST; end
 
 # {Parser::AST::Node} contains information about a single AST node and its
-# child nodes. It extends the basic [AST::Node](http://rdoc.info/gems/ast/AST/Node)
-# class provided by gem [ast](http://rdoc.info/gems/ast).
+# child nodes. It extends the basic [AST::Node](https://www.rubydoc.info/gems/ast/AST/Node)
+# class provided by gem [ast](https://www.rubydoc.info/gems/ast).
 #
 # @api public
 #
@@ -868,7 +868,7 @@ end
 
 # @api public
 #
-# source://parser//lib/parser.rb#72
+# source://parser//lib/parser.rb#77
 module Parser::Builders; end
 
 # source://parser//lib/parser/builders/default.rb#8
@@ -876,7 +876,7 @@ class Parser::Builders::Default
   # source://parser//lib/parser/builders/default.rb#243
   def initialize; end
 
-  # source://parser//lib/parser/builders/default.rb#696
+  # source://parser//lib/parser/builders/default.rb#701
   def __ENCODING__(__ENCODING__t); end
 
   # source://parser//lib/parser/builders/default.rb#348
@@ -885,79 +885,79 @@ class Parser::Builders::Default
   # source://parser//lib/parser/builders/default.rb#312
   def __LINE__(__LINE__t); end
 
-  # source://parser//lib/parser/builders/default.rb#622
+  # source://parser//lib/parser/builders/default.rb#627
   def accessible(node); end
 
-  # source://parser//lib/parser/builders/default.rb#871
+  # source://parser//lib/parser/builders/default.rb#876
   def alias(alias_t, to, from); end
 
-  # source://parser//lib/parser/builders/default.rb#910
+  # source://parser//lib/parser/builders/default.rb#915
   def arg(name_t); end
 
-  # source://parser//lib/parser/builders/default.rb#1000
+  # source://parser//lib/parser/builders/default.rb#1005
   def arg_expr(expr); end
 
-  # source://parser//lib/parser/builders/default.rb#880
+  # source://parser//lib/parser/builders/default.rb#885
   def args(begin_t, args, end_t, check_args = T.unsafe(nil)); end
 
   # source://parser//lib/parser/builders/default.rb#440
   def array(begin_t, elements, end_t); end
 
-  # source://parser//lib/parser/builders/default.rb#1583
+  # source://parser//lib/parser/builders/default.rb#1588
   def array_pattern(lbrack_t, elements, rbrack_t); end
 
-  # source://parser//lib/parser/builders/default.rb#760
+  # source://parser//lib/parser/builders/default.rb#765
   def assign(lhs, eql_t, rhs); end
 
-  # source://parser//lib/parser/builders/default.rb#705
+  # source://parser//lib/parser/builders/default.rb#710
   def assignable(node); end
 
   # source://parser//lib/parser/builders/default.rb#540
   def associate(begin_t, pairs, end_t); end
 
-  # source://parser//lib/parser/builders/default.rb#1164
+  # source://parser//lib/parser/builders/default.rb#1169
   def attr_asgn(receiver, dot_t, selector_t); end
 
-  # source://parser//lib/parser/builders/default.rb#612
+  # source://parser//lib/parser/builders/default.rb#617
   def back_ref(token); end
 
-  # source://parser//lib/parser/builders/default.rb#1428
+  # source://parser//lib/parser/builders/default.rb#1433
   def begin(begin_t, body, end_t); end
 
-  # source://parser//lib/parser/builders/default.rb#1370
+  # source://parser//lib/parser/builders/default.rb#1375
   def begin_body(compound_stmt, rescue_bodies = T.unsafe(nil), else_t = T.unsafe(nil), else_ = T.unsafe(nil), ensure_t = T.unsafe(nil), ensure_ = T.unsafe(nil)); end
 
-  # source://parser//lib/parser/builders/default.rb#1446
+  # source://parser//lib/parser/builders/default.rb#1451
   def begin_keyword(begin_t, body, end_t); end
 
-  # source://parser//lib/parser/builders/default.rb#1198
+  # source://parser//lib/parser/builders/default.rb#1203
   def binary_op(receiver, operator_t, arg); end
 
-  # source://parser//lib/parser/builders/default.rb#1115
+  # source://parser//lib/parser/builders/default.rb#1120
   def block(method_call, begin_t, args, body, end_t); end
 
-  # source://parser//lib/parser/builders/default.rb#1150
+  # source://parser//lib/parser/builders/default.rb#1155
   def block_pass(amper_t, arg); end
 
-  # source://parser//lib/parser/builders/default.rb#975
+  # source://parser//lib/parser/builders/default.rb#980
   def blockarg(amper_t, name_t); end
 
-  # source://parser//lib/parser/builders/default.rb#1020
+  # source://parser//lib/parser/builders/default.rb#1025
   def blockarg_expr(amper_t, expr); end
 
-  # source://parser//lib/parser/builders/default.rb#1106
+  # source://parser//lib/parser/builders/default.rb#1111
   def call_lambda(lambda_t); end
 
-  # source://parser//lib/parser/builders/default.rb#1089
+  # source://parser//lib/parser/builders/default.rb#1094
   def call_method(receiver, dot_t, selector_t, lparen_t = T.unsafe(nil), args = T.unsafe(nil), rparen_t = T.unsafe(nil)); end
 
-  # source://parser//lib/parser/builders/default.rb#1061
+  # source://parser//lib/parser/builders/default.rb#1066
   def call_type_for_dot(dot_t); end
 
-  # source://parser//lib/parser/builders/default.rb#1303
+  # source://parser//lib/parser/builders/default.rb#1308
   def case(case_t, expr, when_bodies, else_t, else_body, end_t); end
 
-  # source://parser//lib/parser/builders/default.rb#1466
+  # source://parser//lib/parser/builders/default.rb#1471
   def case_match(case_t, expr, in_bodies, else_t, else_body, end_t); end
 
   # source://parser//lib/parser/builders/default.rb#343
@@ -966,55 +966,55 @@ class Parser::Builders::Default
   # source://parser//lib/parser/builders/default.rb#284
   def complex(complex_t); end
 
-  # source://parser//lib/parser/builders/default.rb#1416
+  # source://parser//lib/parser/builders/default.rb#1421
   def compstmt(statements); end
 
-  # source://parser//lib/parser/builders/default.rb#1279
+  # source://parser//lib/parser/builders/default.rb#1284
   def condition(cond_t, cond, then_t, if_true, else_t, if_false, end_t); end
 
-  # source://parser//lib/parser/builders/default.rb#1285
+  # source://parser//lib/parser/builders/default.rb#1290
   def condition_mod(if_true, if_false, cond_t, cond); end
 
-  # source://parser//lib/parser/builders/default.rb#679
+  # source://parser//lib/parser/builders/default.rb#684
   def const(name_t); end
 
-  # source://parser//lib/parser/builders/default.rb#691
+  # source://parser//lib/parser/builders/default.rb#696
   def const_fetch(scope, t_colon2, name_t); end
 
-  # source://parser//lib/parser/builders/default.rb#684
+  # source://parser//lib/parser/builders/default.rb#689
   def const_global(t_colon3, name_t); end
 
-  # source://parser//lib/parser/builders/default.rb#756
+  # source://parser//lib/parser/builders/default.rb#761
   def const_op_assignable(node); end
 
-  # source://parser//lib/parser/builders/default.rb#1613
+  # source://parser//lib/parser/builders/default.rb#1618
   def const_pattern(const, ldelim_t, pattern, rdelim_t); end
 
-  # source://parser//lib/parser/builders/default.rb#607
+  # source://parser//lib/parser/builders/default.rb#612
   def cvar(token); end
 
   # source://parser//lib/parser/builders/default.rb#388
   def dedent_string(node, dedent_level); end
 
-  # source://parser//lib/parser/builders/default.rb#807
+  # source://parser//lib/parser/builders/default.rb#812
   def def_class(class_t, name, lt_t, superclass, body, end_t); end
 
-  # source://parser//lib/parser/builders/default.rb#838
+  # source://parser//lib/parser/builders/default.rb#843
   def def_endless_method(def_t, name_t, args, assignment_t, body); end
 
-  # source://parser//lib/parser/builders/default.rb#856
+  # source://parser//lib/parser/builders/default.rb#861
   def def_endless_singleton(def_t, definee, dot_t, name_t, args, assignment_t, body); end
 
-  # source://parser//lib/parser/builders/default.rb#830
+  # source://parser//lib/parser/builders/default.rb#835
   def def_method(def_t, name_t, args, body, end_t); end
 
-  # source://parser//lib/parser/builders/default.rb#820
+  # source://parser//lib/parser/builders/default.rb#825
   def def_module(module_t, name, body, end_t); end
 
-  # source://parser//lib/parser/builders/default.rb#814
+  # source://parser//lib/parser/builders/default.rb#819
   def def_sclass(class_t, lshft_t, expr, body, end_t); end
 
-  # source://parser//lib/parser/builders/default.rb#846
+  # source://parser//lib/parser/builders/default.rb#851
   def def_singleton(def_t, definee, dot_t, name_t, args, body, end_t); end
 
   # source://parser//lib/parser/builders/default.rb#237
@@ -1026,157 +1026,157 @@ class Parser::Builders::Default
   # source://parser//lib/parser/builders/default.rb#265
   def false(false_t); end
 
-  # source://parser//lib/parser/builders/default.rb#1604
+  # source://parser//lib/parser/builders/default.rb#1609
   def find_pattern(lbrack_t, elements, rbrack_t); end
 
   # source://parser//lib/parser/builders/default.rb#276
   def float(float_t); end
 
-  # source://parser//lib/parser/builders/default.rb#1324
+  # source://parser//lib/parser/builders/default.rb#1329
   def for(for_t, iterator, in_t, iteratee, do_t, body, end_t); end
 
-  # source://parser//lib/parser/builders/default.rb#906
+  # source://parser//lib/parser/builders/default.rb#911
   def forward_arg(dots_t); end
 
-  # source://parser//lib/parser/builders/default.rb#896
+  # source://parser//lib/parser/builders/default.rb#901
   def forward_only_args(begin_t, dots_t, end_t); end
 
-  # source://parser//lib/parser/builders/default.rb#1077
+  # source://parser//lib/parser/builders/default.rb#1082
   def forwarded_args(dots_t); end
 
-  # source://parser//lib/parser/builders/default.rb#1085
+  # source://parser//lib/parser/builders/default.rb#1090
   def forwarded_kwrestarg(dstar_t); end
 
-  # source://parser//lib/parser/builders/default.rb#1081
+  # source://parser//lib/parser/builders/default.rb#1086
   def forwarded_restarg(star_t); end
 
-  # source://parser//lib/parser/builders/default.rb#602
+  # source://parser//lib/parser/builders/default.rb#607
   def gvar(token); end
 
-  # source://parser//lib/parser/builders/default.rb#1577
+  # source://parser//lib/parser/builders/default.rb#1582
   def hash_pattern(lbrace_t, kwargs, rbrace_t); end
 
-  # source://parser//lib/parser/builders/default.rb#592
+  # source://parser//lib/parser/builders/default.rb#597
   def ident(token); end
 
-  # source://parser//lib/parser/builders/default.rb#1493
+  # source://parser//lib/parser/builders/default.rb#1498
   def if_guard(if_t, if_body); end
 
-  # source://parser//lib/parser/builders/default.rb#1472
+  # source://parser//lib/parser/builders/default.rb#1477
   def in_match(lhs, in_t, rhs); end
 
-  # source://parser//lib/parser/builders/default.rb#1487
+  # source://parser//lib/parser/builders/default.rb#1492
   def in_pattern(in_t, pattern, guard, then_t, body); end
 
-  # source://parser//lib/parser/builders/default.rb#1173
+  # source://parser//lib/parser/builders/default.rb#1178
   def index(receiver, lbrack_t, indexes, rbrack_t); end
 
-  # source://parser//lib/parser/builders/default.rb#1187
+  # source://parser//lib/parser/builders/default.rb#1192
   def index_asgn(receiver, lbrack_t, indexes, rbrack_t); end
 
   # source://parser//lib/parser/builders/default.rb#272
   def integer(integer_t); end
 
-  # source://parser//lib/parser/builders/default.rb#597
+  # source://parser//lib/parser/builders/default.rb#602
   def ivar(token); end
 
-  # source://parser//lib/parser/builders/default.rb#1332
+  # source://parser//lib/parser/builders/default.rb#1337
   def keyword_cmd(type, keyword_t, lparen_t = T.unsafe(nil), args = T.unsafe(nil), rparen_t = T.unsafe(nil)); end
 
-  # source://parser//lib/parser/builders/default.rb#937
+  # source://parser//lib/parser/builders/default.rb#942
   def kwarg(name_t); end
 
-  # source://parser//lib/parser/builders/default.rb#963
+  # source://parser//lib/parser/builders/default.rb#968
   def kwnilarg(dstar_t, nil_t); end
 
-  # source://parser//lib/parser/builders/default.rb#944
+  # source://parser//lib/parser/builders/default.rb#949
   def kwoptarg(name_t, value); end
 
-  # source://parser//lib/parser/builders/default.rb#951
+  # source://parser//lib/parser/builders/default.rb#956
   def kwrestarg(dstar_t, name_t = T.unsafe(nil)); end
 
   # source://parser//lib/parser/builders/default.rb#535
   def kwsplat(dstar_t, arg); end
 
-  # source://parser//lib/parser/builders/default.rb#1272
+  # source://parser//lib/parser/builders/default.rb#1277
   def logical_op(type, lhs, op_t, rhs); end
 
-  # source://parser//lib/parser/builders/default.rb#1310
+  # source://parser//lib/parser/builders/default.rb#1315
   def loop(type, keyword_t, cond, do_t, body, end_t); end
 
-  # source://parser//lib/parser/builders/default.rb#1315
+  # source://parser//lib/parser/builders/default.rb#1320
   def loop_mod(type, body, keyword_t, cond); end
 
-  # source://parser//lib/parser/builders/default.rb#1627
+  # source://parser//lib/parser/builders/default.rb#1632
   def match_alt(left, pipe_t, right); end
 
-  # source://parser//lib/parser/builders/default.rb#1634
+  # source://parser//lib/parser/builders/default.rb#1639
   def match_as(value, assoc_t, as); end
 
-  # source://parser//lib/parser/builders/default.rb#1513
+  # source://parser//lib/parser/builders/default.rb#1518
   def match_hash_var(name_t); end
 
-  # source://parser//lib/parser/builders/default.rb#1527
+  # source://parser//lib/parser/builders/default.rb#1532
   def match_hash_var_from_str(begin_t, strings, end_t); end
 
-  # source://parser//lib/parser/builders/default.rb#1665
+  # source://parser//lib/parser/builders/default.rb#1670
   def match_label(label_type, label); end
 
-  # source://parser//lib/parser/builders/default.rb#1641
+  # source://parser//lib/parser/builders/default.rb#1646
   def match_nil_pattern(dstar_t, nil_t); end
 
-  # source://parser//lib/parser/builders/default.rb#1220
+  # source://parser//lib/parser/builders/default.rb#1225
   def match_op(receiver, match_t, arg); end
 
-  # source://parser//lib/parser/builders/default.rb#1646
+  # source://parser//lib/parser/builders/default.rb#1651
   def match_pair(label_type, label, value); end
 
-  # source://parser//lib/parser/builders/default.rb#1477
+  # source://parser//lib/parser/builders/default.rb#1482
   def match_pattern(lhs, match_t, rhs); end
 
-  # source://parser//lib/parser/builders/default.rb#1482
+  # source://parser//lib/parser/builders/default.rb#1487
   def match_pattern_p(lhs, match_t, rhs); end
 
-  # source://parser//lib/parser/builders/default.rb#1566
+  # source://parser//lib/parser/builders/default.rb#1571
   def match_rest(star_t, name_t = T.unsafe(nil)); end
 
-  # source://parser//lib/parser/builders/default.rb#1501
+  # source://parser//lib/parser/builders/default.rb#1506
   def match_var(name_t); end
 
-  # source://parser//lib/parser/builders/default.rb#1609
+  # source://parser//lib/parser/builders/default.rb#1614
   def match_with_trailing_comma(match, comma_t); end
 
-  # source://parser//lib/parser/builders/default.rb#798
+  # source://parser//lib/parser/builders/default.rb#803
   def multi_assign(lhs, eql_t, rhs); end
 
-  # source://parser//lib/parser/builders/default.rb#793
+  # source://parser//lib/parser/builders/default.rb#798
   def multi_lhs(begin_t, items, end_t); end
 
   # source://parser//lib/parser/builders/default.rb#255
   def nil(nil_t); end
 
-  # source://parser//lib/parser/builders/default.rb#1248
+  # source://parser//lib/parser/builders/default.rb#1253
   def not_op(not_t, begin_t = T.unsafe(nil), receiver = T.unsafe(nil), end_t = T.unsafe(nil)); end
 
-  # source://parser//lib/parser/builders/default.rb#617
+  # source://parser//lib/parser/builders/default.rb#622
   def nth_ref(token); end
 
-  # source://parser//lib/parser/builders/default.rb#892
+  # source://parser//lib/parser/builders/default.rb#897
   def numargs(max_numparam); end
 
-  # source://parser//lib/parser/builders/default.rb#1031
+  # source://parser//lib/parser/builders/default.rb#1036
   def objc_kwarg(kwname_t, assoc_t, name_t); end
 
-  # source://parser//lib/parser/builders/default.rb#1045
+  # source://parser//lib/parser/builders/default.rb#1050
   def objc_restarg(star_t, name = T.unsafe(nil)); end
 
-  # source://parser//lib/parser/builders/default.rb#1155
+  # source://parser//lib/parser/builders/default.rb#1160
   def objc_varargs(pair, rest_of_varargs); end
 
-  # source://parser//lib/parser/builders/default.rb#767
+  # source://parser//lib/parser/builders/default.rb#772
   def op_assign(lhs, op_t, rhs); end
 
-  # source://parser//lib/parser/builders/default.rb#917
+  # source://parser//lib/parser/builders/default.rb#922
   def optarg(name_t, eql_t, value); end
 
   # source://parser//lib/parser/builders/default.rb#488
@@ -1200,22 +1200,22 @@ class Parser::Builders::Default
   # source://parser//lib/parser/builders/default.rb#225
   def parser=(_arg0); end
 
-  # source://parser//lib/parser/builders/default.rb#1622
+  # source://parser//lib/parser/builders/default.rb#1627
   def pin(pin_t, var); end
 
-  # source://parser//lib/parser/builders/default.rb#1355
+  # source://parser//lib/parser/builders/default.rb#1360
   def postexe(postexe_t, lbrace_t, compstmt, rbrace_t); end
 
-  # source://parser//lib/parser/builders/default.rb#1350
+  # source://parser//lib/parser/builders/default.rb#1355
   def preexe(preexe_t, lbrace_t, compstmt, rbrace_t); end
 
-  # source://parser//lib/parser/builders/default.rb#985
+  # source://parser//lib/parser/builders/default.rb#990
   def procarg0(arg); end
 
-  # source://parser//lib/parser/builders/default.rb#578
+  # source://parser//lib/parser/builders/default.rb#583
   def range_exclusive(lhs, dot3_t, rhs); end
 
-  # source://parser//lib/parser/builders/default.rb#573
+  # source://parser//lib/parser/builders/default.rb#578
   def range_inclusive(lhs, dot2_t, rhs); end
 
   # source://parser//lib/parser/builders/default.rb#280
@@ -1227,19 +1227,19 @@ class Parser::Builders::Default
   # source://parser//lib/parser/builders/default.rb#417
   def regexp_options(regopt_t); end
 
-  # source://parser//lib/parser/builders/default.rb#1362
+  # source://parser//lib/parser/builders/default.rb#1367
   def rescue_body(rescue_t, exc_list, assoc_t, exc_var, then_t, compound_stmt); end
 
-  # source://parser//lib/parser/builders/default.rb#926
+  # source://parser//lib/parser/builders/default.rb#931
   def restarg(star_t, name_t = T.unsafe(nil)); end
 
-  # source://parser//lib/parser/builders/default.rb#1009
+  # source://parser//lib/parser/builders/default.rb#1014
   def restarg_expr(star_t, expr = T.unsafe(nil)); end
 
-  # source://parser//lib/parser/builders/default.rb#587
+  # source://parser//lib/parser/builders/default.rb#592
   def self(token); end
 
-  # source://parser//lib/parser/builders/default.rb#968
+  # source://parser//lib/parser/builders/default.rb#973
   def shadowarg(name_t); end
 
   # source://parser//lib/parser/builders/default.rb#445
@@ -1266,7 +1266,7 @@ class Parser::Builders::Default
   # source://parser//lib/parser/builders/default.rb#469
   def symbols_compose(begin_t, parts, end_t); end
 
-  # source://parser//lib/parser/builders/default.rb#1290
+  # source://parser//lib/parser/builders/default.rb#1295
   def ternary(cond, question_t, if_true, colon_t, if_false); end
 
   # source://parser//lib/parser/builders/default.rb#260
@@ -1275,16 +1275,16 @@ class Parser::Builders::Default
   # source://parser//lib/parser/builders/default.rb#294
   def unary_num(unary_t, numeric); end
 
-  # source://parser//lib/parser/builders/default.rb#1236
+  # source://parser//lib/parser/builders/default.rb#1241
   def unary_op(op_t, receiver); end
 
-  # source://parser//lib/parser/builders/default.rb#866
+  # source://parser//lib/parser/builders/default.rb#871
   def undef_method(undef_t, names); end
 
-  # source://parser//lib/parser/builders/default.rb#1497
+  # source://parser//lib/parser/builders/default.rb#1502
   def unless_guard(unless_t, unless_body); end
 
-  # source://parser//lib/parser/builders/default.rb#1297
+  # source://parser//lib/parser/builders/default.rb#1302
   def when(when_t, patterns, then_t, body); end
 
   # source://parser//lib/parser/builders/default.rb#455
@@ -1298,184 +1298,184 @@ class Parser::Builders::Default
 
   private
 
-  # source://parser//lib/parser/builders/default.rb#1804
+  # source://parser//lib/parser/builders/default.rb#1809
   def arg_name_collides?(this_name, that_name); end
 
-  # source://parser//lib/parser/builders/default.rb#2000
+  # source://parser//lib/parser/builders/default.rb#2005
   def arg_prefix_map(op_t, name_t = T.unsafe(nil)); end
 
-  # source://parser//lib/parser/builders/default.rb#1974
+  # source://parser//lib/parser/builders/default.rb#1979
   def binary_op_map(left_e, op_t, right_e); end
 
-  # source://parser//lib/parser/builders/default.rb#2102
+  # source://parser//lib/parser/builders/default.rb#2107
   def block_map(receiver_l, begin_t, end_t); end
 
-  # source://parser//lib/parser/builders/default.rb#1779
+  # source://parser//lib/parser/builders/default.rb#1784
   def check_assignment_to_numparam(name, loc); end
 
-  # source://parser//lib/parser/builders/default.rb#1681
+  # source://parser//lib/parser/builders/default.rb#1686
   def check_condition(cond); end
 
-  # source://parser//lib/parser/builders/default.rb#1750
+  # source://parser//lib/parser/builders/default.rb#1755
   def check_duplicate_arg(this_arg, map = T.unsafe(nil)); end
 
-  # source://parser//lib/parser/builders/default.rb#1725
+  # source://parser//lib/parser/builders/default.rb#1730
   def check_duplicate_args(args, map = T.unsafe(nil)); end
 
-  # source://parser//lib/parser/builders/default.rb#1837
+  # source://parser//lib/parser/builders/default.rb#1842
   def check_duplicate_pattern_key(name, loc); end
 
-  # source://parser//lib/parser/builders/default.rb#1827
+  # source://parser//lib/parser/builders/default.rb#1832
   def check_duplicate_pattern_variable(name, loc); end
 
-  # source://parser//lib/parser/builders/default.rb#1819
+  # source://parser//lib/parser/builders/default.rb#1824
   def check_lvar_name(name, loc); end
 
-  # source://parser//lib/parser/builders/default.rb#1794
+  # source://parser//lib/parser/builders/default.rb#1799
   def check_reserved_for_numparam(name, loc); end
 
-  # source://parser//lib/parser/builders/default.rb#2259
+  # source://parser//lib/parser/builders/default.rb#2264
   def collapse_string_parts?(parts); end
 
-  # source://parser//lib/parser/builders/default.rb#1925
+  # source://parser//lib/parser/builders/default.rb#1930
   def collection_map(begin_t, parts, end_t); end
 
-  # source://parser//lib/parser/builders/default.rb#2129
+  # source://parser//lib/parser/builders/default.rb#2134
   def condition_map(keyword_t, cond_e, begin_t, body_e, else_t, else_e, end_t); end
 
-  # source://parser//lib/parser/builders/default.rb#1960
+  # source://parser//lib/parser/builders/default.rb#1965
   def constant_map(scope, colon2_t, name_t); end
 
-  # source://parser//lib/parser/builders/default.rb#2033
+  # source://parser//lib/parser/builders/default.rb#2038
   def definition_map(keyword_t, operator_t, name_t, end_t); end
 
-  # source://parser//lib/parser/builders/default.rb#1866
+  # source://parser//lib/parser/builders/default.rb#1871
   def delimited_string_map(string_t); end
 
-  # source://parser//lib/parser/builders/default.rb#2281
+  # source://parser//lib/parser/builders/default.rb#2286
   def diagnostic(type, reason, arguments, location, highlights = T.unsafe(nil)); end
 
-  # source://parser//lib/parser/builders/default.rb#2173
+  # source://parser//lib/parser/builders/default.rb#2178
   def eh_keyword_map(compstmt_e, keyword_t, body_es, else_t, else_e); end
 
-  # source://parser//lib/parser/builders/default.rb#2039
+  # source://parser//lib/parser/builders/default.rb#2044
   def endless_definition_map(keyword_t, operator_t, name_t, assignment_t, body_e); end
 
-  # source://parser//lib/parser/builders/default.rb#1921
+  # source://parser//lib/parser/builders/default.rb#1926
   def expr_map(loc); end
 
-  # source://parser//lib/parser/builders/default.rb#2154
+  # source://parser//lib/parser/builders/default.rb#2159
   def for_map(keyword_t, in_t, begin_t, end_t); end
 
-  # source://parser//lib/parser/builders/default.rb#2201
+  # source://parser//lib/parser/builders/default.rb#2206
   def guard_map(keyword_t, guard_body_e); end
 
-  # source://parser//lib/parser/builders/default.rb#2091
+  # source://parser//lib/parser/builders/default.rb#2096
   def index_map(receiver_e, lbrack_t, rbrack_t); end
 
-  # source://parser//lib/parser/builders/default.rb#1857
+  # source://parser//lib/parser/builders/default.rb#1862
   def join_exprs(left_expr, right_expr); end
 
-  # source://parser//lib/parser/builders/default.rb#2107
+  # source://parser//lib/parser/builders/default.rb#2112
   def keyword_map(keyword_t, begin_t, args, end_t); end
 
-  # source://parser//lib/parser/builders/default.rb#2124
+  # source://parser//lib/parser/builders/default.rb#2129
   def keyword_mod_map(pre_e, keyword_t, post_e); end
 
-  # source://parser//lib/parser/builders/default.rb#2010
+  # source://parser//lib/parser/builders/default.rb#2015
   def kwarg_map(name_t, value_e = T.unsafe(nil)); end
 
-  # source://parser//lib/parser/builders/default.rb#2312
+  # source://parser//lib/parser/builders/default.rb#2317
   def kwargs?(node); end
 
-  # source://parser//lib/parser/builders/default.rb#2276
+  # source://parser//lib/parser/builders/default.rb#2281
   def loc(token); end
 
-  # source://parser//lib/parser/builders/default.rb#2023
+  # source://parser//lib/parser/builders/default.rb#2028
   def module_definition_map(keyword_t, name_e, operator_t, end_t); end
 
-  # source://parser//lib/parser/builders/default.rb#1849
+  # source://parser//lib/parser/builders/default.rb#1854
   def n(type, children, source_map); end
 
-  # source://parser//lib/parser/builders/default.rb#1853
+  # source://parser//lib/parser/builders/default.rb#1858
   def n0(type, source_map); end
 
   # source://parser//lib/parser/builders/default.rb#288
   def numeric(kind, token); end
 
-  # source://parser//lib/parser/builders/default.rb#1891
+  # source://parser//lib/parser/builders/default.rb#1896
   def pair_keyword_map(key_t, value_e); end
 
-  # source://parser//lib/parser/builders/default.rb#1906
+  # source://parser//lib/parser/builders/default.rb#1911
   def pair_quoted_map(begin_t, end_t, value_e); end
 
-  # source://parser//lib/parser/builders/default.rb#1877
+  # source://parser//lib/parser/builders/default.rb#1882
   def prefix_string_map(symbol); end
 
-  # source://parser//lib/parser/builders/default.rb#1988
+  # source://parser//lib/parser/builders/default.rb#1993
   def range_map(start_e, op_t, end_e); end
 
-  # source://parser//lib/parser/builders/default.rb#1955
+  # source://parser//lib/parser/builders/default.rb#1960
   def regexp_map(begin_t, end_t, options_e); end
 
-  # source://parser//lib/parser/builders/default.rb#2160
+  # source://parser//lib/parser/builders/default.rb#2165
   def rescue_body_map(keyword_t, exc_list_e, assoc_t, exc_var_e, then_t, compstmt_e); end
 
-  # source://parser//lib/parser/builders/default.rb#2302
+  # source://parser//lib/parser/builders/default.rb#2307
   def rewrite_hash_args_to_kwargs(args); end
 
-  # source://parser//lib/parser/builders/default.rb#2073
+  # source://parser//lib/parser/builders/default.rb#2078
   def send_binary_op_map(lhs_e, selector_t, rhs_e); end
 
-  # source://parser//lib/parser/builders/default.rb#2096
+  # source://parser//lib/parser/builders/default.rb#2101
   def send_index_map(receiver_e, lbrack_t, rbrack_t); end
 
-  # source://parser//lib/parser/builders/default.rb#2047
+  # source://parser//lib/parser/builders/default.rb#2052
   def send_map(receiver_e, dot_t, selector_t, begin_t = T.unsafe(nil), args = T.unsafe(nil), end_t = T.unsafe(nil)); end
 
-  # source://parser//lib/parser/builders/default.rb#2079
+  # source://parser//lib/parser/builders/default.rb#2084
   def send_unary_op_map(selector_t, arg_e); end
 
-  # source://parser//lib/parser/builders/default.rb#2232
+  # source://parser//lib/parser/builders/default.rb#2237
   def static_regexp(parts, options); end
 
-  # source://parser//lib/parser/builders/default.rb#2252
+  # source://parser//lib/parser/builders/default.rb#2257
   def static_regexp_node(node); end
 
-  # source://parser//lib/parser/builders/default.rb#2215
+  # source://parser//lib/parser/builders/default.rb#2220
   def static_string(nodes); end
 
-  # source://parser//lib/parser/builders/default.rb#1941
+  # source://parser//lib/parser/builders/default.rb#1946
   def string_map(begin_t, parts, end_t); end
 
-  # source://parser//lib/parser/builders/default.rb#2268
+  # source://parser//lib/parser/builders/default.rb#2273
   def string_value(token); end
 
-  # source://parser//lib/parser/builders/default.rb#2149
+  # source://parser//lib/parser/builders/default.rb#2154
   def ternary_map(begin_e, question_t, mid_e, colon_t, end_e); end
 
-  # source://parser//lib/parser/builders/default.rb#1862
+  # source://parser//lib/parser/builders/default.rb#1867
   def token_map(token); end
 
-  # source://parser//lib/parser/builders/default.rb#1978
+  # source://parser//lib/parser/builders/default.rb#1983
   def unary_op_map(op_t, arg_e = T.unsafe(nil)); end
 
-  # source://parser//lib/parser/builders/default.rb#1886
+  # source://parser//lib/parser/builders/default.rb#1891
   def unquoted_map(token); end
 
-  # source://parser//lib/parser/builders/default.rb#2290
+  # source://parser//lib/parser/builders/default.rb#2295
   def validate_definee(definee); end
 
-  # source://parser//lib/parser/builders/default.rb#1764
+  # source://parser//lib/parser/builders/default.rb#1769
   def validate_no_forward_arg_after_restarg(args); end
 
-  # source://parser//lib/parser/builders/default.rb#2264
+  # source://parser//lib/parser/builders/default.rb#2269
   def value(token); end
 
-  # source://parser//lib/parser/builders/default.rb#2067
+  # source://parser//lib/parser/builders/default.rb#2072
   def var_send_map(variable_e); end
 
-  # source://parser//lib/parser/builders/default.rb#1970
+  # source://parser//lib/parser/builders/default.rb#1975
   def variable_map(name_t); end
 
   class << self
@@ -1908,668 +1908,578 @@ Parser::Diagnostic::LEVELS = T.let(T.unsafe(nil), Array)
 #
 #       NoMethodError: undefined method `ord' for nil:NilClass
 #
-# source://parser//lib/parser/lexer.rb#82
+# source://parser//lib/parser/lexer-F1.rb#82
 class Parser::Lexer
   # @return [Lexer] a new instance of Lexer
   #
-  # source://parser//lib/parser/lexer.rb#11148
+  # source://parser//lib/parser/lexer-F1.rb#8250
   def initialize(version); end
 
   # Return next token: [type, value].
   #
-  # source://parser//lib/parser/lexer.rb#11303
+  # source://parser//lib/parser/lexer-F1.rb#8410
   def advance; end
 
   # Returns the value of attribute cmdarg.
   #
-  # source://parser//lib/parser/lexer.rb#11142
+  # source://parser//lib/parser/lexer-F1.rb#8244
   def cmdarg; end
 
   # Sets the attribute cmdarg
   #
   # @param value the value to set the attribute cmdarg to.
   #
-  # source://parser//lib/parser/lexer.rb#11142
+  # source://parser//lib/parser/lexer-F1.rb#8244
   def cmdarg=(_arg0); end
 
   # Returns the value of attribute cmdarg_stack.
   #
-  # source://parser//lib/parser/lexer.rb#11146
+  # source://parser//lib/parser/lexer-F1.rb#8248
   def cmdarg_stack; end
 
   # Returns the value of attribute command_start.
   #
-  # source://parser//lib/parser/lexer.rb#11142
+  # source://parser//lib/parser/lexer-F1.rb#8244
   def command_start; end
 
   # Sets the attribute command_start
   #
   # @param value the value to set the attribute command_start to.
   #
-  # source://parser//lib/parser/lexer.rb#11142
+  # source://parser//lib/parser/lexer-F1.rb#8244
   def command_start=(_arg0); end
 
   # Returns the value of attribute comments.
   #
-  # source://parser//lib/parser/lexer.rb#11144
+  # source://parser//lib/parser/lexer-F1.rb#8246
   def comments; end
 
   # Sets the attribute comments
   #
   # @param value the value to set the attribute comments to.
   #
-  # source://parser//lib/parser/lexer.rb#11144
+  # source://parser//lib/parser/lexer-F1.rb#8246
   def comments=(_arg0); end
 
   # Returns the value of attribute cond.
   #
-  # source://parser//lib/parser/lexer.rb#11142
+  # source://parser//lib/parser/lexer-F1.rb#8244
   def cond; end
 
   # Sets the attribute cond
   #
   # @param value the value to set the attribute cond to.
   #
-  # source://parser//lib/parser/lexer.rb#11142
+  # source://parser//lib/parser/lexer-F1.rb#8244
   def cond=(_arg0); end
 
   # Returns the value of attribute cond_stack.
   #
-  # source://parser//lib/parser/lexer.rb#11146
+  # source://parser//lib/parser/lexer-F1.rb#8248
   def cond_stack; end
 
   # Returns the value of attribute context.
   #
-  # source://parser//lib/parser/lexer.rb#11142
+  # source://parser//lib/parser/lexer-F1.rb#8244
   def context; end
 
   # Sets the attribute context
   #
   # @param value the value to set the attribute context to.
   #
-  # source://parser//lib/parser/lexer.rb#11142
+  # source://parser//lib/parser/lexer-F1.rb#8244
   def context=(_arg0); end
 
-  # source://parser//lib/parser/lexer.rb#11295
+  # source://parser//lib/parser/lexer-F1.rb#8405
   def dedent_level; end
 
   # Returns the value of attribute diagnostics.
   #
-  # source://parser//lib/parser/lexer.rb#11138
+  # source://parser//lib/parser/lexer-F1.rb#8240
   def diagnostics; end
 
   # Sets the attribute diagnostics
   #
   # @param value the value to set the attribute diagnostics to.
   #
-  # source://parser//lib/parser/lexer.rb#11138
+  # source://parser//lib/parser/lexer-F1.rb#8240
   def diagnostics=(_arg0); end
 
-  # source://parser//lib/parser/lexer.rb#11245
+  # source://parser//lib/parser/lexer-F1.rb#8358
   def encoding; end
 
   # Returns the value of attribute force_utf32.
   #
-  # source://parser//lib/parser/lexer.rb#11140
+  # source://parser//lib/parser/lexer-F1.rb#8242
   def force_utf32; end
 
   # Sets the attribute force_utf32
   #
   # @param value the value to set the attribute force_utf32 to.
   #
-  # source://parser//lib/parser/lexer.rb#11140
+  # source://parser//lib/parser/lexer-F1.rb#8242
   def force_utf32=(_arg0); end
 
   # Returns the value of attribute lambda_stack.
   #
-  # source://parser//lib/parser/lexer.rb#11146
+  # source://parser//lib/parser/lexer-F1.rb#8248
   def lambda_stack; end
 
   # Returns the value of attribute paren_nest.
   #
-  # source://parser//lib/parser/lexer.rb#11146
+  # source://parser//lib/parser/lexer-F1.rb#8248
   def paren_nest; end
 
-  # source://parser//lib/parser/lexer.rb#11282
+  # source://parser//lib/parser/lexer-F1.rb#8392
   def pop_cmdarg; end
 
-  # source://parser//lib/parser/lexer.rb#11291
+  # source://parser//lib/parser/lexer-F1.rb#8401
   def pop_cond; end
 
-  # source://parser//lib/parser/lexer.rb#11277
+  # source://parser//lib/parser/lexer-F1.rb#8387
   def push_cmdarg; end
 
-  # source://parser//lib/parser/lexer.rb#11286
+  # source://parser//lib/parser/lexer-F1.rb#8396
   def push_cond; end
 
-  # source://parser//lib/parser/lexer.rb#11159
+  # source://parser//lib/parser/lexer-F1.rb#8281
   def reset(reset_state = T.unsafe(nil)); end
 
-  # Returns the value of attribute source_buffer.
+  # %
   #
-  # source://parser//lib/parser/lexer.rb#11136
+  # source://parser//lib/parser/lexer-F1.rb#8238
   def source_buffer; end
 
-  # source://parser//lib/parser/lexer.rb#11224
+  # source://parser//lib/parser/lexer-F1.rb#8334
   def source_buffer=(source_buffer); end
 
-  # source://parser//lib/parser/lexer.rb#11269
+  # source://parser//lib/parser/lexer-F1.rb#8379
   def state; end
 
-  # source://parser//lib/parser/lexer.rb#11273
+  # source://parser//lib/parser/lexer-F1.rb#8383
   def state=(state); end
 
   # Returns the value of attribute static_env.
   #
-  # source://parser//lib/parser/lexer.rb#11139
+  # source://parser//lib/parser/lexer-F1.rb#8241
   def static_env; end
 
   # Sets the attribute static_env
   #
   # @param value the value to set the attribute static_env to.
   #
-  # source://parser//lib/parser/lexer.rb#11139
+  # source://parser//lib/parser/lexer-F1.rb#8241
   def static_env=(_arg0); end
 
   # Returns the value of attribute tokens.
   #
-  # source://parser//lib/parser/lexer.rb#11144
+  # source://parser//lib/parser/lexer-F1.rb#8246
   def tokens; end
 
   # Sets the attribute tokens
   #
   # @param value the value to set the attribute tokens to.
   #
-  # source://parser//lib/parser/lexer.rb#11144
+  # source://parser//lib/parser/lexer-F1.rb#8246
   def tokens=(_arg0); end
 
   # Returns the value of attribute version.
   #
-  # source://parser//lib/parser/lexer.rb#11146
+  # source://parser//lib/parser/lexer-F1.rb#8248
   def version; end
 
   protected
 
-  # source://parser//lib/parser/lexer.rb#24901
+  # source://parser//lib/parser/lexer-F1.rb#14631
   def arg_or_cmdarg(cmd_state); end
 
-  # source://parser//lib/parser/lexer.rb#24921
+  # source://parser//lib/parser/lexer-F1.rb#14693
+  def check_ambiguous_slash(tm); end
+
+  # source://parser//lib/parser/lexer-F1.rb#14655
   def diagnostic(type, reason, arguments = T.unsafe(nil), location = T.unsafe(nil), highlights = T.unsafe(nil)); end
 
-  # source://parser//lib/parser/lexer.rb#24875
+  # source://parser//lib/parser/lexer-F1.rb#14661
+  def e_lbrace; end
+
+  # source://parser//lib/parser/lexer-F1.rb#14605
   def emit(type, value = T.unsafe(nil), s = T.unsafe(nil), e = T.unsafe(nil)); end
 
-  # source://parser//lib/parser/lexer.rb#24909
+  # source://parser//lib/parser/lexer-F1.rb#14714
+  def emit_class_var(ts = T.unsafe(nil), te = T.unsafe(nil)); end
+
+  # source://parser//lib/parser/lexer-F1.rb#14742
+  def emit_colon_with_digits(p, tm, diag_msg); end
+
+  # source://parser//lib/parser/lexer-F1.rb#14639
   def emit_comment(s = T.unsafe(nil), e = T.unsafe(nil)); end
 
-  # source://parser//lib/parser/lexer.rb#24891
+  # source://parser//lib/parser/lexer-F1.rb#14651
+  def emit_comment_from_range(p, pe); end
+
+  # source://parser//lib/parser/lexer-F1.rb#14621
   def emit_do(do_block = T.unsafe(nil)); end
 
-  # @return [Boolean]
-  #
-  # source://parser//lib/parser/lexer.rb#24981
-  def emit_invalid_escapes?; end
+  # source://parser//lib/parser/lexer-F1.rb#14704
+  def emit_global_var(ts = T.unsafe(nil), te = T.unsafe(nil)); end
 
-  # source://parser//lib/parser/lexer.rb#24885
+  # source://parser//lib/parser/lexer-F1.rb#14722
+  def emit_instance_var(ts = T.unsafe(nil), te = T.unsafe(nil)); end
+
+  # source://parser//lib/parser/lexer-F1.rb#14730
+  def emit_rbrace_rparen_rbrack; end
+
+  # source://parser//lib/parser/lexer-F1.rb#14752
+  def emit_singleton_class; end
+
+  # source://parser//lib/parser/lexer-F1.rb#14615
   def emit_table(table, s = T.unsafe(nil), e = T.unsafe(nil)); end
 
-  # source://parser//lib/parser/lexer.rb#24863
-  def encode_escape(ord); end
+  # source://parser//lib/parser/lexer-F1.rb#14670
+  def numeric_literal_int; end
 
-  # @return [Boolean]
-  #
-  # source://parser//lib/parser/lexer.rb#24850
-  def eof_codepoint?(point); end
+  # source://parser//lib/parser/lexer-F1.rb#14689
+  def on_newline(p); end
 
-  # source://parser//lib/parser/lexer.rb#24964
-  def literal; end
-
-  # source://parser//lib/parser/lexer.rb#24936
-  def next_state_for_literal(literal); end
-
-  # source://parser//lib/parser/lexer.rb#24968
-  def pop_literal; end
-
-  # === LITERAL STACK ===
-  #
-  # source://parser//lib/parser/lexer.rb#24930
-  def push_literal(*args); end
-
-  # source://parser//lib/parser/lexer.rb#24871
+  # source://parser//lib/parser/lexer-F1.rb#14601
   def range(s = T.unsafe(nil), e = T.unsafe(nil)); end
 
-  # source://parser//lib/parser/lexer.rb#24858
+  # source://parser//lib/parser/lexer-F1.rb#14592
   def stack_pop; end
 
-  # source://parser//lib/parser/lexer.rb#24867
+  # source://parser//lib/parser/lexer-F1.rb#14597
   def tok(s = T.unsafe(nil), e = T.unsafe(nil)); end
 
   # @return [Boolean]
   #
-  # source://parser//lib/parser/lexer.rb#24854
+  # source://parser//lib/parser/lexer-F1.rb#14588
   def version?(*versions); end
 
   class << self
     # Returns the value of attribute lex_en_expr_arg.
     #
-    # source://parser//lib/parser/lexer.rb#11080
+    # source://parser//lib/parser/lexer-F1.rb#8186
     def lex_en_expr_arg; end
 
     # Sets the attribute lex_en_expr_arg
     #
     # @param value the value to set the attribute lex_en_expr_arg to.
     #
-    # source://parser//lib/parser/lexer.rb#11080
+    # source://parser//lib/parser/lexer-F1.rb#8186
     def lex_en_expr_arg=(_arg0); end
 
     # Returns the value of attribute lex_en_expr_beg.
     #
-    # source://parser//lib/parser/lexer.rb#11096
+    # source://parser//lib/parser/lexer-F1.rb#8202
     def lex_en_expr_beg; end
 
     # Sets the attribute lex_en_expr_beg
     #
     # @param value the value to set the attribute lex_en_expr_beg to.
     #
-    # source://parser//lib/parser/lexer.rb#11096
+    # source://parser//lib/parser/lexer-F1.rb#8202
     def lex_en_expr_beg=(_arg0); end
 
     # Returns the value of attribute lex_en_expr_cmdarg.
     #
-    # source://parser//lib/parser/lexer.rb#11084
+    # source://parser//lib/parser/lexer-F1.rb#8190
     def lex_en_expr_cmdarg; end
 
     # Sets the attribute lex_en_expr_cmdarg
     #
     # @param value the value to set the attribute lex_en_expr_cmdarg to.
     #
-    # source://parser//lib/parser/lexer.rb#11084
+    # source://parser//lib/parser/lexer-F1.rb#8190
     def lex_en_expr_cmdarg=(_arg0); end
 
     # Returns the value of attribute lex_en_expr_dot.
     #
-    # source://parser//lib/parser/lexer.rb#11076
+    # source://parser//lib/parser/lexer-F1.rb#8182
     def lex_en_expr_dot; end
 
     # Sets the attribute lex_en_expr_dot
     #
     # @param value the value to set the attribute lex_en_expr_dot to.
     #
-    # source://parser//lib/parser/lexer.rb#11076
+    # source://parser//lib/parser/lexer-F1.rb#8182
     def lex_en_expr_dot=(_arg0); end
 
     # Returns the value of attribute lex_en_expr_end.
     #
-    # source://parser//lib/parser/lexer.rb#11108
+    # source://parser//lib/parser/lexer-F1.rb#8214
     def lex_en_expr_end; end
 
     # Sets the attribute lex_en_expr_end
     #
     # @param value the value to set the attribute lex_en_expr_end to.
     #
-    # source://parser//lib/parser/lexer.rb#11108
+    # source://parser//lib/parser/lexer-F1.rb#8214
     def lex_en_expr_end=(_arg0); end
 
     # Returns the value of attribute lex_en_expr_endarg.
     #
-    # source://parser//lib/parser/lexer.rb#11088
+    # source://parser//lib/parser/lexer-F1.rb#8194
     def lex_en_expr_endarg; end
 
     # Sets the attribute lex_en_expr_endarg
     #
     # @param value the value to set the attribute lex_en_expr_endarg to.
     #
-    # source://parser//lib/parser/lexer.rb#11088
+    # source://parser//lib/parser/lexer-F1.rb#8194
     def lex_en_expr_endarg=(_arg0); end
 
     # Returns the value of attribute lex_en_expr_endfn.
     #
-    # source://parser//lib/parser/lexer.rb#11072
+    # source://parser//lib/parser/lexer-F1.rb#8178
     def lex_en_expr_endfn; end
 
     # Sets the attribute lex_en_expr_endfn
     #
     # @param value the value to set the attribute lex_en_expr_endfn to.
     #
-    # source://parser//lib/parser/lexer.rb#11072
+    # source://parser//lib/parser/lexer-F1.rb#8178
     def lex_en_expr_endfn=(_arg0); end
 
     # Returns the value of attribute lex_en_expr_fname.
     #
-    # source://parser//lib/parser/lexer.rb#11068
+    # source://parser//lib/parser/lexer-F1.rb#8174
     def lex_en_expr_fname; end
 
     # Sets the attribute lex_en_expr_fname
     #
     # @param value the value to set the attribute lex_en_expr_fname to.
     #
-    # source://parser//lib/parser/lexer.rb#11068
+    # source://parser//lib/parser/lexer-F1.rb#8174
     def lex_en_expr_fname=(_arg0); end
 
     # Returns the value of attribute lex_en_expr_labelarg.
     #
-    # source://parser//lib/parser/lexer.rb#11100
+    # source://parser//lib/parser/lexer-F1.rb#8206
     def lex_en_expr_labelarg; end
 
     # Sets the attribute lex_en_expr_labelarg
     #
     # @param value the value to set the attribute lex_en_expr_labelarg to.
     #
-    # source://parser//lib/parser/lexer.rb#11100
+    # source://parser//lib/parser/lexer-F1.rb#8206
     def lex_en_expr_labelarg=(_arg0); end
 
     # Returns the value of attribute lex_en_expr_mid.
     #
-    # source://parser//lib/parser/lexer.rb#11092
+    # source://parser//lib/parser/lexer-F1.rb#8198
     def lex_en_expr_mid; end
 
     # Sets the attribute lex_en_expr_mid
     #
     # @param value the value to set the attribute lex_en_expr_mid to.
     #
-    # source://parser//lib/parser/lexer.rb#11092
+    # source://parser//lib/parser/lexer-F1.rb#8198
     def lex_en_expr_mid=(_arg0); end
 
     # Returns the value of attribute lex_en_expr_value.
     #
-    # source://parser//lib/parser/lexer.rb#11104
+    # source://parser//lib/parser/lexer-F1.rb#8210
     def lex_en_expr_value; end
 
     # Sets the attribute lex_en_expr_value
     #
     # @param value the value to set the attribute lex_en_expr_value to.
     #
-    # source://parser//lib/parser/lexer.rb#11104
+    # source://parser//lib/parser/lexer-F1.rb#8210
     def lex_en_expr_value=(_arg0); end
 
     # Returns the value of attribute lex_en_expr_variable.
     #
-    # source://parser//lib/parser/lexer.rb#11064
+    # source://parser//lib/parser/lexer-F1.rb#8170
     def lex_en_expr_variable; end
 
     # Sets the attribute lex_en_expr_variable
     #
     # @param value the value to set the attribute lex_en_expr_variable to.
     #
-    # source://parser//lib/parser/lexer.rb#11064
+    # source://parser//lib/parser/lexer-F1.rb#8170
     def lex_en_expr_variable=(_arg0); end
 
-    # Returns the value of attribute lex_en_interp_backslash_delimited.
+    # Returns the value of attribute lex_en_inside_string.
     #
-    # source://parser//lib/parser/lexer.rb#11044
-    def lex_en_interp_backslash_delimited; end
+    # source://parser//lib/parser/lexer-F1.rb#8230
+    def lex_en_inside_string; end
 
-    # Sets the attribute lex_en_interp_backslash_delimited
+    # Sets the attribute lex_en_inside_string
     #
-    # @param value the value to set the attribute lex_en_interp_backslash_delimited to.
+    # @param value the value to set the attribute lex_en_inside_string to.
     #
-    # source://parser//lib/parser/lexer.rb#11044
-    def lex_en_interp_backslash_delimited=(_arg0); end
-
-    # Returns the value of attribute lex_en_interp_backslash_delimited_words.
-    #
-    # source://parser//lib/parser/lexer.rb#11052
-    def lex_en_interp_backslash_delimited_words; end
-
-    # Sets the attribute lex_en_interp_backslash_delimited_words
-    #
-    # @param value the value to set the attribute lex_en_interp_backslash_delimited_words to.
-    #
-    # source://parser//lib/parser/lexer.rb#11052
-    def lex_en_interp_backslash_delimited_words=(_arg0); end
-
-    # Returns the value of attribute lex_en_interp_string.
-    #
-    # source://parser//lib/parser/lexer.rb#11032
-    def lex_en_interp_string; end
-
-    # Sets the attribute lex_en_interp_string
-    #
-    # @param value the value to set the attribute lex_en_interp_string to.
-    #
-    # source://parser//lib/parser/lexer.rb#11032
-    def lex_en_interp_string=(_arg0); end
-
-    # Returns the value of attribute lex_en_interp_words.
-    #
-    # source://parser//lib/parser/lexer.rb#11028
-    def lex_en_interp_words; end
-
-    # Sets the attribute lex_en_interp_words
-    #
-    # @param value the value to set the attribute lex_en_interp_words to.
-    #
-    # source://parser//lib/parser/lexer.rb#11028
-    def lex_en_interp_words=(_arg0); end
+    # source://parser//lib/parser/lexer-F1.rb#8230
+    def lex_en_inside_string=(_arg0); end
 
     # Returns the value of attribute lex_en_leading_dot.
     #
-    # source://parser//lib/parser/lexer.rb#11112
+    # source://parser//lib/parser/lexer-F1.rb#8218
     def lex_en_leading_dot; end
 
     # Sets the attribute lex_en_leading_dot
     #
     # @param value the value to set the attribute lex_en_leading_dot to.
     #
-    # source://parser//lib/parser/lexer.rb#11112
+    # source://parser//lib/parser/lexer-F1.rb#8218
     def lex_en_leading_dot=(_arg0); end
 
     # Returns the value of attribute lex_en_line_begin.
     #
-    # source://parser//lib/parser/lexer.rb#11120
+    # source://parser//lib/parser/lexer-F1.rb#8226
     def lex_en_line_begin; end
 
     # Sets the attribute lex_en_line_begin
     #
     # @param value the value to set the attribute lex_en_line_begin to.
     #
-    # source://parser//lib/parser/lexer.rb#11120
+    # source://parser//lib/parser/lexer-F1.rb#8226
     def lex_en_line_begin=(_arg0); end
 
     # Returns the value of attribute lex_en_line_comment.
     #
-    # source://parser//lib/parser/lexer.rb#11116
+    # source://parser//lib/parser/lexer-F1.rb#8222
     def lex_en_line_comment; end
 
     # Sets the attribute lex_en_line_comment
     #
     # @param value the value to set the attribute lex_en_line_comment to.
     #
-    # source://parser//lib/parser/lexer.rb#11116
+    # source://parser//lib/parser/lexer-F1.rb#8222
     def lex_en_line_comment=(_arg0); end
-
-    # Returns the value of attribute lex_en_plain_backslash_delimited.
-    #
-    # source://parser//lib/parser/lexer.rb#11048
-    def lex_en_plain_backslash_delimited; end
-
-    # Sets the attribute lex_en_plain_backslash_delimited
-    #
-    # @param value the value to set the attribute lex_en_plain_backslash_delimited to.
-    #
-    # source://parser//lib/parser/lexer.rb#11048
-    def lex_en_plain_backslash_delimited=(_arg0); end
-
-    # Returns the value of attribute lex_en_plain_backslash_delimited_words.
-    #
-    # source://parser//lib/parser/lexer.rb#11056
-    def lex_en_plain_backslash_delimited_words; end
-
-    # Sets the attribute lex_en_plain_backslash_delimited_words
-    #
-    # @param value the value to set the attribute lex_en_plain_backslash_delimited_words to.
-    #
-    # source://parser//lib/parser/lexer.rb#11056
-    def lex_en_plain_backslash_delimited_words=(_arg0); end
-
-    # Returns the value of attribute lex_en_plain_string.
-    #
-    # source://parser//lib/parser/lexer.rb#11040
-    def lex_en_plain_string; end
-
-    # Sets the attribute lex_en_plain_string
-    #
-    # @param value the value to set the attribute lex_en_plain_string to.
-    #
-    # source://parser//lib/parser/lexer.rb#11040
-    def lex_en_plain_string=(_arg0); end
-
-    # Returns the value of attribute lex_en_plain_words.
-    #
-    # source://parser//lib/parser/lexer.rb#11036
-    def lex_en_plain_words; end
-
-    # Sets the attribute lex_en_plain_words
-    #
-    # @param value the value to set the attribute lex_en_plain_words to.
-    #
-    # source://parser//lib/parser/lexer.rb#11036
-    def lex_en_plain_words=(_arg0); end
-
-    # Returns the value of attribute lex_en_regexp_modifiers.
-    #
-    # source://parser//lib/parser/lexer.rb#11060
-    def lex_en_regexp_modifiers; end
-
-    # Sets the attribute lex_en_regexp_modifiers
-    #
-    # @param value the value to set the attribute lex_en_regexp_modifiers to.
-    #
-    # source://parser//lib/parser/lexer.rb#11060
-    def lex_en_regexp_modifiers=(_arg0); end
 
     # Returns the value of attribute lex_error.
     #
-    # source://parser//lib/parser/lexer.rb#11023
+    # source://parser//lib/parser/lexer-F1.rb#8165
     def lex_error; end
 
     # Sets the attribute lex_error
     #
     # @param value the value to set the attribute lex_error to.
     #
-    # source://parser//lib/parser/lexer.rb#11023
+    # source://parser//lib/parser/lexer-F1.rb#8165
     def lex_error=(_arg0); end
 
     # Returns the value of attribute lex_start.
     #
-    # source://parser//lib/parser/lexer.rb#11019
+    # source://parser//lib/parser/lexer-F1.rb#8161
     def lex_start; end
 
     # Sets the attribute lex_start
     #
     # @param value the value to set the attribute lex_start to.
     #
-    # source://parser//lib/parser/lexer.rb#11019
+    # source://parser//lib/parser/lexer-F1.rb#8161
     def lex_start=(_arg0); end
 
     private
 
     # Returns the value of attribute _lex_eof_trans.
     #
-    # source://parser//lib/parser/lexer.rb#10886
+    # source://parser//lib/parser/lexer-F1.rb#8064
     def _lex_eof_trans; end
 
     # Sets the attribute _lex_eof_trans
     #
     # @param value the value to set the attribute _lex_eof_trans to.
     #
-    # source://parser//lib/parser/lexer.rb#10886
+    # source://parser//lib/parser/lexer-F1.rb#8064
     def _lex_eof_trans=(_arg0); end
 
     # Returns the value of attribute _lex_from_state_actions.
     #
-    # source://parser//lib/parser/lexer.rb#10753
+    # source://parser//lib/parser/lexer-F1.rb#7967
     def _lex_from_state_actions; end
 
     # Sets the attribute _lex_from_state_actions
     #
     # @param value the value to set the attribute _lex_from_state_actions to.
     #
-    # source://parser//lib/parser/lexer.rb#10753
+    # source://parser//lib/parser/lexer-F1.rb#7967
     def _lex_from_state_actions=(_arg0); end
 
     # Returns the value of attribute _lex_index_offsets.
     #
-    # source://parser//lib/parser/lexer.rb#604
+    # source://parser//lib/parser/lexer-F1.rb#461
     def _lex_index_offsets; end
 
     # Sets the attribute _lex_index_offsets
     #
     # @param value the value to set the attribute _lex_index_offsets to.
     #
-    # source://parser//lib/parser/lexer.rb#604
+    # source://parser//lib/parser/lexer-F1.rb#461
     def _lex_index_offsets=(_arg0); end
 
     # Returns the value of attribute _lex_indicies.
     #
-    # source://parser//lib/parser/lexer.rb#737
+    # source://parser//lib/parser/lexer-F1.rb#558
     def _lex_indicies; end
 
     # Sets the attribute _lex_indicies
     #
     # @param value the value to set the attribute _lex_indicies to.
     #
-    # source://parser//lib/parser/lexer.rb#737
+    # source://parser//lib/parser/lexer-F1.rb#558
     def _lex_indicies=(_arg0); end
 
     # Returns the value of attribute _lex_key_spans.
     #
-    # source://parser//lib/parser/lexer.rb#471
+    # source://parser//lib/parser/lexer-F1.rb#364
     def _lex_key_spans; end
 
     # Sets the attribute _lex_key_spans
     #
     # @param value the value to set the attribute _lex_key_spans to.
     #
-    # source://parser//lib/parser/lexer.rb#471
+    # source://parser//lib/parser/lexer-F1.rb#364
     def _lex_key_spans=(_arg0); end
 
     # Returns the value of attribute _lex_to_state_actions.
     #
-    # source://parser//lib/parser/lexer.rb#10620
+    # source://parser//lib/parser/lexer-F1.rb#7870
     def _lex_to_state_actions; end
 
     # Sets the attribute _lex_to_state_actions
     #
     # @param value the value to set the attribute _lex_to_state_actions to.
     #
-    # source://parser//lib/parser/lexer.rb#10620
+    # source://parser//lib/parser/lexer-F1.rb#7870
     def _lex_to_state_actions=(_arg0); end
 
     # Returns the value of attribute _lex_trans_actions.
     #
-    # source://parser//lib/parser/lexer.rb#10420
+    # source://parser//lib/parser/lexer-F1.rb#7722
     def _lex_trans_actions; end
 
     # Sets the attribute _lex_trans_actions
     #
     # @param value the value to set the attribute _lex_trans_actions to.
     #
-    # source://parser//lib/parser/lexer.rb#10420
+    # source://parser//lib/parser/lexer-F1.rb#7722
     def _lex_trans_actions=(_arg0); end
 
     # Returns the value of attribute _lex_trans_keys.
     #
-    # source://parser//lib/parser/lexer.rb#87
+    # source://parser//lib/parser/lexer-F1.rb#87
     def _lex_trans_keys; end
 
     # Sets the attribute _lex_trans_keys
     #
     # @param value the value to set the attribute _lex_trans_keys to.
     #
-    # source://parser//lib/parser/lexer.rb#87
+    # source://parser//lib/parser/lexer-F1.rb#87
     def _lex_trans_keys=(_arg0); end
 
     # Returns the value of attribute _lex_trans_targs.
     #
-    # source://parser//lib/parser/lexer.rb#10220
+    # source://parser//lib/parser/lexer-F1.rb#7574
     def _lex_trans_targs; end
 
     # Sets the attribute _lex_trans_targs
     #
     # @param value the value to set the attribute _lex_trans_targs to.
     #
-    # source://parser//lib/parser/lexer.rb#10220
+    # source://parser//lib/parser/lexer-F1.rb#7574
     def _lex_trans_targs=(_arg0); end
   end
 end
@@ -2589,18 +2499,16 @@ end
 # source://parser//lib/parser/lexer/dedenter.rb#7
 Parser::Lexer::Dedenter::TAB_WIDTH = T.let(T.unsafe(nil), Integer)
 
-# %
-#
-# source://parser//lib/parser/lexer.rb#11128
-Parser::Lexer::ESCAPES = T.let(T.unsafe(nil), Hash)
+# source://parser//lib/parser/lexer-F1.rb#14799
+Parser::Lexer::ESCAPE_WHITESPACE = T.let(T.unsafe(nil), Hash)
 
-# source://parser//lib/parser/lexer.rb#25021
+# source://parser//lib/parser/lexer-F1.rb#14785
 Parser::Lexer::KEYWORDS = T.let(T.unsafe(nil), Hash)
 
-# source://parser//lib/parser/lexer.rb#25028
+# source://parser//lib/parser/lexer-F1.rb#14792
 Parser::Lexer::KEYWORDS_BEGIN = T.let(T.unsafe(nil), Hash)
 
-# source://parser//lib/parser/lexer.rb#11249
+# source://parser//lib/parser/lexer-F1.rb#8362
 Parser::Lexer::LEX_STATES = T.let(T.unsafe(nil), Hash)
 
 # source://parser//lib/parser/lexer/literal.rb#6
@@ -2703,14 +2611,11 @@ Parser::Lexer::Literal::TYPES = T.let(T.unsafe(nil), Hash)
 
 # Mapping of strings to parser tokens.
 #
-# source://parser//lib/parser/lexer.rb#24995
+# source://parser//lib/parser/lexer-F1.rb#14759
 Parser::Lexer::PUNCTUATION = T.let(T.unsafe(nil), Hash)
 
-# source://parser//lib/parser/lexer.rb#25015
+# source://parser//lib/parser/lexer-F1.rb#14779
 Parser::Lexer::PUNCTUATION_BEGIN = T.let(T.unsafe(nil), Hash)
-
-# source://parser//lib/parser/lexer.rb#11134
-Parser::Lexer::REGEXP_META_CHARACTERS = T.let(T.unsafe(nil), Regexp)
 
 # source://parser//lib/parser/lexer/stack_state.rb#5
 class Parser::Lexer::StackState
@@ -2741,6 +2646,476 @@ class Parser::Lexer::StackState
   # source://parser//lib/parser/lexer/stack_state.rb#42
   def to_s; end
 end
+
+# line 3 "lib/parser/lexer-strings.rl"
+#
+# source://parser//lib/parser/lexer-strings.rb#6
+class Parser::LexerStrings
+  # @return [LexerStrings] a new instance of LexerStrings
+  #
+  # source://parser//lib/parser/lexer-strings.rb#3300
+  def initialize(lexer, version); end
+
+  # source://parser//lib/parser/lexer-strings.rb#3339
+  def advance(p); end
+
+  # source://parser//lib/parser/lexer-strings.rb#5069
+  def close_interp_on_current_literal(p); end
+
+  # source://parser//lib/parser/lexer-strings.rb#5043
+  def continue_lexing(current_literal); end
+
+  # source://parser//lib/parser/lexer-strings.rb#5092
+  def dedent_level; end
+
+  # Returns the value of attribute herebody_s.
+  #
+  # source://parser//lib/parser/lexer-strings.rb#3295
+  def herebody_s; end
+
+  # Sets the attribute herebody_s
+  #
+  # @param value the value to set the attribute herebody_s to.
+  #
+  # source://parser//lib/parser/lexer-strings.rb#3295
+  def herebody_s=(_arg0); end
+
+  # source://parser//lib/parser/lexer-strings.rb#5047
+  def literal; end
+
+  # source://parser//lib/parser/lexer-strings.rb#5015
+  def next_state_for_literal(literal); end
+
+  # This hook is triggered by "main" lexer on every newline character
+  #
+  # source://parser//lib/parser/lexer-strings.rb#5100
+  def on_newline(p); end
+
+  # source://parser//lib/parser/lexer-strings.rb#5051
+  def pop_literal; end
+
+  # === LITERAL STACK ===
+  #
+  # source://parser//lib/parser/lexer-strings.rb#5009
+  def push_literal(*args); end
+
+  # source://parser//lib/parser/lexer-strings.rb#4999
+  def read_character_constant(p); end
+
+  # source://parser//lib/parser/lexer-strings.rb#3314
+  def reset; end
+
+  # Set by "main" lexer
+  #
+  # source://parser//lib/parser/lexer-strings.rb#3298
+  def source_buffer; end
+
+  # Set by "main" lexer
+  #
+  # source://parser//lib/parser/lexer-strings.rb#3298
+  def source_buffer=(_arg0); end
+
+  # Set by "main" lexer
+  #
+  # source://parser//lib/parser/lexer-strings.rb#3298
+  def source_pts; end
+
+  # Set by "main" lexer
+  #
+  # source://parser//lib/parser/lexer-strings.rb#3298
+  def source_pts=(_arg0); end
+
+  protected
+
+  # source://parser//lib/parser/lexer-strings.rb#5397
+  def check_ambiguous_slash(tm); end
+
+  # source://parser//lib/parser/lexer-strings.rb#5408
+  def check_invalid_escapes(p); end
+
+  # source://parser//lib/parser/lexer-strings.rb#5136
+  def cond; end
+
+  # source://parser//lib/parser/lexer-strings.rb#5132
+  def diagnostic(type, reason, arguments = T.unsafe(nil), location = T.unsafe(nil), highlights = T.unsafe(nil)); end
+
+  # source://parser//lib/parser/lexer-strings.rb#5128
+  def emit(type, value = T.unsafe(nil), s = T.unsafe(nil), e = T.unsafe(nil)); end
+
+  # source://parser//lib/parser/lexer-strings.rb#5387
+  def emit_character_constant; end
+
+  # source://parser//lib/parser/lexer-strings.rb#5364
+  def emit_interp_var(interp_var_kind); end
+
+  # @return [Boolean]
+  #
+  # source://parser//lib/parser/lexer-strings.rb#5140
+  def emit_invalid_escapes?; end
+
+  # source://parser//lib/parser/lexer-strings.rb#5291
+  def encode_escape(ord); end
+
+  # source://parser//lib/parser/lexer-strings.rb#5375
+  def encode_escaped_char(p); end
+
+  # @return [Boolean]
+  #
+  # source://parser//lib/parser/lexer-strings.rb#5112
+  def eof_codepoint?(point); end
+
+  # source://parser//lib/parser/lexer-strings.rb#5210
+  def extend_interp_code(current_literal); end
+
+  # source://parser//lib/parser/lexer-strings.rb#5225
+  def extend_interp_digit_var; end
+
+  # source://parser//lib/parser/lexer-strings.rb#5355
+  def extend_interp_var(current_literal); end
+
+  # source://parser//lib/parser/lexer-strings.rb#5234
+  def extend_string_eol_check_eof(current_literal, pe); end
+
+  # source://parser//lib/parser/lexer-strings.rb#5251
+  def extend_string_eol_heredoc_intertwined(p); end
+
+  # source://parser//lib/parser/lexer-strings.rb#5241
+  def extend_string_eol_heredoc_line; end
+
+  # source://parser//lib/parser/lexer-strings.rb#5267
+  def extend_string_eol_words(current_literal, p); end
+
+  # String escaping
+  #
+  # source://parser//lib/parser/lexer-strings.rb#5154
+  def extend_string_escaped; end
+
+  # source://parser//lib/parser/lexer-strings.rb#5287
+  def extend_string_for_token_range(current_literal, string); end
+
+  # source://parser//lib/parser/lexer-strings.rb#5279
+  def extend_string_slice_end(lookahead); end
+
+  # source://parser//lib/parser/lexer-strings.rb#5124
+  def range(s = T.unsafe(nil), e = T.unsafe(nil)); end
+
+  # source://parser//lib/parser/lexer-strings.rb#5347
+  def read_post_meta_or_ctrl_char(p); end
+
+  # source://parser//lib/parser/lexer-strings.rb#5379
+  def slash_c_char; end
+
+  # source://parser//lib/parser/lexer-strings.rb#5383
+  def slash_m_char; end
+
+  # source://parser//lib/parser/lexer-strings.rb#5120
+  def tok(s = T.unsafe(nil), e = T.unsafe(nil)); end
+
+  # source://parser//lib/parser/lexer-strings.rb#5295
+  def unescape_char(p); end
+
+  # source://parser//lib/parser/lexer-strings.rb#5307
+  def unicode_points(p); end
+
+  # @return [Boolean]
+  #
+  # source://parser//lib/parser/lexer-strings.rb#5116
+  def version?(*versions); end
+
+  class << self
+    # Returns the value of attribute lex_en_character.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#3275
+    def lex_en_character; end
+
+    # Sets the attribute lex_en_character
+    #
+    # @param value the value to set the attribute lex_en_character to.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#3275
+    def lex_en_character=(_arg0); end
+
+    # Returns the value of attribute lex_en_interp_backslash_delimited.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#3255
+    def lex_en_interp_backslash_delimited; end
+
+    # Sets the attribute lex_en_interp_backslash_delimited
+    #
+    # @param value the value to set the attribute lex_en_interp_backslash_delimited to.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#3255
+    def lex_en_interp_backslash_delimited=(_arg0); end
+
+    # Returns the value of attribute lex_en_interp_backslash_delimited_words.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#3263
+    def lex_en_interp_backslash_delimited_words; end
+
+    # Sets the attribute lex_en_interp_backslash_delimited_words
+    #
+    # @param value the value to set the attribute lex_en_interp_backslash_delimited_words to.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#3263
+    def lex_en_interp_backslash_delimited_words=(_arg0); end
+
+    # Returns the value of attribute lex_en_interp_string.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#3243
+    def lex_en_interp_string; end
+
+    # Sets the attribute lex_en_interp_string
+    #
+    # @param value the value to set the attribute lex_en_interp_string to.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#3243
+    def lex_en_interp_string=(_arg0); end
+
+    # Returns the value of attribute lex_en_interp_words.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#3239
+    def lex_en_interp_words; end
+
+    # Sets the attribute lex_en_interp_words
+    #
+    # @param value the value to set the attribute lex_en_interp_words to.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#3239
+    def lex_en_interp_words=(_arg0); end
+
+    # Returns the value of attribute lex_en_plain_backslash_delimited.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#3259
+    def lex_en_plain_backslash_delimited; end
+
+    # Sets the attribute lex_en_plain_backslash_delimited
+    #
+    # @param value the value to set the attribute lex_en_plain_backslash_delimited to.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#3259
+    def lex_en_plain_backslash_delimited=(_arg0); end
+
+    # Returns the value of attribute lex_en_plain_backslash_delimited_words.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#3267
+    def lex_en_plain_backslash_delimited_words; end
+
+    # Sets the attribute lex_en_plain_backslash_delimited_words
+    #
+    # @param value the value to set the attribute lex_en_plain_backslash_delimited_words to.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#3267
+    def lex_en_plain_backslash_delimited_words=(_arg0); end
+
+    # Returns the value of attribute lex_en_plain_string.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#3251
+    def lex_en_plain_string; end
+
+    # Sets the attribute lex_en_plain_string
+    #
+    # @param value the value to set the attribute lex_en_plain_string to.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#3251
+    def lex_en_plain_string=(_arg0); end
+
+    # Returns the value of attribute lex_en_plain_words.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#3247
+    def lex_en_plain_words; end
+
+    # Sets the attribute lex_en_plain_words
+    #
+    # @param value the value to set the attribute lex_en_plain_words to.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#3247
+    def lex_en_plain_words=(_arg0); end
+
+    # Returns the value of attribute lex_en_regexp_modifiers.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#3271
+    def lex_en_regexp_modifiers; end
+
+    # Sets the attribute lex_en_regexp_modifiers
+    #
+    # @param value the value to set the attribute lex_en_regexp_modifiers to.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#3271
+    def lex_en_regexp_modifiers=(_arg0); end
+
+    # Returns the value of attribute lex_en_unknown.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#3279
+    def lex_en_unknown; end
+
+    # Sets the attribute lex_en_unknown
+    #
+    # @param value the value to set the attribute lex_en_unknown to.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#3279
+    def lex_en_unknown=(_arg0); end
+
+    # Returns the value of attribute lex_error.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#3234
+    def lex_error; end
+
+    # Sets the attribute lex_error
+    #
+    # @param value the value to set the attribute lex_error to.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#3234
+    def lex_error=(_arg0); end
+
+    # Returns the value of attribute lex_start.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#3230
+    def lex_start; end
+
+    # Sets the attribute lex_start
+    #
+    # @param value the value to set the attribute lex_start to.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#3230
+    def lex_start=(_arg0); end
+
+    private
+
+    # Returns the value of attribute _lex_actions.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#11
+    def _lex_actions; end
+
+    # Sets the attribute _lex_actions
+    #
+    # @param value the value to set the attribute _lex_actions to.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#11
+    def _lex_actions=(_arg0); end
+
+    # Returns the value of attribute _lex_eof_trans.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#3184
+    def _lex_eof_trans; end
+
+    # Sets the attribute _lex_eof_trans
+    #
+    # @param value the value to set the attribute _lex_eof_trans to.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#3184
+    def _lex_eof_trans=(_arg0); end
+
+    # Returns the value of attribute _lex_from_state_actions.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#3138
+    def _lex_from_state_actions; end
+
+    # Sets the attribute _lex_from_state_actions
+    #
+    # @param value the value to set the attribute _lex_from_state_actions to.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#3138
+    def _lex_from_state_actions=(_arg0); end
+
+    # Returns the value of attribute _lex_index_offsets.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#244
+    def _lex_index_offsets; end
+
+    # Sets the attribute _lex_index_offsets
+    #
+    # @param value the value to set the attribute _lex_index_offsets to.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#244
+    def _lex_index_offsets=(_arg0); end
+
+    # Returns the value of attribute _lex_indicies.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#290
+    def _lex_indicies; end
+
+    # Sets the attribute _lex_indicies
+    #
+    # @param value the value to set the attribute _lex_indicies to.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#290
+    def _lex_indicies=(_arg0); end
+
+    # Returns the value of attribute _lex_key_spans.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#198
+    def _lex_key_spans; end
+
+    # Sets the attribute _lex_key_spans
+    #
+    # @param value the value to set the attribute _lex_key_spans to.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#198
+    def _lex_key_spans=(_arg0); end
+
+    # Returns the value of attribute _lex_to_state_actions.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#3092
+    def _lex_to_state_actions; end
+
+    # Sets the attribute _lex_to_state_actions
+    #
+    # @param value the value to set the attribute _lex_to_state_actions to.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#3092
+    def _lex_to_state_actions=(_arg0); end
+
+    # Returns the value of attribute _lex_trans_actions.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#3029
+    def _lex_trans_actions; end
+
+    # Sets the attribute _lex_trans_actions
+    #
+    # @param value the value to set the attribute _lex_trans_actions to.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#3029
+    def _lex_trans_actions=(_arg0); end
+
+    # Returns the value of attribute _lex_trans_keys.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#76
+    def _lex_trans_keys; end
+
+    # Sets the attribute _lex_trans_keys
+    #
+    # @param value the value to set the attribute _lex_trans_keys to.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#76
+    def _lex_trans_keys=(_arg0); end
+
+    # Returns the value of attribute _lex_trans_targs.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#2966
+    def _lex_trans_targs; end
+
+    # Sets the attribute _lex_trans_targs
+    #
+    # @param value the value to set the attribute _lex_trans_targs to.
+    #
+    # source://parser//lib/parser/lexer-strings.rb#2966
+    def _lex_trans_targs=(_arg0); end
+  end
+end
+
+# %
+#
+# source://parser//lib/parser/lexer-strings.rb#3287
+Parser::LexerStrings::ESCAPES = T.let(T.unsafe(nil), Hash)
+
+# source://parser//lib/parser/lexer-strings.rb#5414
+Parser::LexerStrings::ESCAPE_WHITESPACE = T.let(T.unsafe(nil), Hash)
+
+# source://parser//lib/parser/lexer-strings.rb#3332
+Parser::LexerStrings::LEX_STATES = T.let(T.unsafe(nil), Hash)
+
+# source://parser//lib/parser/lexer-strings.rb#3293
+Parser::LexerStrings::REGEXP_META_CHARACTERS = T.let(T.unsafe(nil), Regexp)
 
 # Diagnostic messages (errors, warnings and notices) that can be generated.
 #
@@ -4758,7 +5133,7 @@ class Parser::Source::Buffer
   # @param position [Integer]
   # @return [Integer] column
   #
-  # source://parser//lib/parser/source/buffer.rb#233
+  # source://parser//lib/parser/source/buffer.rb#242
   def column_for_position(position); end
 
   # Convert a character index into the source to a `[line, column]` tuple.
@@ -4767,7 +5142,7 @@ class Parser::Source::Buffer
   # @param position [Integer]
   # @return [[Integer, Integer]] `[line, column]`
   #
-  # source://parser//lib/parser/source/buffer.rb#208
+  # source://parser//lib/parser/source/buffer.rb#217
   def decompose_position(position); end
 
   # First line of the buffer, 1 by default.
@@ -4780,12 +5155,12 @@ class Parser::Source::Buffer
 
   # @api public
   #
-  # source://parser//lib/parser/source/buffer.rb#303
+  # source://parser//lib/parser/source/buffer.rb#312
   def freeze; end
 
   # @api public
   #
-  # source://parser//lib/parser/source/buffer.rb#309
+  # source://parser//lib/parser/source/buffer.rb#318
   def inspect; end
 
   # Number of last line in the buffer
@@ -4793,7 +5168,7 @@ class Parser::Source::Buffer
   # @api public
   # @return [Integer]
   #
-  # source://parser//lib/parser/source/buffer.rb#298
+  # source://parser//lib/parser/source/buffer.rb#307
   def last_line; end
 
   # Convert a character index into the source to a line number.
@@ -4802,7 +5177,7 @@ class Parser::Source::Buffer
   # @param position [Integer]
   # @return [Integer] line
   #
-  # source://parser//lib/parser/source/buffer.rb#222
+  # source://parser//lib/parser/source/buffer.rb#231
   def line_for_position(position); end
 
   # Extract line `lineno` as a new `Range`, taking `first_line` into account.
@@ -4812,7 +5187,7 @@ class Parser::Source::Buffer
   # @raise [IndexError] if `lineno` is out of bounds
   # @return [Range]
   #
-  # source://parser//lib/parser/source/buffer.rb#275
+  # source://parser//lib/parser/source/buffer.rb#284
   def line_range(lineno); end
 
   # Buffer name. If the buffer was created from a file, the name corresponds
@@ -4848,7 +5223,7 @@ class Parser::Source::Buffer
   # @api public
   #
   # source://parser//lib/parser/source/buffer.rb#194
-  def slice(range); end
+  def slice(start, length = T.unsafe(nil)); end
 
   # Source code contained in this buffer.
   #
@@ -4878,7 +5253,7 @@ class Parser::Source::Buffer
   # @raise [IndexError] if `lineno` is out of bounds
   # @return [String]
   #
-  # source://parser//lib/parser/source/buffer.rb#264
+  # source://parser//lib/parser/source/buffer.rb#273
   def source_line(lineno); end
 
   # Return an `Array` of source code lines.
@@ -4886,30 +5261,30 @@ class Parser::Source::Buffer
   # @api public
   # @return [Array<String>]
   #
-  # source://parser//lib/parser/source/buffer.rb#243
+  # source://parser//lib/parser/source/buffer.rb#252
   def source_lines; end
 
   # @api public
   # @return [Range] A range covering the whole source
   #
-  # source://parser//lib/parser/source/buffer.rb#289
+  # source://parser//lib/parser/source/buffer.rb#298
   def source_range; end
 
   private
 
   # @api public
   #
-  # source://parser//lib/parser/source/buffer.rb#339
+  # source://parser//lib/parser/source/buffer.rb#348
   def bsearch(line_begins, position); end
 
   # @api public
   #
-  # source://parser//lib/parser/source/buffer.rb#316
+  # source://parser//lib/parser/source/buffer.rb#325
   def line_begins; end
 
   # @api public
   #
-  # source://parser//lib/parser/source/buffer.rb#330
+  # source://parser//lib/parser/source/buffer.rb#339
   def line_index_for_position(position); end
 
   class << self
