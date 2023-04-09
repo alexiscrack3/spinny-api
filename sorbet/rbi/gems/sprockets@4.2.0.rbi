@@ -779,7 +779,7 @@ class Sprockets::Cache::MemoryStore
   #
   # Returns true
   #
-  # source://sprockets//lib/sprockets/cache/memory_store.rb#69
+  # source://sprockets//lib/sprockets/cache/memory_store.rb#76
   def clear(options = T.unsafe(nil)); end
 
   # Public: Retrieve value from cache.
@@ -790,14 +790,14 @@ class Sprockets::Cache::MemoryStore
   #
   # Returns Object or nil or the value is not set.
   #
-  # source://sprockets//lib/sprockets/cache/memory_store.rb#34
+  # source://sprockets//lib/sprockets/cache/memory_store.rb#35
   def get(key); end
 
   # Public: Pretty inspect
   #
   # Returns String.
   #
-  # source://sprockets//lib/sprockets/cache/memory_store.rb#62
+  # source://sprockets//lib/sprockets/cache/memory_store.rb#67
   def inspect; end
 
   # Public: Set a key and value in the cache.
@@ -809,7 +809,7 @@ class Sprockets::Cache::MemoryStore
   #
   # Returns Object value.
   #
-  # source://sprockets//lib/sprockets/cache/memory_store.rb#52
+  # source://sprockets//lib/sprockets/cache/memory_store.rb#55
   def set(key, value); end
 end
 
@@ -1754,6 +1754,21 @@ class Sprockets::DirectiveProcessor
   # source://sprockets//lib/sprockets/directive_processor.rb#269
   def process_depend_on_directive(path); end
 
+  # Allows you to state a dependency on a relative directory
+  # without including it.
+  #
+  # This is used for caching purposes. Any changes made to
+  # the dependency directory will invalidate the cache of the
+  # source file.
+  #
+  # This is useful if you are using ERB and File.read to pull
+  # in contents from multiple files in a directory.
+  #
+  #     //= depend_on_directory ./data
+  #
+  # source://sprockets//lib/sprockets/directive_processor.rb#300
+  def process_depend_on_directory_directive(path = T.unsafe(nil), accept = T.unsafe(nil)); end
+
   # Gathers comment directives in the source and processes them.
   # Any directive method matching `process_*_directive` will
   # automatically be available. This makes it easy to extend the
@@ -1787,7 +1802,7 @@ class Sprockets::DirectiveProcessor
   #
   #   /*= link "logo.png" */
   #
-  # source://sprockets//lib/sprockets/directive_processor.rb#308
+  # source://sprockets//lib/sprockets/directive_processor.rb#326
   def process_link_directive(path); end
 
   # `link_directory` links all the files inside a single
@@ -1801,7 +1816,7 @@ class Sprockets::DirectiveProcessor
   #
   #     //= link_directory "./scripts" .js
   #
-  # source://sprockets//lib/sprockets/directive_processor.rb#324
+  # source://sprockets//lib/sprockets/directive_processor.rb#342
   def process_link_directory_directive(path = T.unsafe(nil), accept = T.unsafe(nil)); end
 
   # `link_tree` links all the nested files in a directory.
@@ -1814,7 +1829,7 @@ class Sprockets::DirectiveProcessor
   #
   #     //= link_tree "./styles" .css
   #
-  # source://sprockets//lib/sprockets/directive_processor.rb#340
+  # source://sprockets//lib/sprockets/directive_processor.rb#358
   def process_link_tree_directive(path = T.unsafe(nil), accept = T.unsafe(nil)); end
 
   # The `require` directive functions similar to Ruby's own `require`.
@@ -1879,30 +1894,30 @@ class Sprockets::DirectiveProcessor
   #
   #     //= stub "jquery"
   #
-  # source://sprockets//lib/sprockets/directive_processor.rb#296
+  # source://sprockets//lib/sprockets/directive_processor.rb#314
   def process_stub_directive(path); end
 
   private
 
-  # source://sprockets//lib/sprockets/directive_processor.rb#347
+  # source://sprockets//lib/sprockets/directive_processor.rb#365
   def expand_accept_shorthand(accept); end
 
-  # source://sprockets//lib/sprockets/directive_processor.rb#381
+  # source://sprockets//lib/sprockets/directive_processor.rb#399
   def expand_relative_dirname(directive, path); end
 
-  # source://sprockets//lib/sprockets/directive_processor.rb#365
+  # source://sprockets//lib/sprockets/directive_processor.rb#383
   def link_paths(paths, deps, accept); end
 
-  # source://sprockets//lib/sprockets/directive_processor.rb#359
+  # source://sprockets//lib/sprockets/directive_processor.rb#377
   def require_paths(paths, deps); end
 
-  # source://sprockets//lib/sprockets/directive_processor.rb#402
+  # source://sprockets//lib/sprockets/directive_processor.rb#420
   def resolve(path, **kargs); end
 
-  # source://sprockets//lib/sprockets/directive_processor.rb#371
+  # source://sprockets//lib/sprockets/directive_processor.rb#389
   def resolve_paths(paths, deps, **kargs); end
 
-  # source://sprockets//lib/sprockets/directive_processor.rb#397
+  # source://sprockets//lib/sprockets/directive_processor.rb#415
   def to_load(uri); end
 
   class << self
@@ -2372,11 +2387,11 @@ module Sprockets::Exporting
 
   # Public: Remove Exporting processor `klass` for `mime_type`.
   #
-  #     environment.unregister_exporter '*/*', Sprockets::Exporters::Zlib
+  #     environment.unregister_exporter '*/*', Sprockets::Exporters::ZlibExporter
   #
   # Can be called without a mime type
   #
-  #     environment.unregister_exporter Sprockets::Exporters::Zlib
+  #     environment.unregister_exporter Sprockets::Exporters::ZlibExporter
   #
   # Does not remove any exporters that depend on `klass`.
   #
@@ -5143,7 +5158,7 @@ module Sprockets::Utils
   #
   # Returns a Set of nodes.
   #
-  # source://sprockets//lib/sprockets/utils.rb#160
+  # source://sprockets//lib/sprockets/utils.rb#165
   def dfs(initial); end
 
   # Internal: Post-order Depth-First search algorithm that gathers all paths
@@ -5157,7 +5172,7 @@ module Sprockets::Utils
   #
   # Returns an Array of node Arrays.
   #
-  # source://sprockets//lib/sprockets/utils.rb#187
+  # source://sprockets//lib/sprockets/utils.rb#192
   def dfs_paths(path); end
 
   # Internal: Check if object can safely be .dup'd.
@@ -5212,7 +5227,7 @@ module Sprockets::Utils
   #
   # Returns result of block.
   #
-  # source://sprockets//lib/sprockets/utils.rb#126
+  # source://sprockets//lib/sprockets/utils.rb#129
   def module_include(base, mod); end
 
   # Internal: Check if string has a trailing semicolon.
@@ -5328,6 +5343,9 @@ module Sprockets::Utils::Gzip::ZopfliArchiver
     def call(file, source, mtime); end
   end
 end
+
+# source://sprockets//lib/sprockets/utils.rb#121
+Sprockets::Utils::MODULE_INCLUDE_MUTEX = T.let(T.unsafe(nil), Thread::Mutex)
 
 # source://sprockets//lib/sprockets/utils.rb#71
 Sprockets::Utils::WHITESPACE_ORDINALS = T.let(T.unsafe(nil), Hash)
