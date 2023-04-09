@@ -4203,25 +4203,11 @@ end
 # source://faker//lib/faker/default/fillmurray.rb#4
 class Faker::Fillmurray < ::Faker::Base
   class << self
-    # Produces the URL of an image from Fill Murray, a site which hosts
-    # exclusively photographs of actor Bill Murray.
-    #
-    # @example
-    #   Faker::Fillmurray.image(grayscale: true)
-    #   #=> "https://fillmurray.com/g/300/300"
-    # @example
-    #   Faker::Fillmurray.image #=> "https://www.fillmurray.com/300/300"
-    # @example
-    #   Faker::Fillmurray.image(grayscale: false, width: 200, height: 400)
-    #   #=> "https://fillmurray.com/200/400"
-    # @param width [Integer] The iamage width.
-    # @param grayscale [Boolean] Whether to return a grayscale image.
-    # @param height [Integer] The image height.
+    # source://faker//lib/faker/default/fillmurray.rb#28
+    def _deprecated_image(grayscale: T.unsafe(nil), width: T.unsafe(nil), height: T.unsafe(nil)); end
+
     # @raise [ArgumentError]
-    # @return [String]
-    #
-    # source://faker//lib/faker/default/fillmurray.rb#27
-    def image(grayscale: T.unsafe(nil), width: T.unsafe(nil), height: T.unsafe(nil)); end
+    def image(*args, **_arg1, &block); end
   end
 end
 
@@ -7362,7 +7348,7 @@ class Faker::Lorem < ::Faker::Base
     #   Faker::Lorem.character    #=> "e"
     # @return [String]
     #
-    # source://faker//lib/faker/default/lorem.rb#52
+    # source://faker//lib/faker/default/lorem.rb#57
     def character; end
 
     # Produces a random string of alphanumeric characters
@@ -7377,7 +7363,7 @@ class Faker::Lorem < ::Faker::Base
     # @param min_numeric [Integer] The minimum number of numbers to add to the string
     # @return [String]
     #
-    # source://faker//lib/faker/default/lorem.rb#72
+    # source://faker//lib/faker/default/lorem.rb#77
     def characters(number: T.unsafe(nil), min_alpha: T.unsafe(nil), min_numeric: T.unsafe(nil)); end
 
     # Generates the emoji
@@ -7387,7 +7373,7 @@ class Faker::Lorem < ::Faker::Base
     #   Faker::Lorem.multibyte  #=> "❤"
     # @return [String]
     #
-    # source://faker//lib/faker/default/lorem.rb#86
+    # source://faker//lib/faker/default/lorem.rb#91
     def multibyte; end
 
     # Generates three sentence paragraph
@@ -7406,8 +7392,8 @@ class Faker::Lorem < ::Faker::Base
     # @param random_sentences_to_add [Integer]
     # @return [String]
     #
-    # source://faker//lib/faker/default/lorem.rb#148
-    def paragraph(sentence_count: T.unsafe(nil), supplemental: T.unsafe(nil), random_sentences_to_add: T.unsafe(nil)); end
+    # source://faker//lib/faker/default/lorem.rb#153
+    def paragraph(sentence_count: T.unsafe(nil), supplemental: T.unsafe(nil), random_sentences_to_add: T.unsafe(nil), exclude_words: T.unsafe(nil)); end
 
     # Generates paragraph with 256 characters
     #
@@ -7419,7 +7405,7 @@ class Faker::Lorem < ::Faker::Base
     # @param supplemental [Boolean]
     # @return [String]
     #
-    # source://faker//lib/faker/default/lorem.rb#184
+    # source://faker//lib/faker/default/lorem.rb#189
     def paragraph_by_chars(number: T.unsafe(nil), supplemental: T.unsafe(nil)); end
 
     # Generates three paragraphs
@@ -7432,8 +7418,8 @@ class Faker::Lorem < ::Faker::Base
     # @param supplemental [Boolean]
     # @return [Array]
     #
-    # source://faker//lib/faker/default/lorem.rb#166
-    def paragraphs(number: T.unsafe(nil), supplemental: T.unsafe(nil)); end
+    # source://faker//lib/faker/default/lorem.rb#171
+    def paragraphs(number: T.unsafe(nil), supplemental: T.unsafe(nil), exclude_words: T.unsafe(nil)); end
 
     # Returns the question with 4 words
     #
@@ -7447,8 +7433,8 @@ class Faker::Lorem < ::Faker::Base
     # @param random_words_to_add [Integer]
     # @return [String]
     #
-    # source://faker//lib/faker/default/lorem.rb#208
-    def question(word_count: T.unsafe(nil), supplemental: T.unsafe(nil), random_words_to_add: T.unsafe(nil)); end
+    # source://faker//lib/faker/default/lorem.rb#213
+    def question(word_count: T.unsafe(nil), supplemental: T.unsafe(nil), random_words_to_add: T.unsafe(nil), exclude_words: T.unsafe(nil)); end
 
     # Generates array of three questions
     #
@@ -7460,8 +7446,8 @@ class Faker::Lorem < ::Faker::Base
     # @param supplemental [Boolean]
     # @return [Array]
     #
-    # source://faker//lib/faker/default/lorem.rb#226
-    def questions(number: T.unsafe(nil), supplemental: T.unsafe(nil)); end
+    # source://faker//lib/faker/default/lorem.rb#231
+    def questions(number: T.unsafe(nil), supplemental: T.unsafe(nil), exclude_words: T.unsafe(nil)); end
 
     # Generates sentence
     #
@@ -7475,8 +7461,8 @@ class Faker::Lorem < ::Faker::Base
     # @param random_words_to_add [Integer] Add any random words, default to 0
     # @return [String]
     #
-    # source://faker//lib/faker/default/lorem.rb#106
-    def sentence(word_count: T.unsafe(nil), supplemental: T.unsafe(nil), random_words_to_add: T.unsafe(nil)); end
+    # source://faker//lib/faker/default/lorem.rb#111
+    def sentence(word_count: T.unsafe(nil), supplemental: T.unsafe(nil), random_words_to_add: T.unsafe(nil), exclude_words: T.unsafe(nil)); end
 
     # Generates three sentences
     #
@@ -7488,8 +7474,8 @@ class Faker::Lorem < ::Faker::Base
     # @param supplemental [Boolean] Should add supplemental words, defaults to false
     # @return [Array] Returns array for sentences.
     #
-    # source://faker//lib/faker/default/lorem.rb#124
-    def sentences(number: T.unsafe(nil), supplemental: T.unsafe(nil)); end
+    # source://faker//lib/faker/default/lorem.rb#129
+    def sentences(number: T.unsafe(nil), supplemental: T.unsafe(nil), exclude_words: T.unsafe(nil)); end
 
     # Returs the random word
     #
@@ -7506,22 +7492,23 @@ class Faker::Lorem < ::Faker::Base
     #   Faker::Lorem.words                                    #=> ["hic", "quia", "nihil"]
     #   Faker::Lorem.words(number: 4)                         #=> ["est", "temporibus", "et", "quaerat"]
     #   Faker::Lorem.words(number: 4, supplemental: true)    #=> ["nisi", "sit", "allatus", "consequatur"]
+    #   Faker::Lorem.words(number: 4, supplemental: true, exclude_words: 'sit') #=> ["nisi", "allatus", "consequatur", "aut"]
     # @param number [Integer] Number of words to be generated
     # @param supplemental [Boolean] Whether to attach supplemental words at the end, default is false
     # @return [Array] Array for words
     #
-    # source://faker//lib/faker/default/lorem.rb#33
-    def words(number: T.unsafe(nil), supplemental: T.unsafe(nil)); end
+    # source://faker//lib/faker/default/lorem.rb#34
+    def words(number: T.unsafe(nil), supplemental: T.unsafe(nil), exclude_words: T.unsafe(nil)); end
 
     private
 
-    # source://faker//lib/faker/default/lorem.rb#232
+    # source://faker//lib/faker/default/lorem.rb#237
     def locale_period; end
 
-    # source://faker//lib/faker/default/lorem.rb#240
+    # source://faker//lib/faker/default/lorem.rb#245
     def locale_question_mark; end
 
-    # source://faker//lib/faker/default/lorem.rb#236
+    # source://faker//lib/faker/default/lorem.rb#241
     def locale_space; end
   end
 end
@@ -11419,6 +11406,34 @@ end
 # source://faker//lib/faker/default/time.rb#5
 Faker::Time::TIME_RANGES = T.let(T.unsafe(nil), Hash)
 
+# source://faker//lib/faker/travel/airport.rb#4
+class Faker::Travel; end
+
+# source://faker//lib/faker/travel/airport.rb#5
+class Faker::Travel::Airport < ::Faker::Base
+  class << self
+    # Produces random Airport by IATA code and takes arguments for size and region
+    #
+    # Faker::Travel::Airport.iata(size: 'large', region: 'united_states') => "LAX"
+    #
+    # @param size [String] airport size, united_states has large, or medium, or small, european_union has large, or medium
+    # @param region [String] airport region, currently available -> united_states or european_union
+    #
+    # source://faker//lib/faker/travel/airport.rb#39
+    def iata(size:, region:); end
+
+    # Produces random Airport by name and takes arguments for size and region
+    #
+    # Faker::Travel::Airport.name(size: 'large', region: 'united_states') => "Los Angeles International Airport"
+    #
+    # @param size [String] airport size, united_states has large, or medium, or small, european_union has large, or medium
+    # @param region [String] airport region, currently available -> united_states or european_union
+    #
+    # source://faker//lib/faker/travel/airport.rb#20
+    def name(size:, region:); end
+  end
+end
+
 # source://faker//lib/faker/tv_shows/aqua_teen_hunger_force.rb#4
 class Faker::TvShows; end
 
@@ -13023,7 +13038,7 @@ class Faker::Vehicle < ::Faker::Base
     #   Faker::Vehicle.car_options #=> ["DVD System", "MP3 (Single Disc)", "Tow Package", "CD (Multi Disc)", "Cassette Player", "Bucket Seats", "Cassette Player", "Leather Interior", "AM/FM Stereo", "Third Row Seats"]
     # @return [Array<String>]
     #
-    # source://faker//lib/faker/default/vehicle.rb#196
+    # source://faker//lib/faker/default/vehicle.rb#195
     def car_options; end
 
     # Produces a random car type.
@@ -13032,7 +13047,7 @@ class Faker::Vehicle < ::Faker::Base
     #   Faker::Vehicle.car_type #=> "Sedan"
     # @return [String]
     #
-    # source://faker//lib/faker/default/vehicle.rb#167
+    # source://faker//lib/faker/default/vehicle.rb#166
     def car_type; end
 
     # Produces a random vehicle color.
@@ -13041,7 +13056,7 @@ class Faker::Vehicle < ::Faker::Base
     #   Faker::Vehicle.color #=> "Red"
     # @return [String]
     #
-    # source://faker//lib/faker/default/vehicle.rb#115
+    # source://faker//lib/faker/default/vehicle.rb#114
     def color; end
 
     # Produces a random vehicle door count.
@@ -13051,7 +13066,7 @@ class Faker::Vehicle < ::Faker::Base
     #   Faker::Vehicle.door_count #=> 3
     # @return [Integer]
     #
-    # source://faker//lib/faker/default/vehicle.rb#223
+    # source://faker//lib/faker/default/vehicle.rb#222
     def door_count; end
 
     # Produces a random vehicle door count.
@@ -13061,7 +13076,7 @@ class Faker::Vehicle < ::Faker::Base
     #   Faker::Vehicle.door_count #=> 3
     # @return [Integer]
     #
-    # source://faker//lib/faker/default/vehicle.rb#223
+    # source://faker//lib/faker/default/vehicle.rb#222
     def doors; end
 
     # Produces a random vehicle drive type.
@@ -13070,7 +13085,7 @@ class Faker::Vehicle < ::Faker::Base
     #   Faker::Vehicle.drive_type #=> "4x2/2-wheel drive"
     # @return [String]
     #
-    # source://faker//lib/faker/default/vehicle.rb#141
+    # source://faker//lib/faker/default/vehicle.rb#140
     def drive_type; end
 
     # Produces a random engine cylinder count.
@@ -13080,7 +13095,7 @@ class Faker::Vehicle < ::Faker::Base
     #   Faker::Vehicle.engine #=> 4
     # @return [String]
     #
-    # source://faker//lib/faker/default/vehicle.rb#181
+    # source://faker//lib/faker/default/vehicle.rb#180
     def engine; end
 
     # Produces a random engine cylinder count.
@@ -13090,7 +13105,7 @@ class Faker::Vehicle < ::Faker::Base
     #   Faker::Vehicle.engine #=> 4
     # @return [String]
     #
-    # source://faker//lib/faker/default/vehicle.rb#181
+    # source://faker//lib/faker/default/vehicle.rb#180
     def engine_size; end
 
     # Produces a random vehicle fuel type.
@@ -13099,7 +13114,7 @@ class Faker::Vehicle < ::Faker::Base
     #   Faker::Vehicle.fuel_type #=> "Diesel"
     # @return [String]
     #
-    # source://faker//lib/faker/default/vehicle.rb#154
+    # source://faker//lib/faker/default/vehicle.rb#153
     def fuel_type; end
 
     # Produces a random mileage/kilometrage for a vehicle.
@@ -13113,10 +13128,10 @@ class Faker::Vehicle < ::Faker::Base
     # @param max [Integer] Specific maximum limit for mileage generation.
     # @return [Integer]
     #
-    # source://faker//lib/faker/default/vehicle.rb#255
+    # source://faker//lib/faker/default/vehicle.rb#254
     def kilometrage(min: T.unsafe(nil), max: T.unsafe(nil)); end
 
-    # source://faker//lib/faker/default/vehicle.rb#272
+    # source://faker//lib/faker/default/vehicle.rb#271
     def license_plate(state_abbreviation: T.unsafe(nil)); end
 
     # Produces a random vehicle make.
@@ -13125,7 +13140,7 @@ class Faker::Vehicle < ::Faker::Base
     #   Faker::Vehicle.make #=> "Honda"
     # @return [String]
     #
-    # source://faker//lib/faker/default/vehicle.rb#57
+    # source://faker//lib/faker/default/vehicle.rb#56
     def make; end
 
     # Produces a random vehicle make and model.
@@ -13134,7 +13149,7 @@ class Faker::Vehicle < ::Faker::Base
     #   Faker::Vehicle.make_and_model #=> "Dodge Charger"
     # @return [String]
     #
-    # source://faker//lib/faker/default/vehicle.rb#87
+    # source://faker//lib/faker/default/vehicle.rb#86
     def make_and_model; end
 
     # Produces a random vehicle manufacturer.
@@ -13143,7 +13158,7 @@ class Faker::Vehicle < ::Faker::Base
     #   Faker::Vehicle.manufacture #=> "Lamborghini"
     # @return [String]
     #
-    # source://faker//lib/faker/default/vehicle.rb#44
+    # source://faker//lib/faker/default/vehicle.rb#43
     def manufacture; end
 
     # Produces a random mileage/kilometrage for a vehicle.
@@ -13157,7 +13172,7 @@ class Faker::Vehicle < ::Faker::Base
     # @param max [Integer] Specific maximum limit for mileage generation.
     # @return [Integer]
     #
-    # source://faker//lib/faker/default/vehicle.rb#255
+    # source://faker//lib/faker/default/vehicle.rb#254
     def mileage(min: T.unsafe(nil), max: T.unsafe(nil)); end
 
     # Produces a random vehicle model.
@@ -13168,10 +13183,10 @@ class Faker::Vehicle < ::Faker::Base
     # @param make_of_model [String] Specific valid vehicle make.
     # @return [String]
     #
-    # source://faker//lib/faker/default/vehicle.rb#72
+    # source://faker//lib/faker/default/vehicle.rb#71
     def model(make_of_model: T.unsafe(nil)); end
 
-    # source://faker//lib/faker/default/vehicle.rb#288
+    # source://faker//lib/faker/default/vehicle.rb#287
     def singapore_license_plate; end
 
     # Produces a random list of standard specs.
@@ -13180,7 +13195,7 @@ class Faker::Vehicle < ::Faker::Base
     #   Faker::Vehicle.standard_specs #=> ["Full-size spare tire w/aluminum alloy wheel", "Back-up camera", "Carpeted cargo area", "Silver accent IP trim finisher -inc: silver shifter finisher", "Back-up camera", "Water-repellent windshield & front door glass", "Floor carpeting"]
     # @return [Array<String>]
     #
-    # source://faker//lib/faker/default/vehicle.rb#209
+    # source://faker//lib/faker/default/vehicle.rb#208
     def standard_specs; end
 
     # Produces a random vehicle style.
@@ -13189,7 +13204,7 @@ class Faker::Vehicle < ::Faker::Base
     #   Faker::Vehicle.style #=> "ESi"
     # @return [String]
     #
-    # source://faker//lib/faker/default/vehicle.rb#102
+    # source://faker//lib/faker/default/vehicle.rb#101
     def style; end
 
     # Produces a random vehicle transmission.
@@ -13198,7 +13213,7 @@ class Faker::Vehicle < ::Faker::Base
     #   Faker::Vehicle.transmission #=> "Automanual"
     # @return [String]
     #
-    # source://faker//lib/faker/default/vehicle.rb#128
+    # source://faker//lib/faker/default/vehicle.rb#127
     def transmission; end
 
     # Produces a car version
@@ -13207,7 +13222,7 @@ class Faker::Vehicle < ::Faker::Base
     #   Faker::Vehicle.version #=> "40 TFSI Premium"
     # @return [String]
     #
-    # source://faker//lib/faker/default/vehicle.rb#303
+    # source://faker//lib/faker/default/vehicle.rb#302
     def version; end
 
     # Produces a random vehicle VIN number.
@@ -13216,7 +13231,7 @@ class Faker::Vehicle < ::Faker::Base
     #   Faker::Vehicle.vin #=> "LLDWXZLG77VK2LUUF"
     # @return [String]
     #
-    # source://faker//lib/faker/default/vehicle.rb#25
+    # source://faker//lib/faker/default/vehicle.rb#24
     def vin; end
 
     # Produces a random car year between 1 and 15 years ago.
@@ -13225,12 +13240,12 @@ class Faker::Vehicle < ::Faker::Base
     #   Faker::Vehicle.year #=> 2008
     # @return [Integer]
     #
-    # source://faker//lib/faker/default/vehicle.rb#237
+    # source://faker//lib/faker/default/vehicle.rb#236
     def year; end
 
     private
 
-    # source://faker//lib/faker/default/vehicle.rb#309
+    # source://faker//lib/faker/default/vehicle.rb#308
     def singapore_checksum(plate_number); end
   end
 end
@@ -13241,17 +13256,14 @@ Faker::Vehicle::MILEAGE_MAX = T.let(T.unsafe(nil), Integer)
 # source://faker//lib/faker/default/vehicle.rb#7
 Faker::Vehicle::MILEAGE_MIN = T.let(T.unsafe(nil), Integer)
 
-# source://faker//lib/faker/default/vehicle.rb#14
+# source://faker//lib/faker/default/vehicle.rb#13
 Faker::Vehicle::SG_CHECKSUM_CHARS = T.let(T.unsafe(nil), String)
 
-# source://faker//lib/faker/default/vehicle.rb#13
+# source://faker//lib/faker/default/vehicle.rb#12
 Faker::Vehicle::SG_CHECKSUM_WEIGHTS = T.let(T.unsafe(nil), Array)
 
 # source://faker//lib/faker/default/vehicle.rb#9
 Faker::Vehicle::VIN_KEYSPACE = T.let(T.unsafe(nil), Array)
-
-# source://faker//lib/faker/default/vehicle.rb#12
-Faker::Vehicle::VIN_REGEX = T.let(T.unsafe(nil), Regexp)
 
 # source://faker//lib/faker/default/vehicle.rb#10
 Faker::Vehicle::VIN_TRANSLITERATION = T.let(T.unsafe(nil), Hash)
