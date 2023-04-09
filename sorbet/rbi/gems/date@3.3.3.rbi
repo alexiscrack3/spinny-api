@@ -19,7 +19,7 @@ class Date
   def infinite?; end
 end
 
-# source://activesupport/7.0.4/lib/active_support/core_ext/date/conversions.rb#9
+# source://activesupport/7.0.4.3/lib/active_support/core_ext/date/conversions.rb#9
 Date::DATE_FORMATS = T.let(T.unsafe(nil), Hash)
 
 # source://date//lib/date.rb#17
@@ -73,7 +73,7 @@ class Date::Infinity < ::Numeric
   def d; end
 end
 
-# source://activesupport/7.0.4/lib/active_support/core_ext/date/deprecated_conversions.rb#6
+# source://activesupport/7.0.4.3/lib/active_support/core_ext/date/deprecated_conversions.rb#6
 Date::NOT_SET = T.let(T.unsafe(nil), Object)
 
 # source://date//lib/date.rb#7
