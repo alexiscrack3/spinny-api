@@ -21,21 +21,16 @@ module Bootsnap
     # source://bootsnap//lib/bootsnap.rb#34
     def _instrument(event, path); end
 
-    # source://bootsnap//lib/bootsnap.rb#132
+    # source://bootsnap//lib/bootsnap.rb#122
     def absolute_path?(path); end
 
-    # source://bootsnap//lib/bootsnap.rb#86
+    # source://bootsnap//lib/bootsnap.rb#70
     def default_setup; end
 
     # source://bootsnap//lib/bootsnap.rb#27
     def instrumentation=(callback); end
 
     def instrumentation_enabled=(_arg0); end
-
-    # @return [Boolean]
-    #
-    # source://bootsnap//lib/bootsnap.rb#79
-    def iseq_cache_supported?; end
 
     # source://bootsnap//lib/bootsnap.rb#14
     def log!; end
@@ -53,7 +48,10 @@ module Bootsnap
     def rb_get_path(_arg0); end
 
     # source://bootsnap//lib/bootsnap.rb#38
-    def setup(cache_dir:, development_mode: T.unsafe(nil), load_path_cache: T.unsafe(nil), autoload_paths_cache: T.unsafe(nil), disable_trace: T.unsafe(nil), compile_cache_iseq: T.unsafe(nil), compile_cache_yaml: T.unsafe(nil), compile_cache_json: T.unsafe(nil)); end
+    def setup(cache_dir:, development_mode: T.unsafe(nil), load_path_cache: T.unsafe(nil), ignore_directories: T.unsafe(nil), readonly: T.unsafe(nil), compile_cache_iseq: T.unsafe(nil), compile_cache_yaml: T.unsafe(nil), compile_cache_json: T.unsafe(nil)); end
+
+    # source://bootsnap//lib/bootsnap.rb#66
+    def unload_cache!; end
   end
 end
 
@@ -62,15 +60,15 @@ module Bootsnap::CompileCache
   class << self
     # @raise [PermissionError]
     #
-    # source://bootsnap//lib/bootsnap/compile_cache.rb#42
+    # source://bootsnap//lib/bootsnap/compile_cache.rb#46
     def permission_error(path); end
 
     # source://bootsnap//lib/bootsnap/compile_cache.rb#13
-    def setup(cache_dir:, iseq:, yaml:, json:); end
+    def setup(cache_dir:, iseq:, yaml:, json:, readonly: T.unsafe(nil)); end
 
     # @return [Boolean]
     #
-    # source://bootsnap//lib/bootsnap/compile_cache.rb#51
+    # source://bootsnap//lib/bootsnap/compile_cache.rb#55
     def supported?; end
   end
 end
@@ -173,12 +171,19 @@ module Bootsnap::CompileCache::JSON
     #
     # source://bootsnap//lib/bootsnap/compile_cache/json.rb#9
     def supported_options=(_arg0); end
+
+    private
+
+    # @return [Boolean]
+    #
+    # source://bootsnap//lib/bootsnap/compile_cache/json.rb#62
+    def supports_freeze?; end
   end
 end
 
-# source://bootsnap//lib/bootsnap/compile_cache/json.rb#63
+# source://bootsnap//lib/bootsnap/compile_cache/json.rb#68
 module Bootsnap::CompileCache::JSON::Patch
-  # source://bootsnap//lib/bootsnap/compile_cache/json.rb#64
+  # source://bootsnap//lib/bootsnap/compile_cache/json.rb#69
   def load_file(path, *args, **_arg2); end
 end
 
@@ -189,12 +194,14 @@ module Bootsnap::CompileCache::Native
   def coverage_running?; end
   def fetch(_arg0, _arg1, _arg2, _arg3); end
   def precompile(_arg0, _arg1, _arg2); end
+  def readonly=(_arg0); end
 
   class << self
     def compile_option_crc32=(_arg0); end
     def coverage_running?; end
     def fetch(_arg0, _arg1, _arg2, _arg3); end
     def precompile(_arg0, _arg1, _arg2); end
+    def readonly=(_arg0); end
   end
 end
 
@@ -238,17 +245,14 @@ module Bootsnap::CompileCache::YAML
     # source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#19
     def msgpack_factory=(_arg0); end
 
-    # source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#113
+    # source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#124
     def patch; end
 
     # source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#26
     def precompile(path); end
 
-    # source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#117
+    # source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#128
     def strict_load(payload); end
-
-    # source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#124
-    def strict_visitor; end
 
     # Psych coerce strings to `Encoding.default_internal` but Message Pack only support
     # UTF-8, US-ASCII and BINARY. So if Encoding.default_internal is set to anything else
@@ -273,71 +277,77 @@ module Bootsnap::CompileCache::YAML
   end
 end
 
-# source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#270
+# source://bootsnap//lib/bootsnap/setup.rb#0
+class Bootsnap::CompileCache::YAML::NoTagsVisitor < ::Psych::Visitors::NoAliasRuby
+  # source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#69
+  def visit(target); end
+end
+
+# source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#272
 module Bootsnap::CompileCache::YAML::Psych3
   extend ::Bootsnap::CompileCache::YAML::Psych3
 
-  # source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#295
+  # source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#297
   def input_to_output(data, kwargs); end
 
-  # source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#273
+  # source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#275
   def input_to_storage(contents, _); end
 
-  # source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#285
+  # source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#287
   def storage_to_output(data, kwargs); end
 end
 
-# source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#299
+# source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#301
 module Bootsnap::CompileCache::YAML::Psych3::Patch
-  # source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#300
+  # source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#302
   def load_file(path, *args, **_arg2); end
 
-  # source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#324
+  # source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#326
   def unsafe_load_file(path, *args, **_arg2); end
 end
 
-# source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#137
+# source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#139
 module Bootsnap::CompileCache::YAML::Psych4
   extend ::Bootsnap::CompileCache::YAML::Psych4
 
-  # source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#140
+  # source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#142
   def input_to_storage(contents, _); end
 end
 
-# source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#219
+# source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#221
 module Bootsnap::CompileCache::YAML::Psych4::Patch
-  # source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#220
+  # source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#222
   def load_file(path, *args, **_arg2); end
 
-  # source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#244
+  # source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#246
   def unsafe_load_file(path, *args, **_arg2); end
 end
 
-# source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#179
+# source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#181
 module Bootsnap::CompileCache::YAML::Psych4::SafeLoad
   extend ::Bootsnap::CompileCache::YAML::Psych4::SafeLoad
 
-  # source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#214
+  # source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#216
   def input_to_output(data, kwargs); end
 
-  # source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#182
+  # source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#184
   def input_to_storage(contents, _); end
 
-  # source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#199
+  # source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#201
   def storage_to_output(data, kwargs); end
 end
 
-# source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#148
+# source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#150
 module Bootsnap::CompileCache::YAML::Psych4::UnsafeLoad
   extend ::Bootsnap::CompileCache::YAML::Psych4::UnsafeLoad
 
-  # source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#174
+  # source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#176
   def input_to_output(data, kwargs); end
 
-  # source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#151
+  # source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#153
   def input_to_storage(contents, _); end
 
-  # source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#163
+  # source://bootsnap//lib/bootsnap/compile_cache/yaml.rb#165
   def storage_to_output(data, kwargs); end
 end
 
@@ -389,23 +399,31 @@ class Bootsnap::InvalidConfiguration < ::StandardError; end
 # source://bootsnap//lib/bootsnap/load_path_cache.rb#4
 module Bootsnap::LoadPathCache
   class << self
+    # Returns the value of attribute enabled.
+    #
+    # source://bootsnap//lib/bootsnap/load_path_cache.rb#27
+    def enabled?; end
+
     # Returns the value of attribute load_path_cache.
     #
-    # source://bootsnap//lib/bootsnap/load_path_cache.rb#25
+    # source://bootsnap//lib/bootsnap/load_path_cache.rb#27
     def load_path_cache; end
 
     # Returns the value of attribute loaded_features_index.
     #
-    # source://bootsnap//lib/bootsnap/load_path_cache.rb#25
+    # source://bootsnap//lib/bootsnap/load_path_cache.rb#27
     def loaded_features_index; end
 
-    # source://bootsnap//lib/bootsnap/load_path_cache.rb#27
-    def setup(cache_path:, development_mode:); end
+    # source://bootsnap//lib/bootsnap/load_path_cache.rb#31
+    def setup(cache_path:, development_mode:, ignore_directories:, readonly: T.unsafe(nil)); end
 
     # @return [Boolean]
     #
-    # source://bootsnap//lib/bootsnap/load_path_cache.rb#42
+    # source://bootsnap//lib/bootsnap/load_path_cache.rb#56
     def supported?; end
+
+    # source://bootsnap//lib/bootsnap/load_path_cache.rb#48
+    def unload!; end
   end
 end
 
@@ -423,7 +441,7 @@ class Bootsnap::LoadPathCache::Cache
   # loadpath.
   #
   # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#48
-  def find(feature, try_extensions: T.unsafe(nil)); end
+  def find(feature); end
 
   # What is the path item that contains the dir as child?
   # e.g. given "/a/b/c/d" exists, and the path is ["/a/b"], load_dir("c/d")
@@ -432,49 +450,49 @@ class Bootsnap::LoadPathCache::Cache
   # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#22
   def load_dir(dir); end
 
-  # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#109
+  # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#108
   def push_paths(sender, *paths); end
 
-  # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#115
+  # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#114
   def reinitialize(path_obj = T.unsafe(nil)); end
 
-  # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#103
+  # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#102
   def unshift_paths(sender, *paths); end
 
   private
 
   # @return [Boolean]
   #
-  # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#128
+  # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#127
   def dir_changed?; end
 
-  # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#173
+  # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#172
   def expand_path(feature); end
 
-  # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#212
+  # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#203
   def maybe_append_extension(feature); end
 
-  # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#181
+  # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#180
   def now; end
 
-  # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#138
+  # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#137
   def push_paths_locked(*paths); end
 
-  # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#204
-  def search_index(feature, try_extensions: T.unsafe(nil)); end
+  # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#199
+  def search_index(feature); end
 
   # @return [Boolean]
   #
-  # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#177
+  # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#176
   def stale?; end
 
-  # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#240
+  # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#231
   def try_ext(feature); end
 
-  # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#220
+  # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#211
   def try_index(feature); end
 
-  # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#156
+  # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#155
   def unshift_paths_locked(*paths); end
 end
 
@@ -492,7 +510,10 @@ Bootsnap::LoadPathCache::Cache::BUILTIN_FEATURES = T.let(T.unsafe(nil), Hash)
 module Bootsnap::LoadPathCache::ChangeObserver
   class << self
     # source://bootsnap//lib/bootsnap/load_path_cache/change_observer.rb#59
-    def register(observer, arr); end
+    def register(arr, observer); end
+
+    # source://bootsnap//lib/bootsnap/load_path_cache/change_observer.rb#68
+    def unregister(arr); end
   end
 end
 
@@ -788,7 +809,7 @@ class Bootsnap::LoadPathCache::Path
 end
 
 # Built-in ruby lib stuff doesn't change, but things can occasionally be
-# installed into sitedir, which generally lives under libdir.
+# installed into sitedir, which generally lives under rubylibdir.
 #
 # source://bootsnap//lib/bootsnap/load_path_cache/path.rb#120
 Bootsnap::LoadPathCache::Path::RUBY_LIBDIR = T.let(T.unsafe(nil), String)
@@ -809,13 +830,25 @@ Bootsnap::LoadPathCache::Path::VOLATILE = T.let(T.unsafe(nil), Symbol)
 # source://bootsnap//lib/bootsnap/load_path_cache/path_scanner.rb#7
 module Bootsnap::LoadPathCache::PathScanner
   class << self
-    # source://bootsnap//lib/bootsnap/load_path_cache/path_scanner.rb#19
+    # source://bootsnap//lib/bootsnap/load_path_cache/path_scanner.rb#23
     def call(path); end
 
-    # source://bootsnap//lib/bootsnap/load_path_cache/path_scanner.rb#63
+    # Returns the value of attribute ignored_directories.
+    #
+    # source://bootsnap//lib/bootsnap/load_path_cache/path_scanner.rb#21
+    def ignored_directories; end
+
+    # Sets the attribute ignored_directories
+    #
+    # @param value the value to set the attribute ignored_directories to.
+    #
+    # source://bootsnap//lib/bootsnap/load_path_cache/path_scanner.rb#21
+    def ignored_directories=(_arg0); end
+
+    # source://bootsnap//lib/bootsnap/load_path_cache/path_scanner.rb#69
     def os_path(path); end
 
-    # source://bootsnap//lib/bootsnap/load_path_cache/path_scanner.rb#45
+    # source://bootsnap//lib/bootsnap/load_path_cache/path_scanner.rb#49
     def walk(absolute_dir_path, relative_dir_path, &block); end
   end
 end
@@ -840,44 +873,44 @@ class Bootsnap::LoadPathCache::Store
   # @return [Store] a new instance of Store
   #
   # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#16
-  def initialize(store_path); end
+  def initialize(store_path, readonly: T.unsafe(nil)); end
 
   # @raise [SetOutsideTransactionNotAllowed]
   #
-  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#27
+  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#28
   def fetch(key); end
 
-  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#23
+  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#24
   def get(key); end
 
   # @raise [SetOutsideTransactionNotAllowed]
   #
-  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#39
+  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#40
   def set(key, value); end
 
   # @raise [NestedTransactionError]
   #
-  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#48
+  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#49
   def transaction; end
 
   private
 
-  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#67
+  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#66
   def commit_transaction; end
 
-  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#113
+  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#112
   def default_data; end
 
-  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#96
+  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#95
   def dump_data; end
 
-  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#74
+  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#73
   def load_data; end
 
-  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#62
+  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#61
   def mark_for_mutation!; end
 
-  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#117
+  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#116
   def mkdir_p(path); end
 end
 
@@ -904,35 +937,14 @@ end
 module Kernel
   private
 
-  # source://bootsnap//lib/bootsnap/load_path_cache/core_ext/kernel_require.rb#37
-  def load(path, wrap = T.unsafe(nil)); end
-
   # source://bootsnap//lib/bootsnap/load_path_cache/core_ext/kernel_require.rb#8
   def zeitwerk_original_require(path); end
 
   class << self
-    # source://bootsnap//lib/bootsnap/load_path_cache/core_ext/kernel_require.rb#37
-    def load(path, wrap = T.unsafe(nil)); end
-
     # source://bootsnap//lib/bootsnap/load_path_cache/core_ext/kernel_require.rb#8
     def zeitwerk_original_require(path); end
   end
 end
-
-# source://bootsnap//lib/bootsnap/load_path_cache/core_ext/kernel_require.rb#46
-class Module
-  # source://bootsnap//lib/bootsnap/load_path_cache/core_ext/kernel_require.rb#48
-  def autoload(const, path); end
-end
-
-# source://activesupport/7.0.4/lib/active_support/core_ext/module/delegation.rb#13
-Module::DELEGATION_RESERVED_KEYWORDS = T.let(T.unsafe(nil), Array)
-
-# source://activesupport/7.0.4/lib/active_support/core_ext/module/delegation.rb#14
-Module::DELEGATION_RESERVED_METHOD_NAMES = T.let(T.unsafe(nil), Set)
-
-# source://activesupport/7.0.4/lib/active_support/core_ext/module/delegation.rb#10
-Module::RUBY_RESERVED_KEYWORDS = T.let(T.unsafe(nil), Array)
 
 module Psych
   extend ::Bootsnap::CompileCache::YAML::Psych4::Patch

@@ -15,9 +15,6 @@ class Array
   def to_msgpack_with_packer(packer); end
 end
 
-# source://activesupport/7.0.4/lib/active_support/core_ext/array/deprecated_conversions.rb#4
-Array::NOT_SET = T.let(T.unsafe(nil), Object)
-
 Bignum = Integer
 
 # source://msgpack//lib/msgpack/core_ext.rb#37
@@ -67,29 +64,29 @@ end
 module MessagePack
   private
 
-  # source://msgpack//lib/msgpack.rb#38
+  # source://msgpack//lib/msgpack.rb#39
   def dump(v, io = T.unsafe(nil), options = T.unsafe(nil)); end
 
-  # source://msgpack//lib/msgpack.rb#21
+  # source://msgpack//lib/msgpack.rb#22
   def load(src, param = T.unsafe(nil)); end
 
-  # source://msgpack//lib/msgpack.rb#38
+  # source://msgpack//lib/msgpack.rb#39
   def pack(v, io = T.unsafe(nil), options = T.unsafe(nil)); end
 
-  # source://msgpack//lib/msgpack.rb#21
+  # source://msgpack//lib/msgpack.rb#22
   def unpack(src, param = T.unsafe(nil)); end
 
   class << self
-    # source://msgpack//lib/msgpack.rb#38
+    # source://msgpack//lib/msgpack.rb#39
     def dump(v, io = T.unsafe(nil), options = T.unsafe(nil)); end
 
-    # source://msgpack//lib/msgpack.rb#21
+    # source://msgpack//lib/msgpack.rb#22
     def load(src, param = T.unsafe(nil)); end
 
-    # source://msgpack//lib/msgpack.rb#38
+    # source://msgpack//lib/msgpack.rb#39
     def pack(v, io = T.unsafe(nil), options = T.unsafe(nil)); end
 
-    # source://msgpack//lib/msgpack.rb#21
+    # source://msgpack//lib/msgpack.rb#22
     def unpack(src, param = T.unsafe(nil)); end
   end
 end
@@ -142,56 +139,41 @@ end
 class MessagePack::Factory::Pool
   # @return [Pool] a new instance of Pool
   #
-  # source://msgpack//lib/msgpack/factory.rb#156
+  # source://msgpack//lib/msgpack/factory.rb#142
   def initialize(factory, size, options = T.unsafe(nil)); end
 
-  # source://msgpack//lib/msgpack/factory.rb#173
+  # source://msgpack//lib/msgpack/factory.rb#156
   def dump(object); end
 
-  # source://msgpack//lib/msgpack/factory.rb#163
+  # source://msgpack//lib/msgpack/factory.rb#149
   def load(data); end
+
+  # source://msgpack//lib/msgpack/factory.rb#167
+  def packer(&block); end
+
+  # source://msgpack//lib/msgpack/factory.rb#163
+  def unpacker(&block); end
 end
 
 # source://msgpack//lib/msgpack/factory.rb#91
-class MessagePack::Factory::Pool::AbstractPool
-  # @return [AbstractPool] a new instance of AbstractPool
+class MessagePack::Factory::Pool::MemberPool
+  # @return [MemberPool] a new instance of MemberPool
   #
   # source://msgpack//lib/msgpack/factory.rb#92
   def initialize(size, &block); end
 
-  # source://msgpack//lib/msgpack/factory.rb#102
-  def checkin(member); end
-
   # source://msgpack//lib/msgpack/factory.rb#98
-  def checkout; end
-end
-
-# source://msgpack//lib/msgpack/factory.rb#140
-class MessagePack::Factory::Pool::PackerPool < ::MessagePack::Factory::Pool::AbstractPool
-  private
-
-  # source://msgpack//lib/msgpack/factory.rb#143
-  def reset(packer); end
-end
-
-# source://msgpack//lib/msgpack/factory.rb#148
-class MessagePack::Factory::Pool::UnpackerPool < ::MessagePack::Factory::Pool::AbstractPool
-  private
-
-  # source://msgpack//lib/msgpack/factory.rb#151
-  def reset(unpacker); end
+  def with; end
 end
 
 # source://msgpack//lib/msgpack/packer.rb#2
 class MessagePack::Packer
-  # see ext for other methods
-  #
-  # source://msgpack//lib/msgpack/packer.rb#5
+  # source://msgpack//lib/msgpack/packer.rb#9
   def registered_types; end
 
   # @return [Boolean]
   #
-  # source://msgpack//lib/msgpack/packer.rb#15
+  # source://msgpack//lib/msgpack/packer.rb#19
   def type_registered?(klass_or_type); end
 end
 
@@ -263,14 +245,12 @@ end
 
 # source://msgpack//lib/msgpack/unpacker.rb#2
 class MessagePack::Unpacker
-  # see ext for other methods
-  #
-  # source://msgpack//lib/msgpack/unpacker.rb#5
+  # source://msgpack//lib/msgpack/unpacker.rb#9
   def registered_types; end
 
   # @return [Boolean]
   #
-  # source://msgpack//lib/msgpack/unpacker.rb#15
+  # source://msgpack//lib/msgpack/unpacker.rb#19
   def type_registered?(klass_or_type); end
 end
 
@@ -294,12 +274,6 @@ class String
   # source://msgpack//lib/msgpack/core_ext.rb#61
   def to_msgpack_with_packer(packer); end
 end
-
-# source://activesupport/7.0.4/lib/active_support/core_ext/object/blank.rb#104
-String::BLANK_RE = T.let(T.unsafe(nil), Regexp)
-
-# source://activesupport/7.0.4/lib/active_support/core_ext/object/blank.rb#105
-String::ENCODED_BLANKS = T.let(T.unsafe(nil), Concurrent::Map)
 
 # source://msgpack//lib/msgpack/symbol.rb#1
 class Symbol
