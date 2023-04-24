@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 class ClubsController < ApplicationController
-  before_action :authenticate_player!, only: [:index, :create, :show, :update, :destroy, :members, :join, :leave]
+  before_action :authenticate_player!
 
   sig { void }
   def initialize
