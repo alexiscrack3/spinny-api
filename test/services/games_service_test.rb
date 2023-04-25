@@ -37,9 +37,9 @@ class GamesServiceTest < ActiveSupport::TestCase
 
     result = @games_service.create(game_params)
 
-    assert result.value.winner_id, winner.id
+    assert_equal winner.id, result.value.winner_id
 
-    assert result.value.loser_id, loser.id
+    assert_equal loser.id, result.value.loser_id
   end
 
   test "should not create game when it is not valid" do
@@ -71,9 +71,9 @@ class GamesServiceTest < ActiveSupport::TestCase
 
     result = @games_service.update(game.id, game_params)
 
-    assert_equal result.value.id, game.id
-    assert_equal result.value.winner_id, winner.id
-    assert_equal result.value.loser_id, loser.id
+    assert_equal game.id, result.value.id
+    assert_equal winner.id, result.value.winner_id
+    assert_equal loser.id, result.value.loser_id
   end
 
   test "should not update game when it is not valid" do
