@@ -14,7 +14,7 @@ class GamesService < ApplicationService
     end
   end
 
-  sig { params(params: T::Hash[String, T.untyped]).returns(Result[Game]) }
+  sig { params(params: ActionController::Parameters).returns(Result[Game]) }
   def create(params)
     game = T.let(Game.new(params), Game)
 
@@ -26,7 +26,7 @@ class GamesService < ApplicationService
     end
   end
 
-  sig { params(id: T.any(String, Integer), params: T::Hash[String, T.untyped]).returns(Result[Game]) }
+  sig { params(id: T.any(String, Integer), params: ActionController::Parameters).returns(Result[Game]) }
   def update(id, params)
     game = T.let(Game.find_by(id: id), T.nilable(Game))
 
