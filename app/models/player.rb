@@ -17,7 +17,7 @@ class Player < ApplicationRecord
     :jwt_authenticatable,
     jwt_revocation_strategy: JwtDenylist
 
-  after_initialize :set_default_role, :if => :new_record?
+  after_initialize :set_default_role, if: :new_record?
   before_save { self.email = email.downcase } # or email.downcase!
   has_many :memberships, dependent: :delete_all
   has_many :clubs, through: :memberships
@@ -41,7 +41,7 @@ class Player < ApplicationRecord
     }
 
   def jwt_payload
-    { role: self.role }
+    { role: role }
   end
 
   def set_default_role

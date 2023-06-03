@@ -9,6 +9,10 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show game when id exists" do
+    expected = @game.as_json(
+      include: [:winner, :loser],
+      except: [:winner_id, :loser_id],
+    )
     result = Result.new(value: @game)
     GamesService
       .any_instance
@@ -18,10 +22,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
 
     get game_url(@game), as: :json
 
-    assert_equal @game.as_json(
-      include: [:winner, :loser],
-      except: [:winner_id, :loser_id],
-    ), response.parsed_body["data"]
+    assert_equal expected, response.parsed_body["data"]
     assert_response :success
   end
 

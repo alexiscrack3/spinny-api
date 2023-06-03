@@ -67,8 +67,13 @@ class PlayerTest < ActiveSupport::TestCase
   end
 
   test "player should be valid when email is valid" do
-    valid_addresses = ["user@example.com", "USER@foo.com", "A_US-ER@foo.bar.org", "first.last@foo.jp",
-                       "alice+bob@baz.cn",]
+    valid_addresses = [
+      "user@example.com",
+      "USER@foo.com",
+      "A_US-ER@foo.bar.org",
+      "first.last@foo.jp",
+      "alice+bob@baz.cn",
+    ]
     valid_addresses.each do |valid_address|
       @player.email = valid_address
       assert @player.valid?, "#{valid_address.inspect} should be valid"
