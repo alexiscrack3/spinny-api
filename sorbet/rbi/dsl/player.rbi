@@ -7,6 +7,7 @@
 class Player
   include GeneratedAssociationMethods
   include GeneratedAttributeMethods
+  include EnumMethodsModule
   extend CommonRelationMethods
   extend GeneratedRelationMethods
 
@@ -14,6 +15,11 @@ class Player
 
   sig { returns(NilClass) }
   def to_ary; end
+
+  class << self
+    sig { returns(T::Hash[T.any(String, Symbol), Integer]) }
+    def roles; end
+  end
 
   module CommonRelationMethods
     sig { params(block: T.nilable(T.proc.params(record: ::Player).returns(T.untyped))).returns(T::Boolean) }
@@ -64,6 +70,30 @@ class Player
     sig { params(args: T.untyped).returns(::Player) }
     def find_by!(*args); end
 
+    sig do
+      params(
+        start: T.untyped,
+        finish: T.untyped,
+        batch_size: Integer,
+        error_on_ignore: T.untyped,
+        order: Symbol,
+        block: T.nilable(T.proc.params(object: ::Player).void)
+      ).returns(T.nilable(T::Enumerator[::Player]))
+    end
+    def find_each(start: nil, finish: nil, batch_size: 1000, error_on_ignore: nil, order: :asc, &block); end
+
+    sig do
+      params(
+        start: T.untyped,
+        finish: T.untyped,
+        batch_size: Integer,
+        error_on_ignore: T.untyped,
+        order: Symbol,
+        block: T.nilable(T.proc.params(object: T::Array[::Player]).void)
+      ).returns(T.nilable(T::Enumerator[T::Enumerator[::Player]]))
+    end
+    def find_in_batches(start: nil, finish: nil, batch_size: 1000, error_on_ignore: nil, order: :asc, &block); end
+
     sig { params(attributes: T.untyped, block: T.nilable(T.proc.params(object: ::Player).void)).returns(::Player) }
     def find_or_create_by(attributes, &block); end
 
@@ -102,6 +132,19 @@ class Player
 
     sig { returns(Array) }
     def ids; end
+
+    sig do
+      params(
+        of: Integer,
+        start: T.untyped,
+        finish: T.untyped,
+        load: T.untyped,
+        error_on_ignore: T.untyped,
+        order: Symbol,
+        block: T.nilable(T.proc.params(object: PrivateRelation).void)
+      ).returns(T.nilable(::ActiveRecord::Batches::BatchEnumerator))
+    end
+    def in_batches(of: 1000, start: nil, finish: nil, load: false, error_on_ignore: nil, order: :asc, &block); end
 
     sig { params(record: T.untyped).returns(T::Boolean) }
     def include?(record); end
@@ -181,6 +224,20 @@ class Player
     def third_to_last!; end
   end
 
+  module EnumMethodsModule
+    sig { void }
+    def admin!; end
+
+    sig { returns(T::Boolean) }
+    def admin?; end
+
+    sig { void }
+    def guest!; end
+
+    sig { returns(T::Boolean) }
+    def guest?; end
+  end
+
   module GeneratedAssociationMethods
     sig { returns(T::Array[T.untyped]) }
     def club_ids; end
@@ -212,6 +269,9 @@ class Player
   end
 
   module GeneratedAssociationRelationMethods
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def admin(*args, &blk); end
+
     sig { returns(PrivateAssociationRelation) }
     def all; end
 
@@ -247,6 +307,9 @@ class Player
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def group(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def guest(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def having(*args, &blk); end
@@ -314,6 +377,12 @@ class Player
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def none(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def not_admin(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def not_guest(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def offset(*args, &blk); end
@@ -681,7 +750,59 @@ class Player
     def restore_last_name!; end
 
     sig { void }
+    def restore_role!; end
+
+    sig { void }
     def restore_updated_at!; end
+
+    sig { returns(T.nilable(::String)) }
+    def role; end
+
+    sig do
+      params(
+        value: T.nilable(T.any(::String, ::Symbol, ::Integer))
+      ).returns(T.nilable(T.any(::String, ::Symbol, ::Integer)))
+    end
+    def role=(value); end
+
+    sig { returns(T::Boolean) }
+    def role?; end
+
+    sig { returns(T.nilable(::String)) }
+    def role_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def role_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def role_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def role_change; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def role_change_to_be_saved; end
+
+    sig { returns(T::Boolean) }
+    def role_changed?; end
+
+    sig { returns(T.nilable(::String)) }
+    def role_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def role_previous_change; end
+
+    sig { returns(T::Boolean) }
+    def role_previously_changed?; end
+
+    sig { returns(T.nilable(::String)) }
+    def role_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def role_was; end
+
+    sig { void }
+    def role_will_change!; end
 
     sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
     def saved_change_to_created_at; end
@@ -718,6 +839,12 @@ class Player
 
     sig { returns(T::Boolean) }
     def saved_change_to_last_name?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def saved_change_to_role; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_role?; end
 
     sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
     def saved_change_to_updated_at; end
@@ -789,10 +916,16 @@ class Player
     def will_save_change_to_last_name?; end
 
     sig { returns(T::Boolean) }
+    def will_save_change_to_role?; end
+
+    sig { returns(T::Boolean) }
     def will_save_change_to_updated_at?; end
   end
 
   module GeneratedRelationMethods
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def admin(*args, &blk); end
+
     sig { returns(PrivateRelation) }
     def all; end
 
@@ -830,6 +963,9 @@ class Player
     def group(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def guest(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def having(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
@@ -861,6 +997,12 @@ class Player
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def none(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def not_admin(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def not_guest(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def offset(*args, &blk); end
