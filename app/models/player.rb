@@ -16,9 +16,13 @@ class Player < ApplicationRecord
     :registerable,
     :jwt_authenticatable,
     jwt_revocation_strategy: JwtDenylist
+
+  after_initialize :set_default_role, :if => :new_record?
   before_save { self.email = email.downcase } # or email.downcase!
   has_many :memberships, dependent: :delete_all
   has_many :clubs, through: :memberships
+
+  enum role: [:admin, :guest]
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
@@ -35,4 +39,12 @@ class Player < ApplicationRecord
     uniqueness: {
       case_sensitive: false,
     }
+
+  def jwt_payload
+    { role: self.role }
+  end
+
+  def set_default_role
+    self.role = :guest
+  end
 end
