@@ -144,7 +144,7 @@ GEM
       ruby-progressbar
     mocha (2.0.2)
       ruby2_keywords (>= 0.0.5)
-    msgpack (1.7.0)
+    msgpack (1.7.1)
     mysql2 (0.5.5)
     net-imap (0.3.4)
       date
