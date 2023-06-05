@@ -67,3 +67,5 @@ group :development do
   gem "annotate", "~> 3.2.0"
   gem "solargraph"
 end
+
+gem "pundit", "~> 2.3", :groups => [:development, :test]
