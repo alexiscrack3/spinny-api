@@ -4,13 +4,16 @@ admin:
   first_name: Foo
   last_name: Bar
   email: foo.bar@spinny.io
+  role: admin
 
 player_with_club:
   first_name: Lionel
   last_name: Messi
   email: foo.baz@spinny.io
+  role: guest
 
 free_agent:
   first_name: Cristiano
   last_name: Ronaldo
   email: bar.baz@spinny.io
+  role: guest

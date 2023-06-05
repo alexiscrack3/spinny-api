@@ -13,6 +13,7 @@ module Admin
 
     # GET /admin/clubs
     def index
+      authorize Club
       result = @clubs_service.find_all
 
       render json: ApiDocument.new(data: result.value)
