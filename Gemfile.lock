@@ -160,6 +160,8 @@ GEM
       racc (~> 1.4)
     nokogiri (1.15.2-arm64-darwin)
       racc (~> 1.4)
+    nokogiri (1.15.2-x86_64-linux)
+      racc (~> 1.4)
     orm_adapter (0.5.0)
     parallel (1.23.0)
     parser (3.2.2.3)
@@ -285,6 +287,7 @@ GEM
 PLATFORMS
   aarch64-linux-musl
   arm64-darwin-21
+  x86_64-linux
 
 DEPENDENCIES
   annotate (~> 3.2.0)
