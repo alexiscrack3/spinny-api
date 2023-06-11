@@ -22,7 +22,9 @@ RUN apk update \
 
 WORKDIR /usr/src
 
-RUN gem install bundler:2.3.3
+RUN gem install bundler:2.4.13
+
+RUN alias bi="bundle install"
 
 COPY ["Gemfile", "Gemfile.lock", "/usr/src/"]
 
