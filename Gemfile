@@ -43,6 +43,8 @@ gem "graphql"
 gem "devise"
 gem "devise-jwt"
 
+gem "pundit", "~> 2.3"
+
 gem "rubocop"
 gem "rubocop-shopify", require: false
 
@@ -67,5 +69,3 @@ group :development do
   gem "annotate", "~> 3.2.0"
   gem "solargraph"
 end
-
-gem "pundit", "~> 2.3", :groups => [:development, :test]
