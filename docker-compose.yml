@@ -58,7 +58,7 @@ services:
     ports:
       - "8081:8081"
     networks:
-      - spinny-network
+      - data-network
 
 networks:
   spinny-network:
