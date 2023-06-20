@@ -6,7 +6,7 @@ ARG RAILS_ENVIRONMENT=production
 
 ENV RAILS_ENV=$RAILS_ENVIRONMENT
 
-# ENV RAILS_LOG_TO_STDOUT=true
+ENV RAILS_LOG_TO_STDOUT=true
 
 RUN apk update \
     # to ensure certain gems can be compiled
