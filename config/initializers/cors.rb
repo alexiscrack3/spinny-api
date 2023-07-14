@@ -10,7 +10,7 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
     origins "http://localhost", "http://web", "http://localhost:3001", "http://127.0.0.1:3001", "http://143.198.157.160", "https://alexisortega.dev", "https://www.alexisortega.dev"
 
     resource "*",
-      headers: :any,
+      headers: ["Authorization"],
       methods: [:get, :post, :put, :patch, :delete, :options, :head],
       expose: ["Authorization"], # The HTTP headers in the resource response can be exposed to the client
       credentials: true
