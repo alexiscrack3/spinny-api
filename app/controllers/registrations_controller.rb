@@ -10,6 +10,11 @@ class RegistrationsController < Devise::RegistrationsController
     devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name])
   end
 
+  def sign_up(resource_name, resource)
+    # by pass the session store on the default implementation
+    sign_in resource, store: false
+  end
+
   private
 
   def respond_with(resource, _opts = {})

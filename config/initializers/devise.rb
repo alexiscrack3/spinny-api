@@ -313,6 +313,7 @@ Devise.setup do |config|
   # ==> Configuration for :jwt_authenticatable
 
   config.skip_session_storage = [:http_auth, :params_auth]
+
   config.jwt do |jwt|
     jwt.secret = ENV['DEVISE_JWT_SECRET_KEY']
     jwt.dispatch_requests = [
