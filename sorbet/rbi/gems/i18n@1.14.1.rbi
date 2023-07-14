@@ -362,72 +362,74 @@ end
 # The implementation assumes that all backends added to the Chain implement
 # a lookup method with the same API as Simple backend does.
 #
-# source://i18n//lib/i18n/backend/chain.rb#19
+# Fallback translations using the :default option are only used by the last backend of a chain.
+#
+# source://i18n//lib/i18n/backend/chain.rb#21
 class I18n::Backend::Chain
   include ::I18n::Backend::Transliterator
   include ::I18n::Backend::Base
   include ::I18n::Backend::Chain::Implementation
 end
 
-# source://i18n//lib/i18n/backend/chain.rb#20
+# source://i18n//lib/i18n/backend/chain.rb#22
 module I18n::Backend::Chain::Implementation
   include ::I18n::Backend::Transliterator
   include ::I18n::Backend::Base
 
-  # source://i18n//lib/i18n/backend/chain.rb#25
+  # source://i18n//lib/i18n/backend/chain.rb#27
   def initialize(*backends); end
 
-  # source://i18n//lib/i18n/backend/chain.rb#50
+  # source://i18n//lib/i18n/backend/chain.rb#52
   def available_locales; end
 
   # Returns the value of attribute backends.
   #
-  # source://i18n//lib/i18n/backend/chain.rb#23
+  # source://i18n//lib/i18n/backend/chain.rb#25
   def backends; end
 
   # Sets the attribute backends
   #
   # @param value the value to set the attribute backends to.
   #
-  # source://i18n//lib/i18n/backend/chain.rb#23
+  # source://i18n//lib/i18n/backend/chain.rb#25
   def backends=(_arg0); end
 
-  # source://i18n//lib/i18n/backend/chain.rb#42
+  # source://i18n//lib/i18n/backend/chain.rb#44
   def eager_load!; end
 
   # @return [Boolean]
   #
-  # source://i18n//lib/i18n/backend/chain.rb#74
+  # source://i18n//lib/i18n/backend/chain.rb#76
   def exists?(locale, key, options = T.unsafe(nil)); end
 
   # @return [Boolean]
   #
-  # source://i18n//lib/i18n/backend/chain.rb#29
+  # source://i18n//lib/i18n/backend/chain.rb#31
   def initialized?; end
 
-  # source://i18n//lib/i18n/backend/chain.rb#80
+  # source://i18n//lib/i18n/backend/chain.rb#82
   def localize(locale, object, format = T.unsafe(nil), options = T.unsafe(nil)); end
 
-  # source://i18n//lib/i18n/backend/chain.rb#38
+  # source://i18n//lib/i18n/backend/chain.rb#40
   def reload!; end
 
-  # source://i18n//lib/i18n/backend/chain.rb#46
+  # source://i18n//lib/i18n/backend/chain.rb#48
   def store_translations(locale, data, options = T.unsafe(nil)); end
 
-  # source://i18n//lib/i18n/backend/chain.rb#54
+  # source://i18n//lib/i18n/backend/chain.rb#56
   def translate(locale, key, default_options = T.unsafe(nil)); end
 
   protected
 
-  # source://i18n//lib/i18n/backend/chain.rb#90
+  # source://i18n//lib/i18n/backend/chain.rb#92
   def init_translations; end
 
   # @return [Boolean]
   #
-  # source://i18n//lib/i18n/backend/chain.rb#106
+  # source://i18n//lib/i18n/backend/chain.rb#108
   def namespace_lookup?(result, options); end
 
-  # source://i18n//lib/i18n/backend/chain.rb#96
+  # source://i18n//lib/i18n/backend/chain.rb#98
   def translations; end
 
   private
@@ -437,7 +439,7 @@ module I18n::Backend::Chain::Implementation
   # it is wise to have our own copy. We underscore it
   # to not pollute the namespace of the including class.
   #
-  # source://i18n//lib/i18n/backend/chain.rb#115
+  # source://i18n//lib/i18n/backend/chain.rb#117
   def _deep_merge(hash, other_hash); end
 end
 
