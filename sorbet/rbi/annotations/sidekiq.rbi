@@ -18,15 +18,11 @@ class Sidekiq::Client
 end
 
 class Sidekiq::DeadSet < ::Sidekiq::JobSet
-  Elem = type_member {
-  { fixed: Sidekiq::SortedEntry }
-}
+  Elem = type_member {{fixed: Sidekiq::SortedEntry}}
 end
 
 class Sidekiq::JobSet < ::Sidekiq::SortedSet
-  Elem = type_member {
-  { fixed: Sidekiq::SortedEntry }
-}
+  Elem = type_member {{fixed: Sidekiq::SortedEntry}}
 end
 
 class Sidekiq::Launcher
@@ -35,21 +31,15 @@ class Sidekiq::Launcher
 end
 
 class Sidekiq::Middleware::Chain
-  Elem = type_member {
-  { fixed: T.untyped }
-}
+  Elem = type_member {{fixed: T.untyped}}
 end
 
 class Sidekiq::ProcessSet
-  Elem = type_member {
-  { fixed: Sidekiq::Process }
-}
+  Elem = type_member {{fixed: Sidekiq::Process}}
 end
 
 class Sidekiq::Queue
-  Elem = type_member {
-  { fixed: Sidekiq::Job }
-}
+  Elem = type_member {{fixed: Sidekiq::Job}}
 
   sig { returns(T::Boolean) }
   def paused?; end
@@ -59,21 +49,15 @@ class Sidekiq::Queue
 end
 
 class Sidekiq::RetrySet < ::Sidekiq::JobSet
-  Elem = type_member {
-  { fixed: Sidekiq::SortedEntry }
-}
+  Elem = type_member {{fixed: Sidekiq::SortedEntry}}
 end
 
 class Sidekiq::ScheduledSet < ::Sidekiq::JobSet
-  Elem = type_member {
-  { fixed: Sidekiq::SortedEntry }
-}
+  Elem = type_member {{fixed: Sidekiq::SortedEntry}}
 end
 
 class Sidekiq::SortedSet
-  Elem = type_member {
-  { fixed: Sidekiq::SortedEntry }
-}
+  Elem = type_member {{fixed: Sidekiq::SortedEntry}}
 end
 
 module Sidekiq::Job
@@ -93,7 +77,5 @@ module Sidekiq::Job::ClassMethods
 end
 
 class Sidekiq::WorkSet
-  Elem = type_member {
-  { fixed: T.untyped }
-}
+  Elem = type_member {{fixed: T.untyped}}
 end
