@@ -141,7 +141,7 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
   test "should show current player when player has signed in" do
     get players_me_url, as: :json
 
-    assert_equal @player.as_json, response.parsed_body["data"]
+    assert_equal @player.as_json(include: :clubs), response.parsed_body["data"]
     assert_response :success
   end
 

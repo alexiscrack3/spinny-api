@@ -42,7 +42,7 @@ class PlayersController < ApplicationController
 
   # GET /players/me
   def me
-    render json: ApiDocument.new(data: current_player)
+    render json: ApiDocument.new(data: current_player.as_json(include: :clubs))
   end
 
   private
