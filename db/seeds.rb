@@ -19,6 +19,7 @@ hero = Player.create!(
   email: "alexis@gmail.com",
   password: "123456",
   description: Faker::Lorem.sentence,
+  image_path: Faker::Avatar.image(slug: "profile", size: "150x150", format: "jpg"),
 )
 
 opponent = Player.create!(

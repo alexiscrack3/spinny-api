@@ -13,6 +13,7 @@
 #  encrypted_password :string(255)      default(""), not null
 #  role               :integer          default("guest")
 #  description        :string(255)
+#  image_path         :string(255)
 #
 class Player < ApplicationRecord
   devise :database_authenticatable,
