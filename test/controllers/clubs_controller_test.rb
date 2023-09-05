@@ -100,7 +100,6 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
     params = {
       name: Faker::Team.name,
       description: Faker::Lorem.sentence,
-      cover_image_url: Faker::Avatar.image,
       owner_id: players(:admin).id,
     }
     club_params = club_params(params)
@@ -159,7 +158,6 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
     sign_in @player
     params = {
       name: Faker::Team.name,
-      cover_image_url: Faker::Avatar.image,
       description: Faker::Lorem.sentence,
     }
     club_params = club_params(params)
@@ -421,7 +419,6 @@ class ClubsControllerTest < ActionDispatch::IntegrationTest
     permitted.permit(
       :name,
       :description,
-      :cover_image_url,
       :owner_id,
     )
   end
