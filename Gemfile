@@ -50,6 +50,8 @@ gem "rubocop-shopify", require: false
 
 gem "sidekiq", "~> 7.0"
 
+gem "prometheus-client"
+
 gem "sorbet", group: :development
 gem "sorbet-runtime"
 gem "tapioca", require: false, group: :development

@@ -60,6 +60,17 @@ services:
     networks:
       - data-network
 
+  prom:
+    image: prom/prometheus:latest
+    container_name: prom
+    restart: always
+    ports:
+      - "9090:9090"
+    networks:
+      - app-network
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+
 networks:
   app-network:
     driver: bridge
