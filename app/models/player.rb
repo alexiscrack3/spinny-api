@@ -4,12 +4,15 @@
 #
 # Table name: players
 #
-#  id         :bigint           not null, primary key
-#  first_name :string(255)
-#  last_name  :string(255)
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  email      :string(255)      not null
+#  id                 :bigint           not null, primary key
+#  first_name         :string(255)
+#  last_name          :string(255)
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  email              :string(255)      not null
+#  encrypted_password :string(255)      default(""), not null
+#  role               :integer          default("guest")
+#  description        :string(255)
 #
 class Player < ApplicationRecord
   devise :database_authenticatable,

@@ -18,6 +18,7 @@ hero = Player.create!(
   last_name: "Ortega",
   email: "alexis@gmail.com",
   password: "123456",
+  description: Faker::Lorem.sentence,
 )
 
 opponent = Player.create!(
